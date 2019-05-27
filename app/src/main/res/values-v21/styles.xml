@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Core.Dark" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorDefault</item>
+        <item name="colorPrimaryDark">@color/colorDefaultDark</item>
+        <item name="colorAccent">@color/colorDefault</item>
+        <item name="colorBackgroundFloating">@color/colorToolbarDark</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
+        <item name="android:statusBarColor">@color/colorStatusBarDark</item>
+        <item name="android:windowBackground">@color/colorWindowBackgroundDark</item>
+        <item name="md_corner_radius">8dp</item>
+        <item name="md_color_content">@color/colorPrimaryText</item>
+        <item name="md_color_button_text">@color/colorDefault</item>
+    </style>
+
+    <style name="AppTheme.Core.AMOLED" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorDefault</item>
+        <item name="colorPrimaryDark">@color/colorDefaultDark</item>
+        <item name="colorAccent">@color/colorDefault</item>
+        <item name="colorBackgroundFloating">@color/colorGenericBlack</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
+        <item name="android:statusBarColor">@color/colorGenericBlack</item>
+        <item name="android:windowBackground">@color/colorWindowBackgroundAMOLED</item>
+        <item name="md_corner_radius">8dp</item>
+        <item name="md_color_content">@color/colorPrimaryText</item>
+        <item name="md_color_button_text">@color/colorDefault</item>
+    </style>
+
+    <style name="AppTheme.Core.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorDefault</item>
+        <item name="colorPrimaryDark">@color/colorDefaultDark</item>
+        <item name="colorAccent">@color/colorDefault</item>
+        <item name="android:statusBarColor">@android:color/black</item>
+        <item name="android:windowBackground">@color/colorWindowBackgroundLight</item>
+        <item name="md_corner_radius">8dp</item>
+        <item name="md_color_content">@color/colorSecondaryText</item>
+        <item name="md_color_button_text">@color/colorDefault</item>
+    </style>
+
+    <style name="AppTheme.Core.Default" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorDefault</item>
+        <item name="colorPrimaryDark">@color/colorDefaultDark</item>
+        <item name="colorAccent">@color/colorDefault</item>
+        <item name="android:statusBarColor">@android:color/black</item>
+        <item name="android:windowBackground">@color/colorWindowBackgroundLight</item>
+        <item name="md_corner_radius">8dp</item>
+        <item name="md_color_content">@color/colorSecondaryText</item>
+        <item name="md_color_button_text">@color/colorDefault</item>
+    </style>
+
+    <style name="AppTheme.FirstRun" parent="AppTheme.Core.Light">
+        <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
+        <item name="android:statusBarColor">@color/colorFirstRunStatusBar</item>
+        <item name="android:windowBackground">@color/colorFirstRunBackground</item>
+    </style>
+
+    <!-- UI Components -->
+    <!-- BottomSheets, Dialogs etc -->
+
+    <style name="AppTheme.BottomSheet.Light" parent="BaseBottomSheetDialog.Light">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/colorGenericBlack</item>
+    </style>
+
+    <style name="AppTheme.BottomSheet.Dark" parent="BaseBottomSheetDialog.Dark">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/colorGenericBlack</item>
+    </style>
+
+    <style name="AppTheme.BottomSheet.AMOLED" parent="BaseBottomSheetDialog.AMOLED">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/colorGenericBlack</item>
+    </style>
+
+</resources>

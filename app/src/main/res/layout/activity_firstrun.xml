@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" >
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@android:color/transparent"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginBottom="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_brand_bucket_outline"
+                app:tint="@color/colorGenericWhite"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/welcome_to_drop_bucket"
+                android:textColor="@color/colorGenericWhite"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                app:fontFamily="@font/font_noto_sans"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/to_access_the_content"
+                android:textColor="@color/colorDefaultLight"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="64dp"
+                android:text="@string/button_login"
+                android:textColor="@color/colorDefault"
+                app:backgroundTint="@color/colorGenericWhite"
+                style="@style/Widget.MaterialComponents.Button"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/registerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="64dp"
+                android:text="@string/button_register"
+                android:textColor="@android:color/white"
+                style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

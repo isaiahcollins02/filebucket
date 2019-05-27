@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="list_margin_start">64dp</dimen>
+    <dimen name="list_margin_end">64dp</dimen>
+
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="activity_margin_start">64dp</dimen>
+    <dimen name="activity_margin_end">64dp</dimen>
+
+    <dimen name="bottom_sheet_margin_start">128dp</dimen>
+    <dimen name="bottom_sheet_margin_end">128dp</dimen>
+
+    <!-- toolbar -->
+    <dimen name="toolbar_horizontal_padding">4dp</dimen>
+    <dimen name="toolbar_keyline">16dp</dimen>
+</resources>

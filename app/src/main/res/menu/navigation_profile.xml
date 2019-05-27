@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+            android:id="@+id/navigation_sent"
+            android:title="@string/profile_view_repository"
+            android:icon="@drawable/ic_vector_repositories"
+            app:iconTint="@color/colorSecondaryText"/>
+
+    <item
+            android:id="@+id/navigation_secure"
+            android:title="@string/profile_secure_account"
+            android:icon="@drawable/ic_vector_auth"
+            app:iconTint="@color/colorSecondaryText"/>
+
+    <item
+            android:id="@+id/navigation_reset"
+            android:title="@string/profile_reset_password"
+            android:icon="@drawable/ic_vector_refresh"
+            app:iconTint="@color/colorSecondaryText"/>
+
+</menu>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="filter_items">
+        <item>@string/filter_all</item>
+        <item>@string/filter_documents</item>
+        <item>@string/filter_code</item>
+        <item>@string/filter_media</item>
+    </string-array>
+
+</resources>

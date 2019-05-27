@@ -1,0 +1,201 @@
+<resources>
+    <string name="app_name" translatable="false">File Bucket</string>
+
+    <string name="welcome_to_drop_bucket">Welcome to File Bucket!</string>
+    <string name="to_access_the_content">To access and create contents, login with your credentials</string>
+
+    <string name="login_to_drop_bucket">Login to File Bucket</string>
+    <string name="enter_your_email_and_password_to_continue">Enter your email and password to continue</string>
+
+    <string name="register_to_drop_bucket">Register to File Bucket</string>
+    <string name="provide_the_required_information">Provide the following required information to continue</string>
+
+    <string name="register_secure_account">Secure your account</string>
+    <string name="think_of_a_complex_password_that">Think of a complex password that comprises of a upper and lower case letters, symbols and numbers</string>
+
+    <string name="instruction_password">Enter first your old password, then enter the new one twice, and press continue to save the changes</string>
+    <string name="instruction_reset">Enter your email address and press continue to send the reset link</string>
+
+    <string name="file_timestamp_today">Today at %1$s</string>
+    <string name="file_size_megabytes">%1$s MB</string>
+
+    <string name="button_continue">Continue</string>
+    <string name="button_download">Download</string>
+    <string name="button_save_to_collections">Save to Collections</string>
+    <string name="button_remove_from_collections">Remove from Collections</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_login">Login</string>
+    <string name="button_register">Register</string>
+    <string name="button_send">Send</string>
+    <string name="button_see_more">See More</string>
+
+    <string name="file_user_repository">%1$s\'s Repository</string>
+
+    <string name="sheet_file_size">File Size: %1$s MB</string>
+    <string name="sheet_file_type">File Type: %1$s</string>
+    <string name="sheet_file_author">Uploaded by: %1$s</string>
+
+    <string name="file_type_unknown">Unknown</string>
+    <string name="file_type_document">Document</string>
+    <string name="file_type_code">Source Code</string>
+    <string name="file_type_photo">Photo</string>
+    <string name="file_type_music">Music</string>
+    <string name="file_type_video">Video</string>
+
+    <string name="hint_email">Email Address</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_old_password">Old Password</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_summary">Summary</string>
+    <string name="hint_additional_information">Additional Information</string>
+
+    <string name="type_of_feedback">Type of Feedback</string>
+    <string name="choice_feedback">Suggestion</string>
+    <string name="choice_problem">Problem</string>
+
+    <string name="menu_search">Search</string>
+
+    <string name="navigation_files">Files</string>
+    <string name="navigation_collections">Collections</string>
+    <string name="navigation_repositories">Repositories</string>
+    <string name="navigation_settings">Settings</string>
+    <string name="navigation_about">About</string>
+
+    <string name="filter_all">All Files</string>
+    <string name="filter_documents">Documents</string>
+    <string name="filter_code">Source Codes</string>
+    <string name="filter_media">Media Files</string>
+
+    <string name="fab_add_file">Generic File</string>
+    <string name="fab_add_media">Photo or Video</string>
+
+    <string name="account_settings">Account Settings</string>
+
+    <string name="profile_actions">Actions</string>
+    <string name="profile_view_repository">View Repository</string>
+    <string name="profile_secure_account">Secure Account</string>
+    <string name="profile_reset_password">Reset Password</string>
+
+    <string name="status_sending_success">Sending success</string>
+    <string name="status_error_occurred">An error occurred</string>
+    <string name="status_blank_fields">Enter the required information in all fields</string>
+    <string name="status_password_not_match">Passwords did not match</string>
+    <string name="status_email_reset_sent">Password Reset Link Sent</string>
+    <string name="status_change_committed">Changes Saved</string>
+    <string name="status_unknown">An unknown error occurred</string>
+    <string name="status_invalid_password">Email or Password is incorrect</string>
+    <string name="status_file_uploading">Uploading</string>
+
+    <string name="notification_percent_complete">%1$d%% Completed</string>
+    <string name="notification_updating_profile">Updating Profile</string>
+    <string name="notification_downloading_file">Downloading File</string>
+
+    <string name="notification_new_file_title">A new file has been uploaded!</string>
+    <string name="notification_new_file_content">%1$s has uploaded %2$s. Check it out!</string>
+
+    <string name="notification_download_finished">Download is finished</string>
+
+    <string name="notification_update_available_title">An Update is Available</string>
+    <string name="notification_update_available_content">Install updates to make your experience faster and smoother.</string>
+
+    <string name="notification_unsupported_version_title">Please update your File Bucket</string>
+    <string name="notification_unsupported_version_content">The version you are using are not currently supported by the Development Team. To have the smoothest and fastest experience possible, install available updates.</string>
+
+    <string name="file_upload_success">Upload Successful</string>
+    <string name="file_upload_error">Upload Task Encountered an Error</string>
+
+    <string name="sign_out_title">Sign Out?</string>
+    <string name="sign_out_summary">You\'ll need to enter your credentials once again if you need to access the materials.</string>
+
+    <string name="dialog_file_download_title">Do you want to download %1$s?</string>
+    <string name="dialog_file_download_summary">If you have a limited data plan, this will count with your data allowance.</string>
+
+    <string name="dialog_permission_revoked_title">Grant us your permission</string>
+    <string name="dialog_permission_revoked_summary">To fully use this application, we\'ll need you to allow Storage Permission requests to download files</string>
+
+    <string name="dialog_token_error">Token Error</string>
+
+    <string name="dialog_email_or_password_cannot_be_blank">Email Address or Password cannot be blank</string>
+
+    <string name="pref_cat_account">Account</string>
+    <string name="pref_cat_display">Display</string>
+    <string name="pref_cat_notifications">Notifications</string>
+    <string name="pref_cat_privacy">Privacy</string>
+    <string name="pref_cat_general">General</string>
+    <string name="pref_cat_credits">Credits</string>
+
+    <string name="pref_sign_out">Sign out</string>
+
+    <string name="pref_application_theme_title">Theme</string>
+    <string name="pref_application_theme_dialog">Application Theme</string>
+    <string name="pref_application_theme_item_default">Default</string>
+    <string name="pref_application_theme_item_light">Light</string>
+    <string name="pref_application_theme_item_dark">Dark</string>
+    <string name="pref_application_theme_item_amoled">AMOLED</string>
+
+    <string name="pref_metadata_title">Supporting Detail to be Shown</string>
+    <string name="pref_metadata_dialog">Choose one metadata</string>
+    <string name="pref_metadata_item_timestamp">Date &amp; Time</string>
+    <string name="pref_metadata_item_author">Author</string>
+
+    <string name="pref_image_previews_title">Image Previews</string>
+    <string name="pref_image_previews_summary">Show thumbnails of images in the list for easier identification</string>
+
+    <string name="pref_new_files_title">New Files</string>
+    <string name="pref_new_files_summary">Show a notification when new files are uploaded</string>
+
+    <string name="pref_new_app_version_title">Updates</string>
+    <string name="pref_new_app_version_summary">Show a notification when new updates are released</string>
+
+    <string name="pref_anonymous_crash_reporting_title">Send Anonymous Crash Data</string>
+    <string name="pref_anonymous_crash_reporting_summary">Exclude any personal data that will be sent if an application crash occur</string>
+
+    <string name="pref_diagnostics_title">Diagnostics and Analytics</string>
+    <string name="pref_diagnostics_summary">Help the developers improve their apps by sending crash and usage data</string>
+
+    <string name="pref_default_directory_title">Download Location</string>
+
+    <string name="pref_requests_feedback">Help &amp; Feedback</string>
+    <string name="pref_help_version">Build Version</string>
+
+    <string name="team_development">Development Team</string>
+    <string name="team_position_chief">Chief Software Engineer</string>
+    <string name="team_isaiah_collins_abetong" translatable="false">Isaiah Collins von Ludendorff</string>
+
+    <string name="pref_privacy_policy">Privacy Policy</string>
+    <string name="pref_terms_of_service">Terms of Service</string>
+
+    <string name="pref_acknowledgements_title">Acknowledgements</string>
+    <string name="pref_acknowledgements_summary">Open-source software used for different application components</string>
+
+    <string name="contri_glide_transformations_title" translatable="false">Daichi Furiya (Wasabeef)</string>
+    <string name="contri_glide_transformations_summary" translatable="false">Glide Transformations</string>
+
+    <string name="contri_glide_title" translatable="false">Bump Technologies</string>
+    <string name="contri_glide_summary" translatable="false">Glide Image Caching Library</string>
+
+    <string name="contri_gpu_title" translatable="false">Client Advanced Technology Studio</string>
+    <string name="contri_gpu_summary" translatable="false">GPUImage for Android</string>
+
+    <string name="contri_progress_title" translatable="false">Kaopiz Software Co., Ltd.</string>
+    <string name="contri_progress_summary" translatable="false">KProgressHUD</string>
+
+    <string name="contri_fab_speed_dial_title" translatable="false">Roberto Leinardi</string>
+    <string name="contri_fab_speed_dial_summary" translatable="false">Floating Action Button Speed Dial</string>
+
+    <string name="contri_image_picker_title" translatable="false">Ted Park</string>
+    <string name="contri_image_picker_summary" translatable="false">TedBottomPicker</string>
+
+    <string name="contri_material_text_boxes_title" translatable="false">Carbonylgroup Studio</string>
+    <string name="contri_material_text_boxes_summary" translatable="false">TextFieldBoxes</string>
+
+    <string name="contri_material_dialog_title" translatable="false">Aidan Follestad</string>
+    <string name="contri_material_dialog_summary" translatable="false">Material Dialog</string>
+
+    <string name="surprise_easter_title" translatable="false">Gott mit uns!</string>
+    <string name="surprise_easter_summary" translatable="false">Deutschland uber Alles</string>
+
+</resources>

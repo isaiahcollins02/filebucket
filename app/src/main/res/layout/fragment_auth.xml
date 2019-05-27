@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            app:srcCompat="@drawable/ic_vector_edit"
+            app:tint="@color/colorGenericWhite"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:text="@string/register_secure_account"
+            android:textColor="@color/colorGenericWhite"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            app:fontFamily="@font/font_noto_sans"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="@string/think_of_a_complex_password_that"
+            android:textColor="@color/colorDefaultLight"/>
+
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:primaryColor="@color/colorGenericWhite"
+            app:secondaryColor="@color/colorDefaultLight"
+            app:minCharacters="8"
+            app:hasFocus="true"
+            app:hasClearButton="true"
+            app:labelText="@string/hint_password">
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/passwordField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:textColor="@color/colorGenericWhite"/>
+
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:primaryColor="@color/colorGenericWhite"
+            app:secondaryColor="@color/colorDefaultLight"
+            app:minCharacters="8"
+            app:hasClearButton="true"
+            app:labelText="@string/hint_confirm_password">
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/confirmPasswordField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:textColor="@color/colorGenericWhite"/>
+
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/registerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp"
+            android:layout_gravity="center"
+            android:text="@string/button_register"
+            android:textColor="@color/colorDefault"
+            app:backgroundTint="@color/colorGenericWhite"
+            style="@style/Widget.MaterialComponents.Button"/>
+
+</LinearLayout>

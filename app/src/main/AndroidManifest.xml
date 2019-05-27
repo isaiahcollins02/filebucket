@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.isaiahvonrundstedt.bucket">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+            android:name=".CoreApp"
+            android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:theme="@style/AppTheme.Core.Light"
+            android:allowBackup="false"
+            android:supportsRtl="true"
+            tools:ignore="GoogleAppIndexingWarning"
+            tools:replace="android:allowBackup">
+
+        <activity android:name="com.isaiahvonrundstedt.bucket.experience.activities.SplashActivity"
+                android:theme="@style/AppTheme.Core.Light" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.isaiahvonrundstedt.bucket.experience.activities.MainActivity"/>
+        <activity android:name="com.isaiahvonrundstedt.bucket.experience.activities.auth.FirstRunActivity"
+                  android:theme="@style/AppTheme.FirstRun"/>
+        <activity android:name="com.isaiahvonrundstedt.bucket.experience.activities.auth.LoginActivity"
+                  android:theme="@style/AppTheme.FirstRun"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name="com.isaiahvonrundstedt.bucket.experience.activities.auth.RegisterActivity"
+                  android:theme="@style/AppTheme.FirstRun"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".experience.activities.wrapper.FrameActivity"/>
+        <activity android:name=".experience.activities.wrapper.WebViewActivity" />
+        <activity android:name=".experience.activities.support.ProfileActivity" />
+        <activity android:name=".experience.activities.support.VaultActivity"/>
+        <activity android:name=".experience.activities.support.SupportActivity"/>
+        <activity android:name=".experience.activities.generic.SettingsActivity"/>
+        <activity android:name=".experience.activities.generic.AboutActivity"/>
+        <activity android:name=".experience.activities.generic.LibrariesActivity"/>
+
+        <service android:name=".core.service.TransferService"
+                android:exported="false"/>
+        <service android:name=".core.service.StreamlineService"
+                android:exported="false"/>
+        <service android:name=".core.service.ListenerService"
+                android:exported="false"/>
+
+        <receiver
+                android:name="com.isaiahvonrundstedt.bucket.core.receivers.RestartReceiver"
+                android:enabled="true"
+                android:label="RestartServiceWhenStopped"/>
+
+    </application>
+
+</manifest>

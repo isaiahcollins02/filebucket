@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/activity_margin_start"
+            android:layout_marginEnd="@dimen/activity_margin_end"
+            app:hasFocus="true"
+            app:hasClearButton="true"
+            app:maxCharacters="72"
+            app:labelText="@string/hint_summary">
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/summaryField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:imeOptions="actionNext"/>
+
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/activity_margin_start"
+            android:layout_marginEnd="@dimen/activity_margin_end"
+            app:labelText="@string/hint_additional_information"
+            app:maxCharacters="256">
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/infoField"
+                android:layout_width="match_parent"
+                android:layout_height="144dp"
+                android:inputType="textMultiLine"
+                android:imeOptions="actionNone"
+                android:gravity="top"
+                android:maxLines="8"/>
+
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_margin_start"
+            android:layout_marginEnd="@dimen/activity_margin_end"
+            android:text="@string/type_of_feedback"
+            android:textColor="@color/colorDefault"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+    <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin_start"
+            android:layout_marginEnd="@dimen/activity_margin_end">
+
+        <RadioButton
+                android:id="@+id/radioSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/choice_feedback"/>
+
+        <RadioButton
+                android:id="@+id/radioProblem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/choice_problem"/>
+
+    </RadioGroup>
+
+</LinearLayout>
