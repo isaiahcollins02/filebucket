@@ -109,6 +109,6 @@
             android:text="@string/button_continue"
             android:textColor="@color/colorDefault"
             app:backgroundTint="@color/colorGenericWhite"
-            style="@style/Widget.MaterialComponents.Button"/>
+            style="@style/AppTheme.Widget.Button"/>
 
 </LinearLayout>

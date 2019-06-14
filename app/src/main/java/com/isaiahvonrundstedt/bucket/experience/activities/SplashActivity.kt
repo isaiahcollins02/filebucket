@@ -14,6 +14,7 @@ import com.isaiahvonrundstedt.bucket.core.constants.Firebase
 import com.isaiahvonrundstedt.bucket.core.objects.Account
 import com.isaiahvonrundstedt.bucket.core.service.ListenerService
 import com.isaiahvonrundstedt.bucket.core.utils.Client
+import com.isaiahvonrundstedt.bucket.core.utils.Database
 import com.isaiahvonrundstedt.bucket.experience.activities.auth.FirstRunActivity
 
 
@@ -37,9 +38,10 @@ class SplashActivity: AppCompatActivity(){
 
         val service = ListenerService()
         val serviceIntent = Intent(applicationContext, service.javaClass)
-        if (isMyServiceRunning(service.javaClass))
+        if (isServiceRunning(service.javaClass))
             startService(serviceIntent)
 
+        Database(this).initialize()
         // Check if the user is signed in
         if (firebaseUser != null){
             val userID: String? = firebaseUser?.uid
@@ -78,15 +80,14 @@ class SplashActivity: AppCompatActivity(){
                 }
             } else
                 startActivity(Intent(this, MainActivity::class.java))
-        } else {
+        } else
             startActivity(Intent(this@SplashActivity, FirstRunActivity::class.java))
-        }
     }
     @Suppress("DEPRECATION")
-    private fun isMyServiceRunning(serviceClass: Class<*>): Boolean {
+    private fun isServiceRunning(serviceClass: Class<*>): Boolean {
         val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        for (service in manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.name == service.service.className) {
+        for (runningService in manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.name == runningService.service.className) {
                 return true
             }
         }

@@ -9,7 +9,7 @@ import java.util.*
 
 object DataManager {
 
-    // Takes a client's full name (string) as paramter then
+    // Takes a client's full name (string) as parameter then
     // returns a substring from index 0 of the parent string
     // until the last index of the character ' '
     fun sliceFullName(value: String): String {

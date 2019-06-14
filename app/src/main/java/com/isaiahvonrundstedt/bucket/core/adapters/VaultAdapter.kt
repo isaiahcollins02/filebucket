@@ -27,7 +27,7 @@ import java.text.DecimalFormat
 
 class VaultAdapter (private var itemList: ArrayList<File>,
                     private var transferListener: TransferListener
-    ): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+    ): RecyclerView.Adapter<VaultAdapter.CoreViewHolder>(), Filterable {
 
     private var windowContext: Context? = null
     private var selectedFile: File? = null
@@ -46,7 +46,11 @@ class VaultAdapter (private var itemList: ArrayList<File>,
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onBindViewHolder(holder: CoreViewHolder, position: Int) {
+        holder.bindData(filterList[position])
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VaultAdapter.CoreViewHolder {
         windowContext = parent.context
         manager = windowContext!!.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
@@ -56,10 +60,6 @@ class VaultAdapter (private var itemList: ArrayList<File>,
 
     override fun getItemCount(): Int {
         return filterList.size
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as CoreViewHolder).bindData(filterList[position])
     }
 
     private fun invokeDialog(context: Context?, file: File?){

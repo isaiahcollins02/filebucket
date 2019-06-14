@@ -19,14 +19,19 @@
     <string name="file_timestamp_today">Today at %1$s</string>
     <string name="file_size_megabytes">%1$s MB</string>
 
+    <!-- Generic Button Text -->
     <string name="button_continue">Continue</string>
-    <string name="button_download">Download</string>
-    <string name="button_save_to_collections">Save to Collections</string>
-    <string name="button_remove_from_collections">Remove from Collections</string>
     <string name="button_cancel">Cancel</string>
+    <!-- Auth Button Text -->
     <string name="button_login">Login</string>
     <string name="button_register">Register</string>
+    <!-- Action Button Text -->
+    <string name="button_download">Download</string>
     <string name="button_send">Send</string>
+    <!-- Specific Button Text -->
+    <string name="button_save_to_collections">Save to Collections</string>
+    <string name="button_remove_from_collections">Remove from Collections</string>
+    <string name="button_forgot_password">Forgot Password?</string>
     <string name="button_see_more">See More</string>
 
     <string name="file_user_repository">%1$s\'s Repository</string>
@@ -131,7 +136,6 @@
 
     <string name="pref_application_theme_title">Theme</string>
     <string name="pref_application_theme_dialog">Application Theme</string>
-    <string name="pref_application_theme_item_default">Default</string>
     <string name="pref_application_theme_item_light">Light</string>
     <string name="pref_application_theme_item_dark">Dark</string>
     <string name="pref_application_theme_item_amoled">AMOLED</string>

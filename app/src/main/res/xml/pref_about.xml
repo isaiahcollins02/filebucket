@@ -18,13 +18,13 @@
             android:fragment="com.isaiahvonrundstedt.bucket.experience.fragments.preference.LibrariesFragment"
             android:summary="@string/pref_acknowledgements_summary" />
 
-    <com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader
+    <com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader
             android:title="@string/team_development">
 
         <Preference
                 android:title="@string/team_isaiah_collins_abetong"
                 android:summary="@string/team_position_chief"/>
 
-    </com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader>
+    </com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader>
 
 </PreferenceScreen>

@@ -73,7 +73,6 @@ class SettingsFragment: BasePreference() {
         }
 
         val themeList = listOf(
-                getString(R.string.pref_application_theme_item_default),
                 getString(R.string.pref_application_theme_item_light),
                 getString(R.string.pref_application_theme_item_dark),
                 getString(R.string.pref_application_theme_item_amoled))
@@ -88,15 +87,14 @@ class SettingsFragment: BasePreference() {
             MaterialDialog(it.context).show {
                 title(R.string.pref_application_theme_dialog)
                 listItems(items = themeList){ _, _, theme ->
-                    val newTheme: String = when (theme){
-                        getString(R.string.pref_application_theme_item_default) -> Preferences.THEME_DEFAULT
+                    val newTheme: String? = when (theme){
                         getString(R.string.pref_application_theme_item_light) -> Preferences.THEME_LIGHT
                         getString(R.string.pref_application_theme_item_dark) -> Preferences.THEME_DARK
                         getString(R.string.pref_application_theme_item_amoled) -> Preferences.THEME_AMOLED
-                        else -> Preferences.THEME_DEFAULT
+                        else -> null
                     }
                     themePref.summary = theme
-                    Preferences(it.context).theme = newTheme
+                    Preferences(it.context).theme = newTheme!!
                 }
             }
             return@setOnPreferenceClickListener true

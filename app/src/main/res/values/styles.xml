@@ -37,16 +37,6 @@
         <item name="md_color_button_text">@color/colorDefault</item>
     </style>
 
-    <style name="AppTheme.Core.Default" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorDefault</item>
-        <item name="colorPrimaryDark">@color/colorDefaultDark</item>
-        <item name="colorAccent">@color/colorDefault</item>
-        <item name="android:windowBackground">@color/colorWindowBackgroundLight</item>
-        <item name="md_corner_radius">8dp</item>
-        <item name="md_color_content">@color/colorSecondaryText</item>
-        <item name="md_color_button_text">@color/colorDefault</item>
-    </style>
-
     <style name="AppTheme.FirstRun" parent="AppTheme.Core.Light">
         <item name="android:windowBackground">@color/colorFirstRunBackground</item>
         <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
@@ -147,9 +137,24 @@
     </style>
 
 
+    <style name="AppTheme.Widget.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
     <style name="AppTheme.Widget.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
         <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="AppTheme.Widget.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="AppTheme.Widget.Spinner" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
     </style>
 
 </resources>

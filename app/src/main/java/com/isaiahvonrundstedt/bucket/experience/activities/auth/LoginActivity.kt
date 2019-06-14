@@ -15,6 +15,7 @@ import com.isaiahvonrundstedt.bucket.core.constants.Firebase
 import com.isaiahvonrundstedt.bucket.core.objects.Account
 import com.isaiahvonrundstedt.bucket.core.utils.Client
 import com.isaiahvonrundstedt.bucket.experience.activities.MainActivity
+import com.isaiahvonrundstedt.bucket.experience.activities.wrapper.FrameActivity
 import com.kaopiz.kprogresshud.KProgressHUD
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
@@ -26,6 +27,7 @@ class LoginActivity: AppCompatActivity() {
     private lateinit var emailField: ExtendedEditText
     private lateinit var passwordField: ExtendedEditText
     private lateinit var loginButton: MaterialButton
+    private lateinit var forgotButton: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,7 @@ class LoginActivity: AppCompatActivity() {
         emailField = findViewById(R.id.emailField)
         passwordField = findViewById(R.id.passwordField)
         loginButton = findViewById(R.id.loginButton)
+        forgotButton = findViewById(R.id.forgotButton)
 
     }
 
@@ -42,6 +45,11 @@ class LoginActivity: AppCompatActivity() {
 
         loginButton.setOnClickListener {
             handleAuthentication()
+        }
+
+        forgotButton.setOnClickListener {
+            startActivity(Intent(this, FrameActivity::class.java)
+                .putExtra("VIEW_TYPE", FrameActivity.VIEW_TYPE_RESET))
         }
 
         passwordField.setOnEditorActionListener { _, actionId, _ ->

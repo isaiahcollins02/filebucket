@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.core.components.experience
+package com.isaiahvonrundstedt.bucket.core.components.custom
 
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout

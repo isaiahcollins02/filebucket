@@ -31,7 +31,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.core.adapters.CoreAdapter
 import com.isaiahvonrundstedt.bucket.core.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.core.components.experience.decorations.CoreItemDecoration
+import com.isaiahvonrundstedt.bucket.core.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.core.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.core.constants.Firebase
 import com.isaiahvonrundstedt.bucket.core.interfaces.ActionBarInvoker
@@ -94,13 +94,11 @@ class FilesFragment: BaseFragment(), ActionBarInvoker, TransferListener {
         swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
         defaultAction.inflate(R.menu.action_main)
 
-        adapter = CoreAdapter(itemList, childFragmentManager, this)
-
-        val amoledStatus = Preferences(rootView.context).theme != Preferences.THEME_AMOLED
+        adapter = CoreAdapter(itemList, childFragmentManager, GlideApp.with(this),this)
 
         recyclerView = rootView.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.addItemDecoration(CoreItemDecoration(context!!, amoledStatus))
+        recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, directionX: Int, directionY: Int) {
                 super.onScrolled(recyclerView, directionX, directionY)

@@ -43,18 +43,6 @@
         <item name="md_color_button_text">@color/colorDefault</item>
     </style>
 
-    <style name="AppTheme.Core.Default" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorDefault</item>
-        <item name="colorPrimaryDark">@color/colorDefaultDark</item>
-        <item name="colorAccent">@color/colorDefault</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@color/colorStatusBarDark</item>
-        <item name="android:windowBackground">@color/colorWindowBackgroundLight</item>
-        <item name="md_corner_radius">8dp</item>
-        <item name="md_color_content">@color/colorSecondaryText</item>
-        <item name="md_color_button_text">@color/colorDefault</item>
-    </style>
-
     <style name="AppTheme.FirstRun" parent="AppTheme.Core.Light">
         <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
         <item name="android:statusBarColor">@color/colorFirstRunStatusBar</item>

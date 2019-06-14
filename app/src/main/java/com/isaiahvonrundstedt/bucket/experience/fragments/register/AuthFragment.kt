@@ -89,7 +89,7 @@ class AuthFragment: Fragment() {
                 }
         } else if (password.isBlank() || confirmationPassword.isBlank())
             Snackbar.make(rootView, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
-          else
+        else
             Snackbar.make(rootView, R.string.status_password_not_match, Snackbar.LENGTH_SHORT).show()
 
     }

@@ -32,7 +32,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="16sp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/subtitleView"
             app:layout_constraintStart_toEndOf="@id/iconView"

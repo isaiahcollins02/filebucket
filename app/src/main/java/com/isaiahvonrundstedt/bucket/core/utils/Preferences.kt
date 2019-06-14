@@ -11,7 +11,6 @@ class Preferences(val context: Context?) {
         const val METADATA_TIMESTAMP = "timestamp"
         const val METADATA_AUTHOR = "author"
 
-        const val THEME_DEFAULT = "default"
         const val THEME_LIGHT = "light"
         const val THEME_DARK = "dark"
         const val THEME_AMOLED = "amoled"
@@ -67,7 +66,7 @@ class Preferences(val context: Context?) {
         }
         get() {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences?.getString("appThemePref", THEME_DEFAULT) as String
+            return sharedPreferences?.getString("appThemePref", THEME_LIGHT) as String
         }
 
     var updateNotification: Boolean

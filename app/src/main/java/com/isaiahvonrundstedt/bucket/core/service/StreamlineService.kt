@@ -29,11 +29,13 @@ class StreamlineService: BaseService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (ACTION_LIFE == intent?.action)
-            checkifVersionSupported()
+            checkIfSupported()
+        else if (ACTION_CHECK == intent?.action)
+            checkForAvailablePackages()
         return START_REDELIVER_INTENT
     }
 
-    private fun checkifVersionSupported(){
+    private fun checkIfSupported(){
         firestore = FirebaseFirestore.getInstance()
 
         val reference = firestore.collection(Firebase.CORE.string).document(Firebase.LIFE.string)
@@ -51,7 +53,7 @@ class StreamlineService: BaseService() {
         }
     }
 
-    private fun checkForAvailableUpdates(){
+    private fun checkForAvailablePackages(){
         firestore = FirebaseFirestore.getInstance()
         val packageReference = firestore.collection(Firebase.CORE.string).document(Firebase.PACKAGE.string)
 

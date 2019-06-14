@@ -36,7 +36,8 @@ import com.isaiahvonrundstedt.bucket.experience.fragments.navigation.FilesFragme
 import com.isaiahvonrundstedt.bucket.experience.fragments.navigation.RepoFragment
 import com.isaiahvonrundstedt.bucket.experience.fragments.navigation.SavedFragment
 
-class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, MenuCallback, LifecycleOwner {
+class
+MainActivity : BaseActivity(), SearchView.OnQueryTextListener, MenuCallback, LifecycleOwner {
 
     private var activeFragment: Fragment? = null
     private var downloadID: Long? = 0L
@@ -67,7 +68,6 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, MenuCallbac
             this.startService(Intent(this, StreamlineService::class.java)
                 .setAction(StreamlineService.ACTION_CHECK))
         }
-
     }
 
     fun setSearchListener(listener: ActionBarInvoker){

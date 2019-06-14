@@ -18,7 +18,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.core.adapters.CoreAdapter
 import com.isaiahvonrundstedt.bucket.core.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.core.components.experience.decorations.CoreItemDecoration
+import com.isaiahvonrundstedt.bucket.core.components.custom.ItemDecoration
+import com.isaiahvonrundstedt.bucket.core.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.core.interfaces.ActionBarInvoker
 import com.isaiahvonrundstedt.bucket.core.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.core.objects.File
@@ -64,26 +65,12 @@ class SavedFragment: BaseFragment(), ActionBarInvoker, TransferListener {
         rootView = inflater.inflate(R.layout.fragment_nav_saved, container, false)
         setRootBackground(rootView)
 
-        adapter = CoreAdapter(itemList, childFragmentManager, this)
+        adapter = CoreAdapter(itemList, childFragmentManager, GlideApp.with(this),this)
         swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
 
         recyclerView = rootView.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(container?.context)
-        recyclerView.addItemDecoration(CoreItemDecoration(context!!, true))
-        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, directionX: Int, directionY: Int) {
-                super.onScrolled(recyclerView, directionX, directionY)
-                if (directionY > 0){
-                    // Scroll down event
-                    if (addAction.isShown)
-                        addAction.hide()
-                } else if (directionY < 0){
-                    // Scroll up event
-                    if (!addAction.isShown)
-                        addAction.show()
-                }
-            }
-        })
+        recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.adapter = adapter
 
         swipeRefreshContainer.setColorSchemeResources(

@@ -34,7 +34,6 @@ abstract class BaseActivity: AppCompatActivity() {
         // Get current user theme preference from SharedPreferences API
         // (when null, it defaults to THEME_DEFAULT)
         when (Preferences(this).theme){
-            Preferences.THEME_DEFAULT -> setTheme(R.style.AppTheme_Core_Default)
             Preferences.THEME_LIGHT -> setTheme(R.style.AppTheme_Core_Light)
             Preferences.THEME_DARK -> setTheme(R.style.AppTheme_Core_Dark)
             Preferences.THEME_AMOLED -> setTheme(R.style.AppTheme_Core_AMOLED)
@@ -54,7 +53,6 @@ abstract class BaseActivity: AppCompatActivity() {
 
         if (rootView != null){
             val layoutID: Int = when (Preferences(this).theme){
-                Preferences.THEME_DEFAULT -> R.layout.layout_appbar_dark
                 Preferences.THEME_LIGHT -> R.layout.layout_appbar_light
                 Preferences.THEME_DARK -> R.layout.layout_appbar_dark
                 Preferences.THEME_AMOLED -> R.layout.layout_appbar_amoled

@@ -17,6 +17,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.resource.bitmap.FitCenter
@@ -28,12 +29,14 @@ import com.isaiahvonrundstedt.bucket.core.objects.File
 import com.isaiahvonrundstedt.bucket.core.utils.Preferences
 import com.isaiahvonrundstedt.bucket.core.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.core.utils.managers.ItemManager
+import com.isaiahvonrundstedt.bucket.core.utils.managers.Metrics
 import com.isaiahvonrundstedt.bucket.experience.fragments.bottomsheet.DetailsBottomSheet
 import jp.wasabeef.glide.transformations.CropSquareTransformation
 
 class CoreAdapter constructor (
     private val itemList: ArrayList<File>,
     private val manager: FragmentManager,
+    private val requestManager: RequestManager,
     private val transferListener: TransferListener
         ): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
@@ -72,7 +75,6 @@ class CoreAdapter constructor (
 
     private fun handleThemeChanges(view: View){
         val backgroundColor = when (Preferences(view.context).theme){
-            Preferences.THEME_DEFAULT -> ContextCompat.getColor(view.context, R.color.colorCardLight)
             Preferences.THEME_LIGHT -> ContextCompat.getColor(view.context, R.color.colorCardLight)
             Preferences.THEME_DARK -> ContextCompat.getColor(view.context, R.color.colorCardDark)
             Preferences.THEME_AMOLED -> ContextCompat.getColor(view.context, R.color.colorGenericBlack)
@@ -150,9 +152,11 @@ class CoreAdapter constructor (
 
         fun bindData(file: File?){
             handleThemeChanges(rootView)
-            GlideApp.with(rootView)
+
+            requestManager.clear(containerView)
+            requestManager.asBitmap()
                 .load(file?.downloadURL)
-                .transform(MultiTransformation(FitCenter(), CropSquareTransformation()))
+                .centerCrop()
                 .into(containerView)
 
             titleView.text = file?.name

@@ -41,8 +41,7 @@ abstract class BaseFragment: Fragment() {
 
     internal fun setRootBackground(view: View){
         val backgroundColor = when (Preferences(view.context).theme){
-            Preferences.THEME_DEFAULT -> ContextCompat.getColor(view.context, R.color.colorGenericWindow)
-            Preferences.THEME_LIGHT -> ContextCompat.getColor(view.context, R.color.colorGenericWindow)
+            Preferences.THEME_LIGHT -> ContextCompat.getColor(view.context, R.color.colorGenericLightGrey)
             Preferences.THEME_DARK -> ContextCompat.getColor(view.context, R.color.colorWindowBackgroundDark)
             Preferences.THEME_AMOLED -> ContextCompat.getColor(view.context, R.color.colorWindowBackgroundAMOLED)
             else -> ContextCompat.getColor(view.context, android.R.color.transparent)

@@ -3,7 +3,7 @@
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader
+    <com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader
             android:title="@string/pref_cat_account">
 
         <Preference
@@ -13,15 +13,14 @@
                 android:key="signoutPref"
                 android:title="@string/pref_sign_out"/>
 
-    </com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader>
+    </com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader>
 
-    <com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader
+    <com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader
             android:title="@string/pref_cat_display" >
 
         <Preference
                 android:key="appThemePref"
-                android:title="@string/pref_application_theme_title"
-                android:summary="@string/pref_application_theme_item_default"/>
+                android:title="@string/pref_application_theme_title"/>
 
         <Preference
                 android:key="metadataPref"
@@ -34,9 +33,9 @@
                 android:summary="@string/pref_image_previews_summary"
                 android:defaultValue="true"/>
 
-    </com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader>
+    </com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader>
 
-    <com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader
+    <com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader
             android:title="@string/pref_cat_notifications">
 
         <CheckBoxPreference
@@ -51,9 +50,9 @@
                 android:summary="@string/pref_new_app_version_summary"
                 android:defaultValue="true"/>
 
-    </com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader>
+    </com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader>
 
-    <com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader
+    <com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader
             android:title="@string/pref_cat_privacy">
 
         <SwitchPreference
@@ -69,9 +68,9 @@
                 android:dependency="diagnosticsPref"
                 android:defaultValue="true"/>
 
-    </com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader>
+    </com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader>
 
-    <com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader
+    <com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader
             android:title="@string/pref_cat_general">
 
         <Preference
@@ -86,6 +85,6 @@
                 android:key="versionPref"
                 android:title="@string/pref_help_version"/>
 
-    </com.isaiahvonrundstedt.bucket.core.components.custom.AppSettingsHeader>
+    </com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader>
 
 </PreferenceScreen>

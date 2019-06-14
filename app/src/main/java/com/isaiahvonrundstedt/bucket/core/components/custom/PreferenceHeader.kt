@@ -6,8 +6,9 @@ import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceViewHolder
 import com.isaiahvonrundstedt.bucket.R
+import com.isaiahvonrundstedt.bucket.core.utils.Preferences
 
-class AppSettingsHeader @JvmOverloads constructor (
+class PreferenceHeader @JvmOverloads constructor (
             context: Context? = null,
             attrs: AttributeSet? = null,
             defStyle: Int = 0): PreferenceCategory(context, attrs, defStyle) {
@@ -18,7 +19,7 @@ class AppSettingsHeader @JvmOverloads constructor (
 
     override fun onBindViewHolder(holder: PreferenceViewHolder?) {
         super.onBindViewHolder(holder)
-        holder?.itemView?.setBackgroundColor(ContextCompat.getColor(this.context, R.color.colorGenericWindow))
+        holder?.itemView?.setBackgroundColor(ContextCompat.getColor(this.context, R.color.colorDefault))
     }
 
 }

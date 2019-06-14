@@ -16,6 +16,16 @@ class Database(var context: Context) {
         sqLiteDatabase = context.openOrCreateDatabase(localCache, Context.MODE_PRIVATE, null)
     }
 
+    fun initialize(){
+        sqLiteDatabase?.run {
+            beginTransaction()
+            execSQL("CREATE TABLE IF NOT EXISTS collections (fileID VARCHAR (100), fileName VARCHAR (500), fileAuthor VARCHAR(500), fileType INT, fileSize DOUBLE, downloadURL VARCHAR(500), timestamp INT)")
+            setTransactionSuccessful()
+            endTransaction()
+            close()
+        }
+    }
+
     fun saveToCollections(file: File?){
         val timestamp = convertTimestamp(file?.timestamp!!)
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -14,7 +15,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.core.adapters.RepoAdapter
 import com.isaiahvonrundstedt.bucket.core.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.core.components.experience.decorations.RepoItemDecoration
 import com.isaiahvonrundstedt.bucket.core.constants.Firebase
 import com.isaiahvonrundstedt.bucket.core.interfaces.ActionBarInvoker
 import com.isaiahvonrundstedt.bucket.core.objects.Account
@@ -40,7 +40,7 @@ class RepoFragment: BaseFragment(), ActionBarInvoker {
 
         recyclerView = rootView.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.addItemDecoration(RepoItemDecoration(container!!.context))
+        recyclerView.addItemDecoration(DividerItemDecoration(context!!, DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
 
         swipeRefreshContainer.setColorSchemeResources(
