@@ -27,8 +27,7 @@
                     android:layout_marginBottom="8dp"
                     android:text="@string/login_to_drop_bucket"
                     android:textColor="@color/colorGenericWhite"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-                    app:fontFamily="@font/font_noto_sans"/>
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
 
             <TextView
                     android:layout_width="wrap_content"

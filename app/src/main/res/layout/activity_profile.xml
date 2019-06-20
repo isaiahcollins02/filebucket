@@ -27,7 +27,6 @@
             android:gravity="center"
             android:textColor="@color/colorDefault"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            app:fontFamily="@font/font_noto_sans"
             tools:text="Collins von Ludendorff"/>
 
     <TextView

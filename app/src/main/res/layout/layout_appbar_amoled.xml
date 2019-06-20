@@ -11,15 +11,19 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/colorGenericBlack"
-            android:theme="@style/AppTheme.Toolbar.Dark">
+            android:theme="@style/AppTheme.Toolbar.Dark"
+            app:contentInsetStart="@dimen/activity_margin_start"
+            app:contentInsetEnd="@dimen/activity_margin_end"
+            app:contentInsetStartWithNavigation="@dimen/activity_margin_start"
+            app:contentInsetEndWithActions="@dimen/activity_margin_end">
 
             <TextView
                     android:id="@+id/toolbarTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorWindowBackgroundLight"
+                    android:gravity="center"
+                    android:textColor="@color/colorGenericWhite"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    app:fontFamily="@font/font_noto_sans"
                     tools:text="Title"/>
 
     </androidx.appcompat.widget.Toolbar>

@@ -30,7 +30,7 @@ public class CoreApp extends MultiDexApplication {
         // Analytics
         FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(this);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean analyticsEnabled = settings.getBoolean("diagnosticsPref", true);
+        boolean analyticsEnabled = settings.getBoolean("diagnosticsPreference", true);
         firebaseAnalytics.setAnalyticsCollectionEnabled(analyticsEnabled);
 
         //Firestore

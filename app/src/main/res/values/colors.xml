@@ -8,7 +8,7 @@
     <color name="colorToolbarLight">#FFFFFF</color>
     <color name="colorToolbarDark">#242424</color>
 
-    <color name="colorStatusBarLight">#F0F0F0</color>
+    <color name="colorStatusBarLight">#FFFFFF</color>
     <color name="colorStatusBarDark">#141414</color>
 
     <color name="colorWindowBackgroundLight">#FFFFFF</color>
@@ -18,12 +18,16 @@
     <color name="colorPrimaryText">#FFFFFF</color>
     <color name="colorSecondaryText">#9C9C9C</color>
 
+    <color name="colorPreferenceLight">#FAFAFA</color>
+    <color name="colorPreferenceDark">#191919</color>
+    <color name="colorPreferenceAMOLED">#050505</color>
+
     <color name="colorGenericWhite">#FFFFFF</color>
     <color name="colorGenericBlack">#000000</color>
-    <color name="colorGenericLightGrey">#ECEFF2</color>
 
     <color name="colorCardLight">#FFFFFF</color>
     <color name="colorCardDark">#222222</color>
+    <color name="colorCardAMOLED">#000000</color>
 
     <color name="colorIndicatorGreen">#008744</color>
     <color name="colorIndicatorBlue">#0057E7</color>

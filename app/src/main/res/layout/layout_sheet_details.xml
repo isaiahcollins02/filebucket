@@ -31,7 +31,6 @@
             app:layout_constraintTop_toBottomOf="@id/iconView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:fontFamily="@font/font_noto_sans"
             tools:text="Sample File is the Best File"/>
 
     <TextView

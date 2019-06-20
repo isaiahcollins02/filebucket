@@ -20,7 +20,7 @@
             tools:ignore="GoogleAppIndexingWarning"
             tools:replace="android:allowBackup">
 
-        <activity android:name="com.isaiahvonrundstedt.bucket.experience.activities.SplashActivity"
+        <activity android:name=".activities.SplashActivity"
                 android:theme="@style/AppTheme.Core.Light" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -28,33 +28,36 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.isaiahvonrundstedt.bucket.experience.activities.MainActivity"/>
-        <activity android:name="com.isaiahvonrundstedt.bucket.experience.activities.auth.FirstRunActivity"
+        <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.auth.FirstRunActivity"
                   android:theme="@style/AppTheme.FirstRun"/>
-        <activity android:name="com.isaiahvonrundstedt.bucket.experience.activities.auth.LoginActivity"
+        <activity android:name=".activities.auth.LoginActivity"
                   android:theme="@style/AppTheme.FirstRun"
                   android:windowSoftInputMode="adjustResize"/>
-        <activity android:name="com.isaiahvonrundstedt.bucket.experience.activities.auth.RegisterActivity"
+        <activity android:name=".activities.auth.RegisterActivity"
                   android:theme="@style/AppTheme.FirstRun"
                   android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".experience.activities.wrapper.FrameActivity"/>
-        <activity android:name=".experience.activities.wrapper.WebViewActivity" />
-        <activity android:name=".experience.activities.support.ProfileActivity" />
-        <activity android:name=".experience.activities.support.VaultActivity"/>
-        <activity android:name=".experience.activities.support.SupportActivity"/>
-        <activity android:name=".experience.activities.generic.SettingsActivity"/>
-        <activity android:name=".experience.activities.generic.AboutActivity"/>
-        <activity android:name=".experience.activities.generic.LibrariesActivity"/>
+        <activity android:name=".activities.wrapper.FrameActivity"/>
+        <activity android:name=".activities.wrapper.WebViewActivity" />
+        <activity android:name=".activities.support.ProfileActivity" />
+        <activity android:name=".activities.support.VaultActivity"/>
+        <activity android:name=".activities.support.SupportActivity"/>
+        <activity android:name=".activities.generic.AboutActivity"/>
+        <activity android:name=".activities.generic.LibrariesActivity"/>
 
-        <service android:name=".core.service.TransferService"
+        <service android:name="com.isaiahvonrundstedt.bucket.service.TransferService"
                 android:exported="false"/>
-        <service android:name=".core.service.StreamlineService"
+        <service android:name="com.isaiahvonrundstedt.bucket.service.SupportService"
                 android:exported="false"/>
-        <service android:name=".core.service.ListenerService"
+        <service android:name="com.isaiahvonrundstedt.bucket.service.NotificationService"
                 android:exported="false"/>
 
         <receiver
-                android:name="com.isaiahvonrundstedt.bucket.core.receivers.RestartReceiver"
+                android:name="com.isaiahvonrundstedt.bucket.receivers.RestartReceiver"
+                android:enabled="true"
+                android:label="RestartServiceWhenStopped"/>
+        <receiver
+                android:name="com.isaiahvonrundstedt.bucket.receivers.NotificationReceiver"
                 android:enabled="true"
                 android:label="RestartServiceWhenStopped"/>
 

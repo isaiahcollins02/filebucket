@@ -6,8 +6,14 @@
             android:id="@+id/action_search"
             android:title="@string/menu_search"
             android:icon="@drawable/ic_vector_search"
-            app:iconTint="@color/colorSecondaryText"
             app:showAsAction="ifRoom"
             app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+
+    <item
+            android:id="@+id/action_clear"
+            android:title="@string/menu_clear"
+            android:icon="@drawable/ic_vector_error"
+            android:visible="false"
+            app:showAsAction="ifRoom"/>
 
 </menu>

@@ -4,27 +4,39 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:key="rootPref">
 
-    <Preference
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
             android:key="policyPref"
-            android:title="@string/pref_privacy_policy"/>
+            android:title="@string/about_privacy_policy"/>
 
-    <Preference
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
             android:key="termsPref"
-            android:title="@string/pref_terms_of_service"/>
+            android:title="@string/about_terms_of_service"/>
 
-    <Preference
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
             android:key="openSourcePref"
-            android:title="@string/pref_acknowledgements_title"
-            android:fragment="com.isaiahvonrundstedt.bucket.experience.fragments.preference.LibrariesFragment"
-            android:summary="@string/pref_acknowledgements_summary" />
+            android:title="@string/about_acknowledgements_title"
+            android:summary="@string/about_acknowledgements_summary" />
 
-    <com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Group
             android:title="@string/team_development">
 
-        <Preference
+        <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
                 android:title="@string/team_isaiah_collins_abetong"
                 android:summary="@string/team_position_chief"/>
 
-    </com.isaiahvonrundstedt.bucket.core.components.custom.PreferenceHeader>
+    </com.isaiahvonrundstedt.bucket.components.custom.settings.Group>
+
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Group
+            android:title="@string/settings_group_about">
+
+        <com.isaiahvonrundstedt.bucket.components.custom.settings.Value
+                android:key="buildDatePreference"
+                android:title="@string/about_build_date"/>
+
+        <com.isaiahvonrundstedt.bucket.components.custom.settings.Value
+                android:key="versionPreference"
+                android:title="@string/about_version"/>
+
+    </com.isaiahvonrundstedt.bucket.components.custom.settings.Group>
 
 </PreferenceScreen>

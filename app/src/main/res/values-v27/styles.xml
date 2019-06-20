@@ -52,9 +52,10 @@
     <style name="AppTheme.FirstRun" parent="AppTheme.Core.Light">
         <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
         <item name="android:statusBarColor">@color/colorFirstRunStatusBar</item>
+        <item name="android:navigationBarColor">@color/colorFirstRunBackground</item>
         <item name="android:windowBackground">@color/colorFirstRunBackground</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightNavigationBar">false</item>
     </style>
 
     <!-- UI Components -->

@@ -21,15 +21,15 @@
             app:iconTint="@color/colorSecondaryText"/>
 
     <item
-            android:id="@+id/navigation_settings"
-            android:title="@string/navigation_settings"
-            android:icon="@drawable/ic_vector_settings"
+            android:id="@+id/navigation_notifications"
+            android:title="@string/navigation_notifications"
+            android:icon="@drawable/ic_vector_notifications"
             app:iconTint="@color/colorSecondaryText"/>
 
     <item
-            android:id="@+id/navigation_about"
-            android:title="@string/navigation_about"
-            android:icon="@drawable/ic_vector_info"
+            android:id="@+id/navigation_account"
+            android:title="@string/navigation_account"
+            android:icon="@drawable/ic_vector_account"
             app:iconTint="@color/colorSecondaryText"/>
 
 </menu>
