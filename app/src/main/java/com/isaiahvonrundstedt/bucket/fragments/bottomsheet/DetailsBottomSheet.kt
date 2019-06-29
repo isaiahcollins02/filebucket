@@ -11,10 +11,10 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.google.android.material.button.MaterialButton
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.architecture.store.CollectionRepository
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
-import com.isaiahvonrundstedt.bucket.architecture.database.CollectionAccessor
+import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
+import com.isaiahvonrundstedt.bucket.architecture.store.SavedRepository
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
 import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
@@ -28,8 +28,8 @@ class DetailsBottomSheet: BaseBottomSheet(), TransferListener {
     private var file: File? = null
     private var listener: TransferListener? = null
     private var appDB: AppDatabase? = null
-    private var collectionDAO: CollectionAccessor? = null
-    private var repository: CollectionRepository? = null
+    private var collectionDAO: SavedDAO? = null
+    private var repository: SavedRepository? = null
     private var fileInDatabase: Boolean? = false
 
     private lateinit var rootView: View
@@ -70,7 +70,7 @@ class DetailsBottomSheet: BaseBottomSheet(), TransferListener {
 
         appDB = AppDatabase.getDatabase(context)
         collectionDAO = appDB?.collectionAccessor()
-        repository = CollectionRepository(context.applicationContext as Application)
+        repository = SavedRepository(context.applicationContext as Application)
     }
 
     override fun onStart() = runBlocking {

@@ -3,41 +3,32 @@
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.isaiahvonrundstedt.bucket.components.custom.settings.Group
-            android:title="@string/settings_group_credits">
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
+            android:title="@string/contri_glide_title"
+            android:summary="@string/contri_glide_summary"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
-                android:title="@string/contri_glide_title"
-                android:summary="@string/contri_glide_summary"/>
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
+            android:title="@string/contri_glide_transformations_title"
+            android:summary="@string/contri_glide_transformations_summary"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
-                android:title="@string/contri_glide_transformations_title"
-                android:summary="@string/contri_glide_transformations_summary"/>
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
+            android:title="@string/contri_gpu_title"
+            android:summary="@string/contri_gpu_summary"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
-                android:title="@string/contri_gpu_title"
-                android:summary="@string/contri_gpu_summary"/>
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
+            android:title="@string/contri_progress_title"
+            android:summary="@string/contri_progress_summary"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
-                android:title="@string/contri_progress_title"
-                android:summary="@string/contri_progress_summary"/>
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
+            android:title="@string/contri_image_picker_title"
+            android:summary="@string/contri_image_picker_summary"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
-                android:title="@string/contri_fab_speed_dial_title"
-                android:summary="@string/contri_fab_speed_dial_summary"/>
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
+            android:title="@string/contri_material_text_boxes_title"
+            android:summary="@string/contri_material_text_boxes_summary"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
-                android:title="@string/contri_image_picker_title"
-                android:summary="@string/contri_image_picker_summary"/>
-
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
-                android:title="@string/contri_material_text_boxes_title"
-                android:summary="@string/contri_material_text_boxes_summary"/>
-
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
-                android:title="@string/contri_material_dialog_title"
-                android:summary="@string/contri_material_dialog_summary"/>
-
-    </com.isaiahvonrundstedt.bucket.components.custom.settings.Group>
+    <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
+            android:title="@string/contri_material_dialog_title"
+            android:summary="@string/contri_material_dialog_summary"/>
 
 </PreferenceScreen>

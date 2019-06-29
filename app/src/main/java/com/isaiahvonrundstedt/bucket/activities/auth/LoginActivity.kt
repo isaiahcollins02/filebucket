@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
+import androidx.appcompat.widget.AppCompatTextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
 import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.Account
-import com.isaiahvonrundstedt.bucket.utils.Client
+import com.isaiahvonrundstedt.bucket.objects.User
+import com.isaiahvonrundstedt.bucket.utils.Account
 import com.kaopiz.kprogresshud.KProgressHUD
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
@@ -25,8 +24,7 @@ class LoginActivity: AppCompatActivity() {
 
     private lateinit var emailField: ExtendedEditText
     private lateinit var passwordField: ExtendedEditText
-    private lateinit var loginButton: MaterialButton
-    private lateinit var forgotButton: MaterialButton
+    private lateinit var loginButton: AppCompatTextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +33,6 @@ class LoginActivity: AppCompatActivity() {
         emailField = findViewById(R.id.emailField)
         passwordField = findViewById(R.id.passwordField)
         loginButton = findViewById(R.id.loginButton)
-        forgotButton = findViewById(R.id.forgotButton)
-
     }
 
     override fun onStart() {
@@ -44,11 +40,6 @@ class LoginActivity: AppCompatActivity() {
 
         loginButton.setOnClickListener {
             handleAuthentication()
-        }
-
-        forgotButton.setOnClickListener {
-            startActivity(Intent(this, FrameActivity::class.java)
-                .putExtra("VIEW_TYPE", FrameActivity.VIEW_TYPE_RESET))
         }
 
         passwordField.setOnEditorActionListener { _, actionId, _ ->
@@ -80,14 +71,8 @@ class LoginActivity: AppCompatActivity() {
 
                     firestore.collection(Firebase.USERS.string).document(userID!!)
                         .get().addOnSuccessListener {
-                            val account: Account = it.toObject(Account::class.java) as Account
-
-                            Client(this).apply {
-                                firstName = account.firstName
-                                lastName = account.lastName
-                                email = account.email
-                                imageURL = account.imageURL
-                            }
+                            val user: User? = it.toObject(User::class.java)
+                            Account(this).save(user!!)
 
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import androidx.preference.CheckBoxPreference
+import androidx.preference.PreferenceViewHolder
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 
@@ -19,6 +20,11 @@ class Check @JvmOverloads constructor(
         currentTheme = Preferences(context).theme
         layoutResource = R.layout.layout_settings_base
         widgetLayoutResource = androidx.preference.R.layout.preference_widget_checkbox
+    }
+
+    override fun onBindViewHolder(container: PreferenceViewHolder?) {
+        super.onBindViewHolder(container)
+        container?.itemView?.setBackgroundResource(R.color.colorCardBackground)
     }
 
 }

@@ -3,38 +3,24 @@
 
     <color name="colorDefault">#1976D2</color>
     <color name="colorDefaultLight">#63A4FF</color>
-    <color name="colorDefaultDark">#004BA0</color>
-
-    <color name="colorToolbarLight">#FFFFFF</color>
-    <color name="colorToolbarDark">#242424</color>
-
-    <color name="colorStatusBarLight">#FFFFFF</color>
-    <color name="colorStatusBarDark">#141414</color>
-
-    <color name="colorWindowBackgroundLight">#FFFFFF</color>
-    <color name="colorWindowBackgroundDark">#191919</color>
-    <color name="colorWindowBackgroundAMOLED">#050505</color>
+    <color name="colorDefaultDark">#FF004BA0</color>
+    <color name="colorWindowBackground">#FFFFFF</color>
+    <color name="colorCardBackground">#FFFFFF</color>
+    <color name="colorPreference">#FAFAFA</color>
+    <color name="colorToolbar">#FFFFFF</color>
+    <color name="colorStatusBar">#E1E1E1</color>
+    <color name="colorAppBarItem">#1976D2</color>
 
     <color name="colorPrimaryText">#FFFFFF</color>
     <color name="colorSecondaryText">#9C9C9C</color>
-
-    <color name="colorPreferenceLight">#FAFAFA</color>
-    <color name="colorPreferenceDark">#191919</color>
-    <color name="colorPreferenceAMOLED">#050505</color>
+    <color name="colorHelperText">#455A64</color>
 
     <color name="colorGenericWhite">#FFFFFF</color>
     <color name="colorGenericBlack">#000000</color>
-
-    <color name="colorCardLight">#FFFFFF</color>
-    <color name="colorCardDark">#222222</color>
-    <color name="colorCardAMOLED">#000000</color>
 
     <color name="colorIndicatorGreen">#008744</color>
     <color name="colorIndicatorBlue">#0057E7</color>
     <color name="colorIndicatorRed">#D62D20</color>
     <color name="colorIndicatorYellow">#FFA700</color>
-
-    <color name="colorFirstRunBackground">#0073CE</color>
-    <color name="colorFirstRunStatusBar">#005EA7</color>
 
 </resources>

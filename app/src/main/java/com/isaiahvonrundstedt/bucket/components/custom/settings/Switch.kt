@@ -3,6 +3,7 @@ package com.isaiahvonrundstedt.bucket.components.custom.settings
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import androidx.preference.PreferenceViewHolder
 import androidx.preference.SwitchPreference
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.utils.Preferences
@@ -20,5 +21,8 @@ class Switch @JvmOverloads constructor(
         layoutResource = R.layout.layout_settings_base
         widgetLayoutResource = androidx.preference.R.layout.preference_widget_switch
     }
-
+    override fun onBindViewHolder(container: PreferenceViewHolder?) {
+        super.onBindViewHolder(container)
+        container?.itemView?.setBackgroundResource(R.color.colorCardBackground)
+    }
 }

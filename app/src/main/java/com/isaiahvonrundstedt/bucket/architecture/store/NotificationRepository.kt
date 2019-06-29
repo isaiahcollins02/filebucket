@@ -4,42 +4,42 @@ import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
-import com.isaiahvonrundstedt.bucket.architecture.database.NotificationAccessor
+import com.isaiahvonrundstedt.bucket.architecture.database.NotificationDAO
 import com.isaiahvonrundstedt.bucket.objects.Notification
 
 class NotificationRepository(application: Application) {
 
     private var appDB: AppDatabase? = null
-    private var notificationAccessor: NotificationAccessor? = null
+    private var notificationDAO: NotificationDAO? = null
 
     private var notificationLiveData: LiveData<List<Notification>>
 
     init {
         appDB = AppDatabase.getDatabase(application)
-        notificationAccessor = appDB?.notificationAccessor()
-        notificationLiveData = notificationAccessor?.getNotifications()!!
+        notificationDAO = appDB?.notificationAccessor()
+        notificationLiveData = notificationDAO?.getNotifications()!!
     }
 
     fun insert(notification: Notification) {
-        InsertTask(notificationAccessor!!).execute(notification)
+        InsertTask(notificationDAO!!).execute(notification)
     }
 
     fun removeAll(){
-        RemoveAllTask(notificationAccessor!!).execute()
+        RemoveAllTask(notificationDAO!!).execute()
     }
 
     fun getNotifications(): LiveData<List<Notification>> = notificationLiveData
 
-    private class InsertTask (private var accessor: NotificationAccessor): AsyncTask<Notification, Void, Void>(){
+    private class InsertTask (private var DAO: NotificationDAO): AsyncTask<Notification, Void, Void>(){
         override fun doInBackground(vararg params: Notification): Void? {
-            accessor.insert(params[0])
+            DAO.insert(params[0])
             return null
         }
     }
 
-    private class RemoveAllTask(private var accessor: NotificationAccessor): AsyncTask<Void, Void, Void>(){
+    private class RemoveAllTask(private var DAO: NotificationDAO): AsyncTask<Void, Void, Void>(){
         override fun doInBackground(vararg params: Void?): Void? {
-            accessor.clearAll()
+            DAO.clearAll()
             return null
         }
     }

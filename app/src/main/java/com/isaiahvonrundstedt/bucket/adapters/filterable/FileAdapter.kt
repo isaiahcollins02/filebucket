@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.RequestManager
-import com.google.android.material.button.MaterialButton
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
 import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
@@ -26,7 +25,7 @@ import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import java.text.DecimalFormat
 
-class CoreAdapter constructor (
+class FileAdapter constructor (
     private val itemList: ArrayList<File>,
     private val manager: FragmentManager,
     private val requestManager: RequestManager,
@@ -108,20 +107,23 @@ class CoreAdapter constructor (
         private val containerView: AppCompatImageView = itemView.findViewById(R.id.iconView)
         private val titleView: TextView = itemView.findViewById(R.id.titleView)
         private val subtitleView: TextView = itemView.findViewById(R.id.subtitleView)
+        private val sizeView: TextView = itemView.findViewById(R.id.sizeView)
 
-        fun bindData(file: File?){
+        fun bindData(file: File){
             requestManager.clear(containerView)
             requestManager.asBitmap()
                 .load(file?.downloadURL)
                 .centerCrop()
                 .into(containerView)
 
-            titleView.text = file?.name
+            titleView.text = file.name
             subtitleView.text = when (Preferences(windowContext).metadata){
-                Preferences.METADATA_TIMESTAMP -> DataManager.formatTimestamp(windowContext, file?.timestamp)
-                Preferences.METADATA_AUTHOR -> file?.author
+                Preferences.METADATA_TIMESTAMP -> DataManager.formatTimestamp(windowContext, file.timestamp)
+                Preferences.METADATA_AUTHOR -> file.author
                 else -> null
             }
+            val decimalFormat = DecimalFormat("#.##")
+            sizeView.text = String.format(itemView.resources.getString(R.string.file_size_megabytes), decimalFormat.format((file.fileSize / 1024) / 1024))
 
             rootView.setOnClickListener {
                 handleFileDownload(file)

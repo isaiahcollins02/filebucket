@@ -71,13 +71,13 @@ class NotificationService: BaseService() {
         val defaultIntent = PendingIntent.getBroadcast(applicationContext, 0, defaultAction, 0)
 
         val downloadAction = Intent(applicationContext, NotificationService::class.java)
-        downloadAction.action = ACTION_DOWNLOAD
-        downloadAction.putExtra(BUNDLE_ARGS, file)
+        downloadAction.action = actionDownload
+        downloadAction.putExtra(objectArgs, file)
         val downloadIntent = PendingIntent.getBroadcast(applicationContext, 0, downloadAction, 0)
 
         val saveAction = Intent(applicationContext, NotificationService::class.java)
-        saveAction.action = ACTION_SAVE
-        saveAction.putExtra(BUNDLE_ARGS, file)
+        saveAction.action = actionSave
+        saveAction.putExtra(objectArgs, file)
         val saveIntent = PendingIntent.getBroadcast(applicationContext, 0, saveAction, 0)
 
         val notification = Notification().apply {

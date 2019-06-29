@@ -16,20 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.adapters.filterable.CoreAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.CollectionViewModel
+import com.isaiahvonrundstedt.bucket.adapters.CoreAdapter
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.SavedViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
 import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
 
-class CollectionFragment: BaseFragment(), ScreenAction.Search, TransferListener {
+class SavedFragment: BaseFragment(), ScreenAction.Search, TransferListener {
 
     private var downloadID: Long? = null
-    private var viewModel: CollectionViewModel? = null
+    private var viewModel: SavedViewModel? = null
 
     private val itemList: ArrayList<File> = ArrayList()
 
@@ -57,16 +55,14 @@ class CollectionFragment: BaseFragment(), ScreenAction.Search, TransferListener 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (activity is MainActivity)
-            (activity as MainActivity).setSearchListener(this)
-
-        viewModel = ViewModelProviders.of(this).get(CollectionViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(SavedViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_collection, container, false)
+        rootView = inflater.inflate(R.layout.fragment_saved, container, false)
 
-        adapter = CoreAdapter(itemList, childFragmentManager, GlideApp.with(this), this)
+        adapter =
+            CoreAdapter(itemList, childFragmentManager, GlideApp.with(this), this)
         swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
 
         recyclerView = rootView.findViewById(R.id.recyclerView)

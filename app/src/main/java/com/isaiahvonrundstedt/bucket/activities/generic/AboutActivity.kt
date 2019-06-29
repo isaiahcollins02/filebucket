@@ -3,10 +3,10 @@ package com.isaiahvonrundstedt.bucket.activities.generic
 import android.os.Bundle
 import android.view.MenuItem
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.fragments.preference.AboutFragment
 
-class AboutActivity: BaseActivity() {
+class AboutActivity: BaseAppBarActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

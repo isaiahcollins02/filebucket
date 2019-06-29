@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.adapters.filterable
+package com.isaiahvonrundstedt.bucket.adapters
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -14,13 +14,13 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.support.VaultActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Parameters
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.objects.User
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 
-class RepoAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapter<RepoAdapter.ViewHolder>(),
+class BoxesAdapter(private var itemList: ArrayList<User>): RecyclerView.Adapter<BoxesAdapter.ViewHolder>(),
     Filterable {
 
-    private var filterList: ArrayList<Account> = itemList
+    private var filterList: ArrayList<User> = itemList
     private var filter: AccountFilter? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,11 +33,11 @@ class RepoAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentAccount: Account = filterList[position]
-        val string: String = currentAccount.firstName + " " + currentAccount.lastName
+        val currentUser: User = filterList[position]
+        val string: String = currentUser.firstName + " " + currentUser.lastName
 
         GlideApp.with(holder.rootView)
-            .load(currentAccount.imageURL)
+            .load(currentUser.imageURL)
             .placeholder(R.drawable.ic_brand_user)
             .error(R.drawable.ic_brand_user)
             .centerCrop()
@@ -50,7 +50,7 @@ class RepoAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapte
             it.context.startActivity(intent)
         }
         holder.titleView.text = DataManager.capitalizeEachWord(string)
-        holder.subtitleView.text = currentAccount.email
+        holder.subtitleView.text = currentUser.email
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -74,7 +74,7 @@ class RepoAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapte
             val originalList = filterList
             val listCount = filterList.size
 
-            var resultList: ArrayList<Account> = ArrayList(listCount)
+            var resultList: ArrayList<User> = ArrayList(listCount)
             var filterableString: String
 
             if (searchTerm.isNotBlank() && searchTerm.isNotEmpty()) {
@@ -95,7 +95,7 @@ class RepoAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapte
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             @Suppress("UNCHECKED_CAST")
-            filterList = results?.values as ArrayList<Account>
+            filterList = results?.values as ArrayList<User>
             notifyDataSetChanged()
         }
     }

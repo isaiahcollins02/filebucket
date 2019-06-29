@@ -46,4 +46,13 @@
             app:layout_constraintStart_toEndOf="@id/iconView"
             tools:text="Sample Text"/>
 
+    <TextView
+            android:id="@+id/sizeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="2.4MB"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

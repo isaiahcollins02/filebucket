@@ -3,6 +3,7 @@ package com.isaiahvonrundstedt.bucket.components.custom.settings
 import android.content.Context
 import android.util.AttributeSet
 import androidx.preference.Preference
+import androidx.preference.PreferenceViewHolder
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 
@@ -16,5 +17,10 @@ class Value @JvmOverloads constructor(
     init {
         layoutResource = R.layout.layout_settings_value
         currentTheme = Preferences(context).theme
+    }
+
+    override fun onBindViewHolder(container: PreferenceViewHolder?) {
+        super.onBindViewHolder(container)
+        container?.itemView?.setBackgroundResource(R.color.colorCardBackground)
     }
 }

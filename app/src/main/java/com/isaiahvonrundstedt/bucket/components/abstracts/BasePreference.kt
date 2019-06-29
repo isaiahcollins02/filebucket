@@ -2,10 +2,8 @@ package com.isaiahvonrundstedt.bucket.components.abstracts
 
 import android.os.Bundle
 import android.view.View
-import androidx.preference.*
-import androidx.recyclerview.widget.RecyclerView
+import androidx.preference.PreferenceFragmentCompat
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.utils.Preferences
 
 abstract class BasePreference: PreferenceFragmentCompat() {
 
@@ -15,13 +13,7 @@ abstract class BasePreference: PreferenceFragmentCompat() {
     }
 
     private fun onHandleThemeChanges(view: View){
-        val colorID = when (Preferences(view.context).theme){
-            Preferences.THEME_LIGHT -> R.color.colorCardLight
-            Preferences.THEME_DARK -> R.color.colorCardDark
-            Preferences.THEME_AMOLED -> R.color.colorCardAMOLED
-            else -> null
-        }
-        view.setBackgroundResource(colorID!!)
+        view.setBackgroundResource(R.color.colorPreference)
     }
 
 }

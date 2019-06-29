@@ -11,11 +11,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.RelatedAdapter
-import com.isaiahvonrundstedt.bucket.architecture.store.CollectionRepository
+import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
+import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
+import com.isaiahvonrundstedt.bucket.architecture.store.SavedRepository
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
-import com.isaiahvonrundstedt.bucket.architecture.database.CollectionAccessor
 import com.isaiahvonrundstedt.bucket.objects.File
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
@@ -31,8 +31,8 @@ class DetailFragment: BaseFragment() {
     private var fileInDatabase: Boolean? = false
 
     private var appDB: AppDatabase? = null
-    private var collectionAccessor: CollectionAccessor? = null
-    private var repository: CollectionRepository? = null
+    private var savedDAO: SavedDAO? = null
+    private var repository: SavedRepository? = null
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
 
@@ -43,7 +43,7 @@ class DetailFragment: BaseFragment() {
 
         file = arguments?.getParcelable("fileArgs")
         appDB = AppDatabase.getDatabase(context!!)
-        collectionAccessor = appDB?.collectionAccessor()
+        savedDAO = appDB?.collectionAccessor()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -86,7 +86,7 @@ class DetailFragment: BaseFragment() {
         super.onResume()
 
         fileInDatabase = withContext(Dispatchers.Default){
-            collectionAccessor?.checkIfExists(file)
+            savedDAO?.checkIfExists(file)
         }
 
         iconView.setImageDrawable(ItemManager.getFileIcon(context, file?.fileType))

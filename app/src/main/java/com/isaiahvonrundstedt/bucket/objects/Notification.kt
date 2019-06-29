@@ -26,6 +26,10 @@ data class Notification @JvmOverloads constructor (
         const val TYPE_GENERIC = 0
         const val TYPE_NEW_FILE = 1
         const val TYPE_PACKAGE = 2
+
+        const val defaultChannel = "default"
+        const val transferChannel = "transfer"
+        const val supportChannel = "support"
     }
 
 }

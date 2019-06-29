@@ -3,17 +3,10 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-            android:id="@+id/action_search"
-            android:title="@string/menu_search"
-            android:icon="@drawable/ic_vector_search"
-            app:showAsAction="ifRoom"
-            app:actionViewClass="androidx.appcompat.widget.SearchView"/>
-
-    <item
-            android:id="@+id/action_clear"
-            android:title="@string/menu_clear"
-            android:icon="@drawable/ic_vector_error"
-            android:visible="false"
+            android:id="@+id/action_support"
+            android:title="@string/settings_feedback"
+            android:icon="@drawable/ic_vector_help"
+            android:iconTint="@color/colorAppBarItem"
             app:showAsAction="ifRoom"/>
 
 </menu>

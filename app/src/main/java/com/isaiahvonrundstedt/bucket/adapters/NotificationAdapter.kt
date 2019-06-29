@@ -37,23 +37,12 @@ class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>(
         holder.bindData(itemList[position])
     }
 
-    private fun handleThemeChanges(view: View){
-        val backgroundColor = when (Preferences(view.context).theme){
-            Preferences.THEME_LIGHT -> ContextCompat.getColor(view.context, R.color.colorCardLight)
-            Preferences.THEME_DARK -> ContextCompat.getColor(view.context, R.color.colorCardDark)
-            Preferences.THEME_AMOLED -> ContextCompat.getColor(view.context, R.color.colorGenericBlack)
-            else -> ContextCompat.getColor(view.context, android.R.color.transparent)
-        }
-        view.setBackgroundColor(backgroundColor)
-    }
-
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
         private val titleView: TextView = itemView.findViewById(R.id.titleView)
         private val subtitleView: TextView = itemView.findViewById(R.id.subtitleView)
 
         fun bindData(notification: Notification){
-            handleThemeChanges(itemView)
 
             titleView.text = notification.title
             subtitleView.text = notification.content
@@ -61,7 +50,6 @@ class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>(
             val colorID: Int? = when (Preferences(itemView.context).theme){
                 Preferences.THEME_LIGHT -> R.color.colorDefault
                 Preferences.THEME_DARK -> R.color.colorGenericWhite
-                Preferences.THEME_AMOLED -> R.color.colorGenericWhite
                 else -> null
             }
 

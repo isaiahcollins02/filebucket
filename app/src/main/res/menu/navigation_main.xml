@@ -10,13 +10,13 @@
 
     <item
             android:id="@+id/navigation_repositories"
-            android:title="@string/navigation_repositories"
+            android:title="@string/navigation_boxes"
             android:icon="@drawable/ic_vector_repositories"
             app:iconTint="@color/colorSecondaryText"/>
 
     <item
             android:id="@+id/navigation_collections"
-            android:title="@string/navigation_collections"
+            android:title="@string/navigation_saved"
             android:icon="@drawable/ic_vector_collections"
             app:iconTint="@color/colorSecondaryText"/>
 

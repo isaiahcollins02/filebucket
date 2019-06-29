@@ -25,7 +25,7 @@ import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.constants.Parameters
 import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
-import com.isaiahvonrundstedt.bucket.utils.Client
+import com.isaiahvonrundstedt.bucket.utils.Account
 
 class RepoFragment: BaseFragment(), TransferListener{
 
@@ -49,7 +49,7 @@ class RepoFragment: BaseFragment(), TransferListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fullName = Client(context!!).fullName
+        fullName = Account(context!!).fullName
         downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
         downloadReceiver = object: BroadcastReceiver(){

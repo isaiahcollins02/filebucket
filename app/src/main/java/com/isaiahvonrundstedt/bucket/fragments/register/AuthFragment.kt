@@ -5,15 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.objects.User
 import com.kaopiz.kprogresshud.KProgressHUD
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
@@ -29,7 +29,7 @@ class AuthFragment: Fragment() {
     private lateinit var rootView: View
     private lateinit var passwordField: ExtendedEditText
     private lateinit var confirmPasswordField: ExtendedEditText
-    private lateinit var registerButton: MaterialButton
+    private lateinit var registerButton: AppCompatTextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,7 @@ class AuthFragment: Fragment() {
                     if (it.isSuccessful) {
                         val userID: String = it.result?.user!!.uid
 
-                        val newAccount = Account().also { thisObject ->
+                        val newAccount = User().also { thisObject ->
                             thisObject.firstName = firstName
                             thisObject.lastName = lastName
                             thisObject.email = email

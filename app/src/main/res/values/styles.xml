@@ -1,94 +1,35 @@
 <resources>
 
-    <!-- Base application isDark. -->
-    <style name="AppTheme.Core.Dark" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="AppTheme.Core" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorDefault</item>
         <item name="colorPrimaryDark">@color/colorDefaultDark</item>
         <item name="colorAccent">@color/colorDefault</item>
-        <item name="colorBackgroundFloating">@color/colorToolbarDark</item>
-        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
-        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
-        <item name="android:windowBackground">@color/colorWindowBackgroundDark</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
         <item name="md_corner_radius">8dp</item>
-        <item name="md_color_content">@color/colorPrimaryText</item>
         <item name="md_color_button_text">@color/colorDefault</item>
     </style>
 
-    <style name="AppTheme.Core.AMOLED" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="colorPrimary">@color/colorDefault</item>
-        <item name="colorPrimaryDark">@color/colorDefaultDark</item>
-        <item name="colorAccent">@color/colorDefault</item>
-        <item name="colorBackgroundFloating">@color/colorGenericBlack</item>
-        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
-        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
-        <item name="android:windowBackground">@color/colorWindowBackgroundAMOLED</item>
-        <item name="md_corner_radius">8dp</item>
-        <item name="md_color_content">@color/colorPrimaryText</item>
-        <item name="md_color_button_text">@color/colorDefault</item>
-    </style>
+    <style name="AppTheme.Drawer" parent="AppTheme.Core"/>
 
-    <style name="AppTheme.Core.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorDefault</item>
-        <item name="colorPrimaryDark">@color/colorDefaultDark</item>
-        <item name="colorAccent">@color/colorDefault</item>
-        <item name="android:windowBackground">@color/colorWindowBackgroundLight</item>
-        <item name="md_corner_radius">8dp</item>
-        <item name="md_color_content">@color/colorSecondaryText</item>
-        <item name="md_color_button_text">@color/colorDefault</item>
-    </style>
-
-    <style name="AppTheme.FirstRun" parent="AppTheme.Core.Light">
-        <item name="android:windowBackground">@color/colorFirstRunBackground</item>
+    <style name="AppTheme.FirstRun" parent="AppTheme.Core">
         <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
     </style>
 
     <!-- UI Components -->
     <!-- BottomSheets, Dialogs etc -->
 
-    <style name="AppTheme.BottomSheet.Light" parent="BaseBottomSheetDialog.Light"/>
-
-    <style name="AppTheme.BottomSheet.Dark" parent="BaseBottomSheetDialog.Dark"/>
-
-    <style name="AppTheme.BottomSheet.AMOLED" parent="BaseBottomSheetDialog.AMOLED"/>
+    <style name="AppTheme.BottomSheet" parent="BaseBottomSheetDialog"/>
 
     <style name="BaseBottomSheetDialog.Light" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="colorPrimary">@color/colorDefault</item>
         <item name="colorPrimaryDark">@color/colorDefaultDark</item>
         <item name="colorAccent">@color/colorDefault</item>
         <item name="android:windowIsFloating">false</item>
-        <item name="bottomSheetStyle">@style/BottomSheetLayout.Light</item>
+        <item name="bottomSheetStyle">@style/BottomSheetLayout</item>
     </style>
 
-    <style name="BaseBottomSheetDialog.Dark" parent="Theme.Design.BottomSheetDialog">
-        <item name="colorPrimary">@color/colorDefault</item>
-        <item name="colorPrimaryDark">@color/colorDefaultDark</item>
-        <item name="colorAccent">@color/colorDefault</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="bottomSheetStyle">@style/BottomSheetLayout.Dark</item>
-    </style>
-
-    <style name="BaseBottomSheetDialog.AMOLED" parent="Theme.Design.BottomSheetDialog">
-        <item name="colorPrimary">@color/colorDefault</item>
-        <item name="colorPrimaryDark">@color/colorDefaultDark</item>
-        <item name="colorAccent">@color/colorDefault</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="bottomSheetStyle">@style/BottomSheetLayout.AMOLED</item>
-    </style>
-
-    <style name="BottomSheetLayout.Light" parent="Widget.Design.BottomSheet.Modal">
+    <style name="BottomSheetLayout" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/shape_sheet_light</item>
-        <item name="android:layout_marginStart">@dimen/bottom_sheet_margin_start</item>
-        <item name="android:layout_marginEnd">@dimen/bottom_sheet_margin_end</item>
-    </style>
-
-    <style name="BottomSheetLayout.Dark" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/shape_sheet_dark</item>
-        <item name="android:layout_marginStart">@dimen/bottom_sheet_margin_start</item>
-        <item name="android:layout_marginEnd">@dimen/bottom_sheet_margin_end</item>
-    </style>
-
-    <style name="BottomSheetLayout.AMOLED" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/shape_sheet_amoled</item>
         <item name="android:layout_marginStart">@dimen/bottom_sheet_margin_start</item>
         <item name="android:layout_marginEnd">@dimen/bottom_sheet_margin_end</item>
     </style>
@@ -105,19 +46,20 @@
     <!-- Widgets -->
     <!-- ActionBars, Buttons, TextFields and etc -->
 
-    <style name="AppTheme.Toolbar.Light" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
+    <style name="AppTheme.Widget.Toolbar" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:background">@color/colorToolbar</item>
         <item name="toolbarStyle">@style/AppTheme.Toolbar.Guidelines</item>
-        <item name="toolbarNavigationButtonStyle">@style/AppTheme.Toolbar.Button.Navigation.Light</item>
+        <item name="toolbarNavigationButtonStyle">@style/AppTheme.Toolbar.Button.Navigation</item>
         <item name="actionOverflowButtonStyle">@style/AppTheme.ActionButton.Overflow</item>
     </style>
 
-    <style name="AppTheme.Toolbar.Dark" parent="Theme.MaterialComponents">
-        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
+    <style name="AppTheme.Widget.Toolbar.Drawer" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:textColorPrimary">@color/colorGenericWhite</item>
+        <item name="colorControlNormal">@color/colorGenericWhite</item>
         <item name="toolbarStyle">@style/AppTheme.Toolbar.Guidelines</item>
-        <item name="toolbarNavigationButtonStyle">@style/AppTheme.Toolbar.Button.Navigation.Dark</item>
+        <item name="toolbarNavigationButtonStyle">@style/AppTheme.Toolbar.Button.Navigation</item>
         <item name="actionOverflowButtonStyle">@style/AppTheme.ActionButton.Overflow</item>
-    </style>
+</style>
 
     <style name="AppTheme.Toolbar.Guidelines" parent="Widget.AppCompat.Toolbar">
         <item name="android:paddingLeft">@dimen/toolbar_horizontal_padding</item>
@@ -126,20 +68,15 @@
         <item name="maxButtonHeight">48dp</item>
     </style>
 
-    <style name="AppTheme.Toolbar.Button.Navigation.Light" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+    <style name="AppTheme.Toolbar.Button.Navigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="android:tint">@color/colorDefault</item>
         <item name="android:minWidth">48dp</item>
     </style>
-    <style name="AppTheme.Toolbar.Button.Navigation.Dark" parent="Widget.AppCompat.Toolbar.Button.Navigation">
-        <item name="android:tint">@color/colorSecondaryText</item>
-        <item name="android:minWidth">48dp</item>
-    </style>
     <style name="AppTheme.ActionButton.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:tint">@color/colorSecondaryText</item>
+        <item name="android:tint">@color/colorDefault</item>
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
     </style>
-
 
     <style name="AppTheme.Widget.Button" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/colorDefault</item>

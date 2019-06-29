@@ -1,113 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout   xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+<RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            app:srcCompat="@drawable/ic_vector_edit"
-            app:tint="@color/colorGenericWhite"/>
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
-            android:text="@string/register_to_drop_bucket"
-            android:textColor="@color/colorGenericWhite"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_gravity="center"
-            android:text="@string/provide_the_required_information"
-            android:textColor="@color/colorDefaultLight"/>
-
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            app:primaryColor="@color/colorGenericWhite"
-            app:secondaryColor="@color/colorDefaultLight"
-            app:hasFocus="true"
-            app:hasClearButton="true"
-            app:labelText="@string/hint_first_name">
-
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/firstNameField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"
-                android:imeOptions="actionNext"
-                android:textColor="@color/colorGenericWhite"/>
-
-    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            app:primaryColor="@color/colorGenericWhite"
-            app:secondaryColor="@color/colorDefaultLight"
-            app:hasClearButton="true"
-            app:labelText="@string/hint_last_name">
-
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/lastNameField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"
-                android:imeOptions="actionNext"
-                android:textColor="@color/colorGenericWhite"/>
-
-    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            app:primaryColor="@color/colorGenericWhite"
-            app:secondaryColor="@color/colorDefaultLight"
-            app:hasClearButton="true"
-            app:labelText="@string/hint_email">
-
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/emailField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:imeOptions="actionDone"
-                android:textColor="@color/colorGenericWhite"/>
-
-    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/continueButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
             android:paddingStart="48dp"
-            android:paddingEnd="48dp"
-            android:layout_gravity="center"
-            android:text="@string/button_continue"
-            android:textColor="@color/colorDefault"
-            app:backgroundTint="@color/colorGenericWhite"
-            style="@style/AppTheme.Widget.Button"/>
+            android:paddingEnd="48dp">
 
-</LinearLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/register_to_drop_bucket"
+                android:textSize="32sp"
+                android:textColor="@color/colorDefault"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="@string/provide_the_required_information"
+                android:textColor="@color/colorHelperText"/>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                app:primaryColor="@color/colorDefault"
+                app:secondaryColor="@color/colorHelperText"
+                app:hasFocus="true"
+                app:hasClearButton="true"
+                app:labelText="@string/hint_first_name">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/firstNameField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:textColor="@color/colorGenericBlack"/>
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp"
+                app:primaryColor="@color/colorDefault"
+                app:secondaryColor="@color/colorHelperText"
+                app:hasClearButton="true"
+                app:labelText="@string/hint_last_name">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/lastNameField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:textColor="@color/colorGenericBlack"/>
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:primaryColor="@color/colorDefault"
+                app:secondaryColor="@color/colorHelperText"
+                app:hasClearButton="true"
+                app:labelText="@string/hint_email">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/emailField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:imeOptions="actionDone"
+                    android:textColor="@color/colorGenericBlack"/>
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    </LinearLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorDefault"
+            android:layout_alignParentBottom="true">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/continueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:gravity="center"
+                android:text="@string/button_continue"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryText"
+                android:layout_alignParentEnd="true"
+                android:focusable="true"
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_vector_next"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

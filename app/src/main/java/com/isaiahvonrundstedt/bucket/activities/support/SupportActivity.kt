@@ -8,13 +8,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.objects.Support
 import com.kaopiz.kprogresshud.KProgressHUD
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
-class SupportActivity: BaseActivity() {
+class SupportActivity: BaseAppBarActivity() {
 
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()

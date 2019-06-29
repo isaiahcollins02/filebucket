@@ -13,7 +13,6 @@ class Preferences(val context: Context?) {
 
         const val THEME_LIGHT = "light"
         const val THEME_DARK = "dark"
-        const val THEME_AMOLED = "amoled"
     }
 
     private var sharedPreferences: SharedPreferences? = null

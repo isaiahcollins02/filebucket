@@ -13,8 +13,8 @@ import com.isaiahvonrundstedt.bucket.utils.converters.TimestampConverter
 @TypeConverters(TimestampConverter::class)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun collectionAccessor(): CollectionAccessor
-    abstract fun notificationAccessor(): NotificationAccessor
+    abstract fun collectionAccessor(): SavedDAO
+    abstract fun notificationAccessor(): NotificationDAO
 
     companion object {
         private var INSTANCE: AppDatabase? = null

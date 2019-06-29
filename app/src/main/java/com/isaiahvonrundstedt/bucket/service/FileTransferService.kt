@@ -18,12 +18,10 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.objects.File
-import com.isaiahvonrundstedt.bucket.utils.Client
+import com.isaiahvonrundstedt.bucket.utils.Account
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 
-open class TransferService: BaseService() {
-
-    private var actionType: String? = null
+class FileTransferService: BaseService() {
 
     private lateinit var storageReference: StorageReference
     private lateinit var firestore: FirebaseFirestore
@@ -42,93 +40,45 @@ open class TransferService: BaseService() {
     }
 
     companion object {
-        const val ACTION_UPLOAD = "action_upload"
-        const val UPLOAD_COMPLETED = "upload_completed"
-        const val UPLOAD_ERROR = "upload_error"
-        const val UPLOAD_TYPE = "upload_type"
+        const val actionUpload = "action_upload"
+        const val actionCompleted = "upload_completed"
 
-        const val EXTRA_FILE_URI = "extra_file_uri"
-        const val EXTRA_DOWNLOAD_URL = "extra_download_url"
+        const val uploadError = "upload_error"
+        const val uploadType = "upload_type"
 
-        const val TYPE_FILE = "file"
-        const val TYPE_PROFILE = "profile"
+        const val extraFileURI = "extra_file_uri"
+        const val extraDownloadURL = "extra_download_url"
 
         val intentFilter: IntentFilter
             get() {
                 val filter = IntentFilter()
-                filter.addAction(UPLOAD_COMPLETED)
-                filter.addAction(UPLOAD_ERROR)
+                filter.addAction(actionCompleted)
+                filter.addAction(uploadError)
                 return filter
             }
 
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (ACTION_UPLOAD == intent?.action){
-            val fileUri = intent.getParcelableExtra<Uri>(EXTRA_FILE_URI)
+        if (actionUpload == intent?.action){
+            val fileUri = intent.getParcelableExtra<Uri>(extraFileURI)
 
-            actionType = intent.getStringExtra(UPLOAD_TYPE)
-            if (actionType == TYPE_FILE)
-                uploadFile(fileUri)
-            else if (actionType == TYPE_PROFILE)
-                uploadProfile(fileUri)
+            uploadFile(fileUri)
         }
 
         return START_REDELIVER_INTENT
     }
-
-    private fun uploadProfile(fileUri: Uri){
-        taskStarted()
-
-        showProgressNotification(getString(R.string.notification_updating_profile), 0, 0)
-
-        val profileReference = storageReference.child(Firebase.PROFILES.string).child(fileUri.lastPathSegment!!)
-
-        profileReference.putFile(fileUri)
-            .addOnProgressListener {
-                showProgressNotification(getString(R.string.notification_updating_profile)
-                    , it.bytesTransferred, it.totalByteCount)
-            }
-            .continueWithTask {
-                if (!it.isSuccessful)
-                    throw it.exception!!
-
-                // Request downloadURL of file
-                profileReference.downloadUrl
-            }.addOnSuccessListener { downloadUri ->
-
-                // Broadcast whether the task is successful or not
-                broadcastUploadFinished(downloadUri, fileUri)
-
-                // Send a notification to the user
-                showUploadFinishedNotification(downloadUri, fileUri)
-
-                // Package the localCache for the location of the file in the server
-                finalizeProfileUpload(downloadUri)
-            }.addOnFailureListener {
-
-                // Broadcast whether the task is successful or not
-                broadcastUploadFinished(null, fileUri)
-
-                // Send a notification to the user
-                showUploadFinishedNotification(null, fileUri)
-
-                // Task is Completed
-                taskCompleted()
-            }
-    }
-
     private fun uploadFile(fileUri: Uri){
         taskStarted()
 
-        showProgressNotification(getString(R.string.status_file_uploading), 0, 0)
+        showProgressNotification(fileUri.lastPathSegment!!, 0, 0)
 
         // Get a reference to store a file at files reference
         val fileReference = storageReference.child(Firebase.FILES.string).child(fileUri.lastPathSegment!!)
 
         fileReference.putFile(fileUri)
             .addOnProgressListener { taskSnapshot ->
-                showProgressNotification(getString(R.string.status_file_uploading),
+                showProgressNotification(getString(R.string.notification_transferring),
                     taskSnapshot.bytesTransferred, taskSnapshot.totalByteCount)
             }.continueWithTask {  task ->
                 // Forward any exceptions
@@ -138,23 +88,19 @@ open class TransferService: BaseService() {
                 // Request the downloadURL
                 fileReference.downloadUrl
             }.addOnSuccessListener { downloadUri ->
-
                 // Broadcast whether the task is successful or not
                 broadcastUploadFinished(downloadUri, fileUri)
 
                 // Send a notification to the user
                 showUploadFinishedNotification(downloadUri, fileUri)
-
                 // Package the localCache for the location of the file in the server
-                finalizeFileUpload(downloadUri, fileUri)
+                finalizeTransfer(downloadUri, fileUri)
             }.addOnFailureListener {
-
                 // Broadcast whether the task is successful or not
                 broadcastUploadFinished(null, fileUri)
 
                 // Send a notification to the user
                 showUploadFinishedNotification(null, fileUri)
-
                 // Task is Completed
                 taskCompleted()
             }
@@ -165,10 +111,10 @@ open class TransferService: BaseService() {
     private fun broadcastUploadFinished(downloadURL: Uri?, fileURI: Uri?): Boolean {
         val success = downloadURL != null
 
-        val action = if (success) UPLOAD_COMPLETED else UPLOAD_ERROR
+        val action = if (success) actionCompleted else uploadError
         val broadcast = Intent(action)
-            .putExtra(EXTRA_DOWNLOAD_URL, downloadURL)
-            .putExtra(EXTRA_FILE_URI, fileURI)
+            .putExtra(extraDownloadURL, downloadURL)
+            .putExtra(extraFileURI, fileURI)
         return LocalBroadcastManager.getInstance(applicationContext)
             .sendBroadcast(broadcast)
     }
@@ -180,36 +126,15 @@ open class TransferService: BaseService() {
 
         // Make intent to MainActivity
         val intent = Intent(this, MainActivity::class.java)
-            .putExtra(EXTRA_DOWNLOAD_URL, downloadUri)
-            .putExtra(EXTRA_FILE_URI, fileUri)
+            .putExtra(extraDownloadURL, downloadUri)
+            .putExtra(extraFileURI, fileUri)
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
 
         val success = downloadUri != null
         val caption = if (success) getString(R.string.file_upload_success) else getString(R.string.file_upload_error)
         showFinishedNotification(caption, intent, success)
     }
-    private fun finalizeProfileUpload(downloadUri: Uri?) {
-        val profileReference = firestore.collection(Firebase.USERS.string)
-
-        val userID: String? = firebaseAuth.currentUser?.uid
-
-        if (downloadUri != null && userID != null) {
-            Thread().run {
-
-                val map: HashMap<String, Any?> = HashMap()
-                map["imageURL"] = downloadUri.toString()
-
-                profileReference.document(userID).update(map)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful)
-                            taskCompleted()
-                    }
-                // Operates on new thread
-            }
-        } else
-            Log.i("DataError", "Download URI is null")
-    }
-    private fun finalizeFileUpload(downloadUri: Uri?, selectedFileUri: Uri?) {
+    private fun finalizeTransfer(downloadUri: Uri?, selectedFileUri: Uri?) {
         val fileReference = firestore.collection(Firebase.FILES.string)
 
         if (downloadUri != null) {
@@ -221,7 +146,7 @@ open class TransferService: BaseService() {
             file.fileSize = bufferedFile.length().toDouble()
             file.downloadURL = downloadUri.toString()
             file.fileType = ItemManager.obtainFileExtension(selectedFileUri!!)
-            file.author = Client(this@TransferService).fullName
+            file.author = Account(this@FileTransferService).fullName
             file.timestamp = Timestamp.now()
 
             fileReference.add(file)
@@ -233,23 +158,23 @@ open class TransferService: BaseService() {
             Log.i("DataError", "Download URI is null")
     }
     // Show notification with a progress bar
-    private fun showProgressNotification(caption: String, completedUnits: Long, totalUnits: Long){
+    private fun showProgressNotification(fileName: String, completedUnits: Long, totalUnits: Long){
         val percentComplete: Int
         if (totalUnits > 0){
             percentComplete = (100 * completedUnits / totalUnits).toInt()
 
             createDefaultChannel()
 
-            val builder = NotificationCompat.Builder(this, CHANNEL_ID_DEFAULT)
+            val builder = NotificationCompat.Builder(this, defaultChannel)
                 .setColor(ContextCompat.getColor(this, R.color.colorDefault))
                 .setSmallIcon(R.drawable.ic_vector_upload)
-                .setContentTitle(caption)
+                .setContentTitle(String.format(getString(R.string.notification_percent_complete), fileName))
                 .setContentText(String.format(getString(R.string.notification_percent_complete), percentComplete))
                 .setProgress(100, percentComplete, false)
                 .setOngoing(true)
                 .setAutoCancel(false)
 
-            manager.notify(PROGRESS_NOTIFICATION_ID, builder.build())
+            manager.notify(inProgressNotificationID, builder.build())
         }
     }
 
@@ -261,17 +186,16 @@ open class TransferService: BaseService() {
         val icon = if (success) R.drawable.ic_vector_check else R.drawable.ic_vector_error
 
         createDefaultChannel()
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID_DEFAULT)
+        val builder = NotificationCompat.Builder(this, defaultChannel)
             .setSmallIcon(icon)
             .setContentTitle(caption)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
 
-        manager.notify(FINISHED_NOTIFICATION_ID, builder.build())
-
+        manager.notify(finishedNotificationID, builder.build())
     }
 
     private fun dismissProgressNotification(){
-        manager.cancel(PROGRESS_NOTIFICATION_ID)
+        manager.cancel(inProgressNotificationID)
     }
 }

@@ -1,6 +1,5 @@
 package com.isaiahvonrundstedt.bucket.architecture.store
 
-import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -23,7 +22,7 @@ class FileRepository {
             mainQuery = mainQuery?.startAfter(lastVisible!!)
 
         mainQuery?.get()?.addOnSuccessListener { snapshots ->
-            lastVisible = snapshots.documents[snapshots.size() - 1]
+            //lastVisible = snapshots.documents[snapshots.size() - 1]
 
             onFetch(snapshots.map{
                 val file = it.toObject(File::class.java).apply {

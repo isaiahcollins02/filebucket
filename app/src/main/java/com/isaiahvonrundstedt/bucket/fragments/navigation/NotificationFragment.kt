@@ -13,7 +13,6 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.NotificationAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.NotificationViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.objects.Notification
 
 class NotificationFragment: BaseFragment() {
@@ -36,7 +35,6 @@ class NotificationFragment: BaseFragment() {
 
         adapter = NotificationAdapter()
         recyclerView = rootView.findViewById(R.id.recyclerView)
-        recyclerView.addItemDecoration(ItemDecoration(rootView.context))
         recyclerView.layoutManager = LinearLayoutManager(rootView.context)
         recyclerView.adapter = adapter
 

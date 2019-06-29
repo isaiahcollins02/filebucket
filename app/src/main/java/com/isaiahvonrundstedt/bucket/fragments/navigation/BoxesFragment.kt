@@ -1,6 +1,5 @@
 package com.isaiahvonrundstedt.bucket.fragments.navigation
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,28 +12,27 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.adapters.filterable.RepoAdapter
+import com.isaiahvonrundstedt.bucket.adapters.BoxesAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.objects.User
 
-class RepositoriesFragment: BaseFragment(), ScreenAction.Search {
+class BoxesFragment: BaseFragment(), ScreenAction.Search {
 
-    private val itemList: ArrayList<Account> = ArrayList()
+    private val itemList: ArrayList<User> = ArrayList()
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private lateinit var rootView: View
-    private lateinit var adapter: RepoAdapter
+    private lateinit var adapter: BoxesAdapter
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_repo, container, false)
+        rootView = inflater.inflate(R.layout.fragment_boxes, container, false)
 
-        adapter = RepoAdapter(itemList)
+        adapter = BoxesAdapter(itemList)
         swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
 
         recyclerView = rootView.findViewById(R.id.recyclerView)
@@ -58,23 +56,15 @@ class RepositoriesFragment: BaseFragment(), ScreenAction.Search {
         return rootView
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        if (activity is MainActivity)
-            (activity as MainActivity).setSearchListener(this)
-
-    }
-
     private fun onPopulate(){
         val userReference = firestore.collection(Firebase.USERS.string)
         userReference.get().addOnCompleteListener { task ->
             if (task.isSuccessful){
                 for (documentSnapshot in task.result!!){
-                    val account: Account = documentSnapshot.toObject(Account::class.java)
-                    account.accountID = documentSnapshot.id
-                    if (account.accountID != firebaseAuth.currentUser?.uid)
-                        itemList.add(account)
+                    val user: User = documentSnapshot.toObject(User::class.java)
+                    user.accountID = documentSnapshot.id
+                    if (user.accountID != firebaseAuth.currentUser?.uid)
+                        itemList.add(user)
                     itemList.sort()
                     adapter.notifyDataSetChanged()
                 }

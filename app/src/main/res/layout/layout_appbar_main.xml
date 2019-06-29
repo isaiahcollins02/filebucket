@@ -10,21 +10,19 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/colorToolbarDark"
-            android:theme="@style/AppTheme.Toolbar.Dark"
+            android:theme="@style/AppTheme.Widget.Toolbar"
             app:contentInsetStart="@dimen/activity_margin_start"
             app:contentInsetEnd="@dimen/activity_margin_end"
             app:contentInsetStartWithNavigation="@dimen/activity_margin_start"
             app:contentInsetEndWithActions="@dimen/activity_margin_end">
 
-            <TextView
-                    android:id="@+id/toolbarTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/colorGenericWhite"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    tools:text="Title"/>
+        <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                tools:text="Title"/>
 
     </androidx.appcompat.widget.Toolbar>
 

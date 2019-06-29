@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
@@ -16,7 +16,7 @@ class BasicFragment: Fragment() {
     private lateinit var firstNameField: ExtendedEditText
     private lateinit var lastNameField: ExtendedEditText
     private lateinit var emailField: ExtendedEditText
-    private lateinit var continueButton: MaterialButton
+    private lateinit var continueButton: AppCompatTextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_basic, container, false)

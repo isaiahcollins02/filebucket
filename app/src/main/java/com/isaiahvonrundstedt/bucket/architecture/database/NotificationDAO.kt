@@ -5,7 +5,7 @@ import androidx.room.*
 import com.isaiahvonrundstedt.bucket.objects.Notification
 
 @Dao
-interface NotificationAccessor {
+interface NotificationDAO {
 
     @Insert
     fun insert(notification: Notification)

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorDefault">#1976D2</color>
+    <color name="colorDefaultLight">#63A4FF</color>
+    <color name="colorDefaultDark">#FF004BA0</color>
+    <color name="colorWindowBackground">#191919</color>
+    <color name="colorCardBackground">#242424</color>
+    <color name="colorPreference">#191919</color>
+    <color name="colorToolbar">#242424</color>
+    <color name="colorStatusBar">#141414</color>
+    <color name="colorAppBarItem">#FFFFFF</color>
+
+    <color name="colorPrimaryText">#000000</color>
+    <color name="colorSecondaryText">#9C9C9C</color>
+    <color name="colorHelperText">#455A64</color>
+
+</resources>

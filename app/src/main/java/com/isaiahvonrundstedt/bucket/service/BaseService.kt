@@ -23,16 +23,17 @@ abstract class BaseService: Service(){
     }
 
     companion object {
-        const val CHANNEL_ID_DEFAULT = "default"
+        const val defaultChannel = "default"
+        const val transferChannel = "transfer"
 
-        internal const val PROGRESS_NOTIFICATION_ID = 0
-        internal const val FINISHED_NOTIFICATION_ID = 1
-        internal const val AVAILABLE_NOTIFICATION_ID = 2
+        internal const val inProgressNotificationID = 0
+        internal const val finishedNotificationID = 1
+        internal const val availableNotificationID = 2
 
-        const val ACTION_DOWNLOAD = "download"
-        const val ACTION_SAVE = "save"
+        const val actionDownload = "download"
+        const val actionSave = "save"
 
-        const val BUNDLE_ARGS = "objectArgs"
+        const val objectArgs = "objectArgs"
     }
 
     @Synchronized
@@ -47,7 +48,15 @@ abstract class BaseService: Service(){
     protected fun createDefaultChannel(){
         // Since Android 0reo (API Level 26) is needed
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val channel = NotificationChannel(CHANNEL_ID_DEFAULT, "Default", NotificationManager.IMPORTANCE_DEFAULT)
+            val channel = NotificationChannel(defaultChannel, "Default", NotificationManager.IMPORTANCE_DEFAULT)
+            manager.createNotificationChannel(channel)
+        }
+    }
+
+    protected fun createTransferChannel(){
+        // Since Android 0reo (API Level 26) is needed
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val channel = NotificationChannel(transferChannel, "Transfer", NotificationManager.IMPORTANCE_DEFAULT)
             manager.createNotificationChannel(channel)
         }
     }

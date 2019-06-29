@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.fragments.DetailFragment
 import com.isaiahvonrundstedt.bucket.fragments.profile.RepoFragment
 import com.isaiahvonrundstedt.bucket.fragments.profile.ResetFragment
 import com.isaiahvonrundstedt.bucket.fragments.profile.SecureFragment
 
-class FrameActivity: BaseActivity() {
+class FrameActivity: BaseAppBarActivity() {
 
     companion object {
         const val VIEW_TYPE_SENT: Int = 0

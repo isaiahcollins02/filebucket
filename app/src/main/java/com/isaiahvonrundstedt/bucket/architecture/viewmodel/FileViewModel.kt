@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.isaiahvonrundstedt.bucket.architecture.store.FileRepository
 import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 
 class FileViewModel(app: Application): AndroidViewModel(app) {
 
@@ -27,4 +28,18 @@ class FileViewModel(app: Application): AndroidViewModel(app) {
         initialList.clear()
     }
 
+    fun filterByCategory(item: Int){
+        val finalList = mutableListOf<File>()
+        val filterList = mutableListOf<File>()
+        repository.fetch { fileList ->
+            if (item != ItemManager.CATEGORY_ALL){
+                filterList.addAll(fileList)
+                filterList.forEachIndexed { _, file ->
+                    if (item == ItemManager.getFileCategory(file.fileType))
+                        finalList.add(file)
+                }
+            } else
+                finalList.addAll(fileList)
+        }
+    }
 }

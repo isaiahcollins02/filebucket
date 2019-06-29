@@ -14,9 +14,9 @@ import com.isaiahvonrundstedt.bucket.activities.auth.FirstRunActivity
 import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
 import com.isaiahvonrundstedt.bucket.activities.support.ProfileActivity
 import com.isaiahvonrundstedt.bucket.activities.support.SupportActivity
-import com.isaiahvonrundstedt.bucket.components.abstracts.BasePreference
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
-import com.isaiahvonrundstedt.bucket.utils.Client
+import com.isaiahvonrundstedt.bucket.components.abstracts.BasePreference
+import com.isaiahvonrundstedt.bucket.utils.Account
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 
@@ -30,8 +30,8 @@ class AccountFragment: BasePreference() {
         setPreferencesFromResource(R.xml.pref_settings, rootKey)
 
         val accountPref: Preference? = findPreference("accountPreference")
-        accountPref?.title = Client(context!!).fullName
-        accountPref?.summary = Client(context!!).email
+        accountPref?.title = Account(context!!).fullName
+        accountPref?.summary = Account(context!!).email
         accountPref?.setOnPreferenceClickListener {
             startActivity(Intent(context, ProfileActivity::class.java))
             return@setOnPreferenceClickListener true
@@ -74,15 +74,10 @@ class AccountFragment: BasePreference() {
             true
         }
 
-        val themeList = listOf(
-                getString(R.string.settings_theme_item_light),
-                getString(R.string.settings_theme_item_dark),
-                getString(R.string.settings_theme_item_amoled))
+        val themeList = listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark))
 
         val themePref: Preference = findPreference("appThemePreference")
-        themePref.summary =
-            if (Preferences(context).theme != Preferences.THEME_AMOLED) Preferences(context).theme.capitalize()
-            else getString(R.string.settings_theme_item_amoled)
+        themePref.summary = Preferences(context).theme.capitalize()
         themePref.setOnPreferenceClickListener {
             MaterialDialog(it.context).show {
                 title(R.string.settings_theme_dialog)
@@ -90,7 +85,6 @@ class AccountFragment: BasePreference() {
                     val newTheme: String? = when (theme){
                         getString(R.string.settings_theme_item_light) -> Preferences.THEME_LIGHT
                         getString(R.string.settings_theme_item_dark) -> Preferences.THEME_DARK
-                        getString(R.string.settings_theme_item_amoled) -> Preferences.THEME_AMOLED
                         else -> null
                     }
                     themePref.summary = theme

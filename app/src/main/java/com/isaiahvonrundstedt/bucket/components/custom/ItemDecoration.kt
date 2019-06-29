@@ -6,7 +6,7 @@ import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.isaiahvonrundstedt.bucket.adapters.filterable.CoreAdapter
+import com.isaiahvonrundstedt.bucket.adapters.CoreAdapter
 import com.isaiahvonrundstedt.bucket.utils.converters.MetricConverter
 
 class ItemDecoration (context: Context?): RecyclerView.ItemDecoration() {
@@ -36,24 +36,6 @@ class ItemDecoration (context: Context?): RecyclerView.ItemDecoration() {
 
             divider!!.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
             divider!!.draw(canvas)
-        }
-    }
-
-    override fun onDrawOver(canvas: Canvas, container: RecyclerView, state: RecyclerView.State) {
-        val dividerLeft = 0
-        val dividerRight = container.width
-
-        for (i in 0 until container.childCount){
-
-            val childView: View = container.getChildAt(i)
-            val layoutParameters: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
-
-            val dividerTop = childView.top + layoutParameters.topMargin
-            val dividerBottom = dividerTop + divider!!.intrinsicHeight
-
-            divider!!.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
-            divider!!.draw(canvas)
-
         }
     }
 

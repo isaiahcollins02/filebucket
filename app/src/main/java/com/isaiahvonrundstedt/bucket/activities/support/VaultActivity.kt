@@ -17,14 +17,14 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.filterable.VaultAdapter
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.constants.Parameters
 import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 
-class VaultActivity: BaseActivity(), SearchView.OnQueryTextListener, TransferListener {
+class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener, TransferListener {
 
     private var file: java.io.File? = null
     private var downloadURL: String? = null

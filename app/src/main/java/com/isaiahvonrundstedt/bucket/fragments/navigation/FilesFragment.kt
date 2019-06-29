@@ -21,31 +21,38 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.bottomsheets.BasicGridItem
+import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.afollestad.materialdialogs.bottomsheets.gridItems
 import com.afollestad.materialdialogs.files.fileChooser
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.adapters.filterable.CoreAdapter
+import com.isaiahvonrundstedt.bucket.adapters.CoreAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.FileViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
 import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
-import com.isaiahvonrundstedt.bucket.service.TransferService
+import com.isaiahvonrundstedt.bucket.service.FileTransferService
 import com.isaiahvonrundstedt.bucket.utils.Permissions
+import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import com.kaopiz.kprogresshud.KProgressHUD
-import com.leinardi.android.speeddial.SpeedDialView
 import gun0912.tedbottompicker.TedBottomPicker
 
-class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
+class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener{
 
     private var fileUri: Uri? = null
     private var downloadUri: Uri? = null
     private var transferListener: TransferListener? = null
+    private var receiver: BroadcastReceiver? = null
+    private var viewModel: FileViewModel? = null
 
     private val itemList: ArrayList<File> = ArrayList()
 
@@ -53,48 +60,45 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
 
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
-    private lateinit var defaultAction: SpeedDialView
+    private lateinit var defaultAction: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CoreAdapter
-    private lateinit var uploadReceiver: BroadcastReceiver
-    private lateinit var viewModel: FileViewModel
+    private lateinit var chipGroup: ChipGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        uploadReceiver = object: BroadcastReceiver(){
+        receiver = object: BroadcastReceiver(){
             override fun onReceive(context: Context?, intent: Intent?) {
                 when (intent?.action) {
-                    TransferService.UPLOAD_COMPLETED, TransferService.UPLOAD_ERROR -> onUploadResultIntent(intent)
+                    FileTransferService.actionCompleted, FileTransferService.uploadError -> onUploadResultIntent(intent)
                 }
             }
         }
+
+        adapter =
+            CoreAdapter(itemList, childFragmentManager, GlideApp.with(this), this)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (activity is MainActivity)
-            (activity as MainActivity).setSearchListener(this)
-
         viewModel = ViewModelProviders.of(this).get(FileViewModel::class.java)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_files, container, false)
 
         progressBar = rootView.findViewById(R.id.progressBar)
-        defaultAction = rootView.findViewById(R.id.addAction)
         swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
-        defaultAction.inflate(R.menu.action_main)
-
-        adapter = CoreAdapter(itemList, childFragmentManager, GlideApp.with(this), this)
-        onLoadAssets()
+        chipGroup = rootView.findViewById(R.id.chipGroup)
+        defaultAction = rootView.findViewById(R.id.addAction)
 
         recyclerView = rootView.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+
+        onLoadAssets()
 
         swipeRefreshContainer.setColorSchemeResources(
             R.color.colorIndicatorBlue,
@@ -103,7 +107,7 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
             R.color.colorIndicatorYellow
         )
         swipeRefreshContainer.setOnRefreshListener {
-            viewModel.refresh()
+            viewModel?.refresh()
         }
         return rootView
     }
@@ -118,16 +122,33 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
 
         val manager = LocalBroadcastManager.getInstance(context!!)
 
-        manager.registerReceiver(uploadReceiver, TransferService.intentFilter)
+        manager.registerReceiver(receiver!!, FileTransferService.intentFilter)
 
-        defaultAction.setOnActionSelectedListener {  actionItem ->
-            when (actionItem.id){
-                R.id.fileAction ->
-                    invokeFilePicker()
-                R.id.mediaAction ->
-                    invokePhotoPicker()
+        val items = listOf(
+            BasicGridItem(R.drawable.ic_vector_photo, getString(R.string.bottom_sheet_picker_media)),
+            BasicGridItem(R.drawable.ic_vector_files, getString(R.string.bottom_sheet_picker_file))
+        )
+
+        defaultAction.setOnClickListener {
+            MaterialDialog(it.context, BottomSheet()).show {
+                gridItems(items, customGridWidth = R.integer.bottom_sheet_picker_grid) { _, index, _ ->
+                    when (index){
+                        0 -> invokePhotoPicker()
+                        1 -> invokeFilePicker()
+                    }
+                }
+                title(R.string.bottom_sheet_picker_title)
             }
-            true
+        }
+
+        val filterChipItems = arrayListOf(
+            Chip(context).apply { text = getString(R.string.filter_all); setOnClickListener { viewModel?.filterByCategory(ItemManager.CATEGORY_ALL) }},
+            Chip(context).apply { text = getString(R.string.filter_documents); setOnClickListener { viewModel?.filterByCategory(ItemManager.CATEGORY_DOCUMENTS) }},
+            Chip(context).apply { text = getString(R.string.filter_code); setOnClickListener { viewModel?.filterByCategory(ItemManager.CATEGORY_CODES) }},
+            Chip(context).apply { text = getString(R.string.filter_media); setOnClickListener { viewModel?.filterByCategory(ItemManager.CATEGORY_MEDIA) }}
+        )
+        filterChipItems.forEachIndexed { _, chip ->
+            chipGroup.addView(chip as View)
         }
     }
 
@@ -135,13 +156,10 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
         super.onStop()
 
         // Unregister broadcast receiver
-        LocalBroadcastManager.getInstance(context!!).unregisterReceiver(uploadReceiver)
+        LocalBroadcastManager.getInstance(context!!).unregisterReceiver(receiver!!)
     }
 
     private fun invokePhotoPicker(){
-        if (defaultAction.isOpen)
-            defaultAction.close()
-
         TedBottomPicker.with(activity)
             .setImageProvider { imageView, imageUri ->
                 val requestOptions = RequestOptions()
@@ -159,9 +177,6 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
     }
 
     private fun invokeFilePicker(){
-        if (defaultAction.isOpen)
-            defaultAction.close()
-
         if (Permissions(rootView.context).readAccessGranted) {
             MaterialDialog(context!!).show {
                 fileChooser { _, file ->
@@ -184,16 +199,15 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
         fileUri = uri
         downloadUri = null
 
-        context?.startService(Intent(context, TransferService::class.java)
-            .putExtra(TransferService.EXTRA_FILE_URI, uri)
-            .putExtra(TransferService.UPLOAD_TYPE, TransferService.TYPE_FILE )
-            .setAction(TransferService.ACTION_UPLOAD))
+        context?.startService(Intent(context, FileTransferService::class.java)
+            .putExtra(FileTransferService.extraFileURI, uri)
+            .setAction(FileTransferService.actionUpload))
 
         progress.dismiss()
     }
 
     private fun onLoadAssets(){
-        viewModel.itemList.observe(this, Observer { itemList ->
+        viewModel?.itemList?.observe(this, Observer { itemList ->
             this.itemList.addAll(itemList)
             adapter.notifyDataSetChanged()
 
@@ -216,8 +230,8 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
     }
     private fun onUploadResultIntent(intent: Intent){
         // Get a new intent from Upload Service with a success or failure
-        downloadUri = intent.getParcelableExtra(TransferService.EXTRA_DOWNLOAD_URL)
-        fileUri = intent.getParcelableExtra(TransferService.EXTRA_FILE_URI)
+        downloadUri = intent.getParcelableExtra(FileTransferService.extraDownloadURL)
+        fileUri = intent.getParcelableExtra(FileTransferService.extraFileURI)
 
         // Show a feedback to the user when a task in the service has been completed
         if (downloadUri != null && fileUri != null){

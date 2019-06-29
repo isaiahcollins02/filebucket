@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.webkit.WebView
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 
-class WebViewActivity: BaseActivity() {
+class WebViewActivity: BaseAppBarActivity() {
 
     companion object {
         const val VIEW_TYPE_TERMS = 0

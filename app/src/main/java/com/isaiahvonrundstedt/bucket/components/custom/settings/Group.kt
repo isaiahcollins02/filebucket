@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceViewHolder
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.utils.Preferences
 
 class Group @JvmOverloads constructor (
             context: Context? = null,
@@ -18,12 +17,6 @@ class Group @JvmOverloads constructor (
 
     override fun onBindViewHolder(container: PreferenceViewHolder?) {
         super.onBindViewHolder(container)
-        val colorID = when (Preferences(context).theme){
-            Preferences.THEME_LIGHT -> R.color.colorPreferenceLight
-            Preferences.THEME_DARK -> R.color.colorPreferenceDark
-            Preferences.THEME_AMOLED -> R.color.colorPreferenceAMOLED
-            else -> null
-        }
-        container?.itemView?.setBackgroundResource(colorID!!)
+        container?.itemView?.setBackgroundResource(R.color.colorPreference)
     }
 }

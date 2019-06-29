@@ -6,7 +6,7 @@ import com.isaiahvonrundstedt.bucket.objects.File
 import org.jetbrains.annotations.NotNull
 
 @Dao
-interface CollectionAccessor {
+interface SavedDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(file: File)
