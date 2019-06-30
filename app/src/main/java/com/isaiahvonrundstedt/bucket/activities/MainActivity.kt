@@ -46,7 +46,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_appbar_drawer.*
 
 class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigationItemSelectedListener,
-    SharedPreferences.OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener {
+     SearchView.OnQueryTextListener {
 
     private var downloadID: Long? = 0L
     private var selectedItem: Int? = 0
@@ -204,7 +204,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     override fun onStart() {
         super.onStart()
         registerReceiver(transferReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onResume() {
@@ -260,11 +259,5 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     override fun onStop() {
         super.onStop()
         unregisterReceiver(transferReceiver)
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-/*        if (key == "appThemePreference")
-            startActivity(Intent(intent))*/
     }
 }

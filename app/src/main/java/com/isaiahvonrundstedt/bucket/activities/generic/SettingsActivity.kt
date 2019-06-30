@@ -1,12 +1,17 @@
 package com.isaiahvonrundstedt.bucket.activities.generic
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.fragments.preference.SettingsFragment
+import com.isaiahvonrundstedt.bucket.utils.Preferences
 
 class SettingsActivity: BaseAppBarActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

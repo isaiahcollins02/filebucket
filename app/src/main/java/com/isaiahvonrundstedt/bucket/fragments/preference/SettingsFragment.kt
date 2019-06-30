@@ -68,34 +68,30 @@ class SettingsFragment: BasePreference() {
         }
 
         val themeList = listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark))
-
         val themePref: Preference = findPreference("appThemePreference")
         themePref.summary = Preferences(context).theme.capitalize()
         themePref.setOnPreferenceClickListener {
             MaterialDialog(it.context).show {
                 title(R.string.settings_theme_dialog)
                 listItems(items = themeList){ _, _, theme ->
-                    when (theme){
-                        getString(R.string.settings_theme_item_light) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        getString(R.string.settings_theme_item_dark) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    }
                     val themeID : String? = when (theme){
                         getString(R.string.settings_theme_item_light) -> Preferences.THEME_LIGHT
                         getString(R.string.settings_theme_item_dark) -> Preferences.THEME_DARK
                         else -> null
                     }
+                    when (themeID){
+                        Preferences.THEME_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        Preferences.THEME_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    }
                     themePref.summary = theme
                     Preferences(it.context).theme = themeID!!
+
                 }
             }
             return@setOnPreferenceClickListener true
         }
 
-        val metadataList = listOf(
-            getString(R.string.settings_metadata_item_timestamp),
-            getString(R.string.settings_metadata_item_author)
-        )
-
+        val metadataList = listOf(getString(R.string.settings_metadata_item_timestamp), getString(R.string.settings_metadata_item_author))
         val metadataPref: Preference = findPreference("metadataPreference")
         metadataPref.summary = if (Preferences(context).metadata == Preferences.METADATA_TIMESTAMP)
             getString(R.string.settings_metadata_item_timestamp) else getString(R.string.settings_metadata_item_author)
