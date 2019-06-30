@@ -7,6 +7,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.isaiahvonrundstedt.bucket.BuildConfig
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.generic.LibrariesActivity
+import com.isaiahvonrundstedt.bucket.activities.support.SupportActivity
 import com.isaiahvonrundstedt.bucket.activities.wrapper.WebViewActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BasePreference
 
@@ -50,6 +51,13 @@ class AboutFragment: BasePreference() {
                 count = 0
             } else
                 count++
+            true
+        }
+
+
+        val supportPref: Preference? = findPreference("supportPreference")
+        supportPref?.setOnPreferenceClickListener {
+            startActivity(Intent(it.context, SupportActivity::class.java))
             true
         }
 

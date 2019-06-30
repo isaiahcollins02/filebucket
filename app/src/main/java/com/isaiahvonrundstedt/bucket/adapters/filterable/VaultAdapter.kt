@@ -13,10 +13,12 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.net.toUri
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
+import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
 import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
 import com.isaiahvonrundstedt.bucket.utils.Preferences
@@ -25,11 +27,11 @@ import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import java.text.DecimalFormat
 
 class VaultAdapter (private var itemList: ArrayList<File>,
-                    private var transferListener: TransferListener
+                    private var transferListener: TransferListener,
+                    private var fragmentManager: FragmentManager
     ): RecyclerView.Adapter<VaultAdapter.CoreViewHolder>(), Filterable {
 
     private var windowContext: Context? = null
-    private var selectedFile: File? = null
     private var filterList: ArrayList<File> = itemList
     private var filter: SentFiler? = null
     private var manager: DownloadManager? = null
@@ -62,7 +64,6 @@ class VaultAdapter (private var itemList: ArrayList<File>,
     }
 
     private fun invokeDialog(context: Context?, file: File?){
-
         val externalDir: String = Preferences(context).downloadDirectory!!
         val bufferedFile = java.io.File(externalDir, file?.name)
 
@@ -90,21 +91,16 @@ class VaultAdapter (private var itemList: ArrayList<File>,
 
         internal fun bindData(file: File){
             rootView.setOnClickListener {
-
-/*                if (Permissions(it.context!!).writeAccessGranted)
-                    invokeDialog(rootView.context, file)
-                else {
-                    selectedFile = file
-                    ActivityCompat.requestPermissions(it.context as Activity,
-                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), Permissions.WRITE_REQUEST)
-                }*/
-
-                var args = Bundle()
+                val args = Bundle()
                 args.putParcelable("fileArgs", file)
 
                 itemView.context.startActivity(Intent(itemView.context, FrameActivity::class.java)
-                    .putExtra("VIEW_TYPE", FrameActivity.VIEW_TYPE_DETAILS)
-                    .putExtra("VIEW_ARGS", args))
+                    .putExtra("viewType", FrameActivity.VIEW_TYPE_DETAILS)
+                    .putExtra("viewArgs", args))
+            }
+            rootView.setOnLongClickListener {
+                invokeBottomSheet(file)
+                true
             }
 
             iconView.setImageDrawable(ItemManager.getFileIcon(rootView.context, file.fileType))
@@ -115,6 +111,16 @@ class VaultAdapter (private var itemList: ArrayList<File>,
             sizeView.text = String.format(rootView.resources.getString(R.string.file_size_megabytes),
                 decimalFormat.format((file.fileSize / 1024) / 1024))
         }
+    }
+
+    private fun invokeBottomSheet(file: File?){
+        val argumentsBundle = Bundle().also {
+            it.putParcelable("file", file)
+        }
+
+        val bottomSheet = DetailsBottomSheet()
+        bottomSheet.arguments = argumentsBundle
+        bottomSheet.show(fragmentManager, "bottomSheet")
     }
 
     override fun getFilter(): Filter {

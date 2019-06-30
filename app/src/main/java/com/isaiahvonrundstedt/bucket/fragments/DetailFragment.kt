@@ -68,13 +68,6 @@ class DetailFragment: BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        iconView.setImageDrawable(ItemManager.getFileIcon(context, file?.fileType))
-        titleView.text = file?.name
-        authorView.text = file?.author
-        fileSizeView.text = file?.fileSize.toString()
-        fileTypeView?.text = ItemManager.getFileType(context, file?.fileType)
-        timestampView?.text = DataManager.formatTimestamp(context, file?.timestamp)
-
     }
 
     override fun onStop() {
@@ -89,12 +82,14 @@ class DetailFragment: BaseFragment() {
             savedDAO?.checkIfExists(file)
         }
 
-        iconView.setImageDrawable(ItemManager.getFileIcon(context, file?.fileType))
-        titleView.text = file?.name
-        val decimalFormat = DecimalFormat("#.##")
-        fileSizeView.text = String.format(context?.resources?.getString(R.string.sheet_file_size)!!, decimalFormat.format((file!!.fileSize / 1024) / 1024))
-        fileTypeView.text = String.format(context?.resources?.getString(R.string.sheet_file_type)!!, ItemManager.getFileType(context, file?.fileType))
-        authorView.text = String.format(context?.resources?.getString(R.string.sheet_file_author)!!, file?.author)
+        with(file!!){
+            titleView.text = name
+            authorView.text = author
+            iconView.setImageDrawable(ItemManager.getFileIcon(context, fileType))
+            sizeView.text = String.format(context?.getString(R.string.detail_file_size)!!, DecimalFormat("#.##").format((fileSize / 1024) / 1024))
+            typeView.text = String.format(context?.getString(R.string.detail_file_type)!!, ItemManager.getFileType(context, fileType))
+            timestampView.text = String.format(context?.getString(R.string.detail_file_timestamp)!!, DataManager.formatTimestamp(context, timestamp))
+        }
 
         collectionsButton.setOnClickListener {
             if (!fileInDatabase!!){

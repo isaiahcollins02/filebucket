@@ -66,8 +66,8 @@ class NotificationService: BaseService() {
         createDefaultChannel()
 
         val defaultAction = Intent(applicationContext, FrameActivity::class.java)
-        defaultAction.putExtra("VIEW_TYPE", FrameActivity.VIEW_TYPE_DETAILS)
-        defaultAction.putExtra("VIEW_ARGS", file)
+        defaultAction.putExtra("viewType", FrameActivity.VIEW_TYPE_DETAILS)
+        defaultAction.putExtra("viewArgs", file)
         val defaultIntent = PendingIntent.getBroadcast(applicationContext, 0, defaultAction, 0)
 
         val downloadAction = Intent(applicationContext, NotificationService::class.java)

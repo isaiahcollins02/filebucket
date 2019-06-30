@@ -1,94 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iconView"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_margin="@dimen/activity_margin"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:srcCompat="@drawable/ic_object_video"/>
-
-    <TextView
-            android:id="@+id/titleView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin"
-            android:layout_marginStart="@dimen/activity_margin_start"
-            android:layout_marginEnd="@dimen/activity_margin_end"
-            android:layout_marginBottom="8dp"
-            android:ellipsize="end"
-            android:maxLength="30"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/authorView"
-            app:layout_constraintStart_toEndOf="@id/iconView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            tools:text="Sample File"/>
-
-    <TextView
-            android:id="@+id/authorView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin_start"
-            android:layout_marginEnd="@dimen/activity_margin_end"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/titleView"
-            app:layout_constraintStart_toEndOf="@id/iconView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            tools:text="Author: Isaiah Collins von Ludendorff"/>
-
-    <!--
-    <View
-            android:id="@+id/dividerView"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="?android:attr/divider"
-            app:layout_constraintTop_toBottomOf="@id/iconView"
-            app:layout_constraintBottom_toTopOf="@id/fileTypeView"/>-->
-
-    <TextView
-            android:id="@+id/fileTypeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="@dimen/activity_margin_start"
-            android:layout_marginEnd="@dimen/activity_margin_end"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/iconView"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Generic Document"/>
-
-    <TextView
-            android:id="@+id/fileSizeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="@dimen/activity_margin_start"
-            android:layout_marginEnd="@dimen/activity_margin_end"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/fileTypeView"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="1.56 MB"/>
-
-    <TextView
-            android:id="@+id/timestampView"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="@dimen/activity_margin_start"
-            android:layout_marginEnd="@dimen/activity_margin_end"
-            app:layout_constraintTop_toBottomOf="@id/fileSizeView"
-            tools:text="Today, 4:16PM"/>
+            android:orientation="vertical"
+            android:background="@color/colorHighlightedBackground"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp"
+            android:paddingStart="@dimen/activity_margin_start"
+            android:paddingEnd="@dimen/activity_margin_end">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iconView"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:srcCompat="@drawable/ic_object_video"/>
+
+            <TextView
+                    android:id="@+id/titleView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="@dimen/activity_margin_start"
+                    android:layout_marginEnd="@dimen/activity_margin_end"
+                    android:ellipsize="end"
+                    android:maxLength="30"
+                    android:textSize="22sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/authorView"
+                    app:layout_constraintStart_toEndOf="@id/iconView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    tools:text="Sample File"/>
+
+            <TextView
+                    android:id="@+id/authorView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/titleView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iconView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    tools:text="Author: Isaiah Collins von Ludendorff"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+                android:id="@+id/typeView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/activity_margin_start"
+                android:layout_marginEnd="@dimen/activity_margin_end"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/iconView"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Generic Document"/>
+
+        <TextView
+                android:id="@+id/sizeView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="@dimen/activity_margin_start"
+                android:layout_marginEnd="@dimen/activity_margin_end"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/typeView"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="1.56 MB"/>
+
+        <TextView
+                android:id="@+id/timestampView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="@dimen/activity_margin_start"
+                android:layout_marginEnd="@dimen/activity_margin_end"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/sizeView"
+                tools:text="Today, 4:16PM"/>
+
+    </LinearLayout>
 
     <LinearLayout
             android:id="@+id/childView"
@@ -98,10 +115,7 @@
             android:layout_marginStart="@dimen/activity_margin_start"
             android:layout_marginEnd="@dimen/activity_margin_end"
             android:orientation="horizontal"
-            android:weightSum="1"
-            app:layout_constraintTop_toBottomOf="@id/timestampView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:weightSum="1">
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/collectionsButton"
@@ -130,17 +144,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_margin"
-            android:text="@string/files_related_repository"
+            android:text="@string/detail_related_boxes"
             android:textColor="@color/colorDefault"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            app:layout_constraintTop_toBottomOf="@id/childView"
-            app:layout_constraintBottom_toTopOf="@id/recyclerView"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/supportFilesView"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_height="match_parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

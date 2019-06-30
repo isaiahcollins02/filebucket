@@ -52,7 +52,7 @@ class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener, Trans
         setToolbarTitle(String.format(resources.getString(R.string.file_user_repository), DataManager.sliceFullName(author!!)))
 
         downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        adapter = VaultAdapter(itemList, this)
+        adapter = VaultAdapter(itemList, this, supportFragmentManager)
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)

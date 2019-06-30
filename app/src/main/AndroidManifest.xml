@@ -44,6 +44,7 @@
         <activity android:name=".activities.generic.AboutActivity"/>
         <activity android:name=".activities.generic.LibrariesActivity"/>
         <activity android:name=".activities.support.SearchActivity"/>
+        <activity android:name=".activities.generic.SettingsActivity"/>
 
         <service android:name="com.isaiahvonrundstedt.bucket.service.FileTransferService"
                 android:exported="false"/>

@@ -17,10 +17,8 @@ import com.isaiahvonrundstedt.bucket.utils.Preferences
 abstract class BaseActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Set Activity Theme before creating
-        onThemeChanged()
+        onThemeApplied()
         super.onCreate(savedInstanceState)
-
         // Check if the running device is a tablet or a smartphone. Then if its a smartphone
         // lock the orientation to portrait
         val screenLayoutSize =
@@ -30,9 +28,7 @@ abstract class BaseActivity: AppCompatActivity() {
         }
     }
 
-    private fun onThemeChanged(){
-        // Get current user theme preference from SharedPreferences API
-        // (when null, it defaults to THEME_DEFAULT)
+    private fun onThemeApplied() {
         when (Preferences(this).theme){
             Preferences.THEME_LIGHT -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
             Preferences.THEME_DARK -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES

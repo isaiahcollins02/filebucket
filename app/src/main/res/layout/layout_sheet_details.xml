@@ -34,7 +34,7 @@
             tools:text="Sample File is the Best File"/>
 
     <TextView
-            android:id="@+id/fileTypeView"
+            android:id="@+id/typeView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -46,14 +46,14 @@
             tools:text="Generic Document"/>
 
     <TextView
-            android:id="@+id/fileSizeView"
+            android:id="@+id/sizeView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/fileTypeView"
+            app:layout_constraintTop_toBottomOf="@id/typeView"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="1.56 MB"/>
 
@@ -66,7 +66,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/fileSizeView"
+            app:layout_constraintTop_toBottomOf="@id/sizeView"
             app:layout_constraintBottom_toTopOf="@id/saveButton"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Author: Isaiah Collins von Ludendorff"/>

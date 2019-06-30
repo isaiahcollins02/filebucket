@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.fragments.DetailFragment
-import com.isaiahvonrundstedt.bucket.fragments.profile.RepoFragment
+import com.isaiahvonrundstedt.bucket.fragments.profile.BoxFragment
 import com.isaiahvonrundstedt.bucket.fragments.profile.ResetFragment
 import com.isaiahvonrundstedt.bucket.fragments.profile.SecureFragment
 
@@ -31,8 +31,8 @@ class FrameActivity: BaseAppBarActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val intent: Intent? = intent
-        userViewType = intent?.getIntExtra("VIEW_TYPE", 0)
-        viewArgs = intent?.getBundleExtra("VIEW_ARGS")
+        userViewType = intent?.getIntExtra("viewType", 0)
+        viewArgs = intent?.getBundleExtra("viewArgs")
 
         when(userViewType){
             VIEW_TYPE_SENT -> setToolbarTitle(getString(R.string.profile_view_repository))
@@ -54,7 +54,7 @@ class FrameActivity: BaseAppBarActivity() {
         super.onStart()
         
         when (userViewType){
-            VIEW_TYPE_SENT -> activeFragment = RepoFragment()
+            VIEW_TYPE_SENT -> activeFragment = BoxFragment()
             VIEW_TYPE_PASSWORD -> activeFragment = SecureFragment()
             VIEW_TYPE_RESET -> activeFragment = ResetFragment()
             VIEW_TYPE_DETAILS -> activeFragment = DetailFragment()

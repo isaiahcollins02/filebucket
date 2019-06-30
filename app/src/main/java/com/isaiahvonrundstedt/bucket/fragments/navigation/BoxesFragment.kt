@@ -1,5 +1,6 @@
 package com.isaiahvonrundstedt.bucket.fragments.navigation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
+import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.adapters.BoxesAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.constants.Firebase
@@ -73,6 +75,13 @@ class BoxesFragment: BaseFragment(), ScreenAction.Search {
             } else
                 Snackbar.make(rootView, R.string.status_error_occurred, Snackbar.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (activity is MainActivity)
+            (activity as MainActivity).initializeSearch(this)
     }
 
     override fun onSearch(searchQuery: String?) {

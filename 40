@@ -1,0 +1,31 @@
+[33mcommit add617f9a0089436a2e955af22b4ac255b11cb82[m[33m ([m[1;36mHEAD[m[33m)[m
+Author: Isaiah Collins von Rundstedt <isaiahcollins_02@live.com>
+Date:   Sat Jun 29 16:55:06 2019 +0800
+
+    Version 1.0.0 Beta 1
+    New Navigation Drawer
+    Revamped algorithms
+    Bug Fixes
+
+[33mcommit 4cf616d23c22bd9018e3f72c2c4904c427d96fd1[m
+Author: Isaiah Collins von Rundstedt <isaiahcollins_02@live.com>
+Date:   Thu Jun 20 17:43:08 2019 +0800
+
+    Under-the-hood Changes
+    Room Migration
+    Android Architecture Components Integration
+    Improved Notifications
+    Performance Optimizations
+    Bug Fixes
+
+[33mcommit 68894f98517301a01b45056d738bdbb2557c4a3d[m
+Author: Isaiah Collins von Rundstedt <isaiahcollins_02@live.com>
+Date:   Fri Jun 14 12:32:46 2019 +0800
+
+    Removed Default Theme
+
+[33mcommit 7b07f132e6885b9131e9a8540a7de4287ac9c7d6[m
+Author: Isaiah Collins von Rundstedt <isaiahcollins_02@live.com>
+Date:   Mon May 27 14:02:05 2019 +0800
+
+    Initial Commit

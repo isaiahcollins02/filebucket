@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.isaiahvonrundstedt.bucket.R
+import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.adapters.CoreAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.SavedViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
@@ -54,6 +55,9 @@ class SavedFragment: BaseFragment(), ScreenAction.Search, TransferListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        if (activity is MainActivity)
+            (activity as MainActivity).initializeSearch(this)
 
         viewModel = ViewModelProviders.of(this).get(SavedViewModel::class.java)
     }

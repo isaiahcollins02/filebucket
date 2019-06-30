@@ -72,14 +72,6 @@
                 android:key="directoryPreference"
                 android:title="@string/settings_directory"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Value
-                android:key="supportPreference"
-                android:title="@string/settings_feedback"/>
-
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Value
-                android:key="aboutPreference"
-                android:title="@string/settings_about"/>
-
     </com.isaiahvonrundstedt.bucket.components.custom.settings.Group>
 
 </PreferenceScreen>

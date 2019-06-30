@@ -16,6 +16,10 @@ class FileViewModel(app: Application): AndroidViewModel(app) {
     internal var itemList: LiveData<List<File>> = _items
 
     init {
+        onLoad()
+    }
+
+    fun onLoad(){
         repository.fetch { fileList ->
             initialList.addAll(fileList)
             initialList.distinctBy { it.fileID }.toMutableList()

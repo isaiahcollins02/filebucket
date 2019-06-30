@@ -9,8 +9,6 @@
         <item name="md_color_button_text">@color/colorDefault</item>
     </style>
 
-    <style name="AppTheme.Drawer" parent="AppTheme.Core"/>
-
     <style name="AppTheme.FirstRun" parent="AppTheme.Core">
         <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
     </style>
@@ -29,7 +27,7 @@
     </style>
 
     <style name="BottomSheetLayout" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/shape_sheet_light</item>
+        <item name="android:background">@drawable/shape_bottom_sheet</item>
         <item name="android:layout_marginStart">@dimen/bottom_sheet_margin_start</item>
         <item name="android:layout_marginEnd">@dimen/bottom_sheet_margin_end</item>
     </style>
@@ -52,14 +50,6 @@
         <item name="toolbarNavigationButtonStyle">@style/AppTheme.Toolbar.Button.Navigation</item>
         <item name="actionOverflowButtonStyle">@style/AppTheme.ActionButton.Overflow</item>
     </style>
-
-    <style name="AppTheme.Widget.Toolbar.Drawer" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="android:textColorPrimary">@color/colorGenericWhite</item>
-        <item name="colorControlNormal">@color/colorGenericWhite</item>
-        <item name="toolbarStyle">@style/AppTheme.Toolbar.Guidelines</item>
-        <item name="toolbarNavigationButtonStyle">@style/AppTheme.Toolbar.Button.Navigation</item>
-        <item name="actionOverflowButtonStyle">@style/AppTheme.ActionButton.Overflow</item>
-</style>
 
     <style name="AppTheme.Toolbar.Guidelines" parent="Widget.AppCompat.Toolbar">
         <item name="android:paddingLeft">@dimen/toolbar_horizontal_padding</item>

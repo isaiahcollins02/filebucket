@@ -10,10 +10,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -29,27 +29,31 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.navigation.NavigationView
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.support.SearchActivity
+import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
+import com.isaiahvonrundstedt.bucket.activities.generic.SettingsActivity
 import com.isaiahvonrundstedt.bucket.architecture.work.SupportWorker
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
-import com.isaiahvonrundstedt.bucket.fragments.navigation.*
+import com.isaiahvonrundstedt.bucket.fragments.navigation.BoxesFragment
+import com.isaiahvonrundstedt.bucket.fragments.navigation.FilesFragment
+import com.isaiahvonrundstedt.bucket.fragments.navigation.NotificationFragment
+import com.isaiahvonrundstedt.bucket.fragments.navigation.SavedFragment
+import com.isaiahvonrundstedt.bucket.fragments.preference.SettingsFragment
+import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
 import com.isaiahvonrundstedt.bucket.utils.Account
 import com.isaiahvonrundstedt.bucket.utils.Permissions
-import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
-import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
-import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_appbar_drawer.*
-import kotlinx.android.synthetic.main.layout_header.*
 
 class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigationItemSelectedListener,
-    SharedPreferences.OnSharedPreferenceChangeListener {
+    SharedPreferences.OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener {
 
     private var downloadID: Long? = 0L
     private var selectedItem: Int? = 0
     private var searchMenuItem: MenuItem? = null
     private var toolbarTitleView: TextView? = null
+    private var searchView: SearchView? = null
+    private var searchListener: ScreenAction.Search? = null
 
     private lateinit var transferReceiver: BroadcastReceiver
     private lateinit var sharedPreferences: SharedPreferences
@@ -133,13 +137,27 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         searchMenuItem = menu?.findItem(R.id.action_search)
+
+        searchView = searchMenuItem?.actionView as SearchView
+        searchView?.setOnQueryTextListener(this)
+
         return true
     }
 
+    fun initializeSearch(listener: ScreenAction.Search){
+        searchListener = listener
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        searchListener?.onSearch(newText)
+        return true
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId){
-            R.id.action_search -> startActivity(Intent(this, SearchActivity::class.java))
-        }
         return true
     }
 
@@ -155,7 +173,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             navigationItemBoxes -> setToolbarTitle(R.string.navigation_boxes)
             navigationSaved -> setToolbarTitle(R.string.navigation_saved)
             navigationItemNotification -> setToolbarTitle(R.string.navigation_notifications)
-            navigationItemAccount -> setToolbarTitle(R.string.navigation_account)
+            navigationItemAccount -> setToolbarTitle(R.string.navigation_settings)
         }
 
         searchMenuItem?.isVisible = item != navigationItemAccount
@@ -171,7 +189,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             navigationItemBoxes -> BoxesFragment()
             navigationSaved -> SavedFragment()
             navigationItemNotification -> NotificationFragment()
-            navigationItemAccount -> AccountFragment()
+            navigationItemAccount -> SettingsFragment()
             else -> null
         }
     }
@@ -227,7 +245,8 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             R.id.navigation_repositories -> replaceFragment(navigationItemBoxes)
             R.id.navigation_collections -> replaceFragment(navigationSaved)
             R.id.navigation_notifications -> replaceFragment(navigationItemNotification)
-            R.id.navigation_account -> replaceFragment(navigationItemAccount)
+            R.id.navigation_settings -> startActivity(Intent(this, SettingsActivity::class.java))
+            R.id.navigation_about -> startActivity(Intent(this, AboutActivity::class.java))
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -245,7 +264,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if (key == "appThemePreference")
-            startActivity(Intent(intent))
+/*        if (key == "appThemePreference")
+            startActivity(Intent(intent))*/
     }
 }

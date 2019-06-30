@@ -52,8 +52,8 @@ class DetailsBottomSheet: BaseBottomSheet(), TransferListener {
 
         iconView = rootView.findViewById(R.id.iconView)
         titleView = rootView.findViewById(R.id.titleView)
-        fileTypeView = rootView.findViewById(R.id.fileTypeView)
-        fileSizeView = rootView.findViewById(R.id.fileSizeView)
+        fileTypeView = rootView.findViewById(R.id.typeView)
+        fileSizeView = rootView.findViewById(R.id.sizeView)
         authorView = rootView.findViewById(R.id.authorView)
         saveButton = rootView.findViewById(R.id.saveButton)
 
@@ -83,9 +83,9 @@ class DetailsBottomSheet: BaseBottomSheet(), TransferListener {
         iconView.setImageDrawable(ItemManager.getFileIcon(rootView.context, file?.fileType))
         titleView.text = file?.name
         val decimalFormat = DecimalFormat("#.##")
-        fileSizeView.text = String.format(rootView.resources.getString(R.string.sheet_file_size), decimalFormat.format((file!!.fileSize / 1024) / 1024))
-        fileTypeView.text = String.format(rootView.resources.getString(R.string.sheet_file_type), ItemManager.getFileType(rootView.context, file?.fileType))
-        authorView.text = String.format(rootView.resources.getString(R.string.sheet_file_author), file?.author)
+        fileSizeView.text = String.format(rootView.resources.getString(R.string.detail_file_size), decimalFormat.format((file!!.fileSize / 1024) / 1024))
+        fileTypeView.text = String.format(rootView.resources.getString(R.string.detail_file_type), ItemManager.getFileType(rootView.context, file?.fileType))
+        authorView.text = String.format(rootView.resources.getString(R.string.detail_file_timestamp), file?.author)
 
         saveButton.setOnClickListener {
             if (!fileInDatabase!!){

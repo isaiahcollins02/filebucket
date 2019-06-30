@@ -7,6 +7,7 @@
             android:title="@string/menu_search"
             android:icon="@drawable/ic_vector_search"
             app:iconTint="@color/colorAppBarItem"
-            app:showAsAction="ifRoom"/>
+            app:showAsAction="ifRoom"
+            app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
 </menu>

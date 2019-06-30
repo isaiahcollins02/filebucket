@@ -27,7 +27,7 @@ import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
 import com.isaiahvonrundstedt.bucket.utils.Account
 
-class RepoFragment: BaseFragment(), TransferListener{
+class BoxFragment: BaseFragment(), TransferListener{
 
     private var file: java.io.File? = null
     private var downloadURL: String? = null
@@ -65,7 +65,7 @@ class RepoFragment: BaseFragment(), TransferListener{
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_sent, container, false)
 
-        adapter = VaultAdapter(arrayList, this)
+        adapter = VaultAdapter(arrayList, this, childFragmentManager)
 
         swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
         swipeRefreshContainer.setColorSchemeResources(

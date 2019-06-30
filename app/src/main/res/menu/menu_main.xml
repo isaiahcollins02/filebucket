@@ -6,7 +6,7 @@
             android:id="@+id/action_support"
             android:title="@string/settings_feedback"
             android:icon="@drawable/ic_vector_help"
-            android:iconTint="@color/colorAppBarItem"
+            app:iconTint="@color/colorAppBarItem"
             app:showAsAction="ifRoom"/>
 
 </menu>

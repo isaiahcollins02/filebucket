@@ -30,8 +30,8 @@
             android:title="@string/settings_group_about">
 
         <com.isaiahvonrundstedt.bucket.components.custom.settings.Value
-                android:key="buildDatePreference"
-                android:title="@string/about_build_date"/>
+                android:key="supportPreference"
+                android:title="@string/settings_feedback"/>
 
         <com.isaiahvonrundstedt.bucket.components.custom.settings.Value
                 android:key="versionPreference"

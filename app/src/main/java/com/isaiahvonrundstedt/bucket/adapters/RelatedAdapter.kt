@@ -43,7 +43,7 @@ class RelatedAdapter(options: FirestoreRecyclerOptions<File>)
                     else -> null
                 }
             val decimalFormat = DecimalFormat("#.##")
-            sizeView.text = String.format(itemView.resources.getString(R.string.sheet_file_size), decimalFormat.format(file.fileSize))
+            sizeView.text = String.format(itemView.resources.getString(R.string.detail_file_size), decimalFormat.format(file.fileSize))
             iconView.setImageDrawable(ItemManager.getFileIcon(itemView.context, file.fileType))
         }
     }

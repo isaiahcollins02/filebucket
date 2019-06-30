@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
 import android.widget.ProgressBar
 import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
@@ -27,7 +28,6 @@ import com.afollestad.materialdialogs.bottomsheets.gridItems
 import com.afollestad.materialdialogs.files.fileChooser
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -42,11 +42,10 @@ import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
 import com.isaiahvonrundstedt.bucket.service.FileTransferService
 import com.isaiahvonrundstedt.bucket.utils.Permissions
-import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import gun0912.tedbottompicker.TedBottomPicker
 
-class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener{
+class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
 
     private var fileUri: Uri? = null
     private var downloadUri: Uri? = null
@@ -62,6 +61,7 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener{
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
     private lateinit var defaultAction: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
+    private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: CoreAdapter
     private lateinit var chipGroup: ChipGroup
 
@@ -76,12 +76,15 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener{
             }
         }
 
-        adapter =
-            CoreAdapter(itemList, childFragmentManager, GlideApp.with(this), this)
+        layoutManager = LinearLayoutManager(context)
+        adapter = CoreAdapter(itemList, childFragmentManager, GlideApp.with(this), this)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        if (activity is MainActivity)
+            (activity as MainActivity).initializeSearch(this)
 
         viewModel = ViewModelProviders.of(this).get(FileViewModel::class.java)
     }
@@ -94,8 +97,30 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener{
         chipGroup = rootView.findViewById(R.id.chipGroup)
         defaultAction = rootView.findViewById(R.id.addAction)
 
+        var isScrolling = false
+
         recyclerView = rootView.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                    isScrolling = true
+            }
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+
+                if (isScrolling && (firstVisibleItem + visibleItemCount == totalItemCount)) {
+                    isScrolling = false
+
+                    viewModel?.onLoad()
+                }
+            }
+        })
         recyclerView.adapter = adapter
 
         onLoadAssets()
@@ -139,16 +164,6 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener{
                 }
                 title(R.string.bottom_sheet_picker_title)
             }
-        }
-
-        val filterChipItems = arrayListOf(
-            Chip(context).apply { text = getString(R.string.filter_all); setOnClickListener { viewModel?.filterByCategory(ItemManager.CATEGORY_ALL) }},
-            Chip(context).apply { text = getString(R.string.filter_documents); setOnClickListener { viewModel?.filterByCategory(ItemManager.CATEGORY_DOCUMENTS) }},
-            Chip(context).apply { text = getString(R.string.filter_code); setOnClickListener { viewModel?.filterByCategory(ItemManager.CATEGORY_CODES) }},
-            Chip(context).apply { text = getString(R.string.filter_media); setOnClickListener { viewModel?.filterByCategory(ItemManager.CATEGORY_MEDIA) }}
-        )
-        filterChipItems.forEachIndexed { _, chip ->
-            chipGroup.addView(chip as View)
         }
     }
 

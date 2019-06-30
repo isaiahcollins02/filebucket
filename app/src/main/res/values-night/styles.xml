@@ -28,7 +28,7 @@
     </style>
 
     <style name="BottomSheetLayout" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/shape_sheet_dark</item>
+        <item name="android:background">@drawable/shape_bottom_sheet</item>
         <item name="android:layout_marginStart">@dimen/bottom_sheet_margin_start</item>
         <item name="android:layout_marginEnd">@dimen/bottom_sheet_margin_end</item>
     </style>

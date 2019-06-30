@@ -1,8 +1,9 @@
-package com.isaiahvonrundstedt.bucket.fragments.navigation
+package com.isaiahvonrundstedt.bucket.fragments.preference
 
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.preference.Preference
 import com.afollestad.materialdialogs.MaterialDialog
@@ -11,16 +12,14 @@ import com.afollestad.materialdialogs.list.listItems
 import com.google.firebase.auth.FirebaseAuth
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.auth.FirstRunActivity
-import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
 import com.isaiahvonrundstedt.bucket.activities.support.ProfileActivity
-import com.isaiahvonrundstedt.bucket.activities.support.SupportActivity
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.components.abstracts.BasePreference
 import com.isaiahvonrundstedt.bucket.utils.Account
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 
-class AccountFragment: BasePreference() {
+class SettingsFragment: BasePreference() {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
 
@@ -56,12 +55,6 @@ class AccountFragment: BasePreference() {
             return@setOnPreferenceClickListener true
         }
 
-        val supportPref: Preference? = findPreference("supportPreference")
-        supportPref?.setOnPreferenceClickListener {
-            startActivity(Intent(it.context, SupportActivity::class.java))
-            true
-        }
-
         directoryPref = findPreference("directoryPreference")
         directoryPref.summary = Preferences(context).downloadDirectory
         directoryPref.setOnPreferenceClickListener {
@@ -82,13 +75,17 @@ class AccountFragment: BasePreference() {
             MaterialDialog(it.context).show {
                 title(R.string.settings_theme_dialog)
                 listItems(items = themeList){ _, _, theme ->
-                    val newTheme: String? = when (theme){
+                    when (theme){
+                        getString(R.string.settings_theme_item_light) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        getString(R.string.settings_theme_item_dark) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    }
+                    val themeID : String? = when (theme){
                         getString(R.string.settings_theme_item_light) -> Preferences.THEME_LIGHT
                         getString(R.string.settings_theme_item_dark) -> Preferences.THEME_DARK
                         else -> null
                     }
                     themePref.summary = theme
-                    Preferences(it.context).theme = newTheme!!
+                    Preferences(it.context).theme = themeID!!
                 }
             }
             return@setOnPreferenceClickListener true
@@ -117,12 +114,6 @@ class AccountFragment: BasePreference() {
             }
             return@setOnPreferenceClickListener true
         }
-
-        val aboutPreference: Preference = findPreference("aboutPreference")
-        aboutPreference.setOnPreferenceClickListener {
-            startActivity(Intent(it.context, AboutActivity::class.java))
-            true
-        }
     }
 
     private fun invokeChooser(){
@@ -132,6 +123,11 @@ class AccountFragment: BasePreference() {
                 directoryPref.summary = Preferences(context).downloadDirectory
             }
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity?.finish()
     }
 
 }

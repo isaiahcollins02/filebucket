@@ -9,6 +9,7 @@
     <color name="colorPreference">#191919</color>
     <color name="colorToolbar">#242424</color>
     <color name="colorStatusBar">#141414</color>
+    <color name="colorHighlightedBackground">#292929</color>
     <color name="colorAppBarItem">#FFFFFF</color>
 
     <color name="colorPrimaryText">#000000</color>

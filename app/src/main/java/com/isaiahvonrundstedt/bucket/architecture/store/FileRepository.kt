@@ -10,6 +10,8 @@ class FileRepository {
 
     private var lastVisible: DocumentSnapshot? = null
     private var mainQuery: Query? = null
+    private var lastNum: Int = -1
+    var list: ArrayList<File> = ArrayList()
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
 
@@ -34,7 +36,7 @@ class FileRepository {
     }
 
     fun refresh(){
-        lastVisible = null
+        lastNum = -1
     }
 
 }

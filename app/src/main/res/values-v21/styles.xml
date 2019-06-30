@@ -12,11 +12,6 @@
         <item name="md_color_button_text">@color/colorDefault</item>
     </style>
 
-    <style name="AppTheme.Drawer" parent="AppTheme.Core">
-        <item name="android:statusBarColor">@color/colorDefault</item>
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
-
     <style name="AppTheme.FirstRun" parent="AppTheme.Core">
         <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
     </style>
