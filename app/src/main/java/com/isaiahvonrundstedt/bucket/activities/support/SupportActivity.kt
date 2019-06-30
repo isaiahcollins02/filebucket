@@ -26,9 +26,7 @@ class SupportActivity: BaseAppBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_support)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setToolbarTitle(getString(R.string.settings_feedback))
+        setToolbarTitle(R.string.settings_feedback)
 
         summaryField = findViewById(R.id.summaryField)
         infoField = findViewById(R.id.infoField)
@@ -38,7 +36,7 @@ class SupportActivity: BaseAppBarActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_support, menu)
-        tintActionBarItem(menu, R.id.action_send, R.color.colorDefault)
+        tintActionBarItem(menu, R.id.action_send, R.color.colorPrimary)
         return true
     }
 

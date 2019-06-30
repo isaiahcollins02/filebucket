@@ -28,8 +28,6 @@ class FrameActivity: BaseAppBarActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_frame)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         val intent: Intent? = intent
         userViewType = intent?.getIntExtra("viewType", 0)
         viewArgs = intent?.getBundleExtra("viewArgs")

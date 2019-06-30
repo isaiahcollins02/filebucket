@@ -30,7 +30,6 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.navigation.NavigationView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
-import com.isaiahvonrundstedt.bucket.activities.generic.SettingsActivity
 import com.isaiahvonrundstedt.bucket.architecture.work.SupportWorker
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
@@ -56,14 +55,13 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     private var searchListener: ScreenAction.Search? = null
 
     private lateinit var transferReceiver: BroadcastReceiver
-    private lateinit var sharedPreferences: SharedPreferences
 
     companion object {
         const val navigationItemFiles = 0
         const val navigationItemBoxes = 1
         const val navigationSaved = 2
         const val navigationItemNotification = 3
-        const val navigationItemAccount = 4
+        const val navigationItemSettings = 4
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,7 +97,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             }
         }
         navigationView.setNavigationItemSelectedListener(this)
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         executeWorker()
     }
@@ -173,10 +170,10 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             navigationItemBoxes -> setToolbarTitle(R.string.navigation_boxes)
             navigationSaved -> setToolbarTitle(R.string.navigation_saved)
             navigationItemNotification -> setToolbarTitle(R.string.navigation_notifications)
-            navigationItemAccount -> setToolbarTitle(R.string.navigation_settings)
+            navigationItemSettings -> setToolbarTitle(R.string.navigation_settings)
         }
 
-        searchMenuItem?.isVisible = item != navigationItemAccount
+        searchMenuItem?.isVisible = item != navigationItemSettings
     }
 
     private fun setToolbarTitle(int: Int) {
@@ -189,7 +186,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             navigationItemBoxes -> BoxesFragment()
             navigationSaved -> SavedFragment()
             navigationItemNotification -> NotificationFragment()
-            navigationItemAccount -> SettingsFragment()
+            navigationItemSettings -> SettingsFragment()
             else -> null
         }
     }
@@ -244,7 +241,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             R.id.navigation_repositories -> replaceFragment(navigationItemBoxes)
             R.id.navigation_collections -> replaceFragment(navigationSaved)
             R.id.navigation_notifications -> replaceFragment(navigationItemNotification)
-            R.id.navigation_settings -> startActivity(Intent(this, SettingsActivity::class.java))
+            R.id.navigation_settings -> replaceFragment(navigationItemSettings)
             R.id.navigation_about -> startActivity(Intent(this, AboutActivity::class.java))
         }
         drawerLayout.closeDrawer(GravityCompat.START)

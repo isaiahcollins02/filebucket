@@ -70,7 +70,7 @@ class SupportService: BaseService() {
 
         createDefaultChannel()
         val builder = NotificationCompat.Builder(this, defaultChannel)
-            .setColor(ContextCompat.getColor(this, R.color.colorDefault))
+            .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
             .setSmallIcon(icon)
             .setContentTitle(getString(R.string.notification_unsupported_version_title))
             .setContentText(getString(R.string.notification_unsupported_version_content))

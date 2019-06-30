@@ -25,7 +25,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:gravity="center"
-            android:textColor="@color/colorDefault"
+            android:textColor="@color/colorPrimary"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             tools:text="Collins von Ludendorff"/>
 
@@ -48,7 +48,7 @@
             android:layout_marginStart="@dimen/activity_margin_start"
             android:layout_marginEnd="@dimen/activity_margin_end"
             android:text="@string/profile_actions"
-            android:textColor="@color/colorDefault"
+            android:textColor="@color/colorPrimary"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
     <com.google.android.material.navigation.NavigationView

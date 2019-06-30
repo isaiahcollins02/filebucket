@@ -21,8 +21,6 @@ class WebViewActivity: BaseAppBarActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         webView = findViewById(R.id.webView)
         webView.settings.javaScriptEnabled = false
 

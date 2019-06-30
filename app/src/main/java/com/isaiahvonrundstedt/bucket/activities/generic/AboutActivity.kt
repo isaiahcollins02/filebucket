@@ -11,9 +11,7 @@ class AboutActivity: BaseAppBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_frame)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setToolbarTitle(getString(R.string.activity_about))
+        setToolbarTitle(R.string.activity_about)
 
         supportFragmentManager.beginTransaction().run {
             replace(R.id.childLayout, AboutFragment())

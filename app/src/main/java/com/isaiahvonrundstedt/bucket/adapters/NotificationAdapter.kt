@@ -48,7 +48,7 @@ class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>(
             subtitleView.text = notification.content
 
             val colorID: Int? = when (Preferences(itemView.context).theme){
-                Preferences.THEME_LIGHT -> R.color.colorDefault
+                Preferences.THEME_LIGHT -> R.color.colorPrimary
                 Preferences.THEME_DARK -> R.color.colorGenericWhite
                 else -> null
             }

@@ -85,7 +85,6 @@ class SettingsFragment: BasePreference() {
                     }
                     themePref.summary = theme
                     Preferences(it.context).theme = themeID!!
-
                 }
             }
             return@setOnPreferenceClickListener true
@@ -119,11 +118,6 @@ class SettingsFragment: BasePreference() {
                 directoryPref.summary = Preferences(context).downloadDirectory
             }
         }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        activity?.finish()
     }
 
 }

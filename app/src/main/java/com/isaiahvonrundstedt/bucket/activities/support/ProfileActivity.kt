@@ -26,12 +26,9 @@ class ProfileActivity: BaseAppBarActivity(), NavigationView.OnNavigationItemSele
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        setToolbarTitle(R.string.activity_account_settings)
 
         userID = firebaseAuth.currentUser?.uid!!
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setToolbarTitle(resources.getString(R.string.activity_account_settings))
-
         navigationView = findViewById(R.id.navigationView)
     }
 

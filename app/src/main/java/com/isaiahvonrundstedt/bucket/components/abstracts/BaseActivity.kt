@@ -30,8 +30,8 @@ abstract class BaseActivity: AppCompatActivity() {
 
     private fun onThemeApplied() {
         when (Preferences(this).theme){
-            Preferences.THEME_LIGHT -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
-            Preferences.THEME_DARK -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+            Preferences.THEME_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            Preferences.THEME_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
     }
 

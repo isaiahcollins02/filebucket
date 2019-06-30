@@ -156,7 +156,7 @@
     <string name="settings_theme_dialog">Application Theme</string>
     <string name="settings_theme_item_light">Light</string>
     <string name="settings_theme_item_dark">Dark</string>
-    <string name="settings_theme_item_amoled">AMOLED</string>
+    <string name="settings_theme_item_battery">Set by Battery Saver</string>
 
     <string name="settings_metadata">Metadata</string>
     <string name="settings_metadata_dialog">Choose one metadata</string>

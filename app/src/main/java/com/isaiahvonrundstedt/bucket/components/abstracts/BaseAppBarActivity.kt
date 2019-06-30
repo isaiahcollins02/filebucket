@@ -29,6 +29,7 @@ abstract class BaseAppBarActivity: BaseActivity() {
             setSupportActionBar(toolbar)
 
             supportActionBar?.title = null
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
             toolbarTitleView = findViewById(R.id.toolbarTitle)
         }
     }
@@ -43,7 +44,7 @@ abstract class BaseAppBarActivity: BaseActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        tintActionBarItem(menu, R.id.action_support, R.color.colorDefault)
+        tintActionBarItem(menu, R.id.action_support, R.color.colorPrimary)
         return true
     }
 

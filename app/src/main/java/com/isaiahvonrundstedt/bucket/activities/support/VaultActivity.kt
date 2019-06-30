@@ -48,7 +48,6 @@ class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener, Trans
         val intent = intent
         author = intent.getStringExtra(Parameters.AUTHOR.string)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setToolbarTitle(String.format(resources.getString(R.string.file_user_repository), DataManager.sliceFullName(author!!)))
 
         downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager

@@ -90,7 +90,7 @@ class NotificationService: BaseService() {
         NotificationRepository(application).insert(notification)
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID_DEFAULT)
-            .setColor(ContextCompat.getColor(this, R.color.colorDefault))
+            .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
             .setSmallIcon(R.drawable.ic_vector_new)
             .setContentTitle(notification.title)
             .setContentText(notification.content)

@@ -145,7 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_margin"
             android:text="@string/detail_related_boxes"
-            android:textColor="@color/colorDefault"
+            android:textColor="@color/colorPrimary"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
     <androidx.recyclerview.widget.RecyclerView

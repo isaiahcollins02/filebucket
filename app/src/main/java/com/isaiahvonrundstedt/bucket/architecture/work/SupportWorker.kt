@@ -45,7 +45,7 @@ class SupportWorker(context: Context, workerParams: WorkerParameters): Worker(co
         createSupportChannel()
 
         val builder = NotificationCompat.Builder(applicationContext, Notification.supportChannel)
-            .setColor(ContextCompat.getColor(applicationContext, R.color.colorDefault))
+            .setColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
             .setSmallIcon(R.drawable.ic_vector_warning)
             .setContentTitle(applicationContext.getString(R.string.notification_unsupported_version_title))
             .setContentText(applicationContext.getString(R.string.notification_unsupported_version_content))

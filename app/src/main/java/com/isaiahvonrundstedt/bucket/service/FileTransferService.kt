@@ -166,7 +166,7 @@ class FileTransferService: BaseService() {
             createDefaultChannel()
 
             val builder = NotificationCompat.Builder(this, defaultChannel)
-                .setColor(ContextCompat.getColor(this, R.color.colorDefault))
+                .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_vector_upload)
                 .setContentTitle(String.format(getString(R.string.notification_percent_complete), fileName))
                 .setContentText(String.format(getString(R.string.notification_percent_complete), percentComplete))

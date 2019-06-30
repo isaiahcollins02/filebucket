@@ -21,7 +21,7 @@
                     android:layout_marginBottom="8dp"
                     android:text="@string/login_to_drop_bucket"
                     android:textSize="32sp"
-                    android:textColor="@color/colorDefault"
+                    android:textColor="@color/colorPrimary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
             <TextView
@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:primaryColor="@color/colorDefault"
+                    app:primaryColor="@color/colorPrimary"
                     app:secondaryColor="@color/colorHelperText"
                     app:hasFocus="true"
                     app:hasClearButton="true"
@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:primaryColor="@color/colorDefault"
+                    app:primaryColor="@color/colorPrimary"
                     app:secondaryColor="@color/colorHelperText"
                     app:minCharacters="8"
                     app:hasClearButton="true"
@@ -78,7 +78,7 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorDefault"
+                android:background="@color/colorPrimary"
                 android:layout_alignParentBottom="true">
 
             <androidx.appcompat.widget.AppCompatTextView
