@@ -1,18 +1,20 @@
 package com.isaiahvonrundstedt.bucket.fragments.navigation
 
-import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.ProgressBar
-import androidx.core.app.ActivityCompat
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -22,12 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.bottomsheets.BasicGridItem
-import com.afollestad.materialdialogs.bottomsheets.BottomSheet
-import com.afollestad.materialdialogs.bottomsheets.gridItems
 import com.afollestad.materialdialogs.files.fileChooser
-import com.bumptech.glide.Priority
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -37,15 +34,18 @@ import com.isaiahvonrundstedt.bucket.adapters.CoreAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.FileViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
+import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.PickerBottomSheet
+import com.isaiahvonrundstedt.bucket.interfaces.PickerItemSelected
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
 import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.objects.PickerItem
 import com.isaiahvonrundstedt.bucket.service.FileTransferService
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.kaopiz.kprogresshud.KProgressHUD
 import gun0912.tedbottompicker.TedBottomPicker
 
-class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
+class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, PickerItemSelected {
 
     private var fileUri: Uri? = null
     private var downloadUri: Uri? = null
@@ -63,7 +63,7 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: CoreAdapter
-    private lateinit var chipGroup: ChipGroup
+    private lateinit var itemPicker: PickerBottomSheet
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +71,7 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
         receiver = object: BroadcastReceiver(){
             override fun onReceive(context: Context?, intent: Intent?) {
                 when (intent?.action) {
-                    FileTransferService.actionCompleted, FileTransferService.uploadError -> onUploadResultIntent(intent)
+                    FileTransferService.actionCompleted, FileTransferService.transferError -> onUploadResultIntent(intent)
                 }
             }
         }
@@ -94,7 +94,6 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
 
         progressBar = rootView.findViewById(R.id.progressBar)
         swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
-        chipGroup = rootView.findViewById(R.id.chipGroup)
         defaultAction = rootView.findViewById(R.id.addAction)
 
         var isScrolling = false
@@ -149,20 +148,40 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
 
         manager.registerReceiver(receiver!!, FileTransferService.intentFilter)
 
-        val items = listOf(
-            BasicGridItem(R.drawable.ic_vector_photo, getString(R.string.bottom_sheet_picker_media)),
-            BasicGridItem(R.drawable.ic_vector_files, getString(R.string.bottom_sheet_picker_file))
+        val items = arrayListOf(
+            PickerItem(R.drawable.ic_vector_photo, R.string.bottom_sheet_picker_image),
+            PickerItem(R.drawable.ic_vector_video, R.string.bottom_sheet_picker_video),
+            PickerItem(R.drawable.ic_vector_files, R.string.bottom_sheet_picker_file)
         )
 
+        itemPicker = PickerBottomSheet()
+        itemPicker.setItems(items)
+        itemPicker.setOnItemSelectedListener(this)
+
         defaultAction.setOnClickListener {
-            MaterialDialog(it.context, BottomSheet()).show {
-                gridItems(items, customGridWidth = R.integer.bottom_sheet_picker_grid) { _, index, _ ->
-                    when (index){
-                        0 -> invokePhotoPicker()
-                        1 -> invokeFilePicker()
-                    }
-                }
-                title(R.string.bottom_sheet_picker_title)
+            itemPicker.show(childFragmentManager, "pickerTag")
+        }
+    }
+
+    override fun onItemSelected(index: Int) {
+        when (index){
+            0 -> invokeVideoPicker()
+            1 -> invokeVideoPicker()
+            2 -> invokeFilePicker()
+        }
+    }
+
+    private fun invokeVideoPicker(){
+        TedBottomPicker.with(activity)
+            .show { uri ->
+                transferFromUri(uri)
+            }
+    }
+
+    private fun invokeFilePicker(){
+        MaterialDialog(context!!).show {
+            fileChooser { _, file ->
+                transferFromUri(file.toUri())
             }
         }
     }
@@ -174,37 +193,8 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
         LocalBroadcastManager.getInstance(context!!).unregisterReceiver(receiver!!)
     }
 
-    private fun invokePhotoPicker(){
-        TedBottomPicker.with(activity)
-            .setImageProvider { imageView, imageUri ->
-                val requestOptions = RequestOptions()
-                    .centerCrop()
-                    .priority(Priority.NORMAL)
-
-                GlideApp.with(this)
-                    .load(imageUri.path)
-                    .apply(requestOptions)
-                    .into(imageView)
-            }
-            .show {
-                uploadFromUri(it)
-            }
-    }
-
-    private fun invokeFilePicker(){
-        if (Permissions(rootView.context).readAccessGranted) {
-            MaterialDialog(context!!).show {
-                fileChooser { _, file ->
-                    uploadFromUri(file.toUri())
-                }
-            }
-        } else
-            ActivityCompat.requestPermissions(activity!!,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Permissions.READ_REQUEST)
-    }
-
-    private fun uploadFromUri(uri: Uri){
-        val progress: KProgressHUD = KProgressHUD(context)
+    private fun transferFromUri(uri: Uri?){
+        val progress = KProgressHUD(rootView.context)
             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             .setAnimationSpeed(2)
             .setCancellable(false)
@@ -235,7 +225,6 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
         when (requestCode){
             Permissions.READ_REQUEST -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)

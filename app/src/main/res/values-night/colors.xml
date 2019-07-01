@@ -9,7 +9,7 @@
     <color name="colorHighlightedBackground">#292929</color>
     <color name="colorAppBarItem">#FFFFFF</color>
 
-    <color name="colorPrimaryText">#000000</color>
+    <color name="colorPrimaryText">#FFFFFF</color>
     <color name="colorSecondaryText">#9C9C9C</color>
     <color name="colorHelperText">#455A64</color>
 

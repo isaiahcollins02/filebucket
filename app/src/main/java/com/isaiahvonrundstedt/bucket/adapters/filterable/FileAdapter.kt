@@ -112,7 +112,7 @@ class FileAdapter constructor (
         fun bindData(file: File){
             requestManager.clear(containerView)
             requestManager.asBitmap()
-                .load(file?.downloadURL)
+                .load(file.downloadURL)
                 .centerCrop()
                 .into(containerView)
 
@@ -216,14 +216,6 @@ class FileAdapter constructor (
                 else ITEM_TYPE_FILE
             }
             else -> ITEM_TYPE_FILE
-        }
-    }
-
-    fun removeAllData(){
-        if (itemList.size > 0 && filterList.size > 0) {
-            itemList.clear()
-            filterList.clear()
-            notifyDataSetChanged()
         }
     }
 

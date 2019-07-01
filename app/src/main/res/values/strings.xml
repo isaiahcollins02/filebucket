@@ -81,10 +81,10 @@
     <string name="filter_code">Source Codes</string>
     <string name="filter_media">Media Files</string>
 
-    <string name="bottom_sheet_picker_title">Add New Files</string>
-    <string name="bottom_sheet_picker_file">Generic File</string>
-    <string name="bottom_sheet_picker_media">Photo or Video</string>
-    <string name="bottom_sheet_picker_drive">Google Drive</string>
+    <string name="bottom_sheet_picker_title">Add New File</string>
+    <string name="bottom_sheet_picker_file">Select File</string>
+    <string name="bottom_sheet_picker_image">Open Gallery</string>
+    <string name="bottom_sheet_picker_video">Choose Video</string>
 
     <string name="activity_account_settings">Account Settings</string>
     <string name="activity_about">About</string>

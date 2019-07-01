@@ -21,7 +21,7 @@
 
     <style name="AppTheme.BottomSheet" parent="BaseBottomSheetDialog"/>
 
-    <style name="BaseBottomSheetDialog.Light" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="BaseBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryVariant</item>
         <item name="colorAccent">@color/colorPrimary</item>

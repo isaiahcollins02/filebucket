@@ -8,6 +8,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -42,9 +43,7 @@ class FileTransferService: BaseService() {
     companion object {
         const val actionUpload = "action_upload"
         const val actionCompleted = "upload_completed"
-
-        const val uploadError = "upload_error"
-        const val uploadType = "upload_type"
+        const val transferError = "transfer_error"
 
         const val extraFileURI = "extra_file_uri"
         const val extraDownloadURL = "extra_download_url"
@@ -53,7 +52,7 @@ class FileTransferService: BaseService() {
             get() {
                 val filter = IntentFilter()
                 filter.addAction(actionCompleted)
-                filter.addAction(uploadError)
+                filter.addAction(transferError)
                 return filter
             }
 
@@ -61,11 +60,9 @@ class FileTransferService: BaseService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (actionUpload == intent?.action){
-            val fileUri = intent.getParcelableExtra<Uri>(extraFileURI)
-
+            val fileUri: Uri = intent.getParcelableExtra(extraFileURI)
             uploadFile(fileUri)
         }
-
         return START_REDELIVER_INTENT
     }
     private fun uploadFile(fileUri: Uri){
@@ -78,7 +75,7 @@ class FileTransferService: BaseService() {
 
         fileReference.putFile(fileUri)
             .addOnProgressListener { taskSnapshot ->
-                showProgressNotification(getString(R.string.notification_transferring),
+                showProgressNotification(fileUri.lastPathSegment!!,
                     taskSnapshot.bytesTransferred, taskSnapshot.totalByteCount)
             }.continueWithTask {  task ->
                 // Forward any exceptions
@@ -111,7 +108,7 @@ class FileTransferService: BaseService() {
     private fun broadcastUploadFinished(downloadURL: Uri?, fileURI: Uri?): Boolean {
         val success = downloadURL != null
 
-        val action = if (success) actionCompleted else uploadError
+        val action = if (success) actionCompleted else transferError
         val broadcast = Intent(action)
             .putExtra(extraDownloadURL, downloadURL)
             .putExtra(extraFileURI, fileURI)
@@ -142,11 +139,11 @@ class FileTransferService: BaseService() {
             val bufferedFile: java.io.File = java.io.File(selectedFileUri?.path)
 
             val file = File()
-            file.name = bufferedFile.name
+            file.name = bufferedFile.nameWithoutExtension
             file.fileSize = bufferedFile.length().toDouble()
             file.downloadURL = downloadUri.toString()
-            file.fileType = ItemManager.obtainFileExtension(selectedFileUri!!)
-            file.author = Account(this@FileTransferService).fullName
+            file.fileType = ItemManager.obtainFileExtension(bufferedFile.toUri())
+            file.author = Account(this).fullName
             file.timestamp = Timestamp.now()
 
             fileReference.add(file)
@@ -168,7 +165,7 @@ class FileTransferService: BaseService() {
             val builder = NotificationCompat.Builder(this, defaultChannel)
                 .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_vector_upload)
-                .setContentTitle(String.format(getString(R.string.notification_percent_complete), fileName))
+                .setContentTitle(String.format(getString(R.string.notification_transferring), fileName))
                 .setContentText(String.format(getString(R.string.notification_percent_complete), percentComplete))
                 .setProgress(100, percentComplete, false)
                 .setOngoing(true)
