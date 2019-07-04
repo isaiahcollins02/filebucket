@@ -1,6 +1,6 @@
 package com.isaiahvonrundstedt.bucket.interfaces
 
-interface PickerItemSelected {
+interface RecyclerNavigation {
 
     fun onItemSelected(index: Int)
 

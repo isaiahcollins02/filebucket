@@ -5,9 +5,9 @@
             android:fillViewport="true"
             android:fitsSystemWindows="true">
 
-        <FrameLayout
-                android:id="@+id/childLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+    <FrameLayout
+            android:id="@+id/childLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 </RelativeLayout>

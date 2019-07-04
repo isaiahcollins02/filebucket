@@ -8,6 +8,7 @@
         android:padding="@dimen/activity_margin"
         android:focusable="true"
         android:clickable="true"
+        android:background="@color/colorCardBackground"
         android:foreground="?attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout

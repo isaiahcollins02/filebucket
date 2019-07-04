@@ -7,10 +7,13 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
         <item name="android:windowBackground">@color/colorWindowBackground</item>
         <item name="md_corner_radius">8dp</item>
         <item name="md_color_button_text">@color/colorPrimary</item>
     </style>
+
+    <style name="AppTheme.Drawer" parent="AppTheme.Core"/>
 
     <style name="AppTheme.FirstRun" parent="AppTheme.Core">
         <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
@@ -62,11 +65,11 @@
     </style>
 
     <style name="AppTheme.Toolbar.Button.Navigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
-        <item name="android:tint">@color/colorPrimary</item>
+        <item name="android:tint">@color/colorIcons</item>
         <item name="android:minWidth">48dp</item>
     </style>
     <style name="AppTheme.ActionButton.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:tint">@color/colorPrimary</item>
+        <item name="android:tint">@color/colorIcons</item>
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
     </style>

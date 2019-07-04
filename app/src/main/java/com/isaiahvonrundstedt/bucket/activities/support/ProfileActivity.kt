@@ -2,26 +2,33 @@ package com.isaiahvonrundstedt.bucket.activities.support
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
+import com.isaiahvonrundstedt.bucket.interfaces.RecyclerNavigation
 import com.isaiahvonrundstedt.bucket.utils.Account
 import gun0912.tedbottompicker.TedBottomPicker
 import kotlinx.android.synthetic.main.activity_profile.*
 
-class ProfileActivity: BaseAppBarActivity(), NavigationView.OnNavigationItemSelectedListener {
+class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
 
     private var userID: String? = null
-
+    private var adapter: NavigationAdapter? = null
     private val firebaseAuth = FirebaseAuth.getInstance()
-
-    private lateinit var navigationView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +36,15 @@ class ProfileActivity: BaseAppBarActivity(), NavigationView.OnNavigationItemSele
         setToolbarTitle(R.string.activity_account_settings)
 
         userID = firebaseAuth.currentUser?.uid!!
-        navigationView = findViewById(R.id.navigationView)
-    }
 
-    override fun onStart() {
-        super.onStart()
-        navigationView.setNavigationItemSelectedListener(this)
+        val itemList = listOf(
+            NavigationItem(R.drawable.ic_vector_boxes, R.string.profile_view_repository),
+            NavigationItem(R.drawable.ic_vector_auth, R.string.profile_secure_account),
+            NavigationItem(R.drawable.ic_vector_refresh, R.string.profile_reset_password)
+        )
+        adapter = NavigationAdapter(itemList, this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
     }
 
     override fun onResume() {
@@ -77,20 +87,46 @@ class ProfileActivity: BaseAppBarActivity(), NavigationView.OnNavigationItemSele
         return true
     }
 
-    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        when (menuItem.itemId){
-            R.id.navigation_sent -> startActivity(Intent(this, FrameActivity::class.java)
-                .putExtra(viewType, FrameActivity.VIEW_TYPE_SENT))
-            R.id.navigation_secure -> startActivity(Intent(this, FrameActivity::class.java)
-                .putExtra(viewType, FrameActivity.VIEW_TYPE_PASSWORD))
-            R.id.navigation_reset -> startActivity(Intent(this, FrameActivity::class.java)
-                .putExtra(viewType, FrameActivity.VIEW_TYPE_RESET))
+    override fun onItemSelected(index: Int) {
+        when (index){
+            0 -> startActivity(Intent(this, FrameActivity::class.java)
+                .putExtra(viewType, FrameActivity.viewTypeSent))
+            1 -> startActivity(Intent(this, FrameActivity::class.java)
+                .putExtra(viewType, FrameActivity.viewTypePassword))
+            2 -> startActivity(Intent(this, FrameActivity::class.java)
+                .putExtra(viewType, FrameActivity.viewTypeReset))
         }
-        return true
     }
 
     companion object {
-        private const val viewType = "VIEW_TYPE"
+        private const val viewType = "viewType"
+    }
+
+    private data class NavigationItem(@DrawableRes var iconID: Int, @StringRes var titleID: Int)
+
+    private class NavigationAdapter(private var itemList: List<NavigationItem>,
+                                private var itemSelection: RecyclerNavigation): RecyclerView.Adapter<NavigationAdapter.ViewHolder>() {
+
+        override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+            val rowView: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_item_navigation, viewGroup, false)
+            return ViewHolder(rowView)
+        }
+
+        override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+            viewHolder.titleView.text = viewHolder.itemView.context.getString(itemList[position].titleID)
+            viewHolder.iconView.setImageResource(itemList[position].iconID)
+            viewHolder.rootView.setOnClickListener { itemSelection.onItemSelected(position) }
+        }
+
+        override fun getItemCount(): Int {
+            return itemList.size
+        }
+
+        class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+            val rootView: View = itemView.findViewById(R.id.rootView)
+            val titleView: TextView = itemView.findViewById(R.id.titleView)
+            val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
+        }
     }
 
 }

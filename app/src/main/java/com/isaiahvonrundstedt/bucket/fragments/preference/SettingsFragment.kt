@@ -22,8 +22,7 @@ import com.isaiahvonrundstedt.bucket.utils.Preferences
 class SettingsFragment: BasePreference() {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
-
-    private lateinit var directoryPref: Preference
+    private var directoryPref: Preference? = null
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_settings, rootKey)
@@ -56,8 +55,8 @@ class SettingsFragment: BasePreference() {
         }
 
         directoryPref = findPreference("directoryPreference")
-        directoryPref.summary = Preferences(context).downloadDirectory
-        directoryPref.setOnPreferenceClickListener {
+        directoryPref?.summary = Preferences(context).downloadDirectory
+        directoryPref?.setOnPreferenceClickListener {
             if (Permissions(context!!).readAccessGranted){
                 invokeChooser()
             } else {
@@ -68,9 +67,9 @@ class SettingsFragment: BasePreference() {
         }
 
         val themeList = listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark))
-        val themePref: Preference = findPreference("appThemePreference")
-        themePref.summary = Preferences(context).theme.capitalize()
-        themePref.setOnPreferenceClickListener {
+        val themePref: Preference? = findPreference("appThemePreference")
+        themePref?.summary = Preferences(context).theme.capitalize()
+        themePref?.setOnPreferenceClickListener {
             MaterialDialog(it.context).show {
                 title(R.string.settings_theme_dialog)
                 listItems(items = themeList){ _, _, theme ->
@@ -91,10 +90,10 @@ class SettingsFragment: BasePreference() {
         }
 
         val metadataList = listOf(getString(R.string.settings_metadata_item_timestamp), getString(R.string.settings_metadata_item_author))
-        val metadataPref: Preference = findPreference("metadataPreference")
-        metadataPref.summary = if (Preferences(context).metadata == Preferences.METADATA_TIMESTAMP)
+        val metadataPref: Preference? = findPreference("metadataPreference")
+        metadataPref?.summary = if (Preferences(context).metadata == Preferences.METADATA_TIMESTAMP)
             getString(R.string.settings_metadata_item_timestamp) else getString(R.string.settings_metadata_item_author)
-        metadataPref.setOnPreferenceClickListener {
+        metadataPref?.setOnPreferenceClickListener {
             MaterialDialog(it.context).show {
                 title(R.string.settings_metadata_dialog)
                 listItems(items = metadataList){ _, _, metadata ->
@@ -115,7 +114,7 @@ class SettingsFragment: BasePreference() {
         MaterialDialog(context!!).show {
             folderChooser { _, file ->
                 Preferences(context).downloadDirectory = file.path
-                directoryPref.summary = Preferences(context).downloadDirectory
+                directoryPref?.summary = Preferences(context).downloadDirectory
             }
         }
     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.NotificationDAO
 import com.isaiahvonrundstedt.bucket.objects.Notification
+import kotlinx.coroutines.Dispatchers
 
 class NotificationRepository(application: Application) {
 
@@ -22,10 +23,6 @@ class NotificationRepository(application: Application) {
 
     fun insert(notification: Notification) {
         InsertTask(notificationDAO!!).execute(notification)
-    }
-
-    fun removeAll(){
-        RemoveAllTask(notificationDAO!!).execute()
     }
 
     fun getNotifications(): LiveData<List<Notification>> = notificationLiveData

@@ -9,9 +9,9 @@
             app:iconTint="@color/colorSecondaryText"/>
 
     <item
-            android:id="@+id/navigation_repositories"
+            android:id="@+id/navigation_boxes"
             android:title="@string/navigation_boxes"
-            android:icon="@drawable/ic_vector_repositories"
+            android:icon="@drawable/ic_vector_boxes"
             app:iconTint="@color/colorSecondaryText"/>
 
     <item

@@ -6,10 +6,13 @@ import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.AppCompatImageView
@@ -20,7 +23,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.preference.PreferenceManager
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
@@ -41,6 +43,7 @@ import com.isaiahvonrundstedt.bucket.fragments.preference.SettingsFragment
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
 import com.isaiahvonrundstedt.bucket.utils.Account
 import com.isaiahvonrundstedt.bucket.utils.Permissions
+import com.isaiahvonrundstedt.bucket.utils.Preferences
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_appbar_drawer.*
 
@@ -71,7 +74,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         selectedItem = savedInstanceState?.getInt("savedTab")
 
         val homeIndicator: Drawable? = ResourcesCompat.getDrawable(resources, R.drawable.ic_vector_menu, null)
-        homeIndicator?.setColorFilter(ContextCompat.getColor(this, R.color.colorAppBarItem), PorterDuff.Mode.SRC_ATOP)
+        homeIndicator?.setColorFilter(ContextCompat.getColor(this, R.color.colorIcons), PorterDuff.Mode.SRC_ATOP)
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
@@ -96,8 +99,22 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
                     Log.e("DataFetchError", "Error Fetching File")
             }
         }
-        navigationView.setNavigationItemSelectedListener(this)
 
+        if (Preferences(this).theme == Preferences.THEME_LIGHT){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                drawerLayout.setStatusBarBackground(android.R.color.transparent)
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                drawerLayout.setStatusBarBackground(R.color.colorDrawerStatusBar)
+            }
+        } else {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                drawerLayout.setStatusBarBackground(R.color.colorDrawerStatusBar)
+        }
+
+        navigationView.setNavigationItemSelectedListener(this)
         executeWorker()
     }
 
@@ -200,6 +217,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
     override fun onStart() {
         super.onStart()
+
         registerReceiver(transferReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
 
@@ -238,7 +256,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     override fun onNavigationItemSelected(navigationItem: MenuItem): Boolean {
         when (navigationItem.itemId){
             R.id.navigation_files -> replaceFragment(navigationItemFiles)
-            R.id.navigation_repositories -> replaceFragment(navigationItemBoxes)
+            R.id.navigation_boxes -> replaceFragment(navigationItemBoxes)
             R.id.navigation_collections -> replaceFragment(navigationSaved)
             R.id.navigation_notifications -> replaceFragment(navigationItemNotification)
             R.id.navigation_settings -> replaceFragment(navigationItemSettings)

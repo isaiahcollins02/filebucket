@@ -26,14 +26,16 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <ProgressBar
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:mpb_progressStyle="circular"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialProgressBar.ProgressBar"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addAction"

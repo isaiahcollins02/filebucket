@@ -8,6 +8,7 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
         <item name="android:statusBarColor">@color/colorStatusBar</item>
         <item name="android:windowBackground">@color/colorWindowBackground</item>
         <item name="md_corner_radius">8dp</item>
@@ -23,7 +24,7 @@
 
     <style name="AppTheme.BottomSheet" parent="BaseBottomSheetDialog">
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@color/colorGenericBlack</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
 </resources>

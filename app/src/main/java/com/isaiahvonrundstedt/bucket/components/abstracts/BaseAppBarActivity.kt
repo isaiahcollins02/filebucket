@@ -44,7 +44,6 @@ abstract class BaseAppBarActivity: BaseActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        tintActionBarItem(menu, R.id.action_support, R.color.colorPrimary)
         return true
     }
 
@@ -53,12 +52,6 @@ abstract class BaseAppBarActivity: BaseActivity() {
             R.id.action_support -> startActivity(Intent(this, SupportActivity::class.java))
         }
         return true
-    }
-
-    internal fun tintActionBarItem(menu: Menu?, id: Int, colorID: Int){
-        val drawable = menu?.findItem(id)?.icon
-        drawable?.setColorFilter(ContextCompat.getColor(this, colorID), PorterDuff.Mode.SRC_ATOP)
-        menu?.findItem(id)?.icon = drawable
     }
 
 }

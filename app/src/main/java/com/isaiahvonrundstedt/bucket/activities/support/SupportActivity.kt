@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.RadioGroup
+import android.widget.Toast
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +14,7 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.objects.Support
 import com.kaopiz.kprogresshud.KProgressHUD
+import kotlinx.android.synthetic.main.activity_support.*
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
 class SupportActivity: BaseAppBarActivity() {
@@ -21,7 +24,6 @@ class SupportActivity: BaseAppBarActivity() {
 
     private lateinit var summaryField: ExtendedEditText
     private lateinit var infoField: ExtendedEditText
-    private lateinit var radioGroup: RadioGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +32,10 @@ class SupportActivity: BaseAppBarActivity() {
 
         summaryField = findViewById(R.id.summaryField)
         infoField = findViewById(R.id.infoField)
-        radioGroup = findViewById(R.id.radioGroup)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_support, menu)
-        tintActionBarItem(menu, R.id.action_send, R.color.colorPrimary)
         return true
     }
 
@@ -49,8 +48,17 @@ class SupportActivity: BaseAppBarActivity() {
         return true
     }
 
-    private fun sendFeedback(){
+    private fun getCheckedChip(chipGroup: ChipGroup): Int {
+        return when (chipGroup.checkedChipId){
+            R.id.privacyChip -> Support.supportTypePrivacy
+            R.id.interfaceChip -> Support.supportTypeInterface
+            R.id.usageChip -> Support.supportTypeUsage
+            R.id.accessibilityChip -> Support.supportTypeAccessibility
+            else -> Support.supportTypeGeneric
+        }
+    }
 
+    private fun sendFeedback(){
         val progress: KProgressHUD = KProgressHUD(this)
             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             .setAnimationSpeed(2)
@@ -59,7 +67,7 @@ class SupportActivity: BaseAppBarActivity() {
             .show()
 
         val support = Support(firebaseAuth.currentUser?.uid).apply {
-            type = getCheckedID()
+            type = getCheckedChip(chipGroup)
             title = summaryField.text.toString()
             body = infoField.text.toString()
         }
@@ -75,15 +83,6 @@ class SupportActivity: BaseAppBarActivity() {
                 progress.dismiss()
 
             }
-
-    }
-
-    private fun getCheckedID(): Int {
-        return when (radioGroup.checkedRadioButtonId){
-            R.id.radioSuggestion -> 1
-            R.id.radioProblem -> 2
-            else -> 0
-        }
     }
 
 }

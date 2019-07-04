@@ -1,36 +1,33 @@
 package com.isaiahvonrundstedt.bucket.fragments.bottomsheet
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
-import com.isaiahvonrundstedt.bucket.interfaces.PickerItemSelected
-import com.isaiahvonrundstedt.bucket.objects.PickerItem
+import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
+import com.isaiahvonrundstedt.bucket.components.custom.PickerItem
 
-class PickerBottomSheet: BaseBottomSheet(), PickerItemSelected {
+class PickerBottomSheet: BaseBottomSheet(), BottomSheetPicker {
 
     fun setItems(list: ArrayList<PickerItem>){
         items = list
     }
 
     internal class PickerAdapter(private var items: ArrayList<PickerItem>,
-                                 listener: PickerItemSelected): RecyclerView.Adapter<PickerAdapter.ViewHolder>() {
+                                 listener: BottomSheetPicker): RecyclerView.Adapter<PickerAdapter.ViewHolder>() {
 
-        private var itemSelected: PickerItemSelected = listener
+        private var bottomSheet: BottomSheetPicker = listener
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
             viewHolder.iconView.setImageResource(items[position].drawableID)
             viewHolder.titleView.text = viewHolder.itemView.context.getString(items[position].stringID)
-            viewHolder.rowView.setOnClickListener { itemSelected.onItemSelected(position) }
+            viewHolder.rowView.setOnClickListener { bottomSheet.onItemSelected(position) }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -55,7 +52,7 @@ class PickerBottomSheet: BaseBottomSheet(), PickerItemSelected {
     private lateinit var rootView: View
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PickerAdapter
-    private lateinit var itemSelected: PickerItemSelected
+    private lateinit var bottomSheet: BottomSheetPicker
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.layout_sheet_picker, container, false)
@@ -70,12 +67,12 @@ class PickerBottomSheet: BaseBottomSheet(), PickerItemSelected {
     }
 
     override fun onItemSelected(index: Int) {
-        itemSelected.onItemSelected(index)
+        bottomSheet.onItemSelected(index)
         this.dismiss()
     }
 
-    fun setOnItemSelectedListener(listener: PickerItemSelected){
-        this.itemSelected = listener
+    fun setOnItemSelectedListener(listener: BottomSheetPicker){
+        this.bottomSheet = listener
     }
 
 }

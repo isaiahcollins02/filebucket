@@ -95,7 +95,7 @@ class VaultAdapter (private var itemList: ArrayList<File>,
                 args.putParcelable("fileArgs", file)
 
                 itemView.context.startActivity(Intent(itemView.context, FrameActivity::class.java)
-                    .putExtra("viewType", FrameActivity.VIEW_TYPE_DETAILS)
+                    .putExtra("viewType", FrameActivity.viewTypeDetails)
                     .putExtra("viewArgs", args))
             }
             rootView.setOnLongClickListener {

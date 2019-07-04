@@ -53,13 +53,12 @@ class LoginActivity: AppCompatActivity() {
     }
 
     private fun handleAuthentication() {
-
-        val progressDialog = KProgressHUD(this).apply {
-            setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-            setAnimationSpeed(2)
-            setCancellable(false)
-            setDimAmount(.50f)
-        }.show()
+        val dialog = KProgressHUD.create(this)
+        dialog.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+        dialog.setAnimationSpeed(2)
+        dialog.setCancellable(false)
+        dialog.setDimAmount(.05f)
+        dialog.show()
 
         val authEmail = emailField.text
         val authPassword = passwordField.text
@@ -74,19 +73,21 @@ class LoginActivity: AppCompatActivity() {
                             val user: User? = it.toObject(User::class.java)
                             Account(this).save(user!!)
 
+                            dialog.dismiss()
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         }
                         .addOnFailureListener {
+                            dialog.dismiss()
                             Snackbar.make(window.decorView.rootView, R.string.status_unknown, Snackbar.LENGTH_SHORT).show()
                         }
                 }
                 .addOnFailureListener {
+                    dialog.dismiss()
                     Snackbar.make(window.decorView.rootView, R.string.status_invalid_password, Snackbar.LENGTH_SHORT).show()
                 }
         } else
             Snackbar.make(window.decorView.rootView, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
-        progressDialog.dismiss()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -4,17 +4,13 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -25,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.files.fileChooser
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
@@ -35,17 +30,17 @@ import com.isaiahvonrundstedt.bucket.architecture.viewmodel.FileViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.PickerBottomSheet
-import com.isaiahvonrundstedt.bucket.interfaces.PickerItemSelected
+import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
 import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
-import com.isaiahvonrundstedt.bucket.objects.PickerItem
+import com.isaiahvonrundstedt.bucket.components.custom.PickerItem
 import com.isaiahvonrundstedt.bucket.service.FileTransferService
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.kaopiz.kprogresshud.KProgressHUD
 import gun0912.tedbottompicker.TedBottomPicker
 
-class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, PickerItemSelected {
+class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, BottomSheetPicker {
 
     private var fileUri: Uri? = null
     private var downloadUri: Uri? = null
@@ -150,7 +145,6 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, Pick
 
         val items = arrayListOf(
             PickerItem(R.drawable.ic_vector_photo, R.string.bottom_sheet_picker_image),
-            PickerItem(R.drawable.ic_vector_video, R.string.bottom_sheet_picker_video),
             PickerItem(R.drawable.ic_vector_files, R.string.bottom_sheet_picker_file)
         )
 

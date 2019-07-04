@@ -24,7 +24,6 @@ public class CoreApp extends MultiDexApplication {
         super.onCreate();
 
         FirebaseApp.initializeApp(this);
-
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         // Analytics

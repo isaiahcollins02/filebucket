@@ -3,75 +3,75 @@
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.isaiahvonrundstedt.bucket.components.custom.settings.Group
+    <PreferenceCategory
             android:title="@string/settings_group_account">
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Generic
+        <Preference
                 android:key="accountPreference" />
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Value
+        <Preference
                 android:key="signoutPreference"
                 android:title="@string/settings_sign_out"/>
 
-    </com.isaiahvonrundstedt.bucket.components.custom.settings.Group>
+    </PreferenceCategory>
 
-    <com.isaiahvonrundstedt.bucket.components.custom.settings.Group
+    <PreferenceCategory
             android:title="@string/settings_group_display" >
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Value
+        <Preference
                 android:key="appThemePreference"
                 android:title="@string/settings_theme"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Value
+        <Preference
                 android:key="metadataPreference"
                 android:title="@string/settings_metadata"
                 android:summary="@string/settings_metadata_item_timestamp"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Switch
+        <SwitchPreference
                 android:key="previewPreference"
                 android:title="@string/settings_image_previews"
                 android:defaultValue="true"/>
 
-    </com.isaiahvonrundstedt.bucket.components.custom.settings.Group>
+    </PreferenceCategory>
 
-    <com.isaiahvonrundstedt.bucket.components.custom.settings.Group
+    <PreferenceCategory
             android:title="@string/settings_group_notifications">
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Check
+        <CheckBoxPreference
                 android:key="notificationFilePreference"
                 android:title="@string/settings_new_files"
                 android:defaultValue="true"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Check
+        <CheckBoxPreference
                 android:key="notificationPackagePreference"
                 android:title="@string/settings_new_packages"
                 android:defaultValue="true"/>
 
-    </com.isaiahvonrundstedt.bucket.components.custom.settings.Group>
+    </PreferenceCategory>
 
-    <com.isaiahvonrundstedt.bucket.components.custom.settings.Group
+    <PreferenceCategory
             android:title="@string/settings_group_privacy">
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Switch
+        <SwitchPreference
                 android:key="diagnosticsPreference"
                 android:title="@string/settings_analytics"
                 android:defaultValue="true"/>
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Switch
+        <SwitchPreference
                 android:key="crashPreference"
                 android:title="@string/settings_crash_reporting"
                 android:dependency="diagnosticsPreference"
                 android:defaultValue="true"/>
 
-    </com.isaiahvonrundstedt.bucket.components.custom.settings.Group>
+    </PreferenceCategory>
 
-    <com.isaiahvonrundstedt.bucket.components.custom.settings.Group
+    <PreferenceCategory
             android:title="@string/settings_group_general">
 
-        <com.isaiahvonrundstedt.bucket.components.custom.settings.Value
+        <Preference
                 android:key="directoryPreference"
                 android:title="@string/settings_directory"/>
 
-    </com.isaiahvonrundstedt.bucket.components.custom.settings.Group>
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -14,10 +14,10 @@ import com.isaiahvonrundstedt.bucket.fragments.profile.SecureFragment
 class FrameActivity: BaseAppBarActivity() {
 
     companion object {
-        const val VIEW_TYPE_SENT: Int = 0
-        const val VIEW_TYPE_PASSWORD: Int = 1
-        const val VIEW_TYPE_RESET: Int = 2
-        const val VIEW_TYPE_DETAILS: Int = 3
+        const val viewTypeSent: Int = 0
+        const val viewTypePassword: Int = 1
+        const val viewTypeReset: Int = 2
+        const val viewTypeDetails: Int = 3
     }
 
     private var viewArgs: Bundle? = null
@@ -33,10 +33,10 @@ class FrameActivity: BaseAppBarActivity() {
         viewArgs = intent?.getBundleExtra("viewArgs")
 
         when(userViewType){
-            VIEW_TYPE_SENT -> setToolbarTitle(getString(R.string.profile_view_repository))
-            VIEW_TYPE_PASSWORD -> setToolbarTitle(getString(R.string.profile_secure_account))
-            VIEW_TYPE_RESET -> setToolbarTitle(getString(R.string.profile_reset_password))
-            VIEW_TYPE_DETAILS -> setToolbarTitle(getString(R.string.file_details))
+            viewTypeSent -> setToolbarTitle(getString(R.string.profile_view_repository))
+            viewTypePassword -> setToolbarTitle(getString(R.string.profile_secure_account))
+            viewTypeReset -> setToolbarTitle(getString(R.string.profile_reset_password))
+            viewTypeDetails -> setToolbarTitle(getString(R.string.file_details))
         }
     }
 
@@ -52,10 +52,10 @@ class FrameActivity: BaseAppBarActivity() {
         super.onStart()
         
         when (userViewType){
-            VIEW_TYPE_SENT -> activeFragment = BoxFragment()
-            VIEW_TYPE_PASSWORD -> activeFragment = SecureFragment()
-            VIEW_TYPE_RESET -> activeFragment = ResetFragment()
-            VIEW_TYPE_DETAILS -> activeFragment = DetailFragment()
+            viewTypeSent -> activeFragment = BoxFragment()
+            viewTypePassword -> activeFragment = SecureFragment()
+            viewTypeReset -> activeFragment = ResetFragment()
+            viewTypeDetails -> activeFragment = DetailFragment()
         }
         activeFragment?.arguments = viewArgs
 

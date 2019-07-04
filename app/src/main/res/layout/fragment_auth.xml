@@ -47,7 +47,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:imeOptions="actionDone"
-                    android:textColor="@color/colorGenericBlack"/>
+                    android:textColor="@android:color/black"/>
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -68,7 +68,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:imeOptions="actionDone"
-                    android:textColor="@color/colorGenericBlack"/>
+                    android:textColor="@android:color/black"/>
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -92,11 +92,11 @@
                 android:text="@string/button_register"
                 android:textSize="16sp"
                 android:textAllCaps="true"
-                android:textColor="@color/colorPrimaryText"
+                android:textColor="@android:color/white"
                 android:layout_alignParentEnd="true"
                 android:focusable="true"
                 android:clickable="true"
-                android:drawableEnd="@drawable/ic_vector_next"/>
+                app:drawableEndCompat="@drawable/ic_vector_next"/>
 
     </RelativeLayout>
 

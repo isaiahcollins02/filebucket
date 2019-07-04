@@ -7,13 +7,4 @@ import com.isaiahvonrundstedt.bucket.R
 
 abstract class BasePreference: PreferenceFragmentCompat() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        onHandleThemeChanges(view)
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun onHandleThemeChanges(view: View){
-        view.setBackgroundResource(R.color.colorPreference)
-    }
-
 }

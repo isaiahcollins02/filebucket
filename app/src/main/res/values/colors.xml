@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#1976D2</color>
-    <color name="colorPrimaryVariant">#FF004BA0</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorSecondary">#FFD600</color>
-    <color name="colorSecondaryVariant">#FFFF52</color>
+    <!-- Default App Colors -->
+    <color name="colorPrimary">#0288d1</color>
+    <color name="colorPrimaryVariant">#005b9f</color>
+    <color name="colorOnPrimary">#ffffff</color>
+    <color name="colorSecondary">#ffc400</color>
+    <color name="colorSecondaryVariant">#fff64f</color>
     <color name="colorOnSecondary">#000000</color>
 
-    <color name="colorGenericWhite">#FFFFFF</color>
-    <color name="colorGenericBlack">#000000</color>
-
     <color name="colorIndicatorGreen">#008744</color>
-    <color name="colorIndicatorBlue">#0057E7</color>
-    <color name="colorIndicatorRed">#D62D20</color>
-    <color name="colorIndicatorYellow">#FFA700</color>
+    <color name="colorIndicatorBlue">#0057e7</color>
+    <color name="colorIndicatorRed">#d62d20</color>
+    <color name="colorIndicatorYellow">#ffa700</color>
 
     <!-- Colors Used in Light Mode -->
-    <color name="colorWindowBackground">#FFFFFF</color>
-    <color name="colorCardBackground">#FFFFFF</color>
-    <color name="colorPreference">#FAFAFA</color>
-    <color name="colorToolbar">#FFFFFF</color>
-    <color name="colorStatusBar">#E1E1E1</color>
-    <color name="colorHighlightedBackground">#F8F8F8</color>
-    <color name="colorAppBarItem">#1976D2</color>
+    <color name="colorWindowBackground">#ffffff</color>
+    <color name="colorCardBackground">#ffffff</color>
+    <color name="colorPreference">#fafafa</color>
+    <color name="colorToolbar">#f5f5f5</color>
+    <color name="colorStatusBar">#ffe5e5e5</color>
+    <color name="colorDrawerStatusBar">#80FFFFFF</color>
+    <color name="colorHighlightedBackground">#f8f8f8</color>
+    <color name="colorIcons">#9c9c9c</color>
 
     <color name="colorPrimaryText">#000000</color>
-    <color name="colorSecondaryText">#9C9C9C</color>
-    <color name="colorHelperText">#455A64</color>
+    <color name="colorSecondaryText">#9c9c9c</color>
+    <color name="colorHelperText">#455a64</color>
 
 </resources>

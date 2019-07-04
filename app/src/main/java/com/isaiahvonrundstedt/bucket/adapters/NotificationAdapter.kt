@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.objects.Notification
-import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 
 class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
@@ -47,14 +46,8 @@ class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>(
             titleView.text = notification.title
             subtitleView.text = notification.content
 
-            val colorID: Int? = when (Preferences(itemView.context).theme){
-                Preferences.THEME_LIGHT -> R.color.colorPrimary
-                Preferences.THEME_DARK -> R.color.colorGenericWhite
-                else -> null
-            }
-
             val drawable: Drawable? = ItemManager.getNotificationIcon(itemView.context, notification.type)
-            drawable?.setColorFilter(ContextCompat.getColor(itemView.context, colorID!!), PorterDuff.Mode.SRC_ATOP)
+            drawable?.setColorFilter(ContextCompat.getColor(itemView.context, R.color.colorIcons), PorterDuff.Mode.SRC_ATOP)
             iconView.setImageDrawable(drawable)
         }
     }

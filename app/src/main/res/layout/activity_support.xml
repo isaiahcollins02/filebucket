@@ -5,10 +5,46 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_margin"
+            app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/privacyChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/support_feedback_item_privacy"
+                style="@style/Widget.MaterialComponents.Chip.Filter"/>
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/interfaceChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/support_feedback_item_interface"
+                style="@style/Widget.MaterialComponents.Chip.Filter"/>
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/usageChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/support_feedback_item_usage"
+                style="@style/Widget.MaterialComponents.Chip.Filter"/>
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/accessibilityChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/support_feedback_item_accessibility"
+                style="@style/Widget.MaterialComponents.Chip.Filter"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="@dimen/activity_margin_start"
             android:layout_marginEnd="@dimen/activity_margin_end"
@@ -46,36 +82,5 @@
                 android:maxLines="8"/>
 
     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_margin_start"
-            android:layout_marginEnd="@dimen/activity_margin_end"
-            android:text="@string/type_of_feedback"
-            android:textColor="@color/colorPrimary"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin_start"
-            android:layout_marginEnd="@dimen/activity_margin_end">
-
-        <RadioButton
-                android:id="@+id/radioSuggestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/choice_feedback"/>
-
-        <RadioButton
-                android:id="@+id/radioProblem"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/choice_problem"/>
-
-    </RadioGroup>
 
 </LinearLayout>

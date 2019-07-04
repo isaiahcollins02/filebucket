@@ -20,6 +20,11 @@
     <string name="file_timestamp_today">Today at %1$s</string>
     <string name="file_size_megabytes">%1$s MB</string>
 
+    <string name="support_feedback_item_privacy">Privacy</string>
+    <string name="support_feedback_item_interface">Interface and Design</string>
+    <string name="support_feedback_item_usage">Device Usage</string>
+    <string name="support_feedback_item_accessibility">Accessibility</string>
+
     <!-- Generic Button Text -->
     <string name="button_continue">Continue</string>
     <string name="button_cancel">Cancel</string>
@@ -148,7 +153,7 @@
     <string name="settings_group_notifications">Notifications</string>
     <string name="settings_group_privacy">Privacy</string>
     <string name="settings_group_general">General</string>
-    <string name="settings_group_about">Application Information</string>
+    <string name="settings_group_about">File Bucket</string>
 
     <!-- Account Group -->
     <string name="settings_sign_out">Sign out</string>

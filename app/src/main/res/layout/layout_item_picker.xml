@@ -16,7 +16,8 @@
             android:layout_marginStart="@dimen/activity_margin_start"
             android:layout_marginEnd="@dimen/activity_margin_end"
             android:layout_marginBottom="16dp"
-            app:tint="@color/colorAppBarItem"
+            android:layout_gravity="center"
+            app:tint="@color/colorIcons"
             tools:srcCompat="@drawable/ic_vector_files"/>
 
     <TextView

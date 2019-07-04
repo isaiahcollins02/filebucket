@@ -52,16 +52,16 @@ class AuthFragment: Fragment() {
     }
 
     private fun handleRegistration(password: String, confirmationPassword: String){
-        val progress = KProgressHUD.create(rootView.context)
-            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-            .setAnimationSpeed(2)
-            .setCancellable(false)
-            .setDimAmount(.50f)
-            .show()
-
         val userReference = firestore.collection(Firebase.USERS.string)
 
         if (password == confirmationPassword){
+            val dialog = KProgressHUD.create(rootView.context)
+            dialog.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+            dialog.setAnimationSpeed(2)
+            dialog.setCancellable(false)
+            dialog.setDimAmount(.05f)
+            dialog.show()
+
             firebaseAuth.createUserWithEmailAndPassword(email!!, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -76,15 +76,17 @@ class AuthFragment: Fragment() {
 
                         userReference.document(userID).set(newAccount)
                             .addOnSuccessListener {
-                                progress.dismiss()
+                                dialog.dismiss()
 
                                 startActivity(Intent(rootView.context, MainActivity::class.java))
                                 activity?.finish()
                             }
                             .addOnFailureListener {
+                                dialog.dismiss()
                                 Snackbar.make(rootView, R.string.status_unknown, Snackbar.LENGTH_SHORT).show()
                             }
                     } else
+                        dialog.dismiss()
                         Snackbar.make(rootView, R.string.status_unknown, Snackbar.LENGTH_SHORT).show()
                 }
         } else if (password.isBlank() || confirmationPassword.isBlank())

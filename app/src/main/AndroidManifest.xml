@@ -27,7 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.MainActivity"
+                android:theme="@style/AppTheme.Drawer"/>
         <activity android:name=".activities.auth.FirstRunActivity"
                   android:theme="@style/AppTheme.FirstRun"/>
         <activity android:name=".activities.auth.LoginActivity"
