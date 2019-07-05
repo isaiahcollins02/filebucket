@@ -8,11 +8,11 @@ import androidx.preference.PreferenceManager
 class Preferences(val context: Context?) {
 
     companion object {
-        const val METADATA_TIMESTAMP = "timestamp"
-        const val METADATA_AUTHOR = "author"
+        const val metadataTimestamp = "timestamp"
+        const val metadataAuthor = "author"
 
-        const val THEME_LIGHT = "light"
-        const val THEME_DARK = "dark"
+        const val themeLight = "light"
+        const val themeDark = "dark"
     }
 
     private var sharedPreferences: SharedPreferences? = null
@@ -54,7 +54,7 @@ class Preferences(val context: Context?) {
         }
         get() {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences?.getString("appThemePreference", THEME_LIGHT) as String
+            return sharedPreferences?.getString("appThemePreference", themeLight) as String
         }
 
     var updateNotification: Boolean
@@ -109,6 +109,6 @@ class Preferences(val context: Context?) {
         }
         get() {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences?.getString("metadataPreference", METADATA_TIMESTAMP)
+            return sharedPreferences?.getString("metadataPreference", metadataTimestamp)
         }
 }

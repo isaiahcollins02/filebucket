@@ -220,7 +220,7 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, Bott
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode){
-            Permissions.READ_REQUEST -> {
+            Permissions.readRequestCode -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     invokeFilePicker()
             }

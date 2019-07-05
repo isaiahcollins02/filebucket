@@ -84,8 +84,8 @@ class CoreAdapter constructor (
             titleView.text = file.name
             subtitleView.text =
                 when (Preferences(windowContext).metadata){
-                    Preferences.METADATA_TIMESTAMP -> DataManager.formatTimestamp(rootView.context, file.timestamp)
-                    Preferences.METADATA_AUTHOR -> file.author
+                    Preferences.metadataTimestamp -> DataManager.formatTimestamp(rootView.context, file.timestamp)
+                    Preferences.metadataAuthor -> file.author
                     else -> null
                 }
             val decimalFormat = DecimalFormat("#.##")
@@ -118,8 +118,8 @@ class CoreAdapter constructor (
 
             titleView.text = file.name
             subtitleView.text = when (Preferences(windowContext).metadata){
-                Preferences.METADATA_TIMESTAMP -> DataManager.formatTimestamp(windowContext, file.timestamp)
-                Preferences.METADATA_AUTHOR -> file.author
+                Preferences.metadataTimestamp -> DataManager.formatTimestamp(windowContext, file.timestamp)
+                Preferences.metadataAuthor -> file.author
                 else -> null
             }
             val decimalFormat = DecimalFormat("#.##")

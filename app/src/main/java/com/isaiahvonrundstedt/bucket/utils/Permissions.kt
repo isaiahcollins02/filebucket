@@ -8,8 +8,8 @@ import android.os.Build
 class Permissions(var context: Context) {
 
     companion object {
-        const val READ_REQUEST = 4
-        const val WRITE_REQUEST = 3
+        const val readRequestCode = 4
+        const val writeRequestCode = 3
     }
 
     val readAccessGranted: Boolean

@@ -61,7 +61,7 @@ class SettingsFragment: BasePreference() {
                 invokeChooser()
             } else {
                 ActivityCompat.requestPermissions(activity!!,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Permissions.READ_REQUEST)
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Permissions.readRequestCode)
             }
             true
         }
@@ -74,13 +74,13 @@ class SettingsFragment: BasePreference() {
                 title(R.string.settings_theme_dialog)
                 listItems(items = themeList){ _, _, theme ->
                     val themeID : String? = when (theme){
-                        getString(R.string.settings_theme_item_light) -> Preferences.THEME_LIGHT
-                        getString(R.string.settings_theme_item_dark) -> Preferences.THEME_DARK
+                        getString(R.string.settings_theme_item_light) -> Preferences.themeLight
+                        getString(R.string.settings_theme_item_dark) -> Preferences.themeDark
                         else -> null
                     }
                     when (themeID){
-                        Preferences.THEME_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        Preferences.THEME_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        Preferences.themeLight -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        Preferences.themeDark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     }
                     themePref.summary = theme
                     Preferences(it.context).theme = themeID!!
@@ -91,16 +91,16 @@ class SettingsFragment: BasePreference() {
 
         val metadataList = listOf(getString(R.string.settings_metadata_item_timestamp), getString(R.string.settings_metadata_item_author))
         val metadataPref: Preference? = findPreference("metadataPreference")
-        metadataPref?.summary = if (Preferences(context).metadata == Preferences.METADATA_TIMESTAMP)
+        metadataPref?.summary = if (Preferences(context).metadata == Preferences.metadataTimestamp)
             getString(R.string.settings_metadata_item_timestamp) else getString(R.string.settings_metadata_item_author)
         metadataPref?.setOnPreferenceClickListener {
             MaterialDialog(it.context).show {
                 title(R.string.settings_metadata_dialog)
                 listItems(items = metadataList){ _, _, metadata ->
                     val newItem = when (metadata){
-                        getString(R.string.settings_metadata_item_timestamp) -> Preferences.METADATA_TIMESTAMP
-                        getString(R.string.settings_metadata_item_author) -> Preferences.METADATA_AUTHOR
-                        else -> Preferences.METADATA_TIMESTAMP
+                        getString(R.string.settings_metadata_item_timestamp) -> Preferences.metadataTimestamp
+                        getString(R.string.settings_metadata_item_author) -> Preferences.metadataAuthor
+                        else -> Preferences.metadataTimestamp
                     }
                     metadataPref.summary = newItem.capitalize()
                     Preferences(it.context).metadata = newItem
@@ -118,5 +118,4 @@ class SettingsFragment: BasePreference() {
             }
         }
     }
-
 }

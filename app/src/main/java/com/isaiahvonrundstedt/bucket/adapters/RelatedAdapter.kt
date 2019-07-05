@@ -38,8 +38,8 @@ class RelatedAdapter(options: FirestoreRecyclerOptions<File>)
             titleView.text = file.name
             subtitleView.text =
                 when (Preferences(itemView.context).metadata){
-                    Preferences.METADATA_TIMESTAMP -> DataManager.formatTimestamp(itemView.context, file.timestamp)
-                    Preferences.METADATA_AUTHOR -> file.author
+                    Preferences.metadataTimestamp -> DataManager.formatTimestamp(itemView.context, file.timestamp)
+                    Preferences.metadataAuthor -> file.author
                     else -> null
                 }
             val decimalFormat = DecimalFormat("#.##")

@@ -28,6 +28,7 @@ abstract class BaseAppBarActivity: BaseActivity() {
             val toolbar: Toolbar = rootView.findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
 
+            toolbar.setNavigationOnClickListener { finish() }
             supportActionBar?.title = null
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             toolbarTitleView = findViewById(R.id.toolbarTitle)

@@ -13,6 +13,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.AppCompatImageView
@@ -32,6 +33,7 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.navigation.NavigationView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
+import com.isaiahvonrundstedt.bucket.activities.generic.SettingsActivity
 import com.isaiahvonrundstedt.bucket.architecture.work.SupportWorker
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
@@ -46,9 +48,10 @@ import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_appbar_drawer.*
+import timber.log.Timber
 
 class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigationItemSelectedListener,
-     SearchView.OnQueryTextListener {
+     SearchView.OnQueryTextListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var downloadID: Long? = 0L
     private var selectedItem: Int? = 0
@@ -64,7 +67,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         const val navigationItemBoxes = 1
         const val navigationSaved = 2
         const val navigationItemNotification = 3
-        const val navigationItemSettings = 4
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,21 +75,17 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
         selectedItem = savedInstanceState?.getInt("savedTab")
 
-        val homeIndicator: Drawable? = ResourcesCompat.getDrawable(resources, R.drawable.ic_vector_menu, null)
-        homeIndicator?.setColorFilter(ContextCompat.getColor(this, R.color.colorIcons), PorterDuff.Mode.SRC_ATOP)
-
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(homeIndicator)
         toolbar.setNavigationOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
         toolbarTitleView = toolbar.findViewById(R.id.titleView)
-
         setupHeader()
 
         val actionBarToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.status_drawer_open,
             R.string.status_drawer_closed)
         drawerLayout.addDrawerListener(actionBarToggle)
+        actionBarToggle.drawerArrowDrawable.color = ContextCompat.getColor(this, R.color.colorIcons)
         actionBarToggle.syncState()
 
         transferReceiver = object: BroadcastReceiver(){
@@ -96,11 +94,11 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
                 if (receivedID == downloadID){
                     sendNotification(NOTIFICATION_TYPE_FINISHED, getString(R.string.notification_download_finished))
                 } else
-                    Log.e("DataFetchError", "Error Fetching File")
+                    Timber.e("Error Fetching File")
             }
         }
 
-        if (Preferences(this).theme == Preferences.THEME_LIGHT){
+        if (Preferences(this).theme == Preferences.themeLight){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                 drawerLayout.setStatusBarBackground(android.R.color.transparent)
@@ -116,6 +114,11 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
         navigationView.setNavigationItemSelectedListener(this)
         executeWorker()
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        if (key == "appThemePreference")
+            recreate()
     }
 
     private fun setupHeader(){
@@ -152,7 +155,12 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         menuInflater.inflate(R.menu.menu_search, menu)
         searchMenuItem = menu?.findItem(R.id.action_search)
 
+        val searchDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_vector_search, null)
+        searchDrawable?.setColorFilter(ContextCompat.getColor(this, R.color.colorIcons), PorterDuff.Mode.SRC_ATOP)
+
         searchView = searchMenuItem?.actionView as SearchView
+        val imageView: ImageView? = searchView?.findViewById(androidx.appcompat.R.id.search_button)
+        imageView?.setImageDrawable(searchDrawable)
         searchView?.setOnQueryTextListener(this)
 
         return true
@@ -187,10 +195,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             navigationItemBoxes -> setToolbarTitle(R.string.navigation_boxes)
             navigationSaved -> setToolbarTitle(R.string.navigation_saved)
             navigationItemNotification -> setToolbarTitle(R.string.navigation_notifications)
-            navigationItemSettings -> setToolbarTitle(R.string.navigation_settings)
         }
-
-        searchMenuItem?.isVisible = item != navigationItemSettings
     }
 
     private fun setToolbarTitle(int: Int) {
@@ -203,7 +208,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             navigationItemBoxes -> BoxesFragment()
             navigationSaved -> SavedFragment()
             navigationItemNotification -> NotificationFragment()
-            navigationItemSettings -> SettingsFragment()
             else -> null
         }
     }
@@ -232,12 +236,12 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
                     message(R.string.dialog_permission_revoked_summary)
                     positiveButton(R.string.button_continue){
                         ActivityCompat.requestPermissions(this@MainActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                            Permissions.WRITE_REQUEST)
+                            Permissions.writeRequestCode)
                     }
                 }
             } else {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    Permissions.WRITE_REQUEST)
+                    Permissions.writeRequestCode)
             }
         } else
             replaceFragment(selectedItem ?: navigationItemFiles)
@@ -245,7 +249,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode){
-            Permissions.WRITE_REQUEST -> {
+            Permissions.writeRequestCode -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     replaceFragment(selectedItem ?: navigationItemFiles)
             }
@@ -259,7 +263,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             R.id.navigation_boxes -> replaceFragment(navigationItemBoxes)
             R.id.navigation_collections -> replaceFragment(navigationSaved)
             R.id.navigation_notifications -> replaceFragment(navigationItemNotification)
-            R.id.navigation_settings -> replaceFragment(navigationItemSettings)
+            R.id.navigation_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.navigation_about -> startActivity(Intent(this, AboutActivity::class.java))
         }
         drawerLayout.closeDrawer(GravityCompat.START)

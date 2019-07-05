@@ -18,11 +18,11 @@
     <color name="colorWindowBackground">#ffffff</color>
     <color name="colorCardBackground">#ffffff</color>
     <color name="colorPreference">#fafafa</color>
-    <color name="colorToolbar">#f5f5f5</color>
-    <color name="colorStatusBar">#ffe5e5e5</color>
+    <color name="colorToolbar">#ffffff</color>
+    <color name="colorStatusBar">#e5e5e5</color>
     <color name="colorDrawerStatusBar">#80FFFFFF</color>
     <color name="colorHighlightedBackground">#f8f8f8</color>
-    <color name="colorIcons">#9c9c9c</color>
+    <color name="colorIcons">#000000</color>
 
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#9c9c9c</color>

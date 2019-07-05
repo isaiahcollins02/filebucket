@@ -29,57 +29,47 @@
                 android:text="@string/provide_the_required_information"
                 android:textColor="@color/colorHelperText"/>
 
-        <LinearLayout
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp"
-                android:weightSum="1">
+                android:layout_marginEnd="4dp"
+                app:primaryColor="@color/colorPrimary"
+                app:secondaryColor="@color/colorHelperText"
+                app:hasFocus="true"
+                app:hasClearButton="true"
+                app:labelText="@string/hint_first_name">
 
-            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/firstNameField"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    app:primaryColor="@color/colorPrimary"
-                    app:secondaryColor="@color/colorHelperText"
-                    app:hasFocus="true"
-                    app:hasClearButton="true"
-                    app:labelText="@string/hint_first_name">
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:textColor="@android:color/black"/>
 
-                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                        android:id="@+id/firstNameField"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:imeOptions="actionNext"
-                        android:textColor="@android:color/black"/>
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                app:primaryColor="@color/colorPrimary"
+                app:secondaryColor="@color/colorHelperText"
+                app:hasClearButton="true"
+                app:labelText="@string/hint_last_name">
 
-            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/lastNameField"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    app:primaryColor="@color/colorPrimary"
-                    app:secondaryColor="@color/colorHelperText"
-                    app:hasClearButton="true"
-                    app:labelText="@string/hint_last_name">
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:textColor="@android:color/black"/>
 
-                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                        android:id="@+id/lastNameField"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:imeOptions="actionNext"
-                        android:textColor="@android:color/black"/>
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-        </LinearLayout>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                 android:layout_width="match_parent"
