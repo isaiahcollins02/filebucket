@@ -3,7 +3,6 @@ package com.isaiahvonrundstedt.bucket.fragments.profile
 import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,15 +22,13 @@ import com.isaiahvonrundstedt.bucket.adapters.filterable.VaultAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.constants.Parameters
-import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
-import com.isaiahvonrundstedt.bucket.utils.Account
+import com.isaiahvonrundstedt.bucket.utils.User
 
-class BoxFragment: BaseFragment(), TransferListener{
+class BoxFragment: BaseFragment() {
 
     private var file: java.io.File? = null
     private var downloadURL: String? = null
-    private var downloadID: Long? = 0
     private var fullName: String? = null
     private var query: Query? = null
 
@@ -49,23 +46,14 @@ class BoxFragment: BaseFragment(), TransferListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fullName = Account(context!!).fullName
+        fullName = User(context!!).fullName
         downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-
-        downloadReceiver = object: BroadcastReceiver(){
-            override fun onReceive(context: Context?, intent: Intent?) {
-                val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-                if (id == downloadID)
-                    sendNotification(NOTIFICATION_TYPE_FINISHED, getString(R.string.notification_download_finished))
-            }
-        }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_sent, container, false)
 
-        adapter = VaultAdapter(arrayList, this, childFragmentManager)
+        adapter = VaultAdapter(arrayList, childFragmentManager)
 
         swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
         swipeRefreshContainer.setColorSchemeResources(
@@ -134,11 +122,6 @@ class BoxFragment: BaseFragment(), TransferListener{
             .setTitle(getString(R.string.notification_downloading_file))
             .setDestinationUri(bufferedFile?.toUri())
 
-        downloadID = downloadManager.enqueue(request)
+        downloadManager.enqueue(request)
     }
-
-    override fun onDownloadQueued(downloadID: Long) {
-        this.downloadID = downloadID
-    }
-
 }

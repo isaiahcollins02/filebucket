@@ -3,8 +3,6 @@ package com.isaiahvonrundstedt.bucket.activities.support
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.RadioGroup
-import android.widget.Toast
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth

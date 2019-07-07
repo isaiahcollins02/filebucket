@@ -3,7 +3,6 @@ package com.isaiahvonrundstedt.bucket.adapters.filterable
 import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,22 +11,17 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.net.toUri
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.MaterialDialog
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
-import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
-import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import java.text.DecimalFormat
 
 class VaultAdapter (private var itemList: ArrayList<File>,
-                    private var transferListener: TransferListener,
                     private var fragmentManager: FragmentManager
     ): RecyclerView.Adapter<VaultAdapter.CoreViewHolder>(), Filterable {
 
@@ -61,25 +55,6 @@ class VaultAdapter (private var itemList: ArrayList<File>,
 
     override fun getItemCount(): Int {
         return filterList.size
-    }
-
-    private fun invokeDialog(context: Context?, file: File?){
-        val externalDir: String = Preferences(context).downloadDirectory!!
-        val bufferedFile = java.io.File(externalDir, file?.name)
-
-        MaterialDialog(context!!).show {
-            title(text = String.format(context.getString(R.string.dialog_file_download_title), file?.name))
-            message(R.string.dialog_file_download_summary)
-            positiveButton(R.string.button_download) {
-                request = DownloadManager.Request(Uri.parse(file?.downloadURL))
-                    .setTitle(it.context.getString(R.string.notification_downloading_file))
-                    .setDestinationUri(bufferedFile.toUri())
-
-                val downloadID: Long? = manager?.enqueue(request)
-                transferListener.onDownloadQueued(downloadID!!)
-            }
-            negativeButton(R.string.button_cancel)
-        }
     }
 
     inner class CoreViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){

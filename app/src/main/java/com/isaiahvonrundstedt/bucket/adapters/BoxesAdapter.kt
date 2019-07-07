@@ -14,13 +14,13 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.support.VaultActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Parameters
-import com.isaiahvonrundstedt.bucket.objects.User
+import com.isaiahvonrundstedt.bucket.objects.Account
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 
-class BoxesAdapter(private var itemList: ArrayList<User>): RecyclerView.Adapter<BoxesAdapter.ViewHolder>(),
+class BoxesAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapter<BoxesAdapter.ViewHolder>(),
     Filterable {
 
-    private var filterList: ArrayList<User> = itemList
+    private var filterList: ArrayList<Account> = itemList
     private var filter: AccountFilter? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,7 +33,7 @@ class BoxesAdapter(private var itemList: ArrayList<User>): RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentUser: User = filterList[position]
+        val currentUser: Account = filterList[position]
         val string: String = currentUser.firstName + " " + currentUser.lastName
 
         GlideApp.with(holder.rootView)
@@ -74,7 +74,7 @@ class BoxesAdapter(private var itemList: ArrayList<User>): RecyclerView.Adapter<
             val originalList = filterList
             val listCount = filterList.size
 
-            var resultList: ArrayList<User> = ArrayList(listCount)
+            var resultList: ArrayList<Account> = ArrayList(listCount)
             var filterableString: String
 
             if (searchTerm.isNotBlank() && searchTerm.isNotEmpty()) {
@@ -95,7 +95,7 @@ class BoxesAdapter(private var itemList: ArrayList<User>): RecyclerView.Adapter<
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             @Suppress("UNCHECKED_CAST")
-            filterList = results?.values as ArrayList<User>
+            filterList = results?.values as ArrayList<Account>
             notifyDataSetChanged()
         }
     }

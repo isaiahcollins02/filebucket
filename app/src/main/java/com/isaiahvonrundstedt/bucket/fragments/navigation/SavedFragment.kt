@@ -1,12 +1,8 @@
 package com.isaiahvonrundstedt.bucket.fragments.navigation
 
-import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +18,9 @@ import com.isaiahvonrundstedt.bucket.architecture.viewmodel.SavedViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
-import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
 
-class SavedFragment: BaseFragment(), ScreenAction.Search, TransferListener {
+class SavedFragment: BaseFragment(), ScreenAction.Search {
 
     private var downloadID: Long? = null
     private var viewModel: SavedViewModel? = null
@@ -37,21 +32,6 @@ class SavedFragment: BaseFragment(), ScreenAction.Search, TransferListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
     private lateinit var downloadReceiver: BroadcastReceiver
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        downloadReceiver = object: BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                val receivedID: Long = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)!!
-                if (receivedID == downloadID){
-                    sendNotification(NOTIFICATION_TYPE_FINISHED, getString(R.string.notification_download_finished))
-                } else
-                    Log.e("DataFetchError", "Error Fetching File")
-            }
-
-        }
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -66,7 +46,7 @@ class SavedFragment: BaseFragment(), ScreenAction.Search, TransferListener {
         rootView = inflater.inflate(R.layout.fragment_saved, container, false)
 
         adapter =
-            CoreAdapter(itemList, childFragmentManager, GlideApp.with(this), this)
+            CoreAdapter(itemList, childFragmentManager, GlideApp.with(this))
         swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
 
         recyclerView = rootView.findViewById(R.id.recyclerView)
@@ -90,16 +70,6 @@ class SavedFragment: BaseFragment(), ScreenAction.Search, TransferListener {
     override fun onStart() {
         super.onStart()
         onLoadAssets()
-        context?.registerReceiver(downloadReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-    }
-
-    override fun onPause() {
-        super.onPause()
-        context?.unregisterReceiver(downloadReceiver)
-    }
-
-    override fun onDownloadQueued(downloadID: Long) {
-        this.downloadID = downloadID
     }
 
     override fun onSearch(searchQuery: String?) {

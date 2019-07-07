@@ -3,7 +3,6 @@ package com.isaiahvonrundstedt.bucket.service
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
 import androidx.core.content.ContextCompat
@@ -13,7 +12,9 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.NotificationDAO
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firebase
+import timber.log.Timber
 
 class SupportService: BaseService() {
 
@@ -54,7 +55,7 @@ class SupportService: BaseService() {
                 if (!(minVersion!! >= currentVersion && maxVersion!! <= currentVersion))
                     showUnsupportedVersionNotification()
             } else
-                Log.e("DataFetchError", "Error Fetching Client")
+                Timber.e("Error Fetching Client")
         }
     }
     private fun showUnsupportedVersionNotification(){

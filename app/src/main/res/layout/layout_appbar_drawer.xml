@@ -14,12 +14,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                android:theme="@style/AppTheme.Widget.Toolbar"
-                app:navigationIcon="@drawable/ic_vector_menu"
-                app:contentInsetStart="@dimen/activity_margin_start"
-                app:contentInsetEnd="@dimen/activity_margin_end"
-                app:contentInsetStartWithNavigation="@dimen/activity_margin_start"
-                app:contentInsetEndWithActions="@dimen/activity_margin_end">
+                android:theme="@style/AppTheme.Widget.Toolbar">
 
             <TextView
                     android:id="@+id/titleView"

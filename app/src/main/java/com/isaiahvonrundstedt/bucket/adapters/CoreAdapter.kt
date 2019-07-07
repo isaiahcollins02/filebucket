@@ -18,7 +18,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.RequestManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
-import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
@@ -28,11 +27,9 @@ import java.text.DecimalFormat
 class CoreAdapter constructor (
     private val itemList: ArrayList<File>,
     private val manager: FragmentManager,
-    private val requestManager: RequestManager,
-    private val transferListener: TransferListener
+    private val requestManager: RequestManager
         ): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
-    private var downloadID: Long = 0
     private var filterList: ArrayList<File> = itemList
     private var filter: FileFilter? = null
     private var windowContext: Context? = null
@@ -41,8 +38,8 @@ class CoreAdapter constructor (
     private lateinit var downloadManager: DownloadManager
 
     companion object {
-        const val ITEM_TYPE_FILE = 0
-        const val ITEM_TYPE_IMAGE = 1
+        const val itemTypeFile = 0
+        const val itemTypeImage = 1
     }
 
     override fun onCreateViewHolder(container: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -51,7 +48,7 @@ class CoreAdapter constructor (
 
         val rowView: View?
         return when (viewType){
-            ITEM_TYPE_IMAGE -> {
+            itemTypeImage -> {
                 rowView = LayoutInflater.from(container.context).inflate(R.layout.layout_item_photo, container, false)
                 ImageViewHolder(rowView)
             } else -> {
@@ -68,7 +65,7 @@ class CoreAdapter constructor (
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentFile: File = filterList[position]
         when (holder.itemViewType){
-            ITEM_TYPE_IMAGE -> (holder as ImageViewHolder).bindData(currentFile)
+            itemTypeImage -> (holder as ImageViewHolder).bindData(currentFile)
             else -> (holder as FileViewHolder).bindData(currentFile)
         }
     }
@@ -185,7 +182,6 @@ class CoreAdapter constructor (
     }
 
     private fun handleFileDownload(file: File?){
-
         val externalDir: String? = Preferences(windowContext).downloadDirectory
         val bufferedFile = java.io.File(externalDir, file?.name)
 
@@ -197,8 +193,7 @@ class CoreAdapter constructor (
                     .setTitle(windowContext.getString(R.string.notification_downloading_file))
                     .setDestinationUri(bufferedFile.toUri())
 
-                downloadID = downloadManager.enqueue(request)
-                transferListener.onDownloadQueued(downloadID)
+                downloadManager.enqueue(request)
             }
             negativeButton(R.string.button_cancel)
         }
@@ -212,10 +207,10 @@ class CoreAdapter constructor (
         return when (filterList[position].fileType){
             File.TYPE_IMAGE -> {
                 if (Preferences(windowContext).previewPreference != false)
-                    ITEM_TYPE_IMAGE
-                else ITEM_TYPE_FILE
+                    itemTypeImage
+                else itemTypeFile
             }
-            else -> ITEM_TYPE_FILE
+            else -> itemTypeFile
         }
     }
 

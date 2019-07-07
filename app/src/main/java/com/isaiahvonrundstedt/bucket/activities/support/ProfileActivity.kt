@@ -20,7 +20,7 @@ import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.interfaces.RecyclerNavigation
-import com.isaiahvonrundstedt.bucket.utils.Account
+import com.isaiahvonrundstedt.bucket.utils.User
 import gun0912.tedbottompicker.TedBottomPicker
 import kotlinx.android.synthetic.main.activity_profile.*
 
@@ -50,13 +50,13 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
     override fun onResume() {
         super.onResume()
 
-        Account(this).run {
+        User(this).run {
             nameView.text = fullName
             emailView.text = email
         }
 
         GlideApp.with(this)
-            .load(Account(this).imageURL)
+            .load(User(this).imageURL)
             .placeholder(R.drawable.ic_brand_user)
             .error(R.drawable.ic_brand_user)
             .centerCrop()

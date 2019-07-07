@@ -1,14 +1,11 @@
 package com.isaiahvonrundstedt.bucket.activities
 
 import android.Manifest
-import android.app.DownloadManager
-import android.content.*
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -41,26 +38,21 @@ import com.isaiahvonrundstedt.bucket.fragments.navigation.BoxesFragment
 import com.isaiahvonrundstedt.bucket.fragments.navigation.FilesFragment
 import com.isaiahvonrundstedt.bucket.fragments.navigation.NotificationFragment
 import com.isaiahvonrundstedt.bucket.fragments.navigation.SavedFragment
-import com.isaiahvonrundstedt.bucket.fragments.preference.SettingsFragment
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
-import com.isaiahvonrundstedt.bucket.utils.Account
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.Preferences
+import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_appbar_drawer.*
-import timber.log.Timber
 
 class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigationItemSelectedListener,
-     SearchView.OnQueryTextListener, SharedPreferences.OnSharedPreferenceChangeListener {
+     SearchView.OnQueryTextListener {
 
-    private var downloadID: Long? = 0L
     private var selectedItem: Int? = 0
     private var searchMenuItem: MenuItem? = null
     private var toolbarTitleView: TextView? = null
     private var searchView: SearchView? = null
     private var searchListener: ScreenAction.Search? = null
-
-    private lateinit var transferReceiver: BroadcastReceiver
 
     companion object {
         const val navigationItemFiles = 0
@@ -88,16 +80,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         actionBarToggle.drawerArrowDrawable.color = ContextCompat.getColor(this, R.color.colorIcons)
         actionBarToggle.syncState()
 
-        transferReceiver = object: BroadcastReceiver(){
-            override fun onReceive(context: Context?, intent: Intent?) {
-                val receivedID: Long = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)!!
-                if (receivedID == downloadID){
-                    sendNotification(NOTIFICATION_TYPE_FINISHED, getString(R.string.notification_download_finished))
-                } else
-                    Timber.e("Error Fetching File")
-            }
-        }
-
         if (Preferences(this).theme == Preferences.themeLight){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -116,18 +98,13 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         executeWorker()
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if (key == "appThemePreference")
-            recreate()
-    }
-
     private fun setupHeader(){
         val headerLayout = navigationView.getHeaderView(0)
         val imageView: AppCompatImageView = headerLayout.findViewById(R.id.imageView)
         val titleView: TextView = headerLayout.findViewById(R.id.titleView)
         val subtitleView: TextView = headerLayout.findViewById(R.id.subtitleView)
 
-        with(Account(this)){
+        with(User(this)){
             titleView.text = fullName
             subtitleView.text = email
 
@@ -219,12 +196,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             super.onBackPressed()
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        registerReceiver(transferReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-    }
-
     override fun onResume() {
         super.onResume()
 
@@ -275,8 +246,4 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         outState.putInt("savedTab", selectedItem!!)
     }
 
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(transferReceiver)
-    }
 }

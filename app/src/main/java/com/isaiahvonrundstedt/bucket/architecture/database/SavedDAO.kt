@@ -1,6 +1,5 @@
 package com.isaiahvonrundstedt.bucket.architecture.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.isaiahvonrundstedt.bucket.objects.File
 import org.jetbrains.annotations.NotNull
@@ -9,28 +8,27 @@ import org.jetbrains.annotations.NotNull
 interface SavedDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(file: File)
+    suspend fun insert(file: File)
 
     @Update
-    fun update(file: File)
+    suspend fun update(file: File)
 
     @Delete
-    fun remove(file: File)
+    suspend fun remove(file: File)
 
     @Query("SELECT * FROM collections WHERE fileID == :id")
-    fun getFileByID(@NotNull id: String): List<File>
+    suspend fun getFileByID(@NotNull id: String): List<File>
 
     @Query("SELECT * FROM collections")
-    fun getFiles(): LiveData<List<File>>
+    suspend fun getFiles(): List<File>
 
     @Query("DELETE FROM collections")
-    fun clearAll()
+    suspend fun clearAll()
 
     @Transaction
-    fun checkIfExists(file: File?): Boolean {
+    suspend fun checkIfExists(file: File?): Boolean {
         val itemList = ArrayList<File>()
         itemList.addAll(getFileByID(file?.fileID!!))
-
         return itemList.isNotEmpty()
     }
 

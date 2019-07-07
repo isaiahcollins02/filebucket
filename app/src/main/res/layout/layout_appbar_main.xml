@@ -10,17 +10,13 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:theme="@style/AppTheme.Widget.Toolbar"
-            app:contentInsetStart="@dimen/activity_margin_start"
-            app:contentInsetEnd="@dimen/activity_margin_end"
-            app:contentInsetStartWithNavigation="@dimen/activity_margin_start"
-            app:contentInsetEndWithActions="@dimen/activity_margin_end">
+            android:theme="@style/AppTheme.Widget.Toolbar">
 
         <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 tools:text="Title"/>
 

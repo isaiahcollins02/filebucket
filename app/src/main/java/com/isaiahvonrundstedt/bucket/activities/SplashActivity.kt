@@ -4,7 +4,6 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
@@ -12,11 +11,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.activities.auth.FirstRunActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.User
+import com.isaiahvonrundstedt.bucket.objects.Account
 import com.isaiahvonrundstedt.bucket.service.NotificationService
-import com.isaiahvonrundstedt.bucket.utils.Account
+import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 class SplashActivity: BaseActivity() {
@@ -51,25 +51,25 @@ class SplashActivity: BaseActivity() {
 
             // Get all user data from sharedPreferences, this fields will return null if
             // the no cached version of the user data is available
-            var cachedUser: User? = null
-            Account(this).fetch {
-                cachedUser = it
+            var cachedAccount: Account? = null
+            User(this).fetch {
+                cachedAccount = it
             }
 
             // Verify the data if it is null or one of those fields is null. If a
             // certain field is null, then fetch all data from Firestore then
             // cache it on SharedPreferences
-            if (cachedUser == null){
+            if (cachedAccount == null){
                 val userReference: DocumentReference? = firestore?.collection(Firebase.USERS.string)?.document(userID!!)
                 userReference?.get()?.addOnCompleteListener { task ->
                     if (task.isSuccessful){
-                        val user: User = task.result?.toObject(User::class.java) as User
+                        val account: Account = task.result?.toObject(User::class.java) as Account
 
-                        Account(this).save(user)
+                        User(this).save(account)
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     } else
-                        Log.e("DataFetchError", "An error occurred while fetching the required data")
+                        Timber.e("An error occurred while fetching the required data")
                 }
             } else
                 startActivity(Intent(this, MainActivity::class.java))

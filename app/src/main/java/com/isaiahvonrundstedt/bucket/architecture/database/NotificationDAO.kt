@@ -1,6 +1,5 @@
 package com.isaiahvonrundstedt.bucket.architecture.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.isaiahvonrundstedt.bucket.objects.Notification
 
@@ -8,19 +7,19 @@ import com.isaiahvonrundstedt.bucket.objects.Notification
 interface NotificationDAO {
 
     @Insert
-    fun insert(notification: Notification)
+    suspend fun insert(notification: Notification)
 
     @Update
-    fun update(notification: Notification)
+    suspend fun update(notification: Notification)
 
     @Delete
-    fun remove(notification: Notification)
+    suspend fun remove(notification: Notification)
 
     @Query("SELECT * FROM notifications")
-    fun getNotifications(): LiveData<List<Notification>>
+    suspend fun getNotifications(): List<Notification>
 
     @Query("SELECT * FROM notifications WHERE objectID = :id")
-    fun getNotificationByObjectID(id: String): LiveData<List<Notification>>
+    suspend fun getNotificationByObjectID(id: String): List<Notification>
 
     @Query("DELETE FROM notifications")
     fun clearAll()

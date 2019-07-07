@@ -2,9 +2,9 @@ package com.isaiahvonrundstedt.bucket.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.isaiahvonrundstedt.bucket.objects.User
+import com.isaiahvonrundstedt.bucket.objects.Account
 
-class Account(var context: Context) {
+class User(var context: Context) {
 
     private var sharedPreferences: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
@@ -61,8 +61,8 @@ class Account(var context: Context) {
             return sharedPreferences?.getString("imageURL", null)
         }
 
-    fun fetch(onFetch: (User)-> Unit){
-        val user = User().apply {
+    fun fetch(onFetch: (Account)-> Unit){
+        val user = Account().apply {
             sharedPreferences = context.getSharedPreferences("userPreference", Context.MODE_PRIVATE)
             firstName = sharedPreferences?.getString("firstName", null)
             lastName = sharedPreferences?.getString("lastName", null)
@@ -71,10 +71,10 @@ class Account(var context: Context) {
         }
         onFetch(user)
     }
-    fun save(user: User){
-        firstName = user.firstName
-        lastName = user.lastName
-        email = user.email
-        imageURL = user.imageURL
+    fun save(account: Account){
+        firstName = account.firstName
+        lastName = account.lastName
+        email = account.email
+        imageURL = account.imageURL
     }
 }

@@ -4,7 +4,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.User
+import com.isaiahvonrundstedt.bucket.objects.Account
 
 class BoxesRepository {
 
@@ -13,7 +13,7 @@ class BoxesRepository {
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
 
-    fun fetch( onFetch: (List<User>)-> Unit) {
+    fun fetch( onFetch: (List<Account>)-> Unit) {
         mainQuery = firestore.collection(Firebase.USERS.string)
             .orderBy("timestamp", Query.Direction.ASCENDING)
             .limit(25)
@@ -25,7 +25,7 @@ class BoxesRepository {
             //lastVisible = snapshots.documents[snapshots.size() - 1]
 
             onFetch(snapshots.map{
-                val account = it.toObject(User::class.java).apply {
+                val account = it.toObject(Account::class.java).apply {
                     accountID = it.id
                 }
                 account

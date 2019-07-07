@@ -15,9 +15,9 @@ import com.isaiahvonrundstedt.bucket.activities.auth.FirstRunActivity
 import com.isaiahvonrundstedt.bucket.activities.support.ProfileActivity
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.components.abstracts.BasePreference
-import com.isaiahvonrundstedt.bucket.utils.Account
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.Preferences
+import com.isaiahvonrundstedt.bucket.utils.User
 
 class SettingsFragment: BasePreference() {
 
@@ -28,8 +28,8 @@ class SettingsFragment: BasePreference() {
         setPreferencesFromResource(R.xml.pref_settings, rootKey)
 
         val accountPref: Preference? = findPreference("accountPreference")
-        accountPref?.title = Account(context!!).fullName
-        accountPref?.summary = Account(context!!).email
+        accountPref?.title = User(context!!).fullName
+        accountPref?.summary = User(context!!).email
         accountPref?.setOnPreferenceClickListener {
             startActivity(Intent(context, ProfileActivity::class.java))
             return@setOnPreferenceClickListener true

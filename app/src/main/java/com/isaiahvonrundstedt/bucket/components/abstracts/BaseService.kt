@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.service
+package com.isaiahvonrundstedt.bucket.components.abstracts
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

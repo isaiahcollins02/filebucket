@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-            android:name="com.isaiahvonrundstedt.bucket.MainApplication"
+            android:name="com.isaiahvonrundstedt.bucket.BaseApp"
             android:label="@string/app_name"
             android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_round"
@@ -46,21 +46,26 @@
         <activity android:name=".activities.generic.LibrariesActivity"/>
         <activity android:name=".activities.generic.SettingsActivity"/>
 
-        <service android:name="com.isaiahvonrundstedt.bucket.service.FileTransferService"
+        <service android:name="com.isaiahvonrundstedt.bucket.service.TransferService"
                 android:exported="false"/>
         <service android:name="com.isaiahvonrundstedt.bucket.service.SupportService"
                 android:exported="false"/>
         <service android:name="com.isaiahvonrundstedt.bucket.service.NotificationService"
                 android:exported="false"/>
+        <service android:name=".service.UsageService"/>
 
+        <receiver android:name=".receivers.TransferReceiver"
+                  android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
         <receiver
                 android:name="com.isaiahvonrundstedt.bucket.receivers.RestartReceiver"
-                android:enabled="true"
-                android:label="RestartServiceWhenStopped"/>
+                android:enabled="true"/>
         <receiver
                 android:name="com.isaiahvonrundstedt.bucket.receivers.NotificationReceiver"
-                android:enabled="true"
-                android:label="RestartServiceWhenStopped"/>
+                android:enabled="true"/>
 
     </application>
 

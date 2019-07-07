@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
@@ -17,12 +16,14 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.objects.File
-import com.isaiahvonrundstedt.bucket.utils.Account
+import com.isaiahvonrundstedt.bucket.utils.User
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
+import timber.log.Timber
 
-class FileTransferService: BaseService() {
+class TransferService: BaseService() {
 
     private lateinit var storageReference: StorageReference
     private lateinit var firestore: FirebaseFirestore
@@ -143,7 +144,7 @@ class FileTransferService: BaseService() {
             file.fileSize = bufferedFile.length().toDouble()
             file.downloadURL = downloadUri.toString()
             file.fileType = ItemManager.obtainFileExtension(bufferedFile.toUri())
-            file.author = Account(this).fullName
+            file.author = User(this).fullName
             file.timestamp = Timestamp.now()
 
             fileReference.add(file)
@@ -152,7 +153,7 @@ class FileTransferService: BaseService() {
                         taskCompleted()
                 }
         } else
-            Log.i("DataError", "Download URI is null")
+            Timber.i("Download URI is null")
     }
     // Show notification with a progress bar
     private fun showProgressNotification(fileName: String, completedUnits: Long, totalUnits: Long){

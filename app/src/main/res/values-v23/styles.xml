@@ -22,10 +22,6 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
-    <style name="AppTheme.FirstRun" parent="AppTheme.Core">
-        <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
-    </style>
-
     <!-- UI Components -->
     <!-- BottomSheets, Dialogs etc -->
 

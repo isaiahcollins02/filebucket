@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.User
+import com.isaiahvonrundstedt.bucket.objects.Account
 import com.kaopiz.kprogresshud.KProgressHUD
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
@@ -67,7 +67,7 @@ class AuthFragment: Fragment() {
                     if (it.isSuccessful) {
                         val userID: String = it.result?.user!!.uid
 
-                        val newAccount = User().also { thisObject ->
+                        val newAccount = Account().also { thisObject ->
                             thisObject.firstName = firstName
                             thisObject.lastName = lastName
                             thisObject.email = email

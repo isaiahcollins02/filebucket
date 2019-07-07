@@ -5,14 +5,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.isaiahvonrundstedt.bucket.architecture.store.BoxesRepository
-import com.isaiahvonrundstedt.bucket.objects.User
+import com.isaiahvonrundstedt.bucket.objects.Account
 
 class BoxesViewModel(app: Application): AndroidViewModel(app) {
 
     private val repository = BoxesRepository()
-    private var initialList = mutableListOf<User>()
-    private var _items: MutableLiveData<List<User>> = MutableLiveData()
-    internal var itemList: LiveData<List<User>> = _items
+    private var initialList = mutableListOf<Account>()
+    private var _items: MutableLiveData<List<Account>> = MutableLiveData()
+    internal var itemList: LiveData<List<Account>> = _items
 
     init {
         repository.fetch { accountList ->

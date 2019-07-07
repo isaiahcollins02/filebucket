@@ -27,9 +27,7 @@ class FileRepository {
             //lastVisible = snapshots.documents[snapshots.size() - 1]
 
             onFetch(snapshots.map{
-                val file = it.toObject(File::class.java).apply {
-                    fileID = it.id
-                }
+                val file = it.toObject(File::class.java).apply { fileID = it.id }
                 file
             })
         }

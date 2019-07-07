@@ -1,43 +1,35 @@
 package com.isaiahvonrundstedt.bucket.architecture.store
 
 import android.app.Application
-import android.os.AsyncTask
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.NotificationDAO
 import com.isaiahvonrundstedt.bucket.objects.Notification
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 class NotificationRepository(application: Application) {
 
     private var appDB: AppDatabase? = null
     private var notificationDAO: NotificationDAO? = null
-
-    private var notificationLiveData: LiveData<List<Notification>>
+    private lateinit var notificationLiveData: LiveData<List<Notification>>
 
     init {
         appDB = AppDatabase.getDatabase(application)
         notificationDAO = appDB?.notificationAccessor()
-        notificationLiveData = notificationDAO?.getNotifications()!!
+        fetch { notificationLiveData = it }
     }
 
-    fun insert(notification: Notification) {
-        InsertTask(notificationDAO!!).execute(notification)
+    private fun fetch( onFetch: (LiveData<List<Notification>>) -> Unit ) = runBlocking {
+        val itemList = notificationDAO?.getNotifications()
+        val mutableItemList: MutableLiveData<List<Notification>> = MutableLiveData()
+        mutableItemList.value = itemList
+        onFetch(mutableItemList)
+    }
+
+    fun insert(notification: Notification) = runBlocking {
+        notificationDAO?.insert(notification)
     }
 
     fun getNotifications(): LiveData<List<Notification>> = notificationLiveData
-
-    private class InsertTask (private var DAO: NotificationDAO): AsyncTask<Notification, Void, Void>(){
-        override fun doInBackground(vararg params: Notification): Void? {
-            DAO.insert(params[0])
-            return null
-        }
-    }
-
-    private class RemoveAllTask(private var DAO: NotificationDAO): AsyncTask<Void, Void, Void>(){
-        override fun doInBackground(vararg params: Void?): Void? {
-            DAO.clearAll()
-            return null
-        }
-    }
 }

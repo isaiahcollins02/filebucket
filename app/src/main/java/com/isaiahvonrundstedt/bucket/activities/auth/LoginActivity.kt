@@ -12,8 +12,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.User
-import com.isaiahvonrundstedt.bucket.utils.Account
+import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.utils.User
 import com.kaopiz.kprogresshud.KProgressHUD
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
@@ -70,8 +70,8 @@ class LoginActivity: AppCompatActivity() {
 
                     firestore.collection(Firebase.USERS.string).document(userID!!)
                         .get().addOnSuccessListener {
-                            val user: User? = it.toObject(User::class.java)
-                            Account(this).save(user!!)
+                            val account: Account? = it.toObject(Account::class.java)
+                            User(this).save(account!!)
 
                             dialog.dismiss()
                             startActivity(Intent(this, MainActivity::class.java))

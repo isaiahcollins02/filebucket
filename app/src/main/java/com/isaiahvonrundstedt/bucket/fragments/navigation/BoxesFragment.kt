@@ -18,11 +18,11 @@ import com.isaiahvonrundstedt.bucket.adapters.BoxesAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
-import com.isaiahvonrundstedt.bucket.objects.User
+import com.isaiahvonrundstedt.bucket.objects.Account
 
 class BoxesFragment: BaseFragment(), ScreenAction.Search {
 
-    private val itemList: ArrayList<User> = ArrayList()
+    private val itemList: ArrayList<Account> = ArrayList()
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -63,10 +63,10 @@ class BoxesFragment: BaseFragment(), ScreenAction.Search {
         userReference.get().addOnCompleteListener { task ->
             if (task.isSuccessful){
                 for (documentSnapshot in task.result!!){
-                    val user: User = documentSnapshot.toObject(User::class.java)
-                    user.accountID = documentSnapshot.id
-                    if (user.accountID != firebaseAuth.currentUser?.uid)
-                        itemList.add(user)
+                    val account: Account = documentSnapshot.toObject(Account::class.java)
+                    account.accountID = documentSnapshot.id
+                    if (account.accountID != firebaseAuth.currentUser?.uid)
+                        itemList.add(account)
                     itemList.sort()
                     adapter.notifyDataSetChanged()
                 }

@@ -28,23 +28,21 @@ import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.adapters.CoreAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.FileViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
+import com.isaiahvonrundstedt.bucket.components.custom.PickerItem
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.PickerBottomSheet
 import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
-import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
-import com.isaiahvonrundstedt.bucket.components.custom.PickerItem
-import com.isaiahvonrundstedt.bucket.service.FileTransferService
+import com.isaiahvonrundstedt.bucket.service.TransferService
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.kaopiz.kprogresshud.KProgressHUD
 import gun0912.tedbottompicker.TedBottomPicker
 
-class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, BottomSheetPicker {
+class FilesFragment: BaseFragment(), ScreenAction.Search, BottomSheetPicker {
 
     private var fileUri: Uri? = null
     private var downloadUri: Uri? = null
-    private var transferListener: TransferListener? = null
     private var receiver: BroadcastReceiver? = null
     private var viewModel: FileViewModel? = null
 
@@ -66,13 +64,13 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, Bott
         receiver = object: BroadcastReceiver(){
             override fun onReceive(context: Context?, intent: Intent?) {
                 when (intent?.action) {
-                    FileTransferService.actionCompleted, FileTransferService.transferError -> onUploadResultIntent(intent)
+                    TransferService.actionCompleted, TransferService.transferError -> onUploadResultIntent(intent)
                 }
             }
         }
 
         layoutManager = LinearLayoutManager(context)
-        adapter = CoreAdapter(itemList, childFragmentManager, GlideApp.with(this), this)
+        adapter = CoreAdapter(itemList, childFragmentManager, GlideApp.with(this))
     }
 
     override fun onAttach(context: Context) {
@@ -131,17 +129,11 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, Bott
         return rootView
     }
 
-    override fun onDownloadQueued(downloadID: Long) {
-        if (activity is MainActivity)
-            transferListener?.onDownloadQueued(downloadID)
-    }
-
     override fun onStart() {
         super.onStart()
 
         val manager = LocalBroadcastManager.getInstance(context!!)
-
-        manager.registerReceiver(receiver!!, FileTransferService.intentFilter)
+        manager.registerReceiver(receiver!!, TransferService.intentFilter)
 
         val items = arrayListOf(
             PickerItem(R.drawable.ic_vector_photo, R.string.bottom_sheet_picker_image),
@@ -160,8 +152,7 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, Bott
     override fun onItemSelected(index: Int) {
         when (index){
             0 -> invokeVideoPicker()
-            1 -> invokeVideoPicker()
-            2 -> invokeFilePicker()
+            1 -> invokeFilePicker()
         }
     }
 
@@ -198,9 +189,9 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, Bott
         fileUri = uri
         downloadUri = null
 
-        context?.startService(Intent(context, FileTransferService::class.java)
-            .putExtra(FileTransferService.extraFileURI, uri)
-            .setAction(FileTransferService.actionUpload))
+        context?.startService(Intent(context, TransferService::class.java)
+            .putExtra(TransferService.extraFileURI, uri)
+            .setAction(TransferService.actionUpload))
 
         progress.dismiss()
     }
@@ -228,8 +219,8 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, TransferListener, Bott
     }
     private fun onUploadResultIntent(intent: Intent){
         // Get a new intent from Upload Service with a success or failure
-        downloadUri = intent.getParcelableExtra(FileTransferService.extraDownloadURL)
-        fileUri = intent.getParcelableExtra(FileTransferService.extraFileURI)
+        downloadUri = intent.getParcelableExtra(TransferService.extraDownloadURL)
+        fileUri = intent.getParcelableExtra(TransferService.extraFileURI)
 
         // Show a feedback to the user when a task in the service has been completed
         if (downloadUri != null && fileUri != null){

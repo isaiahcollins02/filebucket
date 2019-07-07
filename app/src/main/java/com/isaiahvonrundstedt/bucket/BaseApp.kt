@@ -10,7 +10,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 
-class MainApplication: MultiDexApplication() {
+class BaseApp: MultiDexApplication() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
@@ -35,5 +35,4 @@ class MainApplication: MultiDexApplication() {
             .setPersistenceEnabled(true)
             .build()
     }
-
 }

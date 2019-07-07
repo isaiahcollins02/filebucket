@@ -3,7 +3,6 @@ package com.isaiahvonrundstedt.bucket.service
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
@@ -11,10 +10,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
 import com.isaiahvonrundstedt.bucket.architecture.store.NotificationRepository
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.objects.File
 import com.isaiahvonrundstedt.bucket.objects.Notification
 import com.isaiahvonrundstedt.bucket.utils.Preferences
+import timber.log.Timber
 
 class NotificationService: BaseService() {
 
@@ -42,7 +43,7 @@ class NotificationService: BaseService() {
                         showNewFileNotification(file)
                 }
             } else
-                Log.e("FirebaseException", exception.toString())
+                Timber.e(exception.toString())
         }
         return START_STICKY_COMPATIBILITY
     }

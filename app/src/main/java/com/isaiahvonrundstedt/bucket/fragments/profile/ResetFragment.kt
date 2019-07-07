@@ -9,7 +9,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.utils.Account
+import com.isaiahvonrundstedt.bucket.utils.User
 import com.kaopiz.kprogresshud.KProgressHUD
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
@@ -33,7 +33,7 @@ class ResetFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
-        emailField.setText(Account(rootView.context).email)
+        emailField.setText(User(rootView.context).email)
 
         continueButton.setOnClickListener {
             if (emailField.text.toString().isNotBlank()){

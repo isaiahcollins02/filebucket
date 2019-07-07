@@ -45,7 +45,7 @@ class ItemDecoration (context: Context?): RecyclerView.ItemDecoration() {
         val itemPosition: Int = parent.getChildAdapterPosition(view)
         val itemView: Int? = parent.adapter?.getItemViewType(itemPosition)
 
-        if (itemView == CoreAdapter.ITEM_TYPE_IMAGE){
+        if (itemView == CoreAdapter.itemTypeImage){
             outRect.top = MetricConverter.convertDPtoPixel(parent.context, 16.0F).toInt()
             outRect.bottom = MetricConverter.convertDPtoPixel(parent.context, 16.0F).toInt()
         }

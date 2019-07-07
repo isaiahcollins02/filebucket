@@ -20,11 +20,10 @@ import com.isaiahvonrundstedt.bucket.adapters.filterable.VaultAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.constants.Parameters
-import com.isaiahvonrundstedt.bucket.interfaces.TransferListener
 import com.isaiahvonrundstedt.bucket.objects.File
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 
-class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener, TransferListener {
+class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener {
 
     private var file: java.io.File? = null
     private var downloadURL: String? = null
@@ -51,7 +50,7 @@ class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener, Trans
         setToolbarTitle(String.format(resources.getString(R.string.file_user_repository), DataManager.sliceFullName(author!!)))
 
         downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        adapter = VaultAdapter(itemList, this, supportFragmentManager)
+        adapter = VaultAdapter(itemList, supportFragmentManager)
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -125,10 +124,6 @@ class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener, Trans
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         return false
-    }
-
-    override fun onDownloadQueued(downloadID: Long) {
-        this.downloadID = downloadID
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
