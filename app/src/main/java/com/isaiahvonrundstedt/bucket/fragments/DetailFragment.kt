@@ -1,5 +1,6 @@
 package com.isaiahvonrundstedt.bucket.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.isaiahvonrundstedt.bucket.R
@@ -17,6 +19,7 @@ import com.isaiahvonrundstedt.bucket.architecture.store.SavedRepository
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.constants.Firebase
 import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -44,6 +47,10 @@ class DetailFragment: BaseFragment() {
         file = arguments?.getParcelable("fileArgs")
         appDB = AppDatabase.getDatabase(context!!)
         savedDAO = appDB?.collectionAccessor()
+
+        context?.startService(Intent(context, UsageService::class.java)
+            .setAction(UsageService.sendFileUsage)
+            .putExtra(UsageService.extraObjectID, file?.fileID))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -15,6 +15,7 @@ import com.isaiahvonrundstedt.bucket.activities.support.VaultActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Parameters
 import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 
 class BoxesAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapter<BoxesAdapter.ViewHolder>(),
@@ -45,6 +46,10 @@ class BoxesAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapt
             .into(holder.iconView)
 
         holder.rootView.setOnClickListener {
+            it.context.startService(Intent(it.context, UsageService::class.java)
+                .setAction(UsageService.sendBoxUsage)
+                .putExtra(UsageService.extraObjectID, filterList[position].accountID))
+
             val intent = Intent(it.context, VaultActivity::class.java)
             intent.putExtra(Parameters.AUTHOR.string, string)
             it.context.startActivity(intent)

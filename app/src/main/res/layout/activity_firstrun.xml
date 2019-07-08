@@ -38,6 +38,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
 
         <TextView
+                android:id="@+id/hyperlinkView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"

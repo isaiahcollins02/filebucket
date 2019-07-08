@@ -17,6 +17,7 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
 import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import java.text.DecimalFormat
@@ -28,8 +29,6 @@ class VaultAdapter (private var itemList: ArrayList<File>,
     private var windowContext: Context? = null
     private var filterList: ArrayList<File> = itemList
     private var filter: SentFiler? = null
-    private var manager: DownloadManager? = null
-    private var request: DownloadManager.Request? = null
 
     companion object {
         const val CORE_VIEW: Int = 0
@@ -47,8 +46,6 @@ class VaultAdapter (private var itemList: ArrayList<File>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoreViewHolder {
         windowContext = parent.context
-        manager = windowContext!!.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-
         val rootView: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_item_files, parent, false)
         return CoreViewHolder(rootView)
     }
@@ -68,6 +65,10 @@ class VaultAdapter (private var itemList: ArrayList<File>,
             rootView.setOnClickListener {
                 val args = Bundle()
                 args.putParcelable("fileArgs", file)
+
+                it.context.startService(Intent(it.context, UsageService::class.java)
+                    .setAction(UsageService.sendFileUsage)
+                    .putExtra(UsageService.extraObjectID, file.fileID))
 
                 itemView.context.startActivity(Intent(itemView.context, FrameActivity::class.java)
                     .putExtra("viewType", FrameActivity.viewTypeDetails)

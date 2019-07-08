@@ -11,7 +11,7 @@ class LibrariesActivity: BaseAppBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_frame)
-        setToolbarTitle(R.string.about_acknowledgements_title)
+        setToolbarTitle(R.string.about_notices)
 
         supportFragmentManager.beginTransaction().run {
             replace(R.id.childLayout, LibrariesFragment())

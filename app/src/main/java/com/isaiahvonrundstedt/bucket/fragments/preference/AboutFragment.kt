@@ -19,7 +19,7 @@ class AboutFragment: BasePreference() {
         val policyPref: Preference? = findPreference("policyPref")
         policyPref?.setOnPreferenceClickListener {
             val intent = Intent(context!!, WebViewActivity::class.java)
-            intent.putExtra("VIEW_TYPE", WebViewActivity.VIEW_TYPE_PRIVACY)
+            intent.putExtra("viewType", WebViewActivity.viewTypePrivacy)
             startActivity(intent)
             return@setOnPreferenceClickListener true
         }
@@ -27,7 +27,7 @@ class AboutFragment: BasePreference() {
         val termsPref: Preference? = findPreference("termsPref")
         termsPref?.setOnPreferenceClickListener {
             val intent = Intent(context!!, WebViewActivity::class.java)
-            intent.putExtra("VIEW_TYPE", WebViewActivity.VIEW_TYPE_TERMS)
+            intent.putExtra("viewType", WebViewActivity.viewTypeTerms)
             startActivity(intent)
             return@setOnPreferenceClickListener true
         }

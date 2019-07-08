@@ -3,7 +3,7 @@
 
     <string name="welcome_to_drop_bucket">Welcome!</string>
     <string name="to_access_the_content">To access and create contents, login with your credentials</string>
-    <string name="license_agreement_helper">By continuing,you agree to the, Privacy Policy and Terms of Service.</string>
+    <string name="license_agreement_helper">By continuing, you agree to the, Privacy Policy and Terms of Service.</string>
 
     <string name="login_to_drop_bucket">Login</string>
     <string name="enter_your_email_and_password_to_continue">Enter your email and password to continue</string>
@@ -161,6 +161,7 @@
     <string name="settings_theme_item_light">Light</string>
     <string name="settings_theme_item_dark">Dark</string>
     <string name="settings_theme_item_battery">Set by Battery Saver</string>
+    <string name="settings_theme_item_system">System Default</string>
 
     <string name="settings_metadata">Metadata</string>
     <string name="settings_metadata_dialog">Choose one metadata</string>
@@ -182,10 +183,9 @@
     <string name="team_isaiah_collins_abetong" translatable="false">Isaiah Collins von Ludendorff</string>
 
     <string name="about_privacy_policy">Privacy Policy</string>
-    <string name="about_terms_of_service">Terms of Service</string>
+    <string name="about_terms_of_service">Terms and Conditions</string>
 
-    <string name="about_acknowledgements_title">Acknowledgements</string>
-    <string name="about_acknowledgements_summary">Open-source software used for different application components</string>
+    <string name="about_notices">Open-Source Notices</string>
 
     <string name="about_build_date">Build Date</string>
     <string name="about_version">Build Version</string>

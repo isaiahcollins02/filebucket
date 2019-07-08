@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Colors used in Night Mode -->
+    <color name="colorPrimary">#ffc400</color>
+    <color name="colorPrimaryVariant">#fff64f</color>
+    <color name="colorOnPrimary">#000000</color>
+
     <color name="colorWindowBackground">#191919</color>
     <color name="colorCardBackground">#242424</color>
     <color name="colorPreference">#191919</color>

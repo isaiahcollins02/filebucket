@@ -2,6 +2,7 @@ package com.isaiahvonrundstedt.bucket.adapters
 
 import android.app.DownloadManager
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.bumptech.glide.RequestManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
 import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
@@ -194,6 +196,10 @@ class CoreAdapter constructor (
                     .setDestinationUri(bufferedFile.toUri())
 
                 downloadManager.enqueue(request)
+
+                it.context.startService(Intent(it.context, UsageService::class.java)
+                    .setAction(UsageService.sendFileUsage)
+                    .putExtra(UsageService.extraObjectID, file?.fileID))
             }
             negativeButton(R.string.button_cancel)
         }

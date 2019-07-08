@@ -28,7 +28,6 @@ class RelatedAdapter(options: FirestoreRecyclerOptions<File>)
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val rootView: View = itemView.findViewById(R.id.rootView)
         private val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
         private val titleView: TextView = itemView.findViewById(R.id.titleView)
         private val subtitleView: TextView = itemView.findViewById(R.id.subtitleView)

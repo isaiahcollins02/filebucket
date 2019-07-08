@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:mpb_progressStyle="circular"
-            app:mpb_progressTint="@color/colorSecondary"
+            app:mpb_progressTint="@color/colorPrimary"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

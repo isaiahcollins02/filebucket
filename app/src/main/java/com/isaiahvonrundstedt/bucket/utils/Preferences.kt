@@ -13,6 +13,8 @@ class Preferences(val context: Context?) {
 
         const val themeLight = "light"
         const val themeDark = "dark"
+        const val themeBattery = "battery"
+        const val themeSystem = "system"
     }
 
     private var sharedPreferences: SharedPreferences? = null

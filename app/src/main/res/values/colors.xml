@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Default App Colors -->
+    <!-- Colors Used in Light Mode -->
     <color name="colorPrimary">#0288d1</color>
     <color name="colorPrimaryVariant">#005b9f</color>
     <color name="colorOnPrimary">#ffffff</color>
-    <color name="colorSecondary">#ffc400</color>
-    <color name="colorSecondaryVariant">#fff64f</color>
-    <color name="colorOnSecondary">#000000</color>
 
-    <color name="colorIndicatorGreen">#008744</color>
-    <color name="colorIndicatorBlue">#0057e7</color>
-    <color name="colorIndicatorRed">#d62d20</color>
-    <color name="colorIndicatorYellow">#ffa700</color>
-
-    <!-- Colors Used in Light Mode -->
     <color name="colorWindowBackground">#ffffff</color>
     <color name="colorCardBackground">#ffffff</color>
     <color name="colorPreference">#fafafa</color>
@@ -27,5 +18,11 @@
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#9c9c9c</color>
     <color name="colorHelperText">#455a64</color>
+
+    <!-- Default -->
+    <color name="colorIndicatorGreen">#008744</color>
+    <color name="colorIndicatorBlue">#0057e7</color>
+    <color name="colorIndicatorRed">#d62d20</color>
+    <color name="colorIndicatorYellow">#ffa700</color>
 
 </resources>

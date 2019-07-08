@@ -29,8 +29,7 @@
 
         <Preference
                 android:key="openSourcePref"
-                android:title="@string/about_acknowledgements_title"
-                android:summary="@string/about_acknowledgements_summary" />
+                android:title="@string/about_notices"/>
 
         <Preference
                 android:key="versionPreference"

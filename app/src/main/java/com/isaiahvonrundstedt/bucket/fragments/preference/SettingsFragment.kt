@@ -2,6 +2,7 @@ package com.isaiahvonrundstedt.bucket.fragments.preference
 
 import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
@@ -66,9 +67,9 @@ class SettingsFragment: BasePreference() {
             true
         }
 
-        val themeList = listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark))
+        val themeList = obtainAPIDependentThemes()
         val themePref: Preference? = findPreference("appThemePreference")
-        themePref?.summary = Preferences(context).theme.capitalize()
+        themePref?.summary = getThemeByID(Preferences(context).theme)
         themePref?.setOnPreferenceClickListener {
             MaterialDialog(it.context).show {
                 title(R.string.settings_theme_dialog)
@@ -76,13 +77,12 @@ class SettingsFragment: BasePreference() {
                     val themeID : String? = when (theme){
                         getString(R.string.settings_theme_item_light) -> Preferences.themeLight
                         getString(R.string.settings_theme_item_dark) -> Preferences.themeDark
+                        getString(R.string.settings_theme_item_battery) -> Preferences.themeBattery
+                        getString(R.string.settings_theme_item_system) -> Preferences.themeSystem
                         else -> null
                     }
-                    when (themeID){
-                        Preferences.themeLight -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        Preferences.themeDark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    }
-                    themePref.summary = theme
+                    notifyDelegate(themeID)
+                    themePref.summary = getThemeByID(themeID)
                     Preferences(it.context).theme = themeID!!
                 }
             }
@@ -108,6 +108,32 @@ class SettingsFragment: BasePreference() {
             }
             return@setOnPreferenceClickListener true
         }
+    }
+
+    private fun notifyDelegate(themeID: String?){
+        when (themeID){
+            Preferences.themeLight -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            Preferences.themeDark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            Preferences.themeBattery -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+            Preferences.themeSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
+    }
+
+    private fun getThemeByID(item: String?): String? {
+        return when (item){
+            Preferences.themeLight -> getString(R.string.settings_theme_item_light)
+            Preferences.themeDark -> getString(R.string.settings_theme_item_dark)
+            Preferences.themeBattery -> getString(R.string.settings_theme_item_battery)
+            Preferences.themeSystem  -> getString(R.string.settings_theme_item_system)
+            else -> null
+        }
+    }
+
+    private fun obtainAPIDependentThemes(): List<String> {
+        return if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+            listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark), getString(R.string.settings_theme_item_system))
+        else
+            listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark), getString(R.string.settings_theme_item_battery))
     }
 
     private fun invokeChooser(){

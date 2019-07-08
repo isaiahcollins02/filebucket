@@ -54,11 +54,11 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0-rc01'
 
     // AndroidX Framework Components
-    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     // AndroidX Jetpack Components
     implementation 'androidx.work:work-runtime-ktx:2.0.1'
