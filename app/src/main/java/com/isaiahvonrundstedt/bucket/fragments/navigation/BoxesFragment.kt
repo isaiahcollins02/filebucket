@@ -5,87 +5,56 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.adapters.BoxesAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.fragments.navigation.box.PublicFragment
+import com.isaiahvonrundstedt.bucket.fragments.navigation.box.UserFragment
+import kotlinx.android.synthetic.main.fragment_box_main.*
 
-class BoxesFragment: BaseFragment(), ScreenAction.Search {
+class BoxesFragment: BaseFragment() {
 
-    private val itemList: ArrayList<Account> = ArrayList()
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-
-    private lateinit var rootView: View
-    private lateinit var adapter: BoxesAdapter
-    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
-    private lateinit var recyclerView: RecyclerView
+    var manager: FragmentManager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_boxes, container, false)
-
-        adapter = BoxesAdapter(itemList)
-        swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
-
-        recyclerView = rootView.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.addItemDecoration(DividerItemDecoration(context!!, DividerItemDecoration.VERTICAL))
-        recyclerView.adapter = adapter
-
-        swipeRefreshContainer.setColorSchemeResources(
-            R.color.colorIndicatorBlue,
-            R.color.colorIndicatorGreen,
-            R.color.colorIndicatorRed,
-            R.color.colorIndicatorYellow
-        )
-        swipeRefreshContainer.setOnRefreshListener {
-            adapter.removeAllData()
-            onPopulate()
-        }
-
-        onPopulate()
-
-        return rootView
-    }
-
-    private fun onPopulate(){
-        val userReference = firestore.collection(Firebase.USERS.string)
-        userReference.get().addOnCompleteListener { task ->
-            if (task.isSuccessful){
-                for (documentSnapshot in task.result!!){
-                    val account: Account = documentSnapshot.toObject(Account::class.java)
-                    account.accountID = documentSnapshot.id
-                    if (account.accountID != firebaseAuth.currentUser?.uid)
-                        itemList.add(account)
-                    itemList.sort()
-                    adapter.notifyDataSetChanged()
-                }
-                if (swipeRefreshContainer.isRefreshing)
-                    swipeRefreshContainer.isRefreshing = false
-            } else
-                Snackbar.make(rootView, R.string.status_error_occurred, Snackbar.LENGTH_SHORT).show()
-        }
+        return inflater.inflate(R.layout.fragment_box_main, container, false)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        if (activity is MainActivity)
-            (activity as MainActivity).initializeSearch(this)
+        manager = childFragmentManager
     }
 
-    override fun onSearch(searchQuery: String?) {
-        adapter.filter.filter(searchQuery)
+    override fun onResume() {
+        super.onResume()
+        val adapter = ViewPagerAdapter()
+        adapter.add(TabItem(getString(R.string.tab_box_public), PublicFragment()))
+        adapter.add(TabItem(getString(R.string.tab_box_user), UserFragment()))
+        viewPager.adapter = adapter
+        tabLayout.setupWithViewPager(viewPager)
+    }
+
+    data class TabItem(var title: String, var fragment: Fragment)
+
+    inner class ViewPagerAdapter: FragmentPagerAdapter(manager!!, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        private val tabItems = ArrayList<TabItem>()
+        fun add(tabItem: TabItem){
+            tabItems.add(tabItem)
+        }
+
+        override fun getItem(position: Int): Fragment {
+            return tabItems[position].fragment
+        }
+
+        override fun getCount(): Int {
+            return tabItems.size
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return tabItems[position].title
+        }
     }
 
 }

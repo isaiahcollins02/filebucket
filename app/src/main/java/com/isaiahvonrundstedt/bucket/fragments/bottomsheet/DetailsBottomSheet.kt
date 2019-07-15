@@ -16,7 +16,7 @@ import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
 import com.isaiahvonrundstedt.bucket.architecture.store.SavedRepository
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import kotlinx.android.synthetic.main.layout_sheet_details.*

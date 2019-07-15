@@ -10,8 +10,8 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.activities.auth.FirstRunActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.constants.Firestore
+import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.isaiahvonrundstedt.bucket.service.NotificationService
 import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.coroutines.GlobalScope
@@ -60,10 +60,10 @@ class SplashActivity: BaseActivity() {
             // certain field is null, then fetch all data from Firestore then
             // cache it on SharedPreferences
             if (cachedAccount == null){
-                val userReference: DocumentReference? = firestore?.collection(Firebase.USERS.string)?.document(userID!!)
+                val userReference: DocumentReference? = firestore?.collection(Firestore.users)?.document(userID!!)
                 userReference?.get()?.addOnCompleteListener { task ->
                     if (task.isSuccessful){
-                        val account: Account = task.result?.toObject(User::class.java) as Account
+                        val account: Account = task.result?.toObject(Account::class.java) as Account
 
                         User(this).save(account)
                         startActivity(Intent(this, MainActivity::class.java))

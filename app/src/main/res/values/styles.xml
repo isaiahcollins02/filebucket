@@ -13,9 +13,7 @@
         <item name="md_color_button_text">@color/colorPrimary</item>
     </style>
 
-    <style name="AppTheme.Drawer" parent="AppTheme.Core">
-        <item name="drawerArrowStyle">@style/AppTheme.Toolbar.Hamburger</item>
-    </style>
+    <style name="AppTheme.Drawer" parent="AppTheme.Core"/>
 
     <style name="AppTheme.FirstRun" parent="AppTheme.Core">
         <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
@@ -66,9 +64,6 @@
         <item name="maxButtonHeight">48dp</item>
     </style>
 
-    <style name="AppTheme.Toolbar.Hamburger" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/colorIcons</item>
-    </style>
     <style name="AppTheme.Toolbar.Navigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="android:tint">@color/colorIcons</item>
         <item name="android:minWidth">48dp</item>
@@ -92,5 +87,9 @@
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
         <item name="android:textAllCaps">true</item>
     </style>
+    <style name="AppTheme.Widget.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Button</item>
+    </style>
+    <style name="AppTheme.Widget.SearchView" parent="MaterialSearchBarLight"/>
 
 </resources>

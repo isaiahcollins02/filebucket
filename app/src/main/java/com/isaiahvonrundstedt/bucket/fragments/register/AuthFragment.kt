@@ -12,8 +12,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.constants.Firestore
+import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.kaopiz.kprogresshud.KProgressHUD
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
@@ -52,7 +52,7 @@ class AuthFragment: Fragment() {
     }
 
     private fun handleRegistration(password: String, confirmationPassword: String){
-        val userReference = firestore.collection(Firebase.USERS.string)
+        val userReference = firestore.collection(Firestore.users)
 
         if (password == confirmationPassword){
             val dialog = KProgressHUD.create(rootView.context)

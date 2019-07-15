@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.objects
+package com.isaiahvonrundstedt.bucket.objects.diagnostics
 
 import com.google.firebase.Timestamp
 

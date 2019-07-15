@@ -9,7 +9,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.objects.Notification
+import com.isaiahvonrundstedt.bucket.objects.core.Notification
 
 class TransferReceiver: BroadcastReceiver() {
 

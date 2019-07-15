@@ -2,6 +2,7 @@ package com.isaiahvonrundstedt.bucket.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Environment
 import androidx.preference.PreferenceManager
 
@@ -56,8 +57,14 @@ class Preferences(val context: Context?) {
         }
         get() {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences?.getString("appThemePreference", themeLight) as String
+            return sharedPreferences?.getString("appThemePreference", obtainAPIDependentDefaultTheme()) as String
         }
+
+    private fun obtainAPIDependentDefaultTheme(): String? {
+        return if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+            themeSystem
+        else themeBattery
+    }
 
     var updateNotification: Boolean
         set(value) {

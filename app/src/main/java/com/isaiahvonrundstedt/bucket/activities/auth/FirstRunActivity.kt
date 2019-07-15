@@ -1,17 +1,14 @@
 package com.isaiahvonrundstedt.bucket.activities.auth
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.WebViewActivity
 import kotlinx.android.synthetic.main.activity_firstrun.*

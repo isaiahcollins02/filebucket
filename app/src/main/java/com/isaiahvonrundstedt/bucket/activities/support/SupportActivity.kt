@@ -9,8 +9,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.Support
+import com.isaiahvonrundstedt.bucket.constants.Firestore
+import com.isaiahvonrundstedt.bucket.objects.diagnostics.Support
 import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.activity_support.*
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
@@ -26,7 +26,7 @@ class SupportActivity: BaseAppBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_support)
-        setToolbarTitle(R.string.settings_feedback)
+        setToolbarTitle(R.string.about_feedback)
 
         summaryField = findViewById(R.id.summaryField)
         infoField = findViewById(R.id.infoField)
@@ -70,7 +70,7 @@ class SupportActivity: BaseAppBarActivity() {
             body = infoField.text.toString()
         }
 
-        val reference = firestore.collection(Firebase.FEEDBACK.string)
+        val reference = firestore.collection(Firestore.feedback)
         reference.add(support)
             .addOnCompleteListener {
                 if (it.isSuccessful){

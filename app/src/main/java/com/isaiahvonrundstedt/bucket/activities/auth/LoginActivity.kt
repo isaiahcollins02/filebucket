@@ -11,8 +11,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.constants.Firestore
+import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.isaiahvonrundstedt.bucket.utils.User
 import com.kaopiz.kprogresshud.KProgressHUD
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
@@ -68,7 +68,7 @@ class LoginActivity: AppCompatActivity() {
                 .addOnSuccessListener { authResult ->
                     val userID: String? = authResult.user.uid
 
-                    firestore.collection(Firebase.USERS.string).document(userID!!)
+                    firestore.collection(Firestore.users).document(userID!!)
                         .get().addOnSuccessListener {
                             val account: Account? = it.toObject(Account::class.java)
                             User(this).save(account!!)

@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.fragments.profile
+package com.isaiahvonrundstedt.bucket.fragments.navigation.box
 
 import android.app.DownloadManager
 import android.content.BroadcastReceiver
@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -20,12 +19,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.filterable.VaultAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.constants.Parameters
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
+import com.isaiahvonrundstedt.bucket.constants.Firestore
+import com.isaiahvonrundstedt.bucket.constants.Params
+import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.utils.User
 
-class BoxFragment: BaseFragment() {
+class UserFragment: BaseFragment() {
 
     private var file: java.io.File? = null
     private var downloadURL: String? = null
@@ -68,8 +68,8 @@ class BoxFragment: BaseFragment() {
         }
 
         recyclerView = rootView.findViewById(R.id.recyclerView)
+        recyclerView.addItemDecoration(ItemDecoration(context, false))
         recyclerView.layoutManager = LinearLayoutManager(container?.context)
-        recyclerView.addItemDecoration(DividerItemDecoration(container?.context, DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
 
         return rootView
@@ -85,8 +85,8 @@ class BoxFragment: BaseFragment() {
         if (arrayList.size > 0)
             arrayList.clear()
         else {
-            query = firestore.collection(Firebase.FILES.string)
-            query!!.whereEqualTo(Parameters.AUTHOR.string, fullName)
+            query = firestore.collection(Firestore.files)
+            query!!.whereEqualTo(Params.author, fullName)
                 .get()
                 .addOnCompleteListener {
                     if (it.isSuccessful){

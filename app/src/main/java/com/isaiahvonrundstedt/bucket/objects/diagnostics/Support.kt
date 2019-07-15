@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.objects
+package com.isaiahvonrundstedt.bucket.objects.diagnostics
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

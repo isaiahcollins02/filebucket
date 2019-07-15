@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.objects
+package com.isaiahvonrundstedt.bucket.objects.core
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -11,21 +11,21 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "notifications")
 @Parcelize
 data class Notification @JvmOverloads constructor (
-                    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
                     var id: Int? = null,
-                    var title: String? = null,
-                    var content: String? = null,
-                    var type: Int? = TYPE_GENERIC,
-                    var objectID: String? = null,   // determines the object associated with the notification, e.g. the file ID
-                    var objectArgs: String? = null, // determines the arguments associated with the object
+    var title: String? = null,
+    var content: String? = null,
+    var type: Int? = typeGeneric,
+    var objectID: String? = null,   // determines the object associated with the notification, e.g. the file ID
+    var objectArgs: String? = null, // determines the arguments associated with the object
                                                     // e.g. for files, the download url
-                    @TypeConverters(TimestampConverter::class)
+    @TypeConverters(TimestampConverter::class)
                     var timestamp: Timestamp? = null): Parcelable {
 
     companion object {
-        const val TYPE_GENERIC = 0
-        const val TYPE_NEW_FILE = 1
-        const val TYPE_PACKAGE = 2
+        const val typeGeneric = 0
+        const val typeNewFile = 1
+        const val typePackage = 2
 
         const val defaultChannel = "default"
         const val transferChannel = "transfer"

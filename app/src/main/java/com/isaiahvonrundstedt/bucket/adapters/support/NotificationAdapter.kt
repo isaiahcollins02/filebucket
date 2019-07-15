@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.adapters
+package com.isaiahvonrundstedt.bucket.adapters.support
 
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
@@ -10,15 +10,15 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.objects.Notification
+import com.isaiahvonrundstedt.bucket.objects.core.Notification
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 
 class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
     private var itemList: ArrayList<Notification> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val rowView: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_item_notification, parent, false)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val rowView: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_item_notification, viewGroup, false)
         return ViewHolder(rowView)
     }
 

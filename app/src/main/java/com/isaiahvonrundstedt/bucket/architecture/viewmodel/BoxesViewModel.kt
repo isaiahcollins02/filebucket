@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.isaiahvonrundstedt.bucket.architecture.store.BoxesRepository
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.objects.core.Account
 
 class BoxesViewModel(app: Application): AndroidViewModel(app) {
 

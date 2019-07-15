@@ -3,22 +3,21 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/rootView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_margin"
         android:background="?attr/selectableItemBackground">
 
     <LinearLayout
+            android:id="@+id/rootView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/activity_margin"
             android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iconView"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="@dimen/activity_margin_start"
                 android:layout_marginEnd="@dimen/activity_margin_end"
                 android:layout_marginBottom="16dp"

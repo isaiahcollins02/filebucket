@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorCardBackground"
+        android:foreground="?attr/selectableItemBackground">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_margin"
+            android:clickable="true"
+            android:focusable="true">
+
+        <TextView
+                android:id="@+id/infoTitleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryText"
+                android:layout_alignParentTop="true"
+                tools:text="Storage Used"/>
+
+        <TextView
+                android:id="@+id/infoContentView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/infoTitleView"
+                tools:text="2.35GB in Internal Storage"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

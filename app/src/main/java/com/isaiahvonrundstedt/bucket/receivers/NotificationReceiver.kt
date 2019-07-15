@@ -10,7 +10,7 @@ import androidx.core.net.toUri
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.architecture.store.SavedRepository
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import timber.log.Timber
 

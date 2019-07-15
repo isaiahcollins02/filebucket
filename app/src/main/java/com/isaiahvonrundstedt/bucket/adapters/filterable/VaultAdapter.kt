@@ -1,6 +1,5 @@
 package com.isaiahvonrundstedt.bucket.adapters.filterable
 
-import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -15,8 +14,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
+import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
@@ -31,8 +31,8 @@ class VaultAdapter (private var itemList: ArrayList<File>,
     private var filter: SentFiler? = null
 
     companion object {
-        const val CORE_VIEW: Int = 0
-        const val EMPTY_VIEW: Int = 1
+        const val viewTypeCore: Int = 0
+        const val viewTypeEmpty: Int = 1
     }
 
     fun removeAllData(){
@@ -71,8 +71,8 @@ class VaultAdapter (private var itemList: ArrayList<File>,
                     .putExtra(UsageService.extraObjectID, file.fileID))
 
                 itemView.context.startActivity(Intent(itemView.context, FrameActivity::class.java)
-                    .putExtra("viewType", FrameActivity.viewTypeDetails)
-                    .putExtra("viewArgs", args))
+                    .putExtra(Params.viewType, FrameActivity.viewTypeDetails)
+                    .putExtra(Params.viewArgs, args))
             }
             rootView.setOnLongClickListener {
                 invokeBottomSheet(file)
@@ -143,7 +143,7 @@ class VaultAdapter (private var itemList: ArrayList<File>,
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (filterList.size == 0) EMPTY_VIEW
-        else CORE_VIEW
+        return if (filterList.size == 0) viewTypeEmpty
+        else viewTypeCore
     }
 }

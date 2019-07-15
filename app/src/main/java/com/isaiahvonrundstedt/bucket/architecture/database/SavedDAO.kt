@@ -1,7 +1,7 @@
 package com.isaiahvonrundstedt.bucket.architecture.database
 
 import androidx.room.*
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.objects.core.File
 import org.jetbrains.annotations.NotNull
 
 @Dao

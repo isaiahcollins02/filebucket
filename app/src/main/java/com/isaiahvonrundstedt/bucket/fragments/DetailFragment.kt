@@ -6,19 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.button.MaterialButton
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.RelatedAdapter
+import com.isaiahvonrundstedt.bucket.adapters.experience.InfoAdapter
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
 import com.isaiahvonrundstedt.bucket.architecture.store.SavedRepository
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
+import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.experience.Information
 import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
@@ -37,9 +34,7 @@ class DetailFragment: BaseFragment() {
     private var savedDAO: SavedDAO? = null
     private var repository: SavedRepository? = null
 
-    private val firestore by lazy { FirebaseFirestore.getInstance() }
-
-    private lateinit var adapter: RelatedAdapter
+    private var adapter: InfoAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,31 +52,6 @@ class DetailFragment: BaseFragment() {
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        val query: Query = firestore.collection(Firebase.FILES.string)
-            .orderBy("timestamp", Query.Direction.DESCENDING)
-            .whereEqualTo("author", file?.author)
-            .limit(5)
-
-        val firestoreOptions = FirestoreRecyclerOptions.Builder<File>()
-            .setLifecycleOwner(this)
-            .setQuery(query, File::class.java)
-            .build()
-
-        adapter = RelatedAdapter(firestoreOptions)
-        adapter.startListening()
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-        adapter.stopListening()
-    }
-
     override fun onResume() = runBlocking {
         super.onResume()
 
@@ -93,10 +63,16 @@ class DetailFragment: BaseFragment() {
             titleView.text = name
             authorView.text = author
             iconView.setImageDrawable(ItemManager.getFileIcon(context, fileType))
-            sizeView.text = String.format(context?.getString(R.string.detail_file_size)!!, DecimalFormat("#.##").format((fileSize / 1024) / 1024))
-            typeView.text = String.format(context?.getString(R.string.detail_file_type)!!, ItemManager.getFileType(context, fileType))
-            timestampView.text = String.format(context?.getString(R.string.detail_file_timestamp)!!, DataManager.formatTimestamp(context, timestamp))
         }
+
+        val supportItems = listOf(
+            Information(R.string.detail_file_size, String.format(getString(R.string.file_size_megabytes), DecimalFormat("#.##").format((file!!.fileSize / 1024) / 1024))),
+            Information(R.string.detail_file_type, ItemManager.getFileType(context, file!!.fileType) ?: ""),
+            Information(R.string.detail_file_timestamp, DataManager.formatTimestamp(context, file!!.timestamp) ?: ""))
+        adapter = InfoAdapter(supportItems)
+        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
 
         collectionsButton.setOnClickListener {
             if (!fileInDatabase!!){
@@ -107,12 +83,5 @@ class DetailFragment: BaseFragment() {
                 (it as MaterialButton).text = getString(R.string.button_save)
             }
         }
-
     }
-
-    override fun onDetach() {
-        super.onDetach()
-        activity?.finish()
-    }
-
 }

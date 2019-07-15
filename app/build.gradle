@@ -1,3 +1,4 @@
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -28,7 +29,7 @@ android {
     packagingOptions {
         pickFirst("META-INF/atomicfu.kotlin_module")
     }
-    buildToolsVersion = '29.0.0'
+    buildToolsVersion = '29.0.1'
     androidExtensions {
         experimental = true
     }
@@ -61,7 +62,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     // AndroidX Jetpack Components
-    implementation 'androidx.work:work-runtime-ktx:2.0.1'
+    implementation 'androidx.work:work-runtime-ktx:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
 
@@ -70,10 +71,10 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.2'
 
     // Firebase Components
-    implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.google.firebase:firebase-auth:18.0.0'
+    implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.firebase:firebase-auth:18.1.0'
     implementation 'com.google.firebase:firebase-firestore:20.1.0'
-    implementation 'com.google.firebase:firebase-storage:18.0.0'
+    implementation 'com.google.firebase:firebase-storage:18.1.0'
 
     // Firebase UI Components
     implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
@@ -84,6 +85,7 @@ dependencies {
     implementation 'com.kaopiz:kprogresshud:1.2.0'
     implementation 'com.github.HITGIF:TextFieldBoxes:1.4.5'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+    implementation 'com.github.AppIntro:AppIntro:5.1.0'
     implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
     implementation 'com.afollestad.material-dialogs:core:3.1.0'
     implementation 'com.afollestad.material-dialogs:input:3.1.0'

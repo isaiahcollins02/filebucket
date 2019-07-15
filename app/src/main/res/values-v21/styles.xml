@@ -16,6 +16,7 @@
     </style>
 
     <style name="AppTheme.Drawer" parent="AppTheme.Core">
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 

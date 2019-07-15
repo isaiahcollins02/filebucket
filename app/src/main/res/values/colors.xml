@@ -6,7 +6,7 @@
     <color name="colorPrimaryVariant">#005b9f</color>
     <color name="colorOnPrimary">#ffffff</color>
 
-    <color name="colorWindowBackground">#ffffff</color>
+    <color name="colorWindowBackground">#efefef</color>
     <color name="colorCardBackground">#ffffff</color>
     <color name="colorPreference">#fafafa</color>
     <color name="colorToolbar">#ffffff</color>

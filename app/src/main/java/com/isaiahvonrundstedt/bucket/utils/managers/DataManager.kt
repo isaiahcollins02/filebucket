@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.format.DateUtils
 import com.google.firebase.Timestamp
 import com.isaiahvonrundstedt.bucket.R
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,5 +36,9 @@ object DataManager {
                 else -> String.format(context!!.getString(R.string.file_timestamp_today), SimpleDateFormat("h:mm a", Locale.getDefault()).format(date))
             }
         } else null
+    }
+
+    fun formatSize(context: Context, size: Double?): String {
+        return String.format(context.getString(R.string.file_size_megabytes), DecimalFormat("#.##").format((size!! / 1024) / 1024))
     }
 }

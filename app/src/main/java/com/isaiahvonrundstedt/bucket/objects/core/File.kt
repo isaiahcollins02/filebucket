@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.objects
+package com.isaiahvonrundstedt.bucket.objects.core
 
 import android.os.Parcelable
 import androidx.annotation.NonNull

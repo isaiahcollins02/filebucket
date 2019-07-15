@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.NotificationDAO
-import com.isaiahvonrundstedt.bucket.objects.Notification
+import com.isaiahvonrundstedt.bucket.objects.core.Notification
 import kotlinx.coroutines.runBlocking
 
 class NotificationRepository(application: Application) {

@@ -17,8 +17,8 @@ import com.google.firebase.storage.StorageReference
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.constants.Firestore
+import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.utils.User
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import timber.log.Timber
@@ -72,7 +72,7 @@ class TransferService: BaseService() {
         showProgressNotification(fileUri.lastPathSegment!!, 0, 0)
 
         // Get a reference to store a file at files reference
-        val fileReference = storageReference.child(Firebase.FILES.string).child(fileUri.lastPathSegment!!)
+        val fileReference = storageReference.child(Firestore.files).child(fileUri.lastPathSegment!!)
 
         fileReference.putFile(fileUri)
             .addOnProgressListener { taskSnapshot ->
@@ -133,7 +133,7 @@ class TransferService: BaseService() {
         showFinishedNotification(caption, intent, success)
     }
     private fun finalizeTransfer(downloadUri: Uri?, selectedFileUri: Uri?) {
-        val fileReference = firestore.collection(Firebase.FILES.string)
+        val fileReference = firestore.collection(Firestore.files)
 
         if (downloadUri != null) {
             // Create a buffered file to retrieve data about the uri
@@ -161,9 +161,8 @@ class TransferService: BaseService() {
         if (totalUnits > 0){
             percentComplete = (100 * completedUnits / totalUnits).toInt()
 
-            createDefaultChannel()
-
-            val builder = NotificationCompat.Builder(this, defaultChannel)
+            createTransferChannel()
+            val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_default))
                 .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_vector_upload)
                 .setContentTitle(String.format(getString(R.string.notification_transferring), fileName))
@@ -183,8 +182,8 @@ class TransferService: BaseService() {
 
         val icon = if (success) R.drawable.ic_vector_check else R.drawable.ic_vector_error
 
-        createDefaultChannel()
-        val builder = NotificationCompat.Builder(this, defaultChannel)
+        createTransferChannel()
+        val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_transfer))
             .setSmallIcon(icon)
             .setContentTitle(caption)
             .setAutoCancel(true)

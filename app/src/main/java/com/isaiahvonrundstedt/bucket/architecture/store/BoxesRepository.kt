@@ -3,8 +3,8 @@ package com.isaiahvonrundstedt.bucket.architecture.store
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.constants.Firestore
+import com.isaiahvonrundstedt.bucket.objects.core.Account
 
 class BoxesRepository {
 
@@ -14,7 +14,7 @@ class BoxesRepository {
     private val firestore by lazy { FirebaseFirestore.getInstance() }
 
     fun fetch( onFetch: (List<Account>)-> Unit) {
-        mainQuery = firestore.collection(Firebase.USERS.string)
+        mainQuery = firestore.collection(Firestore.files)
             .orderBy("timestamp", Query.Direction.ASCENDING)
             .limit(25)
 

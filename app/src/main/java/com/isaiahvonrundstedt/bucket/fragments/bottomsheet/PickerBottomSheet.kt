@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
-import com.isaiahvonrundstedt.bucket.components.custom.PickerItem
 import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
+import com.isaiahvonrundstedt.bucket.objects.experience.PickerItem
 
 class PickerBottomSheet: BaseBottomSheet(), BottomSheetPicker {
 

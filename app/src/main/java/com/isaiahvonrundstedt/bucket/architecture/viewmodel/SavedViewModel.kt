@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.isaiahvonrundstedt.bucket.architecture.store.SavedRepository
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.objects.core.File
 
 class SavedViewModel(application: Application): AndroidViewModel(application) {
 
@@ -14,5 +14,4 @@ class SavedViewModel(application: Application): AndroidViewModel(application) {
     init {
         items = repository.getCollections()
     }
-
 }

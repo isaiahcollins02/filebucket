@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.NotificationAdapter
+import com.isaiahvonrundstedt.bucket.adapters.support.NotificationAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.NotificationViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.objects.Notification
+import com.isaiahvonrundstedt.bucket.objects.core.Notification
 
 class NotificationFragment: BaseFragment() {
 
@@ -45,9 +45,6 @@ class NotificationFragment: BaseFragment() {
             R.color.colorIndicatorGreen,
             R.color.colorIndicatorYellow
         )
-        swipeRefreshContainer.setOnRefreshListener {
-            onLoadAssets()
-        }
 
         return rootView
     }

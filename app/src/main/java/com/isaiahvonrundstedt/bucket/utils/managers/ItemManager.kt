@@ -6,29 +6,11 @@ import android.net.Uri
 import android.webkit.MimeTypeMap
 import androidx.core.content.res.ResourcesCompat
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.objects.File
-import com.isaiahvonrundstedt.bucket.objects.Notification
+import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.Notification
 
 object ItemManager {
 
-    const val CATEGORY_ALL = 0
-    const val CATEGORY_DOCUMENTS = 1
-    const val CATEGORY_CODES = 2
-    const val CATEGORY_MEDIA = 3
-    const val CATEGORY_REMOVE = 4
-
-    fun getFileCategory(fileType: Int): Int{
-        return when (fileType){
-            File.TYPE_GENERIC -> CATEGORY_REMOVE
-            File.TYPE_VIDEO -> CATEGORY_MEDIA
-            File.TYPE_IMAGE -> CATEGORY_MEDIA
-            File.TYPE_AUDIO -> CATEGORY_MEDIA
-            File.TYPE_CODE -> CATEGORY_CODES
-            File.TYPE_DOCUMENT -> CATEGORY_DOCUMENTS
-            File.TYPE_PACKAGE -> CATEGORY_REMOVE
-            else -> CATEGORY_DOCUMENTS
-        }
-    }
     fun getFileIcon(context: Context?, type: Int?): Drawable? {
         val drawableID: Int = when (type) {
             File.TYPE_DOCUMENT -> R.drawable.ic_object_document
@@ -88,9 +70,9 @@ object ItemManager {
 
     fun getNotificationIcon(context: Context?, type: Int?): Drawable? {
         val drawableID = when (type){
-            Notification.TYPE_GENERIC -> R.drawable.ic_vector_notifications
-            Notification.TYPE_NEW_FILE -> R.drawable.ic_vector_new
-            Notification.TYPE_PACKAGE -> R.drawable.ic_vector_update
+            Notification.typeGeneric -> R.drawable.ic_vector_notifications
+            Notification.typeNewFile -> R.drawable.ic_vector_new
+            Notification.typePackage -> R.drawable.ic_vector_update
             else -> null
         }
         return ResourcesCompat.getDrawable(context?.resources!!, drawableID!!, null)

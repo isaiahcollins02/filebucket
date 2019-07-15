@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.adapters
+package com.isaiahvonrundstedt.bucket.adapters.filterable
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -13,8 +13,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.support.VaultActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
-import com.isaiahvonrundstedt.bucket.constants.Parameters
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.constants.Params
+import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 
@@ -24,38 +24,17 @@ class BoxesAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapt
     private var filterList: ArrayList<Account> = itemList
     private var filter: AccountFilter? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val rootView: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_item_users, parent, false)
-        return ViewHolder(rootView)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val rowView: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_item_users, viewGroup, false)
+        return ViewHolder(rowView)
     }
 
     override fun getItemCount(): Int {
         return filterList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentUser: Account = filterList[position]
-        val string: String = currentUser.firstName + " " + currentUser.lastName
-
-        GlideApp.with(holder.rootView)
-            .load(currentUser.imageURL)
-            .placeholder(R.drawable.ic_brand_user)
-            .error(R.drawable.ic_brand_user)
-            .centerCrop()
-            .apply(RequestOptions().circleCrop())
-            .into(holder.iconView)
-
-        holder.rootView.setOnClickListener {
-            it.context.startService(Intent(it.context, UsageService::class.java)
-                .setAction(UsageService.sendBoxUsage)
-                .putExtra(UsageService.extraObjectID, filterList[position].accountID))
-
-            val intent = Intent(it.context, VaultActivity::class.java)
-            intent.putExtra(Parameters.AUTHOR.string, string)
-            it.context.startActivity(intent)
-        }
-        holder.titleView.text = DataManager.capitalizeEachWord(string)
-        holder.subtitleView.text = currentUser.email
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.bind(itemList[position])
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -63,6 +42,30 @@ class BoxesAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapt
         val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
         val titleView: TextView = itemView.findViewById(R.id.titleView)
         val subtitleView: TextView = itemView.findViewById(R.id.subtitleView)
+
+        fun bind (currentUser: Account){
+            val string: String = currentUser.firstName + " " + currentUser.lastName
+
+            GlideApp.with(rootView)
+                .load(currentUser.imageURL)
+                .placeholder(R.drawable.ic_brand_user)
+                .error(R.drawable.ic_brand_user)
+                .centerCrop()
+                .apply(RequestOptions().circleCrop())
+                .into(iconView)
+
+            rootView.setOnClickListener {
+                it.context.startService(Intent(it.context, UsageService::class.java)
+                    .setAction(UsageService.sendBoxUsage)
+                    .putExtra(UsageService.extraObjectID, filterList[position].accountID))
+
+                val intent = Intent(it.context, VaultActivity::class.java)
+                intent.putExtra(Params.author, string)
+                it.context.startActivity(intent)
+            }
+            titleView.text = DataManager.capitalizeEachWord(string)
+            subtitleView.text = currentUser.email
+        }
     }
 
     override fun getFilter(): Filter {
@@ -111,14 +114,6 @@ class BoxesAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapt
 
     override fun getItemViewType(position: Int): Int {
         return position
-    }
-
-    fun removeAllData(){
-        if (itemList.size > 0 && filterList.size > 0) {
-            itemList.clear()
-            filterList.clear()
-            notifyDataSetChanged()
-        }
     }
 
 }

@@ -1,6 +1,5 @@
 package com.isaiahvonrundstedt.bucket.fragments.navigation
 
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,25 +12,22 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.adapters.CoreAdapter
+import com.isaiahvonrundstedt.bucket.adapters.filterable.CoreAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.SavedViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.objects.core.File
 
 class SavedFragment: BaseFragment(), ScreenAction.Search {
 
-    private var downloadID: Long? = null
     private var viewModel: SavedViewModel? = null
-
     private val itemList: ArrayList<File> = ArrayList()
 
     private lateinit var rootView: View
     private lateinit var adapter: CoreAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
-    private lateinit var downloadReceiver: BroadcastReceiver
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -59,10 +55,6 @@ class SavedFragment: BaseFragment(), ScreenAction.Search {
             R.color.colorIndicatorRed,
             R.color.colorIndicatorYellow
         )
-        swipeRefreshContainer.setOnRefreshListener {
-            adapter.removeAllData()
-            onLoadAssets()
-        }
 
         return rootView
     }
@@ -77,7 +69,6 @@ class SavedFragment: BaseFragment(), ScreenAction.Search {
     }
 
     private fun onLoadAssets() {
-
         viewModel?.items?.observe(this, Observer<List<File>> { t ->
             itemList.addAll(t)
             adapter.notifyDataSetChanged()

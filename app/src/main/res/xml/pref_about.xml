@@ -14,7 +14,7 @@
 
     <Preference
             android:key="supportPreference"
-            android:title="@string/settings_feedback"/>
+            android:title="@string/about_feedback"/>
 
     <PreferenceCategory
             android:title="@string/team_development">

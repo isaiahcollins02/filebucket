@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.components.custom
+package com.isaiahvonrundstedt.bucket.objects.experience
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

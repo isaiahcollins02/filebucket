@@ -21,17 +21,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.navigation.NavigationView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
 import com.isaiahvonrundstedt.bucket.activities.generic.SettingsActivity
-import com.isaiahvonrundstedt.bucket.architecture.work.SupportWorker
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.fragments.navigation.BoxesFragment
@@ -95,7 +90,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         }
 
         navigationView.setNavigationItemSelectedListener(this)
-        executeWorker()
     }
 
     private fun setupHeader(){
@@ -111,21 +105,9 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             GlideApp.with(this@MainActivity)
                 .load(imageURL)
                 .centerCrop()
+                .error(R.drawable.ic_brand_user)
                 .into(imageView)
         }
-    }
-
-    private fun executeWorker(){
-        val constraints = Constraints.Builder()
-            .setRequiresBatteryNotLow(true)
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-
-        val request = OneTimeWorkRequestBuilder<SupportWorker>()
-            .setConstraints(constraints)
-            .build()
-
-        WorkManager.getInstance().enqueue(request)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

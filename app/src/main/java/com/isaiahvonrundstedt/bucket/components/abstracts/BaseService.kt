@@ -5,6 +5,8 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.os.Build
+import com.isaiahvonrundstedt.bucket.R
+import com.isaiahvonrundstedt.bucket.objects.core.Notification
 
 abstract class BaseService: Service(){
 
@@ -23,9 +25,6 @@ abstract class BaseService: Service(){
     }
 
     companion object {
-        const val defaultChannel = "default"
-        const val transferChannel = "transfer"
-
         internal const val inProgressNotificationID = 0
         internal const val finishedNotificationID = 1
         internal const val availableNotificationID = 2
@@ -48,7 +47,8 @@ abstract class BaseService: Service(){
     protected fun createDefaultChannel(){
         // Since Android 0reo (API Level 26) is needed
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val channel = NotificationChannel(defaultChannel, "Default", NotificationManager.IMPORTANCE_DEFAULT)
+            val channel = NotificationChannel(Notification.defaultChannel, getString(R.string.notification_channel_default),
+                NotificationManager.IMPORTANCE_DEFAULT)
             manager.createNotificationChannel(channel)
         }
     }
@@ -56,7 +56,8 @@ abstract class BaseService: Service(){
     protected fun createTransferChannel(){
         // Since Android 0reo (API Level 26) is needed
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val channel = NotificationChannel(transferChannel, "Transfer", NotificationManager.IMPORTANCE_DEFAULT)
+            val channel = NotificationChannel(Notification.transferChannel, getString(R.string.notification_channel_transfer),
+                NotificationManager.IMPORTANCE_DEFAULT)
             manager.createNotificationChannel(channel)
         }
     }

@@ -25,15 +25,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.adapters.CoreAdapter
+import com.isaiahvonrundstedt.bucket.adapters.filterable.CoreAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.FileViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.components.custom.PickerItem
+import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.PickerBottomSheet
 import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
 import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.experience.PickerItem
 import com.isaiahvonrundstedt.bucket.service.TransferService
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.kaopiz.kprogresshud.KProgressHUD
@@ -70,7 +71,8 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, BottomSheetPicker {
         }
 
         layoutManager = LinearLayoutManager(context)
-        adapter = CoreAdapter(itemList, childFragmentManager, GlideApp.with(this))
+        adapter =
+            CoreAdapter(itemList, childFragmentManager, GlideApp.with(this))
     }
 
     override fun onAttach(context: Context) {
@@ -93,6 +95,7 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, BottomSheetPicker {
 
         recyclerView = rootView.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = layoutManager
+        recyclerView.addItemDecoration(ItemDecoration(context, false))
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -223,12 +226,9 @@ class FilesFragment: BaseFragment(), ScreenAction.Search, BottomSheetPicker {
         fileUri = intent.getParcelableExtra(TransferService.extraFileURI)
 
         // Show a feedback to the user when a task in the service has been completed
-        if (downloadUri != null && fileUri != null){
-            adapter.removeAllData()
-            onLoadAssets()
-
+        if (downloadUri != null && fileUri != null)
             Snackbar.make(rootView, R.string.file_upload_success, Snackbar.LENGTH_SHORT).show()
-        } else
+        else
             Snackbar.make(rootView, R.string.file_upload_error, Snackbar.LENGTH_SHORT).show()
     }
 

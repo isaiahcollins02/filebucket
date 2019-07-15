@@ -17,7 +17,7 @@
     </style>
 
     <style name="AppTheme.Drawer" parent="AppTheme.Core">
-        <item name="drawerArrowStyle">@style/AppTheme.Toolbar.Hamburger</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>

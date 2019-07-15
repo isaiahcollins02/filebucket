@@ -2,7 +2,7 @@ package com.isaiahvonrundstedt.bucket.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.isaiahvonrundstedt.bucket.objects.Account
+import com.isaiahvonrundstedt.bucket.objects.core.Account
 
 class User(var context: Context) {
 

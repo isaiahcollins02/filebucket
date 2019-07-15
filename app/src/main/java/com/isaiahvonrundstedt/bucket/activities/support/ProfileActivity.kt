@@ -19,6 +19,7 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
+import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.interfaces.RecyclerNavigation
 import com.isaiahvonrundstedt.bucket.utils.User
 import gun0912.tedbottompicker.TedBottomPicker
@@ -38,7 +39,6 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
         userID = firebaseAuth.currentUser?.uid!!
 
         val itemList = listOf(
-            NavigationItem(R.drawable.ic_vector_boxes, R.string.profile_view_repository),
             NavigationItem(R.drawable.ic_vector_auth, R.string.profile_secure_account),
             NavigationItem(R.drawable.ic_vector_refresh, R.string.profile_reset_password)
         )
@@ -90,16 +90,10 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
     override fun onItemSelected(index: Int) {
         when (index){
             0 -> startActivity(Intent(this, FrameActivity::class.java)
-                .putExtra(viewType, FrameActivity.viewTypeSent))
+                .putExtra(Params.viewType, FrameActivity.viewTypePassword))
             1 -> startActivity(Intent(this, FrameActivity::class.java)
-                .putExtra(viewType, FrameActivity.viewTypePassword))
-            2 -> startActivity(Intent(this, FrameActivity::class.java)
-                .putExtra(viewType, FrameActivity.viewTypeReset))
+                .putExtra(Params.viewType, FrameActivity.viewTypeReset))
         }
-    }
-
-    companion object {
-        private const val viewType = "viewType"
     }
 
     private data class NavigationItem(@DrawableRes var iconID: Int, @StringRes var titleID: Int)

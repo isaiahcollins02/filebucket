@@ -43,12 +43,15 @@
     <string name="button_see_more">See More</string>
 
     <string name="file_details">File Details</string>
-    <string name="file_user_repository">%1$s\'s Repository</string>
+    <string name="file_user_repository">%1$s\'s Box</string>
 
     <string name="detail_related_boxes">Related Files</string>
-    <string name="detail_file_size">Size: %1$s MB</string>
-    <string name="detail_file_type">Type: %1$s</string>
-    <string name="detail_file_timestamp">Date Uploaded: %1$s</string>
+    <string name="detail_file_size_placeholder">Size: %1$s MB</string>
+    <string name="detail_file_type_placeholder">Type: %1$s</string>
+    <string name="detail_file_timestamp_placeholder">Date Uploaded: %1$s</string>
+    <string name="detail_file_size">Size</string>
+    <string name="detail_file_type">Type</string>
+    <string name="detail_file_timestamp">Timestamp</string>
 
     <string name="file_type_unknown">Unknown</string>
     <string name="file_type_document">Document</string>
@@ -74,6 +77,12 @@
     <string name="menu_search">Search</string>
     <string name="menu_clear">Clear</string>
 
+    <!-- Empty Views -->
+    <string name="main_empty_generic">An Error Occurred</string>
+    <string name="main_empty_box">Unable to fetch available public boxes from the cloud</string>
+    <string name="main_empty_files">The cloud currently don\'t have files in them. Upload one or come back again later</string>
+    <string name="main_empty_saved">You currently don\'t have any saves from the available files in the cloud</string>
+
     <string name="navigation_files">Files</string>
     <string name="navigation_boxes">Boxes</string>
     <string name="navigation_saved">Saved</string>
@@ -81,20 +90,22 @@
     <string name="navigation_settings">Settings</string>
     <string name="navigation_about">About</string>
 
+    <string name="tab_box_public">Public Boxes</string>
+    <string name="tab_box_user">My Box</string>
+
     <string name="filter_all">All Files</string>
     <string name="filter_documents">Documents</string>
     <string name="filter_code">Source Codes</string>
     <string name="filter_media">Media Files</string>
 
     <string name="bottom_sheet_picker_title">Add New File</string>
-    <string name="bottom_sheet_picker_file">File</string>
-    <string name="bottom_sheet_picker_image">Images &amp; Videos</string>
+    <string name="bottom_sheet_picker_file">Documents</string>
+    <string name="bottom_sheet_picker_image">Media</string>
 
     <string name="activity_account_settings">Account Settings</string>
     <string name="activity_about">About</string>
 
     <string name="profile_actions">Actions</string>
-    <string name="profile_view_repository">View Repository</string>
     <string name="profile_secure_account">Secure Account</string>
     <string name="profile_reset_password">Reset Password</string>
 
@@ -124,7 +135,7 @@
 
     <string name="notification_download_finished">Download is finished</string>
 
-    <string name="notification_update_available_title">An Update is Available</string>
+    <string name="notification_update_available_title">File Bucket %1$d</string>
     <string name="notification_update_available_content">Install updates to make your experience faster and smoother.</string>
 
     <string name="notification_unsupported_version_title">Please update your File Bucket</string>
@@ -152,10 +163,11 @@
     <string name="settings_group_notifications">Notifications</string>
     <string name="settings_group_privacy">Privacy</string>
     <string name="settings_group_general">General</string>
-    <string name="settings_group_about">File Bucket</string>
 
     <!-- Account Group -->
     <string name="settings_sign_out">Sign out</string>
+
+    <!-- Interface Group -->
     <string name="settings_theme">Theme</string>
     <string name="settings_theme_dialog">Application Theme</string>
     <string name="settings_theme_item_light">Light</string>
@@ -175,8 +187,8 @@
     <string name="settings_analytics">Diagnostics and Analytics</string>
     <string name="settings_directory">Download Location</string>
 
-    <string name="settings_feedback">Help &amp; Feedback</string>
-    <string name="settings_about">About File Bucket</string>
+    <string name="about_feedback">Help &amp; Feedback</string>
+    <string name="about_service">About File Bucket</string>
 
     <string name="team_development">Development Team</string>
     <string name="team_position_chief">Chief Software Engineer</string>

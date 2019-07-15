@@ -5,28 +5,27 @@ import android.content.Intent
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
 import com.isaiahvonrundstedt.bucket.architecture.store.NotificationRepository
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.File
-import com.isaiahvonrundstedt.bucket.objects.Notification
+import com.isaiahvonrundstedt.bucket.constants.Firestore
+import com.isaiahvonrundstedt.bucket.constants.Params
+import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.Notification
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import timber.log.Timber
 
 class NotificationService: BaseService() {
 
-    private lateinit var firestore: FirebaseFirestore
-    private lateinit var firebaseAuth: FirebaseAuth
+    private val firestore by lazy { FirebaseFirestore.getInstance() }
+    private val repository by lazy { NotificationRepository(application) }
 
     companion object {
-        private const val ACTION_PATH = "com.isaiahvonrundstedt.bucket.receivers.RestartReceiver"
-        private const val CHANNEL_ID_DEFAULT = "default"
+        private const val actionPath = "com.isaiahvonrundstedt.bucket.receivers.RestartReceiver"
 
-        internal const val NEW_FILE_NOTIFICATION_ID = 0
+        internal const val newFileNotificationID = 0
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -34,7 +33,7 @@ class NotificationService: BaseService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val filesReference = firestore.collection(Firebase.FILES.string)
+        val filesReference = firestore.collection(Firestore.files)
         filesReference.addSnapshotListener { querySnapshot, exception ->
             if (exception == null){
                 for (documentSnapshot in querySnapshot!!.documents){
@@ -48,18 +47,11 @@ class NotificationService: BaseService() {
         return START_STICKY_COMPATIBILITY
     }
 
-    override fun onCreate() {
-        super.onCreate()
-
-        firestore = FirebaseFirestore.getInstance()
-        firebaseAuth = FirebaseAuth.getInstance()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
 
         // Send a message to the broadcast receiver if the service is being destroyed
-        val broadcastIntent = Intent(ACTION_PATH)
+        val broadcastIntent = Intent(actionPath)
         sendBroadcast(broadcastIntent)
     }
 
@@ -67,8 +59,8 @@ class NotificationService: BaseService() {
         createDefaultChannel()
 
         val defaultAction = Intent(applicationContext, FrameActivity::class.java)
-        defaultAction.putExtra("viewType", FrameActivity.viewTypeDetails)
-        defaultAction.putExtra("viewArgs", file)
+        defaultAction.putExtra(Params.viewType, FrameActivity.viewTypeDetails)
+        defaultAction.putExtra(Params.viewArgs, file)
         val defaultIntent = PendingIntent.getBroadcast(applicationContext, 0, defaultAction, 0)
 
         val downloadAction = Intent(applicationContext, NotificationService::class.java)
@@ -84,13 +76,13 @@ class NotificationService: BaseService() {
         val notification = Notification().apply {
             title = String.format(getString(R.string.notification_new_file_title), file?.author)
             content = String.format(getString(R.string.notification_new_file_content), file?.name)
-            type = Notification.TYPE_NEW_FILE
+            type = Notification.typeNewFile
             objectID = file?.fileID
             objectArgs = file?.downloadURL
         }
-        NotificationRepository(application).insert(notification)
+        repository.insert(notification)
 
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID_DEFAULT)
+        val builder = NotificationCompat.Builder(this, Notification.defaultChannel)
             .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
             .setSmallIcon(R.drawable.ic_vector_new)
             .setContentTitle(notification.title)
@@ -99,7 +91,7 @@ class NotificationService: BaseService() {
             .addAction(R.drawable.ic_vector_check, getString(R.string.button_download), downloadIntent)
             .addAction(R.drawable.ic_vector_collections, getString(R.string.button_save_to_collections), saveIntent)
 
-        manager.notify(NEW_FILE_NOTIFICATION_ID, builder.build())
+        manager.notify(newFileNotificationID, builder.build())
     }
 
 }

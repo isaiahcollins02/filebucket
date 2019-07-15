@@ -6,8 +6,8 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.objects.Usage
+import com.isaiahvonrundstedt.bucket.constants.Firestore
+import com.isaiahvonrundstedt.bucket.objects.diagnostics.Usage
 import timber.log.Timber
 
 class UsageService: BaseService() {
@@ -39,35 +39,33 @@ class UsageService: BaseService() {
     }
     private fun sendFileUsage(objectID: String?, authID: String?){
         taskStarted()
-        val reference = firestore?.collection(Firebase.USERS.string)
-            ?.document(authID!!)?.collection(Firebase.USAGE.string)
+        val reference = firestore.collection(Firestore.users).document(authID!!).collection(Firestore.usage)
 
         val usageData = Usage(Timestamp.now(), objectID, Usage.fileType)
-        reference?.add(usageData)
-            ?.addOnCompleteListener {
+        reference.add(usageData)
+            .addOnCompleteListener {
                 taskCompleted()
             }
-            ?.addOnSuccessListener {
+            .addOnSuccessListener {
                 Timber.i("Usage Data Sent")
             }
-            ?.addOnFailureListener {
+            .addOnFailureListener {
                 Timber.e(it.toString())
             }
     }
     private fun sendBoxUsage(objectID: String?, authID: String?){
         taskStarted()
-        val reference = firestore?.collection(Firebase.USERS.string)
-            ?.document(authID!!)?.collection(Firebase.USAGE.string)
+        val reference = firestore.collection(Firestore.users).document(authID!!).collection(Firestore.usage)
 
         val usageData = Usage(Timestamp.now(), objectID, Usage.boxType)
-        reference?.add(usageData)
-            ?.addOnCompleteListener {
+        reference.add(usageData)
+            .addOnCompleteListener {
                 taskCompleted()
             }
-            ?.addOnSuccessListener {
+            .addOnSuccessListener {
                 Timber.i("Usage Data Sent")
             }
-            ?.addOnFailureListener {
+            .addOnFailureListener {
                 Timber.e(it.toString())
             }
     }

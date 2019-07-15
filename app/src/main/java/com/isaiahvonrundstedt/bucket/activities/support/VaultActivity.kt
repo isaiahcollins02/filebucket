@@ -4,11 +4,9 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.net.toUri
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -18,10 +16,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.filterable.VaultAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
-import com.isaiahvonrundstedt.bucket.constants.Firebase
-import com.isaiahvonrundstedt.bucket.constants.Parameters
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
+import com.isaiahvonrundstedt.bucket.constants.Firestore
+import com.isaiahvonrundstedt.bucket.constants.Params
+import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
+import timber.log.Timber
 
 class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener {
 
@@ -31,7 +31,7 @@ class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener {
     private var downloadID: Long? = 0
 
     private val itemList: ArrayList<File> = ArrayList()
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     private lateinit var searchView: SearchView
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
@@ -45,7 +45,7 @@ class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener {
         setContentView(R.layout.activity_vault)
 
         val intent = intent
-        author = intent.getStringExtra(Parameters.AUTHOR.string)
+        author = intent.getStringExtra(Params.author)
 
         setToolbarTitle(String.format(resources.getString(R.string.file_user_repository), DataManager.sliceFullName(author!!)))
 
@@ -54,7 +54,7 @@ class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener {
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        recyclerView.addItemDecoration(ItemDecoration(this))
         recyclerView.adapter = adapter
 
         swipeRefreshContainer = findViewById(R.id.swipeRefreshContainer)
@@ -81,8 +81,8 @@ class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener {
         if (itemList.size > 0)
             itemList.clear()
         else {
-            val query: Query = firestore.collection(Firebase.FILES.string)
-            query.whereEqualTo(Parameters.AUTHOR.string, author)
+            val query: Query = firestore.collection(Firestore.files)
+            query.whereEqualTo(Params.author, author)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful){
@@ -93,10 +93,10 @@ class VaultActivity: BaseAppBarActivity(), SearchView.OnQueryTextListener {
                         }
                         if (swipeRefreshContainer.isRefreshing)
                             swipeRefreshContainer.isRefreshing = false
-                        Log.i("DataFetchSuccess", "Success Fetching Client from server")
+                        Timber.i("Success Fetching Client from server")
                         adapter.notifyDataSetChanged()
                     } else
-                        Log.e("DataFetchError", "Error Occured when connecting to server")
+                        Timber.e("Error Occurred when connecting to server")
                 }
         }
     }

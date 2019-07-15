@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.adapters
+package com.isaiahvonrundstedt.bucket.adapters.filterable
 
 import android.app.DownloadManager
 import android.content.Context
@@ -19,7 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.RequestManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
-import com.isaiahvonrundstedt.bucket.objects.File
+import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
@@ -87,8 +87,7 @@ class CoreAdapter constructor (
                     Preferences.metadataAuthor -> file.author
                     else -> null
                 }
-            val decimalFormat = DecimalFormat("#.##")
-            sizeView.text = String.format(itemView.resources.getString(R.string.file_size_megabytes), decimalFormat.format((file.fileSize / 1024) / 1024))
+            sizeView.text = DataManager.formatSize(itemView.context, file.fileSize)
             iconView.setImageDrawable(ItemManager.getFileIcon(rootView.context, file.fileType))
 
             rootView.setOnClickListener {
@@ -111,7 +110,7 @@ class CoreAdapter constructor (
         fun bindData(file: File){
             requestManager.clear(containerView)
             requestManager.asBitmap()
-                .load(file?.downloadURL)
+                .load(file.downloadURL)
                 .centerCrop()
                 .into(containerView)
 
@@ -217,14 +216,6 @@ class CoreAdapter constructor (
                 else itemTypeFile
             }
             else -> itemTypeFile
-        }
-    }
-
-    fun removeAllData(){
-        if (itemList.size > 0 && filterList.size > 0) {
-            itemList.clear()
-            filterList.clear()
-            notifyDataSetChanged()
         }
     }
 

@@ -72,4 +72,6 @@
         <item name="android:paddingEnd">0dp</item>
     </style>
 
+    <style name="AppTheme.Widget.SearchView" parent="MaterialSearchBarDark"/>
+
 </resources>

@@ -1,7 +1,7 @@
 package com.isaiahvonrundstedt.bucket.architecture.database
 
 import androidx.room.*
-import com.isaiahvonrundstedt.bucket.objects.Notification
+import com.isaiahvonrundstedt.bucket.objects.core.Notification
 
 @Dao
 interface NotificationDAO {
