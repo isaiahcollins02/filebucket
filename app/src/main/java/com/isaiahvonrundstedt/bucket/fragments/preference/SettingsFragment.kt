@@ -39,8 +39,8 @@ class SettingsFragment: BasePreference() {
         val signoutPref: Preference? = findPreference("signoutPreference")
         signoutPref?.setOnPreferenceClickListener {
             MaterialDialog(context!!).show {
-                title(R.string.sign_out_title)
-                message(R.string.sign_out_summary)
+                title(R.string.dialog_sign_out_title)
+                message(R.string.dialog_sign_out_summary)
                 positiveButton(R.string.button_continue){
                     firebaseAuth.signOut()
 
@@ -58,12 +58,11 @@ class SettingsFragment: BasePreference() {
         directoryPref = findPreference("directoryPreference")
         directoryPref?.summary = Preferences(context).downloadDirectory
         directoryPref?.setOnPreferenceClickListener {
-            if (Permissions(context!!).readAccessGranted){
+            if (Permissions(context!!).readAccessGranted)
                 invokeChooser()
-            } else {
+            else
                 ActivityCompat.requestPermissions(activity!!,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Permissions.readRequestCode)
-            }
             true
         }
 

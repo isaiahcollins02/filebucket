@@ -18,7 +18,7 @@ class SecureFragment: BaseFragment() {
 
     private var hasFieldChanges: Boolean = false
 
-    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     private lateinit var rootView: View
     private lateinit var oldPasswordField: ExtendedEditText

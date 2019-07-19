@@ -8,75 +8,41 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.adapters.filterable.CoreAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.SavedViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.core.SavedViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
+import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
-import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
 import com.isaiahvonrundstedt.bucket.objects.core.File
+import kotlinx.android.synthetic.main.fragment_saved.*
 
-class SavedFragment: BaseFragment(), ScreenAction.Search {
+class SavedFragment: BaseFragment() {
 
     private var viewModel: SavedViewModel? = null
-    private val itemList: ArrayList<File> = ArrayList()
-
-    private lateinit var rootView: View
-    private lateinit var adapter: CoreAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+    private var adapter: CoreAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        if (activity is MainActivity)
-            (activity as MainActivity).initializeSearch(this)
 
         viewModel = ViewModelProviders.of(this).get(SavedViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_saved, container, false)
-
-        adapter =
-            CoreAdapter(itemList, childFragmentManager, GlideApp.with(this))
-        swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
-
-        recyclerView = rootView.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(container?.context)
-        recyclerView.adapter = adapter
-
-        swipeRefreshContainer.setColorSchemeResources(
-            R.color.colorIndicatorBlue,
-            R.color.colorIndicatorGreen,
-            R.color.colorIndicatorRed,
-            R.color.colorIndicatorYellow
-        )
-
-        return rootView
+        return inflater.inflate(R.layout.fragment_saved, container, false)
     }
 
     override fun onStart() {
         super.onStart()
-        onLoadAssets()
-    }
 
-    override fun onSearch(searchQuery: String?) {
-        adapter.filter.filter(searchQuery)
-    }
+        adapter = CoreAdapter(context, childFragmentManager, GlideApp.with(this))
 
-    private fun onLoadAssets() {
-        viewModel?.items?.observe(this, Observer<List<File>> { t ->
-            itemList.addAll(t)
-            adapter.notifyDataSetChanged()
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.adapter = adapter
+
+        viewModel?.items?.observe(this, Observer<List<File>> { items ->
+            adapter?.setObservableItems(items)
         })
-
-        if (swipeRefreshContainer.isRefreshing)
-            swipeRefreshContainer.isRefreshing = false
-
     }
-
 }

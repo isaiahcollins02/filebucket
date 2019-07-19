@@ -7,9 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
@@ -18,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
+import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.interfaces.RecyclerNavigation
@@ -29,21 +27,19 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
 
     private var userID: String? = null
     private var adapter: NavigationAdapter? = null
-    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         setToolbarTitle(R.string.activity_account_settings)
 
-        userID = firebaseAuth.currentUser?.uid!!
+        userID = firebaseAuth.currentUser?.uid
 
-        val itemList = listOf(
-            NavigationItem(R.drawable.ic_vector_auth, R.string.profile_secure_account),
-            NavigationItem(R.drawable.ic_vector_refresh, R.string.profile_reset_password)
-        )
+        val itemList = listOf(R.string.profile_secure_account, R.string.profile_reset_password)
         adapter = NavigationAdapter(itemList, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(ItemDecoration(this))
         recyclerView.adapter = adapter
     }
 
@@ -96,9 +92,7 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
         }
     }
 
-    private data class NavigationItem(@DrawableRes var iconID: Int, @StringRes var titleID: Int)
-
-    private class NavigationAdapter(private var itemList: List<NavigationItem>,
+    private class NavigationAdapter(private var itemList: List<Int>,
                                 private var itemSelection: RecyclerNavigation): RecyclerView.Adapter<NavigationAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -107,8 +101,7 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
         }
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-            viewHolder.titleView.text = viewHolder.itemView.context.getString(itemList[position].titleID)
-            viewHolder.iconView.setImageResource(itemList[position].iconID)
+            viewHolder.titleView.text = viewHolder.itemView.context.getString(itemList[position])
             viewHolder.rootView.setOnClickListener { itemSelection.onItemSelected(position) }
         }
 
@@ -119,7 +112,6 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
         class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
             val rootView: View = itemView.findViewById(R.id.rootView)
             val titleView: TextView = itemView.findViewById(R.id.titleView)
-            val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
         }
     }
 

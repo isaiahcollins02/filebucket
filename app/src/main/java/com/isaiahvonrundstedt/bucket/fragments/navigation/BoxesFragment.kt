@@ -1,6 +1,5 @@
 package com.isaiahvonrundstedt.bucket.fragments.navigation
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,30 +15,34 @@ import kotlinx.android.synthetic.main.fragment_box_main.*
 
 class BoxesFragment: BaseFragment() {
 
-    var manager: FragmentManager? = null
+    private var selectedItem: Int? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_box_main, container, false)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        manager = childFragmentManager
-    }
-
     override fun onResume() {
         super.onResume()
-        val adapter = ViewPagerAdapter()
+
+        val adapter = ViewPagerAdapter(childFragmentManager)
         adapter.add(TabItem(getString(R.string.tab_box_public), PublicFragment()))
         adapter.add(TabItem(getString(R.string.tab_box_user), UserFragment()))
+
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
     }
 
-    data class TabItem(var title: String, var fragment: Fragment)
+    override fun onPause() {
+        super.onPause()
 
-    inner class ViewPagerAdapter: FragmentPagerAdapter(manager!!, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        selectedItem = tabLayout.selectedTabPosition
+    }
+
+    private data class TabItem (var title: String, var fragment: Fragment)
+
+    private class ViewPagerAdapter(manager: FragmentManager): FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         private val tabItems = ArrayList<TabItem>()
+
         fun add(tabItem: TabItem){
             tabItems.add(tabItem)
         }

@@ -37,8 +37,6 @@
     <!-- Specific Button Text -->
     <string name="button_save">Save</string>
     <string name="button_remove">Remove</string>
-    <string name="button_save_to_collections">Save to Collections</string>
-    <string name="button_remove_from_collections">Remove from Collections</string>
     <string name="button_forgot_password">Forgot Password?</string>
     <string name="button_see_more">See More</string>
 
@@ -70,10 +68,7 @@
     <string name="hint_summary">Summary</string>
     <string name="hint_additional_information">Additional Information</string>
 
-    <string name="type_of_feedback">Type of Feedback</string>
-    <string name="choice_feedback">Suggestion</string>
-    <string name="choice_problem">Problem</string>
-
+    <string name="menu_dark_theme">Use Dark Theme</string>
     <string name="menu_search">Search</string>
     <string name="menu_clear">Clear</string>
 
@@ -98,9 +93,9 @@
     <string name="filter_code">Source Codes</string>
     <string name="filter_media">Media Files</string>
 
-    <string name="bottom_sheet_picker_title">Add New File</string>
-    <string name="bottom_sheet_picker_file">Documents</string>
-    <string name="bottom_sheet_picker_image">Media</string>
+    <string name="sheet_picker_title">Add New File</string>
+    <string name="sheet_picker_file">Documents</string>
+    <string name="sheet_picker_image">Media</string>
 
     <string name="activity_account_settings">Account Settings</string>
     <string name="activity_about">About</string>
@@ -120,6 +115,7 @@
     <string name="status_unknown">An unknown error occurred</string>
     <string name="status_invalid_password">Email or Password is incorrect</string>
 
+    <!-- Notification -->
     <string name="notification_channel_default">Default</string>
     <string name="notification_channel_transfer">Transfer</string>
     <string name="notification_channel_support">Support</string>
@@ -128,12 +124,16 @@
 
     <string name="notification_percent_complete">%1$d%% Completed</string>
     <string name="notification_updating_profile">Updating Profile</string>
-    <string name="notification_downloading_file">Downloading File</string>
+    <string name="notification_downloading_file">Downloading File %1$s</string>
 
     <string name="notification_new_file_title">%1$s uploaded a new file</string>
     <string name="notification_new_file_content">%1$s has been uploaded. Check it out!</string>
 
-    <string name="notification_download_finished">Download is finished</string>
+    <string name="notification_download_failed_title">Download Failed</string>
+    <string name="notification_download_failed_content">Check your network and try downloading again.</string>
+
+    <string name="notification_download_finished_title">Download finished</string>
+    <string name="notification_download_finished_content">Your file has finished downloading. Tap this notification to open it.</string>
 
     <string name="notification_update_available_title">File Bucket %1$d</string>
     <string name="notification_update_available_content">Install updates to make your experience faster and smoother.</string>
@@ -141,11 +141,11 @@
     <string name="notification_unsupported_version_title">Please update your File Bucket</string>
     <string name="notification_unsupported_version_content">The version you are using are not currently supported by the Development Team. To have the smoothest and fastest experience possible, install available updates.</string>
 
-    <string name="file_upload_success">Upload Successful</string>
-    <string name="file_upload_error">Upload Task Encountered an Error</string>
+    <string name="notification_file_upload_success">Upload Successful</string>
+    <string name="notification_file_upload_error">Upload Task Encountered an Error</string>
 
-    <string name="sign_out_title">Sign Out?</string>
-    <string name="sign_out_summary">You\'ll need to enter your credentials once again if you need to access the materials.</string>
+    <string name="dialog_sign_out_title">Sign Out?</string>
+    <string name="dialog_sign_out_summary">You\'ll need to enter your credentials once again if you need to access the materials.</string>
 
     <string name="dialog_file_download_title">Do you want to download %1$s?</string>
     <string name="dialog_file_download_summary">If you have a limited data plan, this will count with your data allowance.</string>

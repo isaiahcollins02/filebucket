@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
-import com.isaiahvonrundstedt.bucket.architecture.store.NotificationRepository
+import com.isaiahvonrundstedt.bucket.architecture.store.NotificationStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.constants.Params
@@ -20,7 +20,7 @@ import timber.log.Timber
 class NotificationService: BaseService() {
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
-    private val repository by lazy { NotificationRepository(application) }
+    private val repository by lazy { NotificationStore(application) }
 
     companion object {
         private const val actionPath = "com.isaiahvonrundstedt.bucket.receivers.RestartReceiver"
@@ -89,7 +89,7 @@ class NotificationService: BaseService() {
             .setContentText(notification.content)
             .setContentIntent(defaultIntent)
             .addAction(R.drawable.ic_vector_check, getString(R.string.button_download), downloadIntent)
-            .addAction(R.drawable.ic_vector_collections, getString(R.string.button_save_to_collections), saveIntent)
+            .addAction(R.drawable.ic_vector_collections, getString(R.string.button_save), saveIntent)
 
         manager.notify(newFileNotificationID, builder.build())
     }

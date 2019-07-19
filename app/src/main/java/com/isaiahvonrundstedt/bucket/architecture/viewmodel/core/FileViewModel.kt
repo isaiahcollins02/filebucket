@@ -1,24 +1,23 @@
-package com.isaiahvonrundstedt.bucket.architecture.viewmodel
+package com.isaiahvonrundstedt.bucket.architecture.viewmodel.core
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.isaiahvonrundstedt.bucket.architecture.store.FileRepository
+import androidx.lifecycle.ViewModel
+import com.isaiahvonrundstedt.bucket.architecture.store.FileStore
 import com.isaiahvonrundstedt.bucket.objects.core.File
 
-class FileViewModel(app: Application): AndroidViewModel(app) {
+class FileViewModel(authorParams: String?): ViewModel() {
 
-    private val repository = FileRepository()
+    private val repository = FileStore(authorParams)
     private var initialList = mutableListOf<File>()
     private var _items: MutableLiveData<List<File>> = MutableLiveData()
     internal var itemList: LiveData<List<File>> = _items
 
     init {
-        onLoad()
+        fetch()
     }
 
-    fun onLoad(){
+    fun fetch(){
         repository.fetch { fileList ->
             initialList.addAll(fileList)
             initialList.distinctBy { it.fileID }.toMutableList()
@@ -26,8 +25,11 @@ class FileViewModel(app: Application): AndroidViewModel(app) {
         }
     }
 
+    fun size(): Int = repository.size()
+
     fun refresh(){
         repository.refresh()
         initialList.clear()
+        fetch()
     }
 }

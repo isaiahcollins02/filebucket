@@ -26,6 +26,8 @@ data class Notification @JvmOverloads constructor (
         const val typeGeneric = 0
         const val typeNewFile = 1
         const val typePackage = 2
+        const val typeFetched = 3
+        const val typeTransfered = 4
 
         const val defaultChannel = "default"
         const val transferChannel = "transfer"

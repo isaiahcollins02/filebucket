@@ -14,28 +14,25 @@ import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.isaiahvonrundstedt.bucket.service.NotificationService
 import com.isaiahvonrundstedt.bucket.utils.User
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
 
 class SplashActivity: BaseActivity() {
 
-    private var firestore: FirebaseFirestore? = null
-    private var firebaseAuth: FirebaseAuth? = null
+    private val firestore by lazy { FirebaseFirestore.getInstance() }
+    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
+
     private var firebaseUser: FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        firestore = FirebaseFirestore.getInstance()
-        firebaseAuth = FirebaseAuth.getInstance()
         firebaseUser = firebaseAuth?.currentUser
-
         executeServices()
     }
 
-    private fun executeServices() = GlobalScope.launch {
+    private fun executeServices() = runBlocking {
         val service = NotificationService()
         val serviceIntent = Intent(applicationContext, service.javaClass)
         if (isServiceRunning(service.javaClass))

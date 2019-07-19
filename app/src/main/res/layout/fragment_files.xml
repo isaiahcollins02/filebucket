@@ -21,8 +21,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/list_margin_start"
-                    android:layout_marginEnd="@dimen/list_margin_end"
-                    android:visibility="invisible"/>
+                    android:layout_marginEnd="@dimen/list_margin_end"/>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

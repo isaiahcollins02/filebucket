@@ -7,7 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.utils.converters.MetricConverter
 
-class ItemDecoration (context: Context?, var topDrawable: Boolean = true): RecyclerView.ItemDecoration() {
+class ItemDecoration (context: Context?): RecyclerView.ItemDecoration() {
 
     private var divider: Drawable? = null
 
@@ -20,22 +20,18 @@ class ItemDecoration (context: Context?, var topDrawable: Boolean = true): Recyc
     companion object { private val attrs = intArrayOf(android.R.attr.listDivider) }
 
     override fun onDrawOver(canvas: Canvas, recyclerView: RecyclerView, state: RecyclerView.State) {
-        if (topDrawable) {
-            val dividerLeft = 0
-            val dividerRight = recyclerView.width
+        val dividerLeft = 0
+        val dividerRight = recyclerView.width
 
-            for (i in 0 until recyclerView.childCount){
-                if (i == 0 || i == recyclerView.childCount - 1){
-                    val childView: View = recyclerView.getChildAt(0)
-                    val layoutParameters: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
+        for (i in 0 until recyclerView.childCount){
+            val childView: View = recyclerView.getChildAt(i)
+            val layoutParameters: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
 
-                    val dividerTop: Int = childView.top + layoutParameters.topMargin
-                    val dividerBottom: Int = dividerTop + MetricConverter.convertDPtoPixel(recyclerView.context, 1.0F).toInt()
+            val dividerTop: Int = childView.top + layoutParameters.topMargin
+            val dividerBottom: Int = dividerTop + MetricConverter.convertDPtoPixel(recyclerView.context, 1.0F).toInt()
 
-                    divider?.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
-                    divider?.draw(canvas)
-                }
-            }
+            divider?.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
+            divider?.draw(canvas)
         }
     }
 

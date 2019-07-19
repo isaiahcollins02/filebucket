@@ -45,7 +45,6 @@
         <activity android:name=".activities.generic.AboutActivity"/>
         <activity android:name=".activities.generic.LibrariesActivity"/>
         <activity android:name=".activities.generic.SettingsActivity"/>
-        <activity android:name=".activities.wrapper.ScreenActivity"/>
 
         <service android:name="com.isaiahvonrundstedt.bucket.service.TransferService"
                 android:exported="false"/>
@@ -54,13 +53,8 @@
         <service android:name="com.isaiahvonrundstedt.bucket.service.NotificationService"
                 android:exported="false"/>
         <service android:name=".service.UsageService"/>
+        <service android:name=".service.FetchService"/>
 
-        <receiver android:name=".receivers.TransferReceiver"
-                  android:enabled="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-            </intent-filter>
-        </receiver>
         <receiver
                 android:name="com.isaiahvonrundstedt.bucket.receivers.RestartReceiver"
                 android:enabled="true"/>

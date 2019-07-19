@@ -11,15 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
 import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
-import com.isaiahvonrundstedt.bucket.objects.experience.PickerItem
+import com.isaiahvonrundstedt.bucket.objects.experience.Picker
 
 class PickerBottomSheet: BaseBottomSheet(), BottomSheetPicker {
 
-    fun setItems(list: ArrayList<PickerItem>){
-        items = list
+    fun setItems(list: List<Picker>){
+        items.addAll(list)
     }
 
-    internal class PickerAdapter(private var items: ArrayList<PickerItem>,
+    internal class PickerAdapter(private var items: ArrayList<Picker>,
                                  listener: BottomSheetPicker): RecyclerView.Adapter<PickerAdapter.ViewHolder>() {
 
         private var bottomSheet: BottomSheetPicker = listener
@@ -47,7 +47,7 @@ class PickerBottomSheet: BaseBottomSheet(), BottomSheetPicker {
 
     }
 
-    private var items: ArrayList<PickerItem> = ArrayList()
+    private var items: ArrayList<Picker> = ArrayList()
 
     private lateinit var rootView: View
     private lateinit var recyclerView: RecyclerView

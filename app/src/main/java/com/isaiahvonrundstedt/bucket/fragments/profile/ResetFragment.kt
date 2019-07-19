@@ -15,7 +15,7 @@ import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
 class ResetFragment: BaseFragment() {
 
-    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     private lateinit var rootView: View
     private lateinit var emailField: ExtendedEditText

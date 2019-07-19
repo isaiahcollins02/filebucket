@@ -5,84 +5,86 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.adapters.filterable.BoxesAdapter
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.core.BoxesViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.constants.Firestore
-import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
-import com.isaiahvonrundstedt.bucket.objects.core.Account
+import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
+import kotlinx.android.synthetic.main.fragment_box_child.*
 
-class PublicFragment: BaseFragment(), ScreenAction.Search {
+class PublicFragment: BaseFragment() {
 
-    private val itemList: ArrayList<Account> = ArrayList()
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var adapter: BoxesAdapter? = null
+    private var layoutManager: LinearLayoutManager? = null
 
-    private lateinit var rootView: View
-    private lateinit var adapter: BoxesAdapter
-    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
-    private lateinit var recyclerView: RecyclerView
+    private var viewModel: BoxesViewModel? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_box_public, container, false)
-
-        adapter = BoxesAdapter(itemList)
-        swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
-
-        recyclerView = rootView.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
-
-        swipeRefreshContainer.setColorSchemeResources(
-            R.color.colorIndicatorBlue,
-            R.color.colorIndicatorGreen,
-            R.color.colorIndicatorRed,
-            R.color.colorIndicatorYellow
-        )
-        swipeRefreshContainer.setOnRefreshListener {
-
-        }
-
-        onPopulate()
-
-        return rootView
-    }
-
-    private fun onPopulate(){
-        val userReference = firestore.collection(Firestore.users)
-        userReference.get().addOnCompleteListener { task ->
-            if (task.isSuccessful){
-                for (documentSnapshot in task.result!!){
-                    val account: Account = documentSnapshot.toObject(Account::class.java)
-                    account.accountID = documentSnapshot.id
-                    if (account.accountID != firebaseAuth.currentUser?.uid)
-                        itemList.add(account)
-                    itemList.sort()
-                    adapter.notifyDataSetChanged()
-                }
-                if (swipeRefreshContainer.isRefreshing)
-                    swipeRefreshContainer.isRefreshing = false
-            } else
-                Snackbar.make(rootView, R.string.status_error_occurred, Snackbar.LENGTH_SHORT).show()
-        }
+        return inflater.inflate(R.layout.fragment_box_child, container, false)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (activity is MainActivity)
-            (activity as MainActivity).initializeSearch(this)
+        viewModel = ViewModelProviders.of(this).get(BoxesViewModel::class.java)
     }
 
-    override fun onSearch(searchQuery: String?) {
-        adapter.filter.filter(searchQuery)
+    override fun onStart() {
+        super.onStart()
+
+        layoutManager = LinearLayoutManager(context)
+        adapter = BoxesAdapter()
+
+        recyclerView.layoutManager = layoutManager
+        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.addOnScrollListener(onScrollListener)
+        recyclerView.adapter = adapter
+
+        swipeRefreshContainer.setOnRefreshListener { onRefresh() }
+    }
+    private fun onRefresh(){
+        viewModel?.refresh()
+
+        if (swipeRefreshContainer.isRefreshing)
+            swipeRefreshContainer.isRefreshing = false
     }
 
+    private var isScrolling: Boolean = false
+    private var isLastItemReached: Boolean = false
+    private var onScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                isScrolling = true
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            val totalItemCount: Int = layoutManager?.itemCount!!
+            val visibleItemCount: Int = layoutManager?.childCount!!
+            val firstVisibleItems: Int = layoutManager?.findFirstVisibleItemPosition()!!
+
+            if ((firstVisibleItems + visibleItemCount >= totalItemCount) && isScrolling && !isLastItemReached){
+                isScrolling = false
+                viewModel?.fetch()
+
+                if (viewModel?.size()!! >= 15)
+                    isLastItemReached = true
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel?.itemList?.observe(this, Observer { items ->
+            adapter?.setObservableItems(items)
+        })
+    }
 }

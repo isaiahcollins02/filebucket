@@ -1,53 +1,52 @@
 package com.isaiahvonrundstedt.bucket.adapters.filterable
 
-import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.net.toUri
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.RequestManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
 import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.service.FetchService
 import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import java.text.DecimalFormat
 
-class CoreAdapter constructor (
-    private val itemList: ArrayList<File>,
+class CoreAdapter (
+    private val context: Context?,
     private val manager: FragmentManager,
     private val requestManager: RequestManager
-        ): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+        ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var filterList: ArrayList<File> = itemList
-    private var filter: FileFilter? = null
-    private var windowContext: Context? = null
-
-    private lateinit var request: DownloadManager.Request
-    private lateinit var downloadManager: DownloadManager
+    private var itemList: ArrayList<File> = ArrayList()
 
     companion object {
         const val itemTypeFile = 0
         const val itemTypeImage = 1
     }
 
-    override fun onCreateViewHolder(container: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        downloadManager = container.context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        windowContext = container.context
+    fun setObservableItems(items: List<File>){
+        val callback = ItemCallback(itemList, items)
+        val result = DiffUtil.calculateDiff(callback)
 
+        itemList.clear()
+        itemList.addAll(items)
+
+        result.dispatchUpdatesTo(this)
+    }
+
+    override fun onCreateViewHolder(container: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val rowView: View?
         return when (viewType){
             itemTypeImage -> {
@@ -61,14 +60,33 @@ class CoreAdapter constructor (
     }
 
     override fun getItemCount(): Int {
-        return filterList.size
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val currentFile: File = filterList[position]
+        val currentFile: File = itemList[position]
         when (holder.itemViewType){
             itemTypeImage -> (holder as ImageViewHolder).bindData(currentFile)
             else -> (holder as FileViewHolder).bindData(currentFile)
+        }
+    }
+
+    inner class ItemCallback (private var oldItems: List<File>, private var newItems: List<File>): DiffUtil.Callback() {
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldItems[oldItemPosition].fileID == newItems[newItemPosition].fileID
+        }
+
+        override fun getOldListSize(): Int {
+            return oldItems.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newItems.size
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldItems[oldItemPosition] == newItems[newItemPosition]
         }
     }
     
@@ -82,7 +100,7 @@ class CoreAdapter constructor (
         fun bindData(file: File){
             titleView.text = file.name
             subtitleView.text =
-                when (Preferences(windowContext).metadata){
+                when (Preferences(context).metadata){
                     Preferences.metadataTimestamp -> DataManager.formatTimestamp(rootView.context, file.timestamp)
                     Preferences.metadataAuthor -> file.author
                     else -> null
@@ -90,9 +108,7 @@ class CoreAdapter constructor (
             sizeView.text = DataManager.formatSize(itemView.context, file.fileSize)
             iconView.setImageDrawable(ItemManager.getFileIcon(rootView.context, file.fileType))
 
-            rootView.setOnClickListener {
-                handleFileDownload(file)
-            }
+            rootView.setOnClickListener { download(file) }
             rootView.setOnLongClickListener {
                 invokeBottomSheet(file)
                 true
@@ -115,8 +131,8 @@ class CoreAdapter constructor (
                 .into(containerView)
 
             titleView.text = file.name
-            subtitleView.text = when (Preferences(windowContext).metadata){
-                Preferences.metadataTimestamp -> DataManager.formatTimestamp(windowContext, file.timestamp)
+            subtitleView.text = when (Preferences(context).metadata){
+                Preferences.metadataTimestamp -> DataManager.formatTimestamp(context, file.timestamp)
                 Preferences.metadataAuthor -> file.author
                 else -> null
             }
@@ -124,7 +140,7 @@ class CoreAdapter constructor (
             sizeView.text = String.format(itemView.resources.getString(R.string.file_size_megabytes), decimalFormat.format((file.fileSize / 1024) / 1024))
 
             rootView.setOnClickListener {
-                handleFileDownload(file)
+                download(file)
             }
             rootView.setOnLongClickListener {
                 invokeBottomSheet(file)
@@ -143,58 +159,15 @@ class CoreAdapter constructor (
         bottomSheet.show(manager, "bottomSheet")
     }
 
-    override fun getFilter(): Filter {
-        if (filter == null)
-            filter = FileFilter()
-        return filter as FileFilter
-    }
-
-    inner class FileFilter: Filter(){
-
-        override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val searchTerm: String = constraint.toString().toLowerCase()
-            val filterResults = FilterResults()
-            val originalList = filterList
-            val listCount = filterList.size
-
-            var resultList: ArrayList<File> = ArrayList(listCount)
-            var filterableString: String
-
-            if (searchTerm.isNotBlank() && searchTerm.isNotEmpty()) {
-                for (i in 0 until listCount){
-                    filterableString = originalList[i].name as String
-                    if (filterableString.toLowerCase().contains(searchTerm))
-                        resultList.add(originalList[i])
-                }
-            } else
-                resultList = itemList
-
-            filterResults.values = resultList
-            filterResults.count = listCount
-
-            return filterResults
-        }
-
-        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            @Suppress("UNCHECKED_CAST")
-            filterList = results?.values as ArrayList<File>
-            notifyDataSetChanged()
-        }
-    }
-
-    private fun handleFileDownload(file: File?){
-        val externalDir: String? = Preferences(windowContext).downloadDirectory
-        val bufferedFile = java.io.File(externalDir, file?.name)
-
-        MaterialDialog(windowContext!!).show {
+    private fun download(file: File?){
+        MaterialDialog(context!!).show {
             title(text = String.format(context.getString(R.string.dialog_file_download_title), file?.name))
             message(R.string.dialog_file_download_summary)
             positiveButton(R.string.button_download) {
-                request = DownloadManager.Request(Uri.parse(file?.downloadURL))
-                    .setTitle(windowContext.getString(R.string.notification_downloading_file))
-                    .setDestinationUri(bufferedFile.toUri())
-
-                downloadManager.enqueue(request)
+                it.context.startService(Intent(it.context, FetchService::class.java)
+                    .setAction(FetchService.actionDownload)
+                    .putExtra(FetchService.extraFileName, file?.name)
+                    .putExtra(FetchService.extraDownloadURL, file?.downloadURL))
 
                 it.context.startService(Intent(it.context, UsageService::class.java)
                     .setAction(UsageService.sendFileUsage)
@@ -209,14 +182,13 @@ class CoreAdapter constructor (
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (filterList[position].fileType){
+        return when (itemList[position].fileType){
             File.TYPE_IMAGE -> {
-                if (Preferences(windowContext).previewPreference != false)
+                if (Preferences(context).previewPreference != false)
                     itemTypeImage
                 else itemTypeFile
             }
             else -> itemTypeFile
         }
     }
-
 }

@@ -20,12 +20,18 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
-    <style name="AppTheme.FirstRun" parent="AppTheme.Core">
-        <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
-    </style>
-
     <!-- UI Components -->
     <!-- BottomSheets, Dialogs etc -->
+
+    <style name="AppTheme.ScreenDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@android:color/black</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/colorScreenBackground</item>
+    </style>
+
     <style name="AppTheme.BottomSheet" parent="BaseBottomSheetDialog">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/black</item>

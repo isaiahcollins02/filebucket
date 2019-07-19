@@ -14,7 +14,7 @@ import com.google.android.material.button.MaterialButton
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
-import com.isaiahvonrundstedt.bucket.architecture.store.SavedRepository
+import com.isaiahvonrundstedt.bucket.architecture.store.SavedStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
 import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.utils.Preferences
@@ -30,7 +30,7 @@ class DetailsBottomSheet: BaseBottomSheet() {
     private var downloadID: Long? = 0L
     private var appDB: AppDatabase? = null
     private var collectionDAO: SavedDAO? = null
-    private var repository: SavedRepository? = null
+    private var store: SavedStore? = null
     private var fileInDatabase: Boolean? = false
 
     private lateinit var request: DownloadManager.Request
@@ -56,7 +56,7 @@ class DetailsBottomSheet: BaseBottomSheet() {
 
         appDB = AppDatabase.getDatabase(context)
         collectionDAO = appDB?.collectionAccessor()
-        repository = SavedRepository(context.applicationContext as Application)
+        store = SavedStore(context.applicationContext as Application)
     }
 
     override fun onStart() = runBlocking {
@@ -71,11 +71,11 @@ class DetailsBottomSheet: BaseBottomSheet() {
 
         saveButton.setOnClickListener {
             if (!fileInDatabase!!){
-                repository?.insert(file!!)
-                (it as MaterialButton).text = getString(R.string.button_remove_from_collections)
+                store?.insert(file!!)
+                (it as MaterialButton).text = getString(R.string.button_remove)
             } else {
-                repository?.remove(file!!)
-                (it as MaterialButton).text = getString(R.string.button_save_to_collections)
+                store?.remove(file!!)
+                (it as MaterialButton).text = getString(R.string.button_save)
             }
         }
         downloadButton.setOnClickListener {
@@ -101,9 +101,9 @@ class DetailsBottomSheet: BaseBottomSheet() {
         super.onResume()
 
         if (fileInDatabase!!)
-            saveButton.text = getString(R.string.button_remove_from_collections)
+            saveButton.text = getString(R.string.button_remove)
         else
-            saveButton.text = getString(R.string.button_save_to_collections)
+            saveButton.text = getString(R.string.button_save)
     }
 
 }

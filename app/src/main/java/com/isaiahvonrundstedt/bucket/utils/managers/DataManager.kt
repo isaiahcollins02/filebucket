@@ -13,8 +13,8 @@ object DataManager {
     // Takes a client's full name (string) as parameter then
     // returns a substring from index 0 of the parent string
     // until the last index of the character ' '
-    fun sliceFullName(value: String): String {
-        return value.substring(0, value.lastIndexOf(' '))
+    fun sliceFullName(value: String?): String? {
+        return value?.substring(0, value.lastIndexOf(' '))
     }
 
     // Takes a string then capitalize its every word

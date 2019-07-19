@@ -16,11 +16,20 @@
     <style name="AppTheme.Drawer" parent="AppTheme.Core"/>
 
     <style name="AppTheme.FirstRun" parent="AppTheme.Core">
-        <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
+        <item name="android:windowBackground">@color/colorCardBackground</item>
+        <item name="android:windowAnimationStyle">@style/AppTheme.SlidingTransition</item>
     </style>
 
     <!-- UI Components -->
     <!-- BottomSheets, Dialogs etc -->
+
+    <style name="AppTheme.ScreenDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/colorScreenBackground</item>
+    </style>
 
     <style name="AppTheme.BottomSheet" parent="BaseBottomSheetDialog"/>
 
@@ -40,7 +49,12 @@
 
     <!-- Transitions -->
 
-    <style name="SlidingTransition" parent="@android:style/Animation.Activity">
+    <style name="AppTheme.Slide">
+        <item name="android:windowEnterAnimation">@anim/slide_window_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_window_down</item>
+    </style>
+
+    <style name="AppTheme.SlidingTransition" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
@@ -87,9 +101,19 @@
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
+    <style name="AppTheme.Widget.SearchView" parent="Widget.AppCompat.Light.SearchView">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="android:iconifiedByDefault">false</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:background">@color/colorHighlightedBackground</item>
+    </style>
+
     <style name="AppTheme.Widget.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabTextColor">@color/tab_selected</item>
+        <item name="tabIndicatorColor">@color/colorOnPrimary</item>
         <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Button</item>
     </style>
-    <style name="AppTheme.Widget.SearchView" parent="MaterialSearchBarLight"/>
 
 </resources>

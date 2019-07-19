@@ -11,7 +11,7 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.experience.InfoAdapter
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
-import com.isaiahvonrundstedt.bucket.architecture.store.SavedRepository
+import com.isaiahvonrundstedt.bucket.architecture.store.SavedStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.objects.core.File
@@ -32,7 +32,7 @@ class DetailFragment: BaseFragment() {
 
     private var appDB: AppDatabase? = null
     private var savedDAO: SavedDAO? = null
-    private var repository: SavedRepository? = null
+    private var store: SavedStore? = null
 
     private var adapter: InfoAdapter? = null
 
@@ -76,12 +76,17 @@ class DetailFragment: BaseFragment() {
 
         collectionsButton.setOnClickListener {
             if (!fileInDatabase!!){
-                repository?.insert(file!!)
+                store?.insert(file!!)
                 (it as MaterialButton).text = getString(R.string.button_remove)
             } else {
-                repository?.remove(file!!)
+                store?.remove(file!!)
                 (it as MaterialButton).text = getString(R.string.button_save)
             }
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity?.finish()
     }
 }

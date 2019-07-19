@@ -8,6 +8,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.isaiahvonrundstedt.bucket.R
@@ -18,11 +19,37 @@ import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 
-class BoxesAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapter<BoxesAdapter.ViewHolder>(),
-    Filterable {
+class BoxesAdapter: RecyclerView.Adapter<BoxesAdapter.ViewHolder>() {
 
-    private var filterList: ArrayList<Account> = itemList
-    private var filter: AccountFilter? = null
+    private var itemList: ArrayList<Account> = ArrayList()
+
+    fun setObservableItems(items: List<Account>){
+        val callback = ItemCallback(itemList, items)
+        val result = DiffUtil.calculateDiff(callback)
+
+        itemList.clear()
+        itemList.addAll(items)
+
+        result.dispatchUpdatesTo(this)
+    }
+
+    inner class ItemCallback (private var oldItems: List<Account>, private var newItems: List<Account>): DiffUtil.Callback() {
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldItems[oldItemPosition].accountID == newItems[newItemPosition].accountID
+        }
+
+        override fun getOldListSize(): Int {
+            return oldItems.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newItems.size
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldItems[oldItemPosition] == newItems[newItemPosition]
+        }
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val rowView: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_item_users, viewGroup, false)
@@ -30,7 +57,7 @@ class BoxesAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapt
     }
 
     override fun getItemCount(): Int {
-        return filterList.size
+        return itemList.size
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
@@ -57,7 +84,7 @@ class BoxesAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapt
             rootView.setOnClickListener {
                 it.context.startService(Intent(it.context, UsageService::class.java)
                     .setAction(UsageService.sendBoxUsage)
-                    .putExtra(UsageService.extraObjectID, filterList[position].accountID))
+                    .putExtra(UsageService.extraObjectID, itemList[position].accountID))
 
                 val intent = Intent(it.context, VaultActivity::class.java)
                 intent.putExtra(Params.author, string)
@@ -65,46 +92,6 @@ class BoxesAdapter(private var itemList: ArrayList<Account>): RecyclerView.Adapt
             }
             titleView.text = DataManager.capitalizeEachWord(string)
             subtitleView.text = currentUser.email
-        }
-    }
-
-    override fun getFilter(): Filter {
-        if (filter == null)
-            filter = AccountFilter()
-        return filter as AccountFilter
-    }
-
-    inner class AccountFilter: Filter(){
-
-        override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val searchTerm: String = constraint.toString().toLowerCase()
-            val filterResults = FilterResults()
-            val originalList = filterList
-            val listCount = filterList.size
-
-            var resultList: ArrayList<Account> = ArrayList(listCount)
-            var filterableString: String
-
-            if (searchTerm.isNotBlank() && searchTerm.isNotEmpty()) {
-                for (i in 0 until listCount){
-                    val string = originalList[i].firstName + " " + originalList[i].lastName
-                    filterableString = string
-                    if (filterableString.toLowerCase().contains(searchTerm))
-                        resultList.add(originalList[i])
-                }
-            } else
-                resultList = itemList
-
-            filterResults.values = resultList
-            filterResults.count = listCount
-
-            return filterResults
-        }
-
-        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            @Suppress("UNCHECKED_CAST")
-            filterList = results?.values as ArrayList<Account>
-            notifyDataSetChanged()
         }
     }
 

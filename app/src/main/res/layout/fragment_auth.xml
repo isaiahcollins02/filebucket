@@ -47,7 +47,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:imeOptions="actionDone"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@color/colorPrimaryText"/>
 
             <requestFocus/>
 
@@ -70,7 +70,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:imeOptions="actionDone"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@color/colorPrimaryText"/>
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 

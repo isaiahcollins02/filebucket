@@ -8,7 +8,7 @@ import com.isaiahvonrundstedt.bucket.architecture.database.NotificationDAO
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
 import kotlinx.coroutines.runBlocking
 
-class NotificationRepository(application: Application) {
+class NotificationStore(application: Application) {
 
     private var appDB: AppDatabase? = null
     private var notificationDAO: NotificationDAO? = null

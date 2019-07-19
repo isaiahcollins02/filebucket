@@ -8,7 +8,7 @@ import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
 import com.isaiahvonrundstedt.bucket.objects.core.File
 import kotlinx.coroutines.runBlocking
 
-class SavedRepository (application: Application){
+class SavedStore (application: Application){
 
     private var appDB: AppDatabase? = null
     private var savedDAO: SavedDAO? = null

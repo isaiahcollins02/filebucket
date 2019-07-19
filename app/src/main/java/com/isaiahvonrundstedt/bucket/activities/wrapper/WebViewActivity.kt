@@ -2,9 +2,9 @@ package com.isaiahvonrundstedt.bucket.activities.wrapper
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.webkit.WebView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
+import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebViewActivity: BaseAppBarActivity() {
 
@@ -15,14 +15,10 @@ class WebViewActivity: BaseAppBarActivity() {
     }
 
     private var userViewType: Int = 0
-    private lateinit var webView: WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
-
-        webView = findViewById(R.id.webView)
-        webView.settings.javaScriptEnabled = false
 
         val intent = intent
         userViewType = intent.getIntExtra("viewType", viewTypeGeneric)
@@ -32,8 +28,8 @@ class WebViewActivity: BaseAppBarActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         when (userViewType){
             viewTypeTerms -> webView.loadUrl("file:///android_asset/terms_and_conditions.html")
             viewTypePrivacy -> webView.loadUrl("file:///android_asset/privacy_policy.html")

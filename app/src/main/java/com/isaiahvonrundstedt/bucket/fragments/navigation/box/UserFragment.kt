@@ -1,127 +1,99 @@
 package com.isaiahvonrundstedt.bucket.fragments.navigation.box
 
-import android.app.DownloadManager
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
+import android.widget.AbsListView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.filterable.VaultAdapter
+import com.isaiahvonrundstedt.bucket.adapters.filterable.CoreAdapter
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.core.FileViewModel
+import com.isaiahvonrundstedt.bucket.architecture.factory.FileFactory
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
-import com.isaiahvonrundstedt.bucket.constants.Firestore
-import com.isaiahvonrundstedt.bucket.constants.Params
-import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.utils.User
+import kotlinx.android.synthetic.main.fragment_box_child.*
 
 class UserFragment: BaseFragment() {
 
-    private var file: java.io.File? = null
-    private var downloadURL: String? = null
-    private var fullName: String? = null
-    private var query: Query? = null
+    private var currentAuthor: String? = null
+    private var factory: FileFactory? = null
+    private var viewModel: FileViewModel? = null
 
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val arrayList: ArrayList<File> = ArrayList()
-
-    private lateinit var rootView: View
-    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
-    private lateinit var adapter: VaultAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var downloadReceiver: BroadcastReceiver
-    private lateinit var downloadManager: DownloadManager
-    private lateinit var request: DownloadManager.Request
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        fullName = User(context!!).fullName
-        downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-    }
+    private var adapter: CoreAdapter? = null
+    private var layoutManager: LinearLayoutManager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_sent, container, false)
+        return inflater.inflate(R.layout.fragment_box_child, container, false)
+    }
 
-        adapter = VaultAdapter(arrayList, childFragmentManager)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        currentAuthor = User(context).fullName
 
-        swipeRefreshContainer = rootView.findViewById(R.id.swipeRefreshContainer)
-        swipeRefreshContainer.setColorSchemeResources(
-            R.color.colorIndicatorBlue,
-            R.color.colorIndicatorRed,
-            R.color.colorIndicatorGreen,
-            R.color.colorIndicatorYellow
-        )
-        swipeRefreshContainer.setOnRefreshListener {
-            adapter.removeAllData()
-            onPopulate()
-        }
-
-        recyclerView = rootView.findViewById(R.id.recyclerView)
-        recyclerView.addItemDecoration(ItemDecoration(context, false))
-        recyclerView.layoutManager = LinearLayoutManager(container?.context)
-        recyclerView.adapter = adapter
-
-        return rootView
+        factory = FileFactory(currentAuthor)
+        viewModel = ViewModelProviders.of(this, factory).get(FileViewModel::class.java)
     }
 
     override fun onStart() {
         super.onStart()
 
-        onPopulate()
+        layoutManager = LinearLayoutManager(context)
+        adapter = CoreAdapter(context, childFragmentManager, GlideApp.with(this))
+
+        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.addOnScrollListener(onScrollListener)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
+
+        swipeRefreshContainer.setOnRefreshListener { onRefresh() }
     }
 
-    private fun onPopulate(){
-        if (arrayList.size > 0)
-            arrayList.clear()
-        else {
-            query = firestore.collection(Firestore.files)
-            query!!.whereEqualTo(Params.author, fullName)
-                .get()
-                .addOnCompleteListener {
-                    if (it.isSuccessful){
-                        for (queryDocumentSnapshot: QueryDocumentSnapshot in it.result!!){
-                            val file: File = queryDocumentSnapshot.toObject(File::class.java)
-                            file.fileID = queryDocumentSnapshot.id
-                            arrayList.add(file)
-                        }
-                        if (swipeRefreshContainer.isRefreshing)
-                            swipeRefreshContainer.isRefreshing = false
-                        adapter.notifyDataSetChanged()
-                    } else
-                        Snackbar.make(rootView, R.string.status_error_occurred, Snackbar.LENGTH_SHORT).show()
-                }
+    private var isScrolling: Boolean = false
+    private var isLastItemReached: Boolean = false
+    private var onScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                isScrolling = true
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            val totalItemCount: Int = layoutManager?.itemCount!!
+            val visibleItemCount: Int = layoutManager?.childCount!!
+            val firstVisibleItems: Int = layoutManager?.findFirstVisibleItemPosition()!!
+
+            if ((firstVisibleItems + visibleItemCount >= totalItemCount) && isScrolling && !isLastItemReached){
+                isScrolling = false
+                viewModel?.fetch()
+
+                if (viewModel?.size()!! >= 15)
+                    isLastItemReached = true
+            }
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        activity?.finish()
+    private fun onRefresh(){
+        viewModel?.refresh()
+
+        if (swipeRefreshContainer.isRefreshing)
+            swipeRefreshContainer.isRefreshing = false
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    override fun onResume() {
+        super.onResume()
 
-        when (requestCode){
-            4 -> invokeDownload(file, downloadURL)
-        }
+        viewModel?.itemList?.observe(this, Observer { items ->
+            adapter?.setObservableItems(items)
+        })
     }
 
-    private fun invokeDownload(bufferedFile: java.io.File?, downloadURL: String?){
-        request = DownloadManager.Request(Uri.parse(downloadURL))
-            .setTitle(getString(R.string.notification_downloading_file))
-            .setDestinationUri(bufferedFile?.toUri())
-
-        downloadManager.enqueue(request)
-    }
 }

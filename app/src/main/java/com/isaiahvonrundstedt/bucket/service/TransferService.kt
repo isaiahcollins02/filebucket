@@ -10,32 +10,24 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
+import com.isaiahvonrundstedt.bucket.architecture.store.NotificationStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.Notification
 import com.isaiahvonrundstedt.bucket.utils.User
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import timber.log.Timber
 
 class TransferService: BaseService() {
 
-    private lateinit var storageReference: StorageReference
-    private lateinit var firestore: FirebaseFirestore
-    private lateinit var firebaseAuth: FirebaseAuth
-
-    override fun onCreate() {
-        super.onCreate()
-
-        storageReference = FirebaseStorage.getInstance().reference
-        firebaseAuth = FirebaseAuth.getInstance()
-        firestore = FirebaseFirestore.getInstance()
-    }
+    private val notificationStore by lazy { NotificationStore(application)}
+    private val firestore by lazy { FirebaseFirestore.getInstance() }
+    private val storageReference by lazy { FirebaseStorage.getInstance().reference }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -43,8 +35,8 @@ class TransferService: BaseService() {
 
     companion object {
         const val actionUpload = "action_upload"
-        const val actionCompleted = "upload_completed"
-        const val transferError = "transfer_error"
+        const val statusCompleted = "status_completed"
+        const val statusError = "status_error"
 
         const val extraFileURI = "extra_file_uri"
         const val extraDownloadURL = "extra_download_url"
@@ -52,21 +44,21 @@ class TransferService: BaseService() {
         val intentFilter: IntentFilter
             get() {
                 val filter = IntentFilter()
-                filter.addAction(actionCompleted)
-                filter.addAction(transferError)
+                filter.addAction(statusCompleted)
+                filter.addAction(statusError)
                 return filter
             }
-
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (actionUpload == intent?.action){
             val fileUri: Uri = intent.getParcelableExtra(extraFileURI)
-            uploadFile(fileUri)
+            initiateTransfer(fileUri)
         }
         return START_REDELIVER_INTENT
     }
-    private fun uploadFile(fileUri: Uri){
+
+    private fun initiateTransfer(fileUri: Uri){
         taskStarted()
 
         showProgressNotification(fileUri.lastPathSegment!!, 0, 0)
@@ -87,18 +79,18 @@ class TransferService: BaseService() {
                 fileReference.downloadUrl
             }.addOnSuccessListener { downloadUri ->
                 // Broadcast whether the task is successful or not
-                broadcastUploadFinished(downloadUri, fileUri)
+                broadcastTransferFinished(downloadUri, fileUri)
 
                 // Send a notification to the user
-                showUploadFinishedNotification(downloadUri, fileUri)
+                showTransferFinishedNotification(downloadUri, fileUri)
                 // Package the localCache for the location of the file in the server
                 finalizeTransfer(downloadUri, fileUri)
             }.addOnFailureListener {
                 // Broadcast whether the task is successful or not
-                broadcastUploadFinished(null, fileUri)
+                broadcastTransferFinished(null, fileUri)
 
                 // Send a notification to the user
-                showUploadFinishedNotification(null, fileUri)
+                showTransferFinishedNotification(null, fileUri)
                 // Task is Completed
                 taskCompleted()
             }
@@ -106,10 +98,10 @@ class TransferService: BaseService() {
 
     // Broadcast finished uploading (success or failure)
     // return true if a running receiver received the broadcast
-    private fun broadcastUploadFinished(downloadURL: Uri?, fileURI: Uri?): Boolean {
+    private fun broadcastTransferFinished(downloadURL: Uri?, fileURI: Uri?): Boolean {
         val success = downloadURL != null
 
-        val action = if (success) actionCompleted else transferError
+        val action = if (success) statusCompleted else statusError
         val broadcast = Intent(action)
             .putExtra(extraDownloadURL, downloadURL)
             .putExtra(extraFileURI, fileURI)
@@ -118,7 +110,7 @@ class TransferService: BaseService() {
     }
 
     // Show a notification for a finished upload
-    private fun showUploadFinishedNotification(downloadUri: Uri?, fileUri: Uri?){
+    private fun showTransferFinishedNotification(downloadUri: Uri?, fileUri: Uri?){
         // Hide the progress notification
         dismissProgressNotification()
 
@@ -129,7 +121,7 @@ class TransferService: BaseService() {
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
 
         val success = downloadUri != null
-        val caption = if (success) getString(R.string.file_upload_success) else getString(R.string.file_upload_error)
+        val caption = if (success) getString(R.string.notification_file_upload_success) else getString(R.string.notification_file_upload_error)
         showFinishedNotification(caption, intent, success)
     }
     private fun finalizeTransfer(downloadUri: Uri?, selectedFileUri: Uri?) {

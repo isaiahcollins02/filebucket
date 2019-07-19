@@ -73,6 +73,8 @@ object ItemManager {
             Notification.typeGeneric -> R.drawable.ic_vector_notifications
             Notification.typeNewFile -> R.drawable.ic_vector_new
             Notification.typePackage -> R.drawable.ic_vector_update
+            Notification.typeFetched -> R.drawable.ic_vector_download
+            Notification.typeTransfered -> R.drawable.ic_vector_upload
             else -> null
         }
         return ResourcesCompat.getDrawable(context?.resources!!, drawableID!!, null)

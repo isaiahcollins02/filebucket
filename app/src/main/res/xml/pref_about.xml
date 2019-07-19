@@ -12,10 +12,6 @@
             android:key="termsPref"
             android:title="@string/about_terms_of_service"/>
 
-    <Preference
-            android:key="supportPreference"
-            android:title="@string/about_feedback"/>
-
     <PreferenceCategory
             android:title="@string/team_development">
 

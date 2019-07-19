@@ -15,12 +15,17 @@
         <item name="md_color_button_text">@color/colorPrimary</item>
     </style>
 
-    <style name="AppTheme.FirstRun" parent="AppTheme.Core">
-        <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
-    </style>
-
     <!-- UI Components -->
     <!-- BottomSheets, Dialogs etc -->
+
+    <style name="AppTheme.ScreenDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/colorScreenBackground</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/colorScreenBackground</item>
+    </style>
 
     <style name="AppTheme.BottomSheet" parent="BaseBottomSheetDialog">
         <item name="android:statusBarColor">@android:color/transparent</item>

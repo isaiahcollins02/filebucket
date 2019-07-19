@@ -19,12 +19,12 @@ import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
 class AuthFragment: Fragment() {
 
-    private var firstName: String? = null
-    private var lastName: String? = null
-    private var email: String? = null
+    private var _firstName: String? = null
+    private var _lastName: String? = null
+    private var _email: String? = null
 
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+    private val firebaseAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     private lateinit var rootView: View
     private lateinit var passwordField: ExtendedEditText
@@ -35,9 +35,9 @@ class AuthFragment: Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments.let {
-            firstName = it?.getString("firstName")
-            lastName = it?.getString("lastName")
-            email = it?.getString("email")
+            _firstName = it?.getString("_firstName")
+            _lastName = it?.getString("_lastName")
+            _email = it?.getString("_email")
         }
     }
 
@@ -51,10 +51,10 @@ class AuthFragment: Fragment() {
         return rootView
     }
 
-    private fun handleRegistration(password: String, confirmationPassword: String){
+    private fun handleRegistration(_password: String, confirmPass: String){
         val userReference = firestore.collection(Firestore.users)
 
-        if (password == confirmationPassword){
+        if (_password == confirmPass){
             val dialog = KProgressHUD.create(rootView.context)
             dialog.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             dialog.setAnimationSpeed(2)
@@ -62,16 +62,17 @@ class AuthFragment: Fragment() {
             dialog.setDimAmount(.05f)
             dialog.show()
 
-            firebaseAuth.createUserWithEmailAndPassword(email!!, password)
+            firebaseAuth.createUserWithEmailAndPassword(_email!!, _password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         val userID: String = it.result?.user!!.uid
 
-                        val newAccount = Account().also { thisObject ->
-                            thisObject.firstName = firstName
-                            thisObject.lastName = lastName
-                            thisObject.email = email
-                            thisObject.password = password
+                        val newAccount = Account().apply {
+                            firstName = _firstName
+                            lastName = _lastName
+                            email = _email
+                            password = _password
+                            accountID = userID
                         }
 
                         userReference.document(userID).set(newAccount)
@@ -89,7 +90,7 @@ class AuthFragment: Fragment() {
                         dialog.dismiss()
                         Snackbar.make(rootView, R.string.status_unknown, Snackbar.LENGTH_SHORT).show()
                 }
-        } else if (password.isBlank() || confirmationPassword.isBlank())
+        } else if (_password.isBlank() || confirmPass.isBlank())
             Snackbar.make(rootView, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
         else
             Snackbar.make(rootView, R.string.status_password_not_match, Snackbar.LENGTH_SHORT).show()

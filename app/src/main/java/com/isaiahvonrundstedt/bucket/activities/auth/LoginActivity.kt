@@ -3,36 +3,37 @@ package com.isaiahvonrundstedt.bucket.activities.auth
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatTextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Account
+import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.User
 import com.kaopiz.kprogresshud.KProgressHUD
+import kotlinx.android.synthetic.main.activity_login.*
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
-class LoginActivity: AppCompatActivity() {
+class LoginActivity: BaseActivity() {
 
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firestore = FirebaseFirestore.getInstance()
-
-    private lateinit var emailField: ExtendedEditText
-    private lateinit var passwordField: ExtendedEditText
-    private lateinit var loginButton: AppCompatTextView
+    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
+    private val firestore by lazy { FirebaseFirestore.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        emailField = findViewById(R.id.emailField)
-        passwordField = findViewById(R.id.passwordField)
-        loginButton = findViewById(R.id.loginButton)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = null
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onStart() {
@@ -91,6 +92,32 @@ class LoginActivity: AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        return false
+        menuInflater.inflate(R.menu.menu_auth, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu?.findItem(R.id.action_theme)?.isChecked = Preferences(this).theme == Preferences.themeDark
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId){
+            R.id.action_theme -> {
+                if (!item.isChecked){
+                    item.isChecked = true
+                    Preferences(this).theme = Preferences.themeDark
+                    delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+                } else {
+                    item.isChecked = false
+                    Preferences(this).theme = Preferences.themeLight
+                    delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+                }
+                true
+            } android.R.id.home -> {
+                onBackPressed()
+                true
+            } else -> super.onOptionsItemSelected(item)
+        }
     }
 }

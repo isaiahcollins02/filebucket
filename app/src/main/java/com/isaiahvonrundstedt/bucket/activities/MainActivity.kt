@@ -3,21 +3,17 @@ package com.isaiahvonrundstedt.bucket.activities
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -29,30 +25,26 @@ import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
 import com.isaiahvonrundstedt.bucket.activities.generic.SettingsActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
+import com.isaiahvonrundstedt.bucket.fragments.screendialog.SearchFragment
 import com.isaiahvonrundstedt.bucket.fragments.navigation.BoxesFragment
 import com.isaiahvonrundstedt.bucket.fragments.navigation.FilesFragment
 import com.isaiahvonrundstedt.bucket.fragments.navigation.NotificationFragment
 import com.isaiahvonrundstedt.bucket.fragments.navigation.SavedFragment
-import com.isaiahvonrundstedt.bucket.interfaces.ScreenAction
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_appbar_drawer.*
 
-class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigationItemSelectedListener,
-     SearchView.OnQueryTextListener {
+class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigationItemSelectedListener {
 
-    private var selectedItem: Int? = 0
-    private var searchMenuItem: MenuItem? = null
+    private var selectedItem: Int? = null
     private var toolbarTitleView: TextView? = null
-    private var searchView: SearchView? = null
-    private var searchListener: ScreenAction.Search? = null
 
     companion object {
         const val navigationItemFiles = 0
         const val navigationItemBoxes = 1
-        const val navigationSaved = 2
+        const val navigationItemSaved = 2
         const val navigationItemNotification = 3
     }
 
@@ -67,7 +59,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
         toolbarTitleView = toolbar.findViewById(R.id.titleView)
-        setupHeader()
+        setupNavigationHeader()
 
         val actionBarToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.status_drawer_open,
             R.string.status_drawer_closed)
@@ -90,9 +82,20 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         }
 
         navigationView.setNavigationItemSelectedListener(this)
+        navigationView.setCheckedItem(obtainMenuItemID(selectedItem))
     }
 
-    private fun setupHeader(){
+    private fun obtainMenuItemID(int: Int?): Int {
+        return when (int){
+            navigationItemFiles -> R.id.navigation_files
+            navigationItemBoxes -> R.id.navigation_boxes
+            navigationItemSaved -> R.id.navigation_collections
+            navigationItemNotification -> R.id.navigation_notifications
+            else -> R.id.navigation_files
+        }
+    }
+
+    private fun setupNavigationHeader(){
         val headerLayout = navigationView.getHeaderView(0)
         val imageView: AppCompatImageView = headerLayout.findViewById(R.id.imageView)
         val titleView: TextView = headerLayout.findViewById(R.id.titleView)
@@ -112,33 +115,14 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
-        searchMenuItem = menu?.findItem(R.id.action_search)
-
-        val searchDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_vector_search, null)
-        searchDrawable?.setColorFilter(ContextCompat.getColor(this, R.color.colorIcons), PorterDuff.Mode.SRC_ATOP)
-
-        searchView = searchMenuItem?.actionView as SearchView
-        val imageView: ImageView? = searchView?.findViewById(androidx.appcompat.R.id.search_button)
-        imageView?.setImageDrawable(searchDrawable)
-        searchView?.setOnQueryTextListener(this)
 
         return true
-    }
-
-    fun initializeSearch(listener: ScreenAction.Search){
-        searchListener = listener
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        searchListener?.onSearch(newText)
-        return true
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        return false
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId){
+            R.id.action_search -> SearchFragment().show(supportFragmentManager, SearchFragment.tag)
+        }
         return true
     }
 
@@ -152,7 +136,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         when (item){
             navigationItemFiles -> setToolbarTitle(R.string.navigation_files)
             navigationItemBoxes -> setToolbarTitle(R.string.navigation_boxes)
-            navigationSaved -> setToolbarTitle(R.string.navigation_saved)
+            navigationItemSaved -> setToolbarTitle(R.string.navigation_saved)
             navigationItemNotification -> setToolbarTitle(R.string.navigation_notifications)
         }
     }
@@ -165,7 +149,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         return when (item){
             navigationItemFiles -> FilesFragment()
             navigationItemBoxes -> BoxesFragment()
-            navigationSaved -> SavedFragment()
+            navigationItemSaved -> SavedFragment()
             navigationItemNotification -> NotificationFragment()
             else -> null
         }
@@ -214,7 +198,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         when (navigationItem.itemId){
             R.id.navigation_files -> replaceFragment(navigationItemFiles)
             R.id.navigation_boxes -> replaceFragment(navigationItemBoxes)
-            R.id.navigation_collections -> replaceFragment(navigationSaved)
+            R.id.navigation_collections -> replaceFragment(navigationItemSaved)
             R.id.navigation_notifications -> replaceFragment(navigationItemNotification)
             R.id.navigation_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.navigation_about -> startActivity(Intent(this, AboutActivity::class.java))

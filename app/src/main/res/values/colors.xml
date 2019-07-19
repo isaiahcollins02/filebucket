@@ -3,18 +3,23 @@
 
     <!-- Colors Used in Light Mode -->
     <color name="colorPrimary">#0288d1</color>
+    <color name="colorPrimaryLight">#5eb8ff</color>
     <color name="colorPrimaryVariant">#005b9f</color>
     <color name="colorOnPrimary">#ffffff</color>
 
-    <color name="colorWindowBackground">#efefef</color>
+    <!-- Backgrounds -->
+    <color name="colorWindowBackground">#f9f9f9</color>
     <color name="colorCardBackground">#ffffff</color>
-    <color name="colorPreference">#fafafa</color>
-    <color name="colorToolbar">#ffffff</color>
-    <color name="colorStatusBar">#e5e5e5</color>
-    <color name="colorDrawerStatusBar">#80FFFFFF</color>
-    <color name="colorHighlightedBackground">#f8f8f8</color>
-    <color name="colorIcons">#000000</color>
+    <color name="colorScreenBackground">#ffffff</color>
+    <color name="colorHighlightedBackground">#f8f9fb</color>
 
+    <!-- UI Components -->
+    <color name="colorIcons">#000000</color>
+    <color name="colorToolbar">#ffffff</color>
+    <color name="colorStatusBar">#e8eaed</color>
+    <color name="colorDrawerStatusBar">#80ffffff</color>
+
+    <!-- Texts -->
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#9c9c9c</color>
     <color name="colorHelperText">#455a64</color>

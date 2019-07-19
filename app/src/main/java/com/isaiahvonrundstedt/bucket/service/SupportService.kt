@@ -12,7 +12,7 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.NotificationDAO
-import com.isaiahvonrundstedt.bucket.architecture.store.NotificationRepository
+import com.isaiahvonrundstedt.bucket.architecture.store.NotificationStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
@@ -20,11 +20,9 @@ import timber.log.Timber
 
 class SupportService: BaseService() {
 
-    private var appDB: AppDatabase? = null
-    private var notificationDAO: NotificationDAO? = null
-
+    private val notificationStore by lazy { NotificationStore(application) }
     private val firestore by lazy { FirebaseFirestore.getInstance() }
-    private val repository by lazy { NotificationRepository(application) }
+    private val repository by lazy { NotificationStore(application) }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -39,10 +37,6 @@ class SupportService: BaseService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
-        appDB = AppDatabase.getDatabase(this)
-        notificationDAO = appDB?.notificationAccessor()
-
         if (actionLife == intent?.action)
             checkIfSupported()
         else if (actionSupport == intent?.action)
@@ -109,7 +103,7 @@ class SupportService: BaseService() {
             content = getString(R.string.notification_update_available_content)
             type = Notification.typePackage
         }
-        repository.insert(notification)
+        notificationStore.insert(notification)
 
         val builder = NotificationCompat.Builder(this, Notification.supportChannel)
             .setColor(ContextCompat.getColor(this, R.color.colorPrimary))

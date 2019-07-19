@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
@@ -17,6 +18,34 @@ class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>(
 
     private var itemList: ArrayList<Notification> = ArrayList()
 
+    fun setObservableItems(items: List<Notification>){
+        val callback = ItemCallback(itemList, items)
+        val result = DiffUtil.calculateDiff(callback)
+
+        itemList.clear()
+        itemList.addAll(items)
+        result.dispatchUpdatesTo(this)
+    }
+
+    inner class ItemCallback(private var oldItems: List<Notification>, private var newItems: List<Notification>): DiffUtil.Callback(){
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldItems[oldItemPosition].id == newItems[newItemPosition].id
+        }
+
+        override fun getOldListSize(): Int {
+            return oldItems.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newItems.size
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldItems[oldItemPosition] == newItems[newItemPosition]
+        }
+
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val rowView: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_item_notification, viewGroup, false)
         return ViewHolder(rowView)
@@ -24,12 +53,6 @@ class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>(
 
     override fun getItemCount(): Int {
         return itemList.size
-    }
-
-    fun setItems(itemList: List<Notification>){
-        this.itemList.clear()
-        this.itemList.addAll(itemList)
-        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

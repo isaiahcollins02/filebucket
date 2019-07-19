@@ -15,11 +15,19 @@
     </style>
 
     <style name="AppTheme.FirstRun" parent="AppTheme.Core">
-        <item name="android:windowAnimationStyle">@style/SlidingTransition</item>
+        <item name="android:windowAnimationStyle">@style/AppTheme.SlidingTransition</item>
     </style>
 
     <!-- UI Components -->
     <!-- BottomSheets, Dialogs etc -->
+
+    <style name="AppTheme.ScreenDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/colorScreenBackground</item>
+    </style>
 
     <style name="AppTheme.BottomSheet" parent="BaseBottomSheetDialog"/>
 
@@ -39,7 +47,7 @@
 
     <!-- Transitions -->
 
-    <style name="SlidingTransition" parent="@android:style/Animation.Activity">
+    <style name="AppTheme.SlidingTransition" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
@@ -72,6 +80,12 @@
         <item name="android:paddingEnd">0dp</item>
     </style>
 
-    <style name="AppTheme.Widget.SearchView" parent="MaterialSearchBarDark"/>
+    <style name="AppTheme.Widget.SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:iconifiedByDefault">false</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:background">@color/colorHighlightedBackground</item>
+    </style>
 
 </resources>

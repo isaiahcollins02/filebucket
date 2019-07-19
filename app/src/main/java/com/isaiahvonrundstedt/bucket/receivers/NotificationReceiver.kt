@@ -8,7 +8,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.core.net.toUri
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.architecture.store.SavedRepository
+import com.isaiahvonrundstedt.bucket.architecture.store.SavedStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.utils.Preferences
@@ -37,7 +37,7 @@ class NotificationReceiver: BroadcastReceiver() {
                 Timber.i("Data Received")
             }
             BaseService.actionSave -> {
-                SavedRepository(context.applicationContext as Application).insert(file!!)
+                SavedStore(context.applicationContext as Application).insert(file!!)
             }
         }
     }

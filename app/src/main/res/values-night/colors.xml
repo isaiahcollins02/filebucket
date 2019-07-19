@@ -3,18 +3,23 @@
 
     <!-- Colors used in Night Mode -->
     <color name="colorPrimary">#ffc400</color>
+    <color name="colorPrimaryLight">#c79400</color>
     <color name="colorPrimaryVariant">#fff64f</color>
     <color name="colorOnPrimary">#000000</color>
 
-    <color name="colorWindowBackground">#191919</color>
-    <color name="colorCardBackground">#242424</color>
-    <color name="colorPreference">#191919</color>
+    <!-- Background -->
+    <color name="colorWindowBackground">#141414</color>
+    <color name="colorCardBackground">#191919</color>
+    <color name="colorScreenBackground">#242424</color>
+    <color name="colorHighlightedBackground">#292929</color>
+
+    <!-- UI Components -->
+    <color name="colorIcons">#ffffff</color>
     <color name="colorToolbar">#242424</color>
     <color name="colorStatusBar">#34141414</color>
     <color name="colorDrawerStatusBar">#50191919</color>
-    <color name="colorHighlightedBackground">#292929</color>
-    <color name="colorIcons">#ffffff</color>
 
+    <!-- Texts -->
     <color name="colorPrimaryText">#ffffff</color>
     <color name="colorSecondaryText">#9c9c9c</color>
     <color name="colorHelperText">#455a64</color>
