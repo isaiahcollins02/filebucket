@@ -52,7 +52,7 @@
             app:hasFocus="true"
             app:hasClearButton="true"
             app:maxCharacters="72"
-            app:labelText="@string/hint_summary">
+            app:labelText="@string/field_hint_feedback_summary">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:id="@+id/summaryField"
@@ -70,7 +70,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginStart="@dimen/activity_margin_start"
             android:layout_marginEnd="@dimen/activity_margin_end"
-            app:labelText="@string/hint_additional_information"
+            app:labelText="@string/field_hint_feedback_information"
             app:maxCharacters="256">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText

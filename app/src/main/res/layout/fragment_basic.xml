@@ -37,7 +37,7 @@
                 app:secondaryColor="@color/colorHelperText"
                 app:hasFocus="true"
                 app:hasClearButton="true"
-                app:labelText="@string/hint_first_name">
+                app:labelText="@string/field_hint_name_first">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:id="@+id/firstNameField"
@@ -59,7 +59,7 @@
                 app:primaryColor="@color/colorPrimary"
                 app:secondaryColor="@color/colorHelperText"
                 app:hasClearButton="true"
-                app:labelText="@string/hint_last_name">
+                app:labelText="@string/field_hint_name_last">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:id="@+id/lastNameField"
@@ -80,7 +80,7 @@
                 app:primaryColor="@color/colorPrimary"
                 app:secondaryColor="@color/colorHelperText"
                 app:hasClearButton="true"
-                app:labelText="@string/hint_email">
+                app:labelText="@string/field_hint_email">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:id="@+id/emailField"

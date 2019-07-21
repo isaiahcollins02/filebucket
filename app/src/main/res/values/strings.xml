@@ -58,15 +58,16 @@
     <string name="file_type_music">Music</string>
     <string name="file_type_video">Video</string>
 
-    <string name="hint_email">Email Address</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_old_password">Old Password</string>
-    <string name="hint_new_password">New Password</string>
-    <string name="hint_confirm_password">Confirm Password</string>
-    <string name="hint_first_name">First Name</string>
-    <string name="hint_last_name">Last Name</string>
-    <string name="hint_summary">Summary</string>
-    <string name="hint_additional_information">Additional Information</string>
+    <string name="field_hint_search">Search for files</string>
+    <string name="field_hint_email">Email Address</string>
+    <string name="field_hint_password">Password</string>
+    <string name="field_hint_password_old">Old Password</string>
+    <string name="field_hint_password_new">New Password</string>
+    <string name="field_hint_password_confirm">Confirm Password</string>
+    <string name="field_hint_name_first">First Name</string>
+    <string name="field_hint_name_last">Last Name</string>
+    <string name="field_hint_feedback_summary">Summary</string>
+    <string name="field_hint_feedback_information">Additional Information</string>
 
     <string name="menu_dark_theme">Use Dark Theme</string>
     <string name="menu_search">Search</string>

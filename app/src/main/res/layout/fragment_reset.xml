@@ -20,7 +20,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="16dp"
-            app:labelText="@string/hint_email">
+            app:labelText="@string/field_hint_email">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:id="@+id/emailField"

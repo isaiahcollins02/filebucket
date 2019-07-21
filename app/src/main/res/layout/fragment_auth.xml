@@ -38,7 +38,7 @@
                 app:minCharacters="8"
                 app:hasFocus="true"
                 app:hasClearButton="true"
-                app:labelText="@string/hint_password">
+                app:labelText="@string/field_hint_password">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:id="@+id/passwordField"
@@ -61,7 +61,7 @@
                 app:secondaryColor="@color/colorHelperText"
                 app:minCharacters="8"
                 app:hasClearButton="true"
-                app:labelText="@string/hint_confirm_password">
+                app:labelText="@string/field_hint_password_confirm">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:id="@+id/confirmPasswordField"
