@@ -29,14 +29,15 @@
                 android:text="@string/login_to_drop_bucket"
                 android:textSize="32sp"
                 android:textColor="@color/colorPrimary"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:text="@string/enter_your_email_and_password_to_continue"
-                android:textColor="@color/colorHelperText"/>
+                android:textColor="@color/colorHelperText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                 android:layout_width="match_parent"

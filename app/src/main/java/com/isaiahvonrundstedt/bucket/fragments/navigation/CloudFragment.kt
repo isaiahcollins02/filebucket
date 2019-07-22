@@ -19,8 +19,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.files.fileChooser
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.filterable.CoreAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.core.CoreViewModel
+import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network.CoreViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
@@ -31,13 +31,13 @@ import com.isaiahvonrundstedt.bucket.service.TransferService
 import gun0912.tedbottompicker.TedBottomPicker
 import kotlinx.android.synthetic.main.fragment_files.*
 
-class FilesFragment: BaseFragment(), BottomSheetPicker {
+class CloudFragment: BaseFragment(), BottomSheetPicker {
 
     private var fileUri: Uri? = null
     private var downloadUri: Uri? = null
 
     private var receiver: BroadcastReceiver? = null
-    private var adapter: CoreAdapter? = null
+    private var adapter: PublicAdapter? = null
     private var layoutManager: LinearLayoutManager? = null
     private var viewModel: CoreViewModel? = null
 
@@ -73,7 +73,7 @@ class FilesFragment: BaseFragment(), BottomSheetPicker {
         manager.registerReceiver(receiver!!, TransferService.intentFilter)
 
         layoutManager = LinearLayoutManager(context)
-        adapter = CoreAdapter(context, childFragmentManager, GlideApp.with(this))
+        adapter = PublicAdapter(context, childFragmentManager, GlideApp.with(this))
 
         recyclerView.layoutManager = layoutManager
         recyclerView.addOnScrollListener(onScrollListener)
@@ -88,7 +88,7 @@ class FilesFragment: BaseFragment(), BottomSheetPicker {
         addAction.setOnClickListener { itemPicker.show(childFragmentManager, "pickerTag") }
 
         viewModel?.itemList?.observe(this, Observer { items ->
-            adapter?.setObservableItems(items)
+           adapter?.setObservableItems(items)
         })
 
     }
@@ -113,7 +113,7 @@ class FilesFragment: BaseFragment(), BottomSheetPicker {
                 isScrolling = false
                 viewModel?.fetch()
 
-                if (viewModel?.size()!! >= 15)
+                if (viewModel?.size!! >= 15)
                     isLastItemReached = true
             }
         }

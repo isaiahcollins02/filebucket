@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.support.NotificationAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.core.NotificationViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.NotificationViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.objects.core.Notification

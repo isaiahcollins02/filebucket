@@ -16,7 +16,7 @@ data class File @JvmOverloads constructor (@PrimaryKey
                                            var fileID: String = "",
                                            var name: String? = null,
                                            var author: String? = null,
-                                           var fileType: Int = TYPE_GENERIC,
+                                           var fileType: Int = typeGeneric,
                                            var fileSize: Double = 0.0,
                                            var downloadURL: String? = null,
                                            @TypeConverters(TimestampConverter::class)
@@ -27,12 +27,12 @@ data class File @JvmOverloads constructor (@PrimaryKey
     }
 
     companion object {
-        const val TYPE_GENERIC = 0
-        const val TYPE_CODE = 1
-        const val TYPE_DOCUMENT = 2
-        const val TYPE_IMAGE = 3
-        const val TYPE_PACKAGE = 4
-        const val TYPE_AUDIO = 5
-        const val TYPE_VIDEO = 6
+        const val typeGeneric = 0
+        const val typeCode = 1
+        const val typeDocument = 2
+        const val typeImage = 3
+        const val typePackage = 4
+        const val typeAudio = 5
+        const val typeVideo = 6
     }
 }

@@ -11,12 +11,11 @@
     <color name="colorWindowBackground">#141414</color>
     <color name="colorCardBackground">#191919</color>
     <color name="colorScreenBackground">#242424</color>
-    <color name="colorHighlightedBackground">#292929</color>
 
     <!-- UI Components -->
     <color name="colorIcons">#ffffff</color>
     <color name="colorToolbar">#242424</color>
-    <color name="colorStatusBar">#34141414</color>
+    <color name="colorStatusBar">#141414</color>
     <color name="colorDrawerStatusBar">#50191919</color>
 
     <!-- Texts -->

@@ -12,7 +12,8 @@
             android:layout_marginBottom="48dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/instruction_password"/>
+            android:text="@string/instruction_password"
+            android:textColor="@color/colorHelperText"/>
 
     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             android:layout_width="match_parent"

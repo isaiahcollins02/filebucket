@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.constants.Params
-import com.isaiahvonrundstedt.bucket.fragments.DetailFragment
+import com.isaiahvonrundstedt.bucket.fragments.screendialog.DetailFragment
 import com.isaiahvonrundstedt.bucket.fragments.profile.ResetFragment
 import com.isaiahvonrundstedt.bucket.fragments.profile.SecureFragment
 
@@ -32,7 +32,6 @@ class FrameActivity: BaseAppBarActivity() {
         viewArgs = intent?.getBundleExtra(Params.viewArgs)
 
         when (userViewType){
-            viewTypeDetails -> setToolbarTitle(R.string.file_details)
             viewTypePassword -> setToolbarTitle(R.string.profile_secure_account)
             viewTypeReset -> setToolbarTitle(R.string.profile_reset_password)
         }
@@ -40,7 +39,6 @@ class FrameActivity: BaseAppBarActivity() {
         when (userViewType){
             viewTypePassword -> activeFragment = SecureFragment()
             viewTypeReset -> activeFragment = ResetFragment()
-            viewTypeDetails -> activeFragment = DetailFragment()
         }
         activeFragment?.arguments = viewArgs
 

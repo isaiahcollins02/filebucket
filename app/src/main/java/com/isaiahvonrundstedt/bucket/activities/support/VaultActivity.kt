@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.filterable.CoreAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.core.FileViewModel
+import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network.FileViewModel
 import com.isaiahvonrundstedt.bucket.architecture.factory.FileFactory
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
@@ -22,7 +22,7 @@ class VaultActivity: BaseAppBarActivity()  {
 
     private var author: String? = null
 
-    private var adapter: CoreAdapter? = null
+    private var adapter: PublicAdapter? = null
     private var layoutManager: LinearLayoutManager? = null
 
     private var viewModel: FileViewModel? = null
@@ -43,7 +43,7 @@ class VaultActivity: BaseAppBarActivity()  {
         super.onStart()
 
         layoutManager = LinearLayoutManager(this)
-        adapter = CoreAdapter(this, supportFragmentManager, GlideApp.with(this))
+        adapter = PublicAdapter(this, supportFragmentManager, GlideApp.with(this))
 
         recyclerView.layoutManager = layoutManager
         recyclerView.addOnScrollListener(onScrollListener)
@@ -78,7 +78,7 @@ class VaultActivity: BaseAppBarActivity()  {
                 isScrolling = false
                 viewModel?.fetch()
 
-                if (viewModel?.size()!! >= 15)
+                if (viewModel?.size!! >= 15)
                     isLastItemReached = true
             }
         }

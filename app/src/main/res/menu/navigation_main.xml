@@ -6,9 +6,15 @@
             android:checkableBehavior="single">
 
         <item
-                android:id="@+id/navigation_files"
-                android:title="@string/navigation_files"
-                android:icon="@drawable/ic_vector_files"
+                android:id="@+id/navigation_cloud"
+                android:title="@string/navigation_cloud"
+                android:icon="@drawable/ic_vector_cloud"
+                app:iconTint="@color/colorSecondaryText"/>
+
+        <item
+                android:id="@+id/navigation_local"
+                android:title="@string/navigation_local"
+                android:icon="@drawable/ic_vector_folder"
                 app:iconTint="@color/colorSecondaryText"/>
 
         <item

@@ -12,6 +12,10 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 
 class BaseApp: MultiDexApplication() {
 
+    companion object {
+        const val appPackage: String = "com.isaiahvonrundstedt.bucket"
+    }
+
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(this)

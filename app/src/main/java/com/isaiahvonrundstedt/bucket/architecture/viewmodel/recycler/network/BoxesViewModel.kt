@@ -1,9 +1,9 @@
-package com.isaiahvonrundstedt.bucket.architecture.viewmodel.core
+package com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.isaiahvonrundstedt.bucket.architecture.store.BoxStore
+import com.isaiahvonrundstedt.bucket.architecture.store.network.BoxStore
 import com.isaiahvonrundstedt.bucket.objects.core.Account
 
 class BoxesViewModel: ViewModel() {
@@ -24,6 +24,11 @@ class BoxesViewModel: ViewModel() {
             _items.postValue(initialList)
         }
     }
+
+    val isEmpty: Boolean
+        get() = initialList.isEmpty()
+    val size: Int
+        get() = initialList.size
 
     fun size(): Int = repository.size()
 

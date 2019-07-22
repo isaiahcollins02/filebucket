@@ -85,7 +85,6 @@
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:iconifiedByDefault">false</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:background">@color/colorHighlightedBackground</item>
     </style>
 
 </resources>

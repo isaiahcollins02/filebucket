@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.architecture.viewmodel.core
+package com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

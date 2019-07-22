@@ -9,57 +9,65 @@
         android:background="@color/colorCardBackground"
         android:foreground="?attr/selectableItemBackground">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_margin">
+            android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iconView"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:id="@+id/containerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/titleView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/titleView"
-                app:srcCompat="@drawable/ic_object_update"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-                android:id="@+id/titleView"
-                android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:maxLength="30"
-                android:textSize="16sp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/subtitleView"
-                app:layout_constraintStart_toEndOf="@id/iconView"
-                tools:text="Sample Spacing "/>
+                android:padding="16dp">
 
-        <TextView
-                android:id="@+id/subtitleView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textSize="14sp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:layout_constraintTop_toBottomOf="@id/titleView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iconView"
-                tools:text="Sample Text"/>
+            <TextView
+                    android:id="@+id/titleView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:maxLength="30"
+                    android:textSize="16sp"
+                    android:textAppearance="@style/AppTheme.TextAppearance.Emphasis"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/subtitleView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    tools:text="Sample Spacing "/>
 
-        <TextView
-                android:id="@+id/sizeView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="2.4MB"/>
+            <TextView
+                    android:id="@+id/subtitleView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:layout_constraintTop_toBottomOf="@id/titleView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    tools:text="Sample Subtitle"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                    android:id="@+id/sizeView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="2.4MB"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

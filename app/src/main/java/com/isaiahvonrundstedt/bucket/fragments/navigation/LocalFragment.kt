@@ -9,40 +9,43 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.SavedViewModel
+import com.isaiahvonrundstedt.bucket.adapters.core.LocalAdapter
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.LocalViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
-import com.isaiahvonrundstedt.bucket.objects.core.File
-import kotlinx.android.synthetic.main.fragment_saved.*
+import kotlinx.android.synthetic.main.fragment_local.*
 
-class SavedFragment: BaseFragment() {
+class LocalFragment: BaseFragment() {
 
-    private var viewModel: SavedViewModel? = null
-    private var adapter: PublicAdapter? = null
+    private var adapter: LocalAdapter? = null
+    private var viewModel: LocalViewModel? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_local, container, false)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        viewModel = ViewModelProviders.of(this).get(SavedViewModel::class.java)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_saved, container, false)
+        viewModel = ViewModelProviders.of(this).get(LocalViewModel::class.java)
     }
 
     override fun onStart() {
         super.onStart()
 
-        adapter = PublicAdapter(context, childFragmentManager, GlideApp.with(this))
+        adapter = LocalAdapter(context, childFragmentManager, GlideApp.with(this))
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.adapter = adapter
+    }
 
-        viewModel?.items?.observe(this, Observer<List<File>> { items ->
+    override fun onResume() {
+        super.onResume()
+        viewModel?.items?.observe(this, Observer { items ->
             adapter?.setObservableItems(items)
         })
     }
+
 }

@@ -79,7 +79,8 @@
     <string name="main_empty_files">The cloud currently don\'t have files in them. Upload one or come back again later</string>
     <string name="main_empty_saved">You currently don\'t have any saves from the available files in the cloud</string>
 
-    <string name="navigation_files">Files</string>
+    <string name="navigation_cloud">Cloud</string>
+    <string name="navigation_local">Local Storage</string>
     <string name="navigation_boxes">Boxes</string>
     <string name="navigation_saved">Saved</string>
     <string name="navigation_notifications">Notifications</string>

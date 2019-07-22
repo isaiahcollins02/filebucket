@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.architecture.store
+package com.isaiahvonrundstedt.bucket.architecture.store.network
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -37,7 +37,8 @@ class BoxStore {
                     val accountItems: ArrayList<Account> = ArrayList()
                     for (document: DocumentSnapshot in snapshots){
                         val account: Account = document.toObject(Account::class.java) as Account
-                        if (account.accountID == currentUserID)
+                        account.accountID = document.id
+                        if (account.accountID != currentUserID)
                             accountItems.add(account)
                     }
                     onFetch(accountItems)

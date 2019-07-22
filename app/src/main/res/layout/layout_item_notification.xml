@@ -33,7 +33,7 @@
                 android:maxLines="1"
                 android:maxLength="30"
                 android:textSize="16sp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textAppearance="@style/AppTheme.TextAppearance.Emphasis"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/subtitleView"
                 app:layout_constraintStart_toEndOf="@id/iconView"

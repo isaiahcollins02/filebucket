@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimaryText"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textAppearance="@style/AppTheme.TextAppearance.Title"
                 android:layout_alignParentTop="true"
                 tools:text="Storage Used"/>
 

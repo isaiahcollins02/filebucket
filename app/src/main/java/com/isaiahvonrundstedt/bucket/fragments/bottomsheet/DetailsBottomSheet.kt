@@ -16,6 +16,7 @@ import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
 import com.isaiahvonrundstedt.bucket.architecture.store.SavedStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
+import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
@@ -42,7 +43,7 @@ class DetailsBottomSheet: BaseBottomSheet() {
         super.onCreate(savedInstanceState)
 
         val bundle = arguments
-        file = bundle?.getParcelable("file")
+        file = bundle?.getParcelable(Params.args)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

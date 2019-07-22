@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.fragments
+package com.isaiahvonrundstedt.bucket.fragments.screendialog
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,19 +13,22 @@ import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
 import com.isaiahvonrundstedt.bucket.architecture.store.SavedStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
+import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.objects.experience.Information
 import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
-import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.layout_appbar_flat.*
+import kotlinx.android.synthetic.main.layout_dialog_detail.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
 
-class DetailFragment: BaseFragment() {
+class DetailFragment: BaseScreenDialog() {
 
     private var file: File? = null
     private var fileInDatabase: Boolean? = false
@@ -39,7 +42,7 @@ class DetailFragment: BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        file = arguments?.getParcelable("fileArgs")
+        file = arguments?.getParcelable(Params.args)
         appDB = AppDatabase.getDatabase(context!!)
         savedDAO = appDB?.collectionAccessor()
 
@@ -49,7 +52,12 @@ class DetailFragment: BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        return inflater.inflate(R.layout.layout_dialog_detail, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setToolbarTitle(R.string.file_details)
     }
 
     override fun onResume() = runBlocking {
@@ -83,10 +91,5 @@ class DetailFragment: BaseFragment() {
                 (it as MaterialButton).text = getString(R.string.button_save)
             }
         }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        activity?.finish()
     }
 }

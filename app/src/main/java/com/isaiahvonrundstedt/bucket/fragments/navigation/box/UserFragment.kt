@@ -11,8 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.filterable.CoreAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.core.FileViewModel
+import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
+import com.isaiahvonrundstedt.bucket.adapters.core.SentAdapter
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network.FileViewModel
 import com.isaiahvonrundstedt.bucket.architecture.factory.FileFactory
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
@@ -26,7 +27,7 @@ class UserFragment: BaseFragment() {
     private var factory: FileFactory? = null
     private var viewModel: FileViewModel? = null
 
-    private var adapter: CoreAdapter? = null
+    private var adapter: SentAdapter? = null
     private var layoutManager: LinearLayoutManager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,7 +46,7 @@ class UserFragment: BaseFragment() {
         super.onStart()
 
         layoutManager = LinearLayoutManager(context)
-        adapter = CoreAdapter(context, childFragmentManager, GlideApp.with(this))
+        adapter = SentAdapter(context, childFragmentManager, GlideApp.with(this))
 
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.addOnScrollListener(onScrollListener)
@@ -75,7 +76,7 @@ class UserFragment: BaseFragment() {
                 isScrolling = false
                 viewModel?.fetch()
 
-                if (viewModel?.size()!! >= 15)
+                if (viewModel?.size!! >= 15)
                     isLastItemReached = true
             }
         }

@@ -13,7 +13,7 @@ import com.isaiahvonrundstedt.bucket.adapters.experience.SearchAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import kotlinx.android.synthetic.main.layout_appbar_flat.*
-import kotlinx.android.synthetic.main.layout_sheet_search.*
+import kotlinx.android.synthetic.main.layout_dialog_search.*
 
 class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
 
@@ -27,14 +27,12 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
     private var layoutManager: LinearLayoutManager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.layout_sheet_search, container, false)
+        return inflater.inflate(R.layout.layout_dialog_search, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar.setNavigationOnClickListener { dismiss() }
-        toolbar.navigationIcon = ResourcesCompat.getDrawable(context?.resources!!, R.drawable.ic_vector_error, null)
-        toolbarTitle.text = getString(R.string.menu_search)
+        setToolbarTitle(R.string.menu_search)
     }
 
     override fun onStart() {

@@ -20,6 +20,17 @@
             tools:ignore="GoogleAppIndexingWarning"
             tools:replace="android:allowBackup">
 
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="com.isaiahvonrundstedt.bucket.components.AppFileProvider"
+                android:exported="false"
+                android:grantUriPermissions="true"
+                tools:replace="android:authorities">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
+        </provider>
+
         <activity android:name=".activities.SplashActivity"
                 android:theme="@style/AppTheme.Core" >
             <intent-filter>
@@ -28,7 +39,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity"
-                android:theme="@style/AppTheme.Drawer"/>
+                android:theme="@style/AppTheme.Drawer">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.auth.FirstRunActivity"
                   android:theme="@style/AppTheme.FirstRun"/>
         <activity android:name=".activities.auth.LoginActivity"

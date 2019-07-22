@@ -33,7 +33,7 @@
                 android:text="@string/welcome_to_drop_bucket"
                 android:textSize="32sp"
                 android:textColor="@color/colorPrimary"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/to_access_the_content"
                 android:textColor="@color/colorHelperText"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
         <TextView
                 android:id="@+id/hyperlinkView"
@@ -50,7 +50,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/license_agreement_helper"
                 android:textColor="@color/colorHelperText"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/loginButton"
@@ -60,7 +60,7 @@
                 android:text="@string/button_login"
                 android:textColor="@android:color/white"
                 app:backgroundTint="@color/colorPrimary"
-                style="@style/Widget.MaterialComponents.Button"/>
+                style="@style/AppTheme.Widget.Button"/>
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/registerButton"
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/button_register"
                 android:textColor="@color/colorPrimary"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                style="@style/AppTheme.Widget.Button.Outlined"/>
 
     </LinearLayout>
 

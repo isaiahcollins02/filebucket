@@ -10,12 +10,15 @@ import android.net.Uri
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import com.isaiahvonrundstedt.bucket.BaseApp
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.architecture.store.NotificationStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
 import com.isaiahvonrundstedt.bucket.utils.Preferences
+import java.io.File
 
 class FetchService: BaseService(){
 
@@ -115,7 +118,6 @@ class FetchService: BaseService(){
             .setSmallIcon(R.drawable.ic_vector_error)
             .setContentTitle(notification.title)
             .setContentText(notification.content)
-
         manager.notify(notificationFailed, builder.build())
     }
 
@@ -136,6 +138,7 @@ class FetchService: BaseService(){
             .setSmallIcon(R.drawable.ic_vector_check)
             .setContentTitle(notification.title)
             .setContentText(notification.content)
+
 
         manager.notify(notificationSuccess, builder.build())
     }

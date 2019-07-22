@@ -30,10 +30,13 @@ class WebViewActivity: BaseAppBarActivity() {
 
     override fun onResume() {
         super.onResume()
-        when (userViewType){
-            viewTypeTerms -> webView.loadUrl("file:///android_asset/terms_and_conditions.html")
-            viewTypePrivacy -> webView.loadUrl("file:///android_asset/privacy_policy.html")
+
+        val url: String? = when (userViewType){
+            viewTypeTerms -> "file:///android_asset/terms_and_conditions.html"
+            viewTypePrivacy -> "file:///android_asset/privacy_policy.html"
+            else -> null
         }
+        webView.loadUrl(url)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -2,7 +2,7 @@ package com.isaiahvonrundstedt.bucket.architecture.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.core.FileViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network.FileViewModel
 
 class FileFactory(private var authorParams: String?) : ViewModelProvider.Factory {
 

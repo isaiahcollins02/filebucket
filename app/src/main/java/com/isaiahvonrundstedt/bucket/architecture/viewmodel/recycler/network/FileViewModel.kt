@@ -1,9 +1,9 @@
-package com.isaiahvonrundstedt.bucket.architecture.viewmodel.core
+package com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.isaiahvonrundstedt.bucket.architecture.store.FileStore
+import com.isaiahvonrundstedt.bucket.architecture.store.network.FileStore
 import com.isaiahvonrundstedt.bucket.objects.core.File
 
 class FileViewModel(authorParams: String?): ViewModel() {
@@ -25,7 +25,10 @@ class FileViewModel(authorParams: String?): ViewModel() {
         }
     }
 
-    fun size(): Int = repository.size()
+    val isEmpty: Boolean
+        get() = initialList.isEmpty()
+    val size: Int
+        get() = initialList.size
 
     fun refresh(){
         repository.refresh()

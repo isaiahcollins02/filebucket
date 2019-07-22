@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <files-path name="internalScope" path="/files"/>
+    <external-path name="internal" path="."/>
+    <root-path name="root" path="."/>
+</paths>

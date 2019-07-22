@@ -11,10 +11,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.filterable.BoxesAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.core.BoxesViewModel
+import com.isaiahvonrundstedt.bucket.adapters.core.BoxesAdapter
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network.BoxesViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
+import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import kotlinx.android.synthetic.main.fragment_box_child.*
 
 class PublicFragment: BaseFragment() {
@@ -38,7 +39,7 @@ class PublicFragment: BaseFragment() {
         super.onStart()
 
         layoutManager = LinearLayoutManager(context)
-        adapter = BoxesAdapter()
+        adapter = BoxesAdapter(context, childFragmentManager, GlideApp.with(this))
 
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(ItemDecoration(context))
@@ -74,7 +75,7 @@ class PublicFragment: BaseFragment() {
                 isScrolling = false
                 viewModel?.fetch()
 
-                if (viewModel?.size()!! >= 15)
+                if (viewModel?.size!! >= 15)
                     isLastItemReached = true
             }
         }

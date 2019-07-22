@@ -25,11 +25,8 @@ import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
 import com.isaiahvonrundstedt.bucket.activities.generic.SettingsActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
+import com.isaiahvonrundstedt.bucket.fragments.navigation.*
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.SearchFragment
-import com.isaiahvonrundstedt.bucket.fragments.navigation.BoxesFragment
-import com.isaiahvonrundstedt.bucket.fragments.navigation.FilesFragment
-import com.isaiahvonrundstedt.bucket.fragments.navigation.NotificationFragment
-import com.isaiahvonrundstedt.bucket.fragments.navigation.SavedFragment
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.User
@@ -42,10 +39,11 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     private var toolbarTitleView: TextView? = null
 
     companion object {
-        const val navigationItemFiles = 0
-        const val navigationItemBoxes = 1
-        const val navigationItemSaved = 2
-        const val navigationItemNotification = 3
+        const val navigationItemCloud = 0
+        const val navigationItemLocal = 1
+        const val navigationItemBoxes = 2
+        const val navigationItemSaved = 3
+        const val navigationItemNotification = 4
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,11 +85,12 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
     private fun obtainMenuItemID(int: Int?): Int {
         return when (int){
-            navigationItemFiles -> R.id.navigation_files
+            navigationItemCloud -> R.id.navigation_cloud
+            navigationItemLocal -> R.id.navigation_local
             navigationItemBoxes -> R.id.navigation_boxes
             navigationItemSaved -> R.id.navigation_collections
             navigationItemNotification -> R.id.navigation_notifications
-            else -> R.id.navigation_files
+            else -> R.id.navigation_cloud
         }
     }
 
@@ -134,7 +133,8 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         }
 
         when (item){
-            navigationItemFiles -> setToolbarTitle(R.string.navigation_files)
+            navigationItemCloud -> setToolbarTitle(R.string.navigation_cloud)
+            navigationItemLocal -> setToolbarTitle(R.string.navigation_local)
             navigationItemBoxes -> setToolbarTitle(R.string.navigation_boxes)
             navigationItemSaved -> setToolbarTitle(R.string.navigation_saved)
             navigationItemNotification -> setToolbarTitle(R.string.navigation_notifications)
@@ -147,7 +147,8 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
     private fun getFragment(item: Int?): Fragment? {
         return when (item){
-            navigationItemFiles -> FilesFragment()
+            navigationItemCloud -> CloudFragment()
+            navigationItemLocal -> LocalFragment()
             navigationItemBoxes -> BoxesFragment()
             navigationItemSaved -> SavedFragment()
             navigationItemNotification -> NotificationFragment()
@@ -181,14 +182,14 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
                     Permissions.writeRequestCode)
             }
         } else
-            replaceFragment(selectedItem ?: navigationItemFiles)
+            replaceFragment(selectedItem ?: navigationItemCloud)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode){
             Permissions.writeRequestCode -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    replaceFragment(selectedItem ?: navigationItemFiles)
+                    replaceFragment(selectedItem ?: navigationItemCloud)
             }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
@@ -196,7 +197,8 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
     override fun onNavigationItemSelected(navigationItem: MenuItem): Boolean {
         when (navigationItem.itemId){
-            R.id.navigation_files -> replaceFragment(navigationItemFiles)
+            R.id.navigation_cloud -> replaceFragment(navigationItemCloud)
+            R.id.navigation_local -> replaceFragment(navigationItemLocal)
             R.id.navigation_boxes -> replaceFragment(navigationItemBoxes)
             R.id.navigation_collections -> replaceFragment(navigationItemSaved)
             R.id.navigation_notifications -> replaceFragment(navigationItemNotification)
