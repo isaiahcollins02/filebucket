@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:srcCompat="@drawable/ic_object_video"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/titleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

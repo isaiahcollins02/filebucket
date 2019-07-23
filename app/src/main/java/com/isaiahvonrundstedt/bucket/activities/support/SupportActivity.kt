@@ -17,19 +17,13 @@ import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
 class SupportActivity: BaseAppBarActivity() {
 
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-
-    private lateinit var summaryField: ExtendedEditText
-    private lateinit var infoField: ExtendedEditText
+    private val firebaseAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_support)
         setToolbarTitle(R.string.about_feedback)
-
-        summaryField = findViewById(R.id.summaryField)
-        infoField = findViewById(R.id.infoField)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

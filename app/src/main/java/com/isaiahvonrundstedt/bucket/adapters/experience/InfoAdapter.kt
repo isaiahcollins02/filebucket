@@ -3,7 +3,7 @@ package com.isaiahvonrundstedt.bucket.adapters.experience
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.objects.experience.Information
@@ -24,8 +24,8 @@ class InfoAdapter(private var items: List<Information>): RecyclerView.Adapter<In
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val titleView: TextView = itemView.findViewById(R.id.infoTitleView)
-        private val contentView: TextView = itemView.findViewById(R.id.infoContentView)
+        private val titleView: AppCompatTextView = itemView.findViewById(R.id.infoTitleView)
+        private val contentView: AppCompatTextView = itemView.findViewById(R.id.infoContentView)
 
         fun bind(information: Information){
             titleView.text = itemView.context.getString(information.id)

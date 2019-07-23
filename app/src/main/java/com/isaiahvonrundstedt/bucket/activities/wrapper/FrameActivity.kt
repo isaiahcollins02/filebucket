@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.constants.Params
-import com.isaiahvonrundstedt.bucket.fragments.screendialog.DetailFragment
 import com.isaiahvonrundstedt.bucket.fragments.profile.ResetFragment
 import com.isaiahvonrundstedt.bucket.fragments.profile.SecureFragment
 

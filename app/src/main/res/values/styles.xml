@@ -1,5 +1,7 @@
 <resources>
 
+    <style name="AppTheme"/>
+
     <style name="AppTheme.Core" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -116,9 +118,14 @@
     </style>
 
     <!-- TextAppearance -->
-    <style name="AppTheme.TextAppearance.Title" parent="TextAppearance.AppCompat.Title"/>
+    <style name="AppTheme.TextAppearance.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/font_medium</item>
+    </style>
 
-    <style name="AppTheme.TextAppearance.Emphasis" parent="TextAppearance.AppCompat.Body2"/>
-
+    <style name="AppTheme.TextAppearance.Emphasis" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/font_medium</item>
+    </style>
 
 </resources>

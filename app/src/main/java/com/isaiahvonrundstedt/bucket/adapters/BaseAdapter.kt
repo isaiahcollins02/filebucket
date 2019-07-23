@@ -5,8 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
@@ -17,10 +17,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.isaiahvonrundstedt.bucket.BaseApp
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.support.VaultActivity
-import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.DetailFragment
+import com.isaiahvonrundstedt.bucket.fragments.screendialog.ViewerFragment
 import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.objects.core.LocalFile
@@ -43,6 +43,7 @@ abstract class BaseAdapter(private var context: Context?,
 
         internal const val bottomSheetTag = "detailsBottomSheet"
         internal const val detailScreenTag = "detailScreenDialog"
+        internal const val viewerScreenTag = "viewerScreenDialog"
     }
     
     internal class FileDiffCallback(private val oldItems: List<File>, private val newItems: List<File>): DiffUtil.Callback(){
@@ -89,9 +90,9 @@ abstract class BaseAdapter(private var context: Context?,
     abstract class FileViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         internal var rootView: View = itemView.findViewById(R.id.rootView)
         internal var iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-        internal var titleView: TextView = itemView.findViewById(R.id.titleView)
-        internal var subtitleView: TextView = itemView.findViewById(R.id.subtitleView)
-        internal var sizeView: TextView = itemView.findViewById(R.id.sizeView)
+        internal var titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
+        internal var subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
+        internal var sizeView: AppCompatTextView = itemView.findViewById(R.id.sizeView)
 
         abstract fun onBindData(file: File?)
     }
@@ -122,11 +123,11 @@ abstract class BaseAdapter(private var context: Context?,
     internal inner class ImageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val rootView: View = itemView.findViewById(R.id.rootView)
         private val containerView: AppCompatImageView = itemView.findViewById(R.id.containerView)
-        private val titleView: TextView = itemView.findViewById(R.id.titleView)
-        private val subtitleView: TextView = itemView.findViewById(R.id.subtitleView)
+        private val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
+        private val subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
 
         fun onBindData(file: File?){
-            rootView.setOnClickListener {  }
+            rootView.setOnClickListener { viewImage(file) }
             rootView.setOnLongClickListener { showDetailSheet(file); true }
             fetchImageAsset(file?.downloadURL, containerView)
             titleView.text = file?.name
@@ -137,9 +138,9 @@ abstract class BaseAdapter(private var context: Context?,
     internal inner class LocalViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         internal var rootView: View = itemView.findViewById(R.id.rootView)
         internal var iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-        internal var titleView: TextView = itemView.findViewById(R.id.titleView)
-        internal var subtitleView: TextView = itemView.findViewById(R.id.subtitleView)
-        internal var sizeView: TextView = itemView.findViewById(R.id.sizeView)
+        internal var titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
+        internal var subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
+        internal var sizeView: AppCompatTextView = itemView.findViewById(R.id.sizeView)
         
         fun onBindData(localFile: LocalFile?){
             rootView.setOnClickListener { onParseIntent(localFile) }
@@ -153,8 +154,8 @@ abstract class BaseAdapter(private var context: Context?,
     internal inner class BoxViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val rootView: View = itemView.findViewById(R.id.rootView)
         val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-        val titleView: TextView = itemView.findViewById(R.id.titleView)
-        val subtitleView: TextView = itemView.findViewById(R.id.subtitleView)
+        val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
+        val subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
 
         fun onBindData(account: Account?){
             val fullName: String? = "${account?.firstName} ${account?.lastName}"
@@ -230,6 +231,16 @@ abstract class BaseAdapter(private var context: Context?,
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             if (intent.resolveActivity(context?.packageManager!!) != null)
                 context?.startActivity(intent)
+        }
+    }
+    private fun viewImage(file: File?){
+        if (fragmentManager.findFragmentByTag(viewerScreenTag)?.isAdded != true){
+            val args = Bundle()
+            args.putParcelable(Params.args, file)
+
+            val viewer = ViewerFragment()
+            viewer.arguments = args
+            viewer.show(fragmentManager, viewerScreenTag)
         }
     }
 

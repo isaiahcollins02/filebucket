@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
@@ -111,7 +111,7 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
 
         class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
             val rootView: View = itemView.findViewById(R.id.rootView)
-            val titleView: TextView = itemView.findViewById(R.id.titleView)
+            val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
         }
     }
 

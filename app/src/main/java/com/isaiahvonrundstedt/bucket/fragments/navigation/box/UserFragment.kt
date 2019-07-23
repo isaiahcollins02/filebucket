@@ -11,10 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
 import com.isaiahvonrundstedt.bucket.adapters.core.SentAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network.FileViewModel
 import com.isaiahvonrundstedt.bucket.architecture.factory.FileFactory
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network.FileViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp

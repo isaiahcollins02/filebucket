@@ -13,11 +13,12 @@
             android:layout_height="?android:attr/actionBarSize"
             android:theme="@style/AppTheme.Widget.Toolbar">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:maxLength="30"
                 android:textAppearance="@style/AppTheme.TextAppearance.Title"
                 tools:text="Title"/>
 

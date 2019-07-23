@@ -7,27 +7,37 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.isaiahvonrundstedt.bucket.BuildConfig
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.generic.LibrariesActivity
-import com.isaiahvonrundstedt.bucket.activities.wrapper.WebViewActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BasePreference
+import com.isaiahvonrundstedt.bucket.constants.Params
+import com.isaiahvonrundstedt.bucket.fragments.screendialog.WebViewFragment
 
 class AboutFragment: BasePreference() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_about, rootKey)
 
+        val webViewFragment = WebViewFragment()
+        val args = Bundle()
+
         val policyPref: Preference? = findPreference("policyPref")
         policyPref?.setOnPreferenceClickListener {
-            val intent = Intent(context!!, WebViewActivity::class.java)
-            intent.putExtra("viewType", WebViewActivity.viewTypePrivacy)
-            startActivity(intent)
+            if (childFragmentManager.findFragmentByTag(WebViewFragment.tag)?.isAdded != true){
+                args.putInt(Params.viewType, WebViewFragment.viewTypePrivacy)
+
+                webViewFragment.arguments = args
+                webViewFragment.show(childFragmentManager, WebViewFragment.tag)
+            }
             return@setOnPreferenceClickListener true
         }
 
         val termsPref: Preference? = findPreference("termsPref")
         termsPref?.setOnPreferenceClickListener {
-            val intent = Intent(context!!, WebViewActivity::class.java)
-            intent.putExtra("viewType", WebViewActivity.viewTypeTerms)
-            startActivity(intent)
+            if (childFragmentManager.findFragmentByTag(WebViewFragment.tag)?.isAdded != true) {
+                args.putInt(Params.viewType, WebViewFragment.viewTypeTerms)
+
+                webViewFragment.arguments = args
+                webViewFragment.show(childFragmentManager, WebViewFragment.tag)
+            }
             return@setOnPreferenceClickListener true
         }
 

@@ -5,8 +5,8 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -61,8 +61,8 @@ class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>(
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-        private val titleView: TextView = itemView.findViewById(R.id.titleView)
-        private val subtitleView: TextView = itemView.findViewById(R.id.subtitleView)
+        private val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
+        private val subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
 
         fun bindData(notification: Notification){
 

@@ -11,8 +11,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.wrapper.WebViewActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
+import com.isaiahvonrundstedt.bucket.constants.Params
+import com.isaiahvonrundstedt.bucket.fragments.screendialog.WebViewFragment
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import kotlinx.android.synthetic.main.activity_firstrun.*
 
@@ -25,17 +26,26 @@ class FirstRunActivity: BaseActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
 
+        val webViewFragment = WebViewFragment()
+        val args = Bundle()
+
         val spannableString = SpannableString(getString(R.string.license_agreement_helper))
-        spannableString.setSpan(object: ClickableSpan(){
+        spannableString.setSpan(object: ClickableSpan() {
             override fun onClick(widget: View) {
-                startActivity(Intent(this@FirstRunActivity, WebViewActivity::class.java)
-                    .putExtra("viewType", WebViewActivity.viewTypePrivacy))
+                if (supportFragmentManager.findFragmentByTag(WebViewFragment.tag)?.isAdded != true){
+                    args.putInt(Params.viewType, WebViewFragment.viewTypePrivacy)
+                    webViewFragment.arguments = args
+                    webViewFragment.show(supportFragmentManager, WebViewFragment.tag)
+                }
             }
         }, 33, 47, 0)
         spannableString.setSpan(object: ClickableSpan(){
             override fun onClick(widget: View) {
-                startActivity(Intent(this@FirstRunActivity, WebViewActivity::class.java)
-                    .putExtra("viewType", WebViewActivity.viewTypeTerms))
+                if (supportFragmentManager.findFragmentByTag(WebViewFragment.tag)?.isAdded != true) {
+                    args.putInt(Params.viewType, WebViewFragment.viewTypeTerms)
+                    webViewFragment.arguments = args
+                    webViewFragment.show(supportFragmentManager, WebViewFragment.tag)
+                }
             }
         }, 52, 68, 0)
         hyperlinkView.movementMethod = LinkMovementMethod.getInstance()

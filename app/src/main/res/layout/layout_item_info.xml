@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_margin" >
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/infoTitleView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
                 android:layout_alignParentTop="true"
                 tools:text="Storage Used"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/infoContentView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

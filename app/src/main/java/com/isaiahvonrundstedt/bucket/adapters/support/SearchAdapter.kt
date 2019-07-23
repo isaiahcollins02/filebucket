@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -50,9 +50,9 @@ class SearchAdapter(private var itemList: ArrayList<File>): RecyclerView.Adapter
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val rootView: View = itemView.findViewById(R.id.rootView)
         private val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-        private val titleView: TextView = itemView.findViewById(R.id.titleView)
-        private val subtitleView: TextView = itemView.findViewById(R.id.subtitleView)
-        private val sizeView: TextView = itemView.findViewById(R.id.sizeView)
+        private val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
+        private val subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
+        private val sizeView: AppCompatTextView = itemView.findViewById(R.id.sizeView)
 
         fun bind(file: File){
             titleView.text = file.name

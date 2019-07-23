@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.experience.SearchAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
-import kotlinx.android.synthetic.main.layout_appbar_flat.*
 import kotlinx.android.synthetic.main.layout_dialog_search.*
 
 class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {

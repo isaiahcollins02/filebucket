@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -15,7 +14,7 @@ import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.kaopiz.kprogresshud.KProgressHUD
-import studio.carbonylgroup.textfieldboxes.ExtendedEditText
+import kotlinx.android.synthetic.main.fragment_auth.*
 
 class AuthFragment: Fragment() {
 
@@ -25,11 +24,6 @@ class AuthFragment: Fragment() {
 
     private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
     private val firebaseAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-
-    private lateinit var rootView: View
-    private lateinit var passwordField: ExtendedEditText
-    private lateinit var confirmPasswordField: ExtendedEditText
-    private lateinit var registerButton: AppCompatTextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,65 +36,50 @@ class AuthFragment: Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_auth, container, false)
-
-        passwordField = rootView.findViewById(R.id.passwordField)
-        confirmPasswordField = rootView.findViewById(R.id.confirmPasswordField)
-        registerButton = rootView.findViewById(R.id.registerButton)
-
-        return rootView
+        return inflater.inflate(R.layout.fragment_auth, container, false)
     }
 
-    private fun handleRegistration(_password: String, confirmPass: String){
+    private fun onRegister(password: String, confirmPass: String){
         val userReference = firestore.collection(Firestore.users)
 
-        if (_password == confirmPass){
-            val dialog = KProgressHUD.create(rootView.context)
-            dialog.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-            dialog.setAnimationSpeed(2)
-            dialog.setCancellable(false)
-            dialog.setDimAmount(.05f)
-            dialog.show()
+        if (password == confirmPass){
+            val kProgressHUD = KProgressHUD.create(context)
+            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+            .setAnimationSpeed(2)
+            .setCancellable(false)
+            .setDimAmount(.05f)
+            .show()
 
-            firebaseAuth.createUserWithEmailAndPassword(_email!!, _password)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val userID: String = it.result?.user!!.uid
+            firebaseAuth.createUserWithEmailAndPassword(_email!!, password)
+                .addOnSuccessListener {
+                    val userID: String = it.user.uid
 
-                        val newAccount = Account().apply {
-                            firstName = _firstName
-                            lastName = _lastName
-                            email = _email
-                            password = _password
-                            accountID = userID
+                    val newAccount = Account(accountID = userID, firstName = _firstName, lastName = _lastName, email = _email)
+
+                    userReference.document(userID).set(newAccount)
+                        .addOnCompleteListener { kProgressHUD.dismiss() }
+                        .addOnSuccessListener {
+                            startActivity(Intent(context, MainActivity::class.java))
+                            activity?.finish()
                         }
-
-                        userReference.document(userID).set(newAccount)
-                            .addOnSuccessListener {
-                                dialog.dismiss()
-
-                                startActivity(Intent(rootView.context, MainActivity::class.java))
-                                activity?.finish()
-                            }
-                            .addOnFailureListener {
-                                dialog.dismiss()
-                                Snackbar.make(rootView, R.string.status_unknown, Snackbar.LENGTH_SHORT).show()
-                            }
-                    } else
-                        dialog.dismiss()
-                        Snackbar.make(rootView, R.string.status_unknown, Snackbar.LENGTH_SHORT).show()
+                        .addOnFailureListener {
+                            Snackbar.make(view!!, R.string.status_error_unknown, Snackbar.LENGTH_SHORT).show()
+                        }
                 }
-        } else if (_password.isBlank() || confirmPass.isBlank())
-            Snackbar.make(rootView, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
+                .addOnFailureListener {
+                    Snackbar.make(view!!, R.string.status_error_unknown, Snackbar.LENGTH_SHORT).show()
+                }
+        } else if (password.isBlank() || confirmPass.isBlank())
+            Snackbar.make(view!!, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
         else
-            Snackbar.make(rootView, R.string.status_password_not_match, Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view!!, R.string.status_password_not_match, Snackbar.LENGTH_SHORT).show()
 
     }
     override fun onStart() {
         super.onStart()
 
         registerButton.setOnClickListener {
-            handleRegistration(passwordField.text.toString(), confirmPasswordField.text.toString())
+            onRegister(passwordField.text.toString(), confirmPasswordField.text.toString())
         }
     }
 

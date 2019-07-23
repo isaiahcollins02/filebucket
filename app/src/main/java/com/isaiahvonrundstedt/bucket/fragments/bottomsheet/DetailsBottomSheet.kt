@@ -1,14 +1,12 @@
 package com.isaiahvonrundstedt.bucket.fragments.bottomsheet
 
 import android.app.Application
-import android.app.DownloadManager
 import android.content.Context
-import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.material.button.MaterialButton
 import com.isaiahvonrundstedt.bucket.R
@@ -18,7 +16,8 @@ import com.isaiahvonrundstedt.bucket.architecture.store.SavedStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.objects.core.File
-import com.isaiahvonrundstedt.bucket.utils.Preferences
+import com.isaiahvonrundstedt.bucket.service.FetchService
+import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import kotlinx.android.synthetic.main.layout_sheet_details.*
 import kotlinx.coroutines.Dispatchers
@@ -28,16 +27,11 @@ import kotlinx.coroutines.withContext
 class DetailsBottomSheet: BaseBottomSheet() {
 
     private var file: File? = null
-    private var downloadID: Long? = 0L
+    private var fileInDatabase: Boolean? = false
+
     private var appDB: AppDatabase? = null
     private var collectionDAO: SavedDAO? = null
     private var store: SavedStore? = null
-    private var fileInDatabase: Boolean? = false
-
-    private lateinit var request: DownloadManager.Request
-    private lateinit var downloadManager: DownloadManager
-
-    private lateinit var rootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +41,11 @@ class DetailsBottomSheet: BaseBottomSheet() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.layout_sheet_details, container, false)
-        downloadManager = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        return rootView
+        return inflater.inflate(R.layout.layout_sheet_details, container, false)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         appDB = AppDatabase.getDatabase(context)
         collectionDAO = appDB?.collectionAccessor()
         store = SavedStore(context.applicationContext as Application)
@@ -67,7 +58,7 @@ class DetailsBottomSheet: BaseBottomSheet() {
             collectionDAO?.checkIfExists(file)
         }
 
-        iconView.setImageDrawable(ItemManager.getFileIcon(rootView.context, file?.fileType))
+        iconView.setImageDrawable(ItemManager.getFileIcon(context, file?.fileType))
         titleView.text = file?.name
 
         saveButton.setOnClickListener {
@@ -80,18 +71,18 @@ class DetailsBottomSheet: BaseBottomSheet() {
             }
         }
         downloadButton.setOnClickListener {
-            val externalDir: String? = Preferences(it.context).downloadDirectory
-            val bufferedFile = java.io.File(externalDir, file?.name)
-
             MaterialDialog(it.context).show {
                 title(text = String.format(context.getString(R.string.dialog_file_download_title), file?.name))
                 message(R.string.dialog_file_download_summary)
-                positiveButton(R.string.button_download) {
-                    request = DownloadManager.Request(Uri.parse(file?.downloadURL))
-                        .setTitle(context.getString(R.string.notification_downloading_file))
-                        .setDestinationUri(bufferedFile.toUri())
+                positiveButton(R.string.button_download) { button ->
+                    it.context.startService(Intent(it.context, FetchService::class.java)
+                        .setAction(FetchService.actionDownload)
+                        .putExtra(FetchService.extraFileName, file?.name)
+                        .putExtra(FetchService.extraDownloadURL, file?.downloadURL))
 
-                    downloadID = downloadManager.enqueue(request)
+                    it.context.startService(Intent(it.context, UsageService::class.java)
+                        .setAction(UsageService.sendFileUsage)
+                        .putExtra(UsageService.extraObjectID, file?.fileID))
                 }
                 negativeButton(R.string.button_cancel)
             }

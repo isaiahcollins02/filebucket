@@ -12,7 +12,6 @@ import com.isaiahvonrundstedt.bucket.adapters.experience.InfoAdapter
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
 import com.isaiahvonrundstedt.bucket.architecture.store.SavedStore
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.constants.Params
@@ -21,7 +20,6 @@ import com.isaiahvonrundstedt.bucket.objects.experience.Information
 import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
-import kotlinx.android.synthetic.main.layout_appbar_flat.*
 import kotlinx.android.synthetic.main.layout_dialog_detail.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking

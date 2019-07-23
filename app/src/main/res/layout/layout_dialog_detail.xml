@@ -22,7 +22,7 @@
                 android:layout_marginStart="16dp"
                 tools:srcCompat="@drawable/ic_object_video"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/titleView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                 android:textAppearance="@style/AppTheme.TextAppearance.Emphasis"
                 tools:text="Sample File"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/authorView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

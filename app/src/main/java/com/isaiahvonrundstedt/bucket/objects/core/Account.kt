@@ -10,7 +10,6 @@ data class Account @JvmOverloads constructor (
                                 var firstName: String? = null,
                                 var lastName: String? = null,
                                 var email: String? = null,
-                                var password: String? = null,
                                 var imageURL: String? = null): Comparable<Account>, Parcelable{
 
     override fun compareTo(other: Account): Int {

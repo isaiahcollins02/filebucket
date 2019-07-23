@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
@@ -42,7 +42,7 @@ class PickerBottomSheet: BaseBottomSheet(), BottomSheetPicker {
         class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
             val rowView: View = itemView.findViewById(R.id.rootView)
             val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-            val titleView: TextView = itemView.findViewById(R.id.titleView)
+            val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
         }
 
     }

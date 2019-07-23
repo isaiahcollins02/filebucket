@@ -9,9 +9,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
-import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -36,7 +36,7 @@ import kotlinx.android.synthetic.main.layout_appbar_drawer.*
 class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigationItemSelectedListener {
 
     private var selectedItem: Int? = null
-    private var toolbarTitleView: TextView? = null
+    private var toolbarTitleView: AppCompatTextView? = null
 
     companion object {
         const val navigationItemCloud = 0
@@ -97,8 +97,8 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     private fun setupNavigationHeader(){
         val headerLayout = navigationView.getHeaderView(0)
         val imageView: AppCompatImageView = headerLayout.findViewById(R.id.imageView)
-        val titleView: TextView = headerLayout.findViewById(R.id.titleView)
-        val subtitleView: TextView = headerLayout.findViewById(R.id.subtitleView)
+        val titleView: AppCompatTextView = headerLayout.findViewById(R.id.titleView)
+        val subtitleView: AppCompatTextView = headerLayout.findViewById(R.id.subtitleView)
 
         with(User(this)){
             titleView.text = fullName

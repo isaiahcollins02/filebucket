@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.adapters.BaseAdapter
-import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
 import com.isaiahvonrundstedt.bucket.utils.converters.MetricConverter
 
 class ItemDecoration (private var context: Context?): RecyclerView.ItemDecoration() {
@@ -58,9 +57,11 @@ class ItemDecoration (private var context: Context?): RecyclerView.ItemDecoratio
         val itemPosition = recyclerView.getChildAdapterPosition(view)
         val viewType = recyclerView.adapter?.getItemViewType(itemPosition)
         val marginOffsets = MetricConverter.convertDPtoPixel(context!!, 16F).toInt()
-        if (viewType == BaseAdapter.viewTypeImage)
-            outRect.set(0, marginOffsets, 0, marginOffsets)
-        else
-            outRect.setEmpty()
+        if (itemPosition == 0){
+            if (viewType == BaseAdapter.viewTypeImage)
+                outRect.set(0, marginOffsets, 0, marginOffsets)
+            else
+                outRect.set(0, marginOffsets, 0, 0)
+        } else outRect.setEmpty()
     }
 }

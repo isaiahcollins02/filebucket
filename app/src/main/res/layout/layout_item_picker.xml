@@ -26,7 +26,7 @@
                 app:tint="@color/colorIcons"
                 tools:srcCompat="@drawable/ic_vector_files"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/titleView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -24,7 +24,7 @@
                 app:layout_constraintEnd_toStartOf="@id/titleView"
                 app:srcCompat="@drawable/ic_object_update"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/titleView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 app:layout_constraintStart_toEndOf="@id/iconView"
                 tools:text="Sample File Today is the Day"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/subtitleView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -21,11 +21,10 @@
             tools:replace="android:allowBackup">
 
         <provider
-                android:name="androidx.core.content.FileProvider"
+                android:name="com.isaiahvonrundstedt.bucket.components.AppFileProvider"
                 android:authorities="com.isaiahvonrundstedt.bucket.components.AppFileProvider"
                 android:exported="false"
-                android:grantUriPermissions="true"
-                tools:replace="android:authorities">
+                android:grantUriPermissions="true">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/provider_paths"/>
@@ -52,14 +51,13 @@
         <activity android:name=".activities.auth.RegisterActivity"
                   android:theme="@style/AppTheme.FirstRun"
                   android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".activities.wrapper.FrameActivity"/>
-        <activity android:name=".activities.wrapper.WebViewActivity" />
         <activity android:name=".activities.support.ProfileActivity" />
         <activity android:name=".activities.support.VaultActivity"/>
         <activity android:name=".activities.support.SupportActivity"/>
         <activity android:name=".activities.generic.AboutActivity"/>
         <activity android:name=".activities.generic.LibrariesActivity"/>
         <activity android:name=".activities.generic.SettingsActivity"/>
+        <activity android:name=".activities.wrapper.FrameActivity"/>
 
         <service android:name="com.isaiahvonrundstedt.bucket.service.TransferService"
                 android:exported="false"/>

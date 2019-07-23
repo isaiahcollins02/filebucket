@@ -19,7 +19,7 @@
             android:focusable="true"
             android:layout_gravity="center"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/nameView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             tools:text="Collins von Ludendorff"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/emailView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             tools:text="isaiahcollins02@gmail.com"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

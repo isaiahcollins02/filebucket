@@ -33,7 +33,7 @@ abstract class BaseScreenDialog: DialogFragment(){
         toolbarTitle.text = context?.getString(stringRes)
     }
 
-    internal fun setToolbarTitle(string: String){
+    internal fun setToolbarTitle(string: String?){
         toolbarTitle.text = string
     }
 

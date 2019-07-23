@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.AppCompatTextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,7 +18,6 @@ import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.User
 import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.activity_login.*
-import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
 class LoginActivity: BaseActivity() {
 
@@ -80,7 +77,7 @@ class LoginActivity: BaseActivity() {
                         }
                         .addOnFailureListener {
                             dialog.dismiss()
-                            Snackbar.make(window.decorView.rootView, R.string.status_unknown, Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(window.decorView.rootView, R.string.status_error_unknown, Snackbar.LENGTH_SHORT).show()
                         }
                 }
                 .addOnFailureListener {

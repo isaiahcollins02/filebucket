@@ -26,7 +26,7 @@
             android:orientation="vertical"
             android:padding="48dp">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -35,7 +35,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -43,7 +43,7 @@
                 android:textColor="@color/colorHelperText"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/hyperlinkView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

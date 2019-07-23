@@ -30,8 +30,6 @@ class BoxesViewModel: ViewModel() {
     val size: Int
         get() = initialList.size
 
-    fun size(): Int = repository.size()
-
     fun refresh(){
         repository.refresh()
         initialList.clear()

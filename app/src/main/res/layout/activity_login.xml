@@ -22,7 +22,7 @@
             android:paddingStart="48dp"
             android:paddingEnd="48dp">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -31,7 +31,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
@@ -91,7 +91,7 @@
             android:background="@color/colorPrimary"
             android:layout_alignParentBottom="true">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatAppCompatTextView
                 android:id="@+id/loginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -16,7 +16,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:srcCompat="@drawable/ic_brand_user"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/titleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Isaiah Collins von Ludendorff"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/subtitleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
