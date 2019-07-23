@@ -14,8 +14,8 @@
 
     <!-- UI Components -->
     <color name="colorIcons">#000000</color>
-    <color name="colorToolbar">#ffffff</color>
-    <color name="colorStatusBar">#e8eaed</color>
+    <color name="colorToolbar">#fafafa</color>
+    <color name="colorStatusBar">#e1e1e1</color>
     <color name="colorDrawerStatusBar">#80ffffff</color>
 
     <!-- Texts -->

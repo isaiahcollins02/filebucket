@@ -57,11 +57,11 @@ class ItemDecoration (private var context: Context?): RecyclerView.ItemDecoratio
         val itemPosition = recyclerView.getChildAdapterPosition(view)
         val viewType = recyclerView.adapter?.getItemViewType(itemPosition)
         val marginOffsets = MetricConverter.convertDPtoPixel(context!!, 16F).toInt()
-        if (itemPosition == 0){
-            if (viewType == BaseAdapter.viewTypeImage)
-                outRect.set(0, marginOffsets, 0, marginOffsets)
-            else
+        if (viewType != BaseAdapter.viewTypeImage){
+            if (itemPosition == 0)
                 outRect.set(0, marginOffsets, 0, 0)
-        } else outRect.setEmpty()
+            else outRect.setEmpty()
+        } else
+            outRect.set(0, marginOffsets, 0, marginOffsets)
     }
 }

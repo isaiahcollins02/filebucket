@@ -106,14 +106,15 @@
 
     <style name="AppTheme.Widget.SearchView" parent="Widget.AppCompat.Light.SearchView">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:iconifiedByDefault">false</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppTheme.Widget.TabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabTextColor">@color/tab_selected</item>
-        <item name="tabIndicatorColor">@color/colorOnPrimary</item>
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
         <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Button</item>
     </style>
 
@@ -124,8 +125,12 @@
     </style>
 
     <style name="AppTheme.TextAppearance.Emphasis" parent="TextAppearance.AppCompat.Body2">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/font_medium</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Regular" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/font_regular</item>
     </style>
 
 </resources>

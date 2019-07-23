@@ -32,9 +32,12 @@
     <string name="button_login">Login</string>
     <string name="button_register">Register</string>
     <!-- Action Button Text -->
+    <string name="button_browse">Browse</string>
+    <string name="button_upload">Upload</string>
     <string name="button_download">Download</string>
     <string name="button_send">Send</string>
     <!-- Specific Button Text -->
+    <string name="button_schedule">Schedule</string>
     <string name="button_edit">Edit</string>
     <string name="button_save">Save</string>
     <string name="button_remove">Remove</string>
@@ -59,6 +62,13 @@
     <string name="file_type_music">Music</string>
     <string name="file_type_video">Video</string>
 
+    <string name="editor_file_source">Source</string>
+    <string name="editor_file_information">Information</string>
+    <string name="editor_file_schedule_upload">Schedule Upload</string>
+    <string name="editor_constraint_network">When I\'m connected to WiFi</string>
+    <string name="editor_constraint_time">When the time is: </string>
+
+    <string name="field_hint_name_file">File Name</string>
     <string name="field_hint_search">Search for files</string>
     <string name="field_hint_email">Email Address</string>
     <string name="field_hint_password">Password</string>

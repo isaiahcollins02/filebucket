@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:indeterminate="true"
-            app:mpb_progressTint="@color/colorPrimary"
+            app:mpb_indeterminateTint="@color/colorPrimary"
             app:mpb_progressStyle="circular"/>
 
 </RelativeLayout>

@@ -83,7 +83,7 @@
             android:background="@color/colorPrimary"
             android:layout_alignParentBottom="true">
 
-        <androidx.appcompat.widget.AppCompatAppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/registerButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
