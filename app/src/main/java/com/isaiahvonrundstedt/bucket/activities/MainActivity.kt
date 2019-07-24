@@ -162,24 +162,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
     override fun onResume() {
         super.onResume()
-
-        if (!Permissions(this).writeAccessGranted){
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-                MaterialDialog(this).show {
-                    lifecycleOwner(this@MainActivity)
-                    title(R.string.dialog_permission_revoked_title)
-                    message(R.string.dialog_permission_revoked_summary)
-                    positiveButton(R.string.button_continue){
-                        ActivityCompat.requestPermissions(this@MainActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                            Permissions.writeRequestCode)
-                    }
-                }
-            } else {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    Permissions.writeRequestCode)
-            }
-        } else
-            replaceFragment(selectedItem ?: navigationItemCloud)
+        replaceFragment(selectedItem ?: navigationItemCloud)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

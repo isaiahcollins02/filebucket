@@ -28,7 +28,7 @@ class WebViewFragment: BaseScreenDialog() {
         when (userViewType){
             viewTypeTerms -> setToolbarTitle(R.string.about_terms_of_service)
             viewTypePrivacy -> setToolbarTitle(R.string.about_privacy_policy)
-            viewTypeGeneric -> setToolbarTitle(R.string.about_privacy_policy)
+            viewTypeLicense -> setToolbarTitle(R.string.about_licenses)
         }
     }
 
@@ -37,6 +37,7 @@ class WebViewFragment: BaseScreenDialog() {
         val url: String? = when (userViewType){
             viewTypeTerms -> "file:///android_asset/terms_and_conditions.html"
             viewTypePrivacy -> "file:///android_asset/privacy_policy.html"
+            viewTypeLicense -> "file:///android_asset/software_licenses.html"
             else -> null
         }
         webView.loadUrl(url)
@@ -46,6 +47,7 @@ class WebViewFragment: BaseScreenDialog() {
         const val viewTypeGeneric = 0
         const val viewTypeTerms = 1
         const val viewTypePrivacy = 2
+        const val viewTypeLicense = 3
 
         const val tag = "webViewTag"
     }

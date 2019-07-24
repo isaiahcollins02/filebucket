@@ -213,9 +213,6 @@
     <string name="settings_analytics">Diagnostics and Analytics</string>
     <string name="settings_directory">Download Location</string>
 
-    <string name="about_feedback">Help &amp; Feedback</string>
-    <string name="about_service">About File Bucket</string>
-
     <string name="team_development">Development Team</string>
     <string name="team_position_chief">Chief Software Engineer</string>
     <string name="team_isaiah_collins_abetong" translatable="false">Isaiah Collins von Ludendorff</string>
@@ -223,33 +220,9 @@
     <string name="about_privacy_policy">Privacy Policy</string>
     <string name="about_terms_of_service">Terms and Conditions</string>
 
-    <string name="about_notices">Open-Source Notices</string>
-
-    <string name="about_build_date">Build Date</string>
+    <string name="about_support">Support Information</string>
+    <string name="about_licenses">Licenses</string>
+    <string name="about_feedback">Help &amp; Feedback</string>
     <string name="about_version">Build Version</string>
-
-    <string name="contri_glide_transformations_title" translatable="false">Daichi Furiya (Wasabeef)</string>
-    <string name="contri_glide_transformations_summary" translatable="false">Glide Transformations</string>
-
-    <string name="contri_glide_title" translatable="false">Bump Technologies</string>
-    <string name="contri_glide_summary" translatable="false">Glide Image Caching Library</string>
-
-    <string name="contri_gpu_title" translatable="false">Client Advanced Technology Studio</string>
-    <string name="contri_gpu_summary" translatable="false">GPUImage for Android</string>
-
-    <string name="contri_progress_title" translatable="false">Kaopiz Software Co., Ltd.</string>
-    <string name="contri_progress_summary" translatable="false">KProgressHUD</string>
-
-    <string name="contri_image_picker_title" translatable="false">Ted Park</string>
-    <string name="contri_image_picker_summary" translatable="false">TedBottomPicker</string>
-
-    <string name="contri_material_text_boxes_title" translatable="false">Carbonylgroup Studio</string>
-    <string name="contri_material_text_boxes_summary" translatable="false">TextFieldBoxes</string>
-
-    <string name="contri_material_dialog_title" translatable="false">Aidan Follestad</string>
-    <string name="contri_material_dialog_summary" translatable="false">Material Dialog</string>
-
-    <string name="surprise_easter_title" translatable="false">Gott mit uns!</string>
-    <string name="surprise_easter_summary" translatable="false">Deutschland uber Alles</string>
 
 </resources>

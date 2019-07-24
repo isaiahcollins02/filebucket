@@ -29,9 +29,9 @@
     <color name="colorIndicatorRed">#d62d20</color>
     <color name="colorIndicatorYellow">#ffa700</color>
 
-    <color name="colorSlideBlue">#5c00ff</color>
-    <color name="colorSlideGreen">#00a99b</color>
-    <color name="colorSlideRed">#ff0022</color>
-    <color name="colorSlideYellow">#fb9f00</color>
+    <color name="colorIntroBlue">#5c00ff</color>
+    <color name="colorIntroGreen">#00a99b</color>
+    <color name="colorIntroRed">#ff0022</color>
+    <color name="colorIntroYellow">#fb9f00</color>
 
 </resources>

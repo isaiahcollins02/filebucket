@@ -21,11 +21,16 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory>
+    <PreferenceCategory
+            android:title="@string/about_support">
 
         <Preference
-                android:key="openSourcePref"
-                android:title="@string/about_notices"/>
+                android:key="licensesPref"
+                android:title="@string/about_licenses"/>
+
+        <Preference
+                android:key="supportPref"
+                android:title="@string/about_feedback"/>
 
         <Preference
                 android:key="versionPreference"
