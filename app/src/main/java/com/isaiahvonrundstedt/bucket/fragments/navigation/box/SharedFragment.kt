@@ -18,7 +18,7 @@ import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import kotlinx.android.synthetic.main.fragment_box_child.*
 
-class PublicFragment: BaseFragment() {
+class SharedFragment: BaseFragment() {
 
     private var adapter: BoxesAdapter? = null
     private var layoutManager: LinearLayoutManager? = null

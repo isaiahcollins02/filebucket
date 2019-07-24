@@ -13,7 +13,6 @@ import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.diagnostics.Support
 import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.activity_support.*
-import studio.carbonylgroup.textfieldboxes.ExtendedEditText
 
 class SupportActivity: BaseAppBarActivity() {
 

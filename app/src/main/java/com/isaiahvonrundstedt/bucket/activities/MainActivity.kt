@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -65,11 +64,8 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         actionBarToggle.drawerArrowDrawable.color = ContextCompat.getColor(this, R.color.colorIcons)
         actionBarToggle.syncState()
 
-        if (Preferences(this).theme == Preferences.themeLight){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                drawerLayout.setStatusBarBackground(android.R.color.transparent)
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        if (!Preferences(this).isDarkEnabled){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                 drawerLayout.setStatusBarBackground(R.color.colorDrawerStatusBar)
             }
@@ -77,6 +73,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 drawerLayout.setStatusBarBackground(R.color.colorDrawerStatusBar)
+            else drawerLayout.setStatusBarBackground(android.R.color.black)
         }
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -107,7 +104,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             GlideApp.with(this@MainActivity)
                 .load(imageURL)
                 .centerCrop()
-                .error(R.drawable.ic_brand_user)
+                .error(R.drawable.ic_object_user)
                 .into(imageView)
         }
     }

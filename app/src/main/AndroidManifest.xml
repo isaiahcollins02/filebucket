@@ -31,7 +31,7 @@
         </provider>
 
         <activity android:name=".activities.SplashActivity"
-                android:theme="@style/AppTheme.Core" >
+                android:theme="@style/AppTheme.Core">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -58,6 +58,7 @@
         <activity android:name=".activities.generic.LibrariesActivity"/>
         <activity android:name=".activities.generic.SettingsActivity"/>
         <activity android:name=".activities.wrapper.FrameActivity"/>
+        <activity android:name=".activities.wrapper.IntroActivity"/>
 
         <service android:name="com.isaiahvonrundstedt.bucket.service.TransferService"
                 android:exported="false"/>

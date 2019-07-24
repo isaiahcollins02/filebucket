@@ -67,7 +67,7 @@ class SearchAdapter(private var context: Context?): RecyclerView.Adapter<SearchA
 
         fun bind(result: Generic){
             val bundleArgs = result.payload
-            val actualPayload: File? = bundleArgs?.getParcelable(Params.args)
+            val actualPayload: File? = bundleArgs?.getParcelable(Params.payload)
 
             iconView.setImageDrawable(ItemManager.getFileIcon(context, actualPayload?.fileType))
             titleView.text = actualPayload?.name

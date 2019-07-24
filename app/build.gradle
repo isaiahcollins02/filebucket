@@ -85,6 +85,7 @@ dependencies {
     implementation 'com.kaopiz:kprogresshud:1.2.0'
     implementation 'com.github.HITGIF:TextFieldBoxes:1.4.5'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+    implementation 'com.mikhaellopez:circularimageview:4.0.1'
     implementation 'com.github.AppIntro:AppIntro:5.1.0'
     implementation 'com.afollestad.material-dialogs:core:3.1.0'
     implementation 'com.afollestad.material-dialogs:input:3.1.0'
@@ -95,6 +96,7 @@ dependencies {
     implementation 'gun0912.ted:tedbottompicker:2.0.1'
 
     // Open-Source Framework Libraries
+    implementation 'com.evernote:android-job:1.2.6'
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Glide Components

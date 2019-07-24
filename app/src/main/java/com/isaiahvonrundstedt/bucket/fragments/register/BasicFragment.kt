@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
+import com.isaiahvonrundstedt.bucket.constants.Params
 import kotlinx.android.synthetic.main.fragment_basic.*
 
 class BasicFragment: Fragment() {
@@ -25,9 +26,9 @@ class BasicFragment: Fragment() {
 
                 val fragment = AuthFragment()
                 fragment.arguments = Bundle().apply {
-                    putString("firstName", firstNameField.text.toString())
-                    putString("lastName", lastNameField.text.toString())
-                    putString("email", emailField.text.toString())
+                    putString(Params.firstName, firstNameField.text.toString())
+                    putString(Params.lastName, lastNameField.text.toString())
+                    putString(Params.email, emailField.text.toString())
                 }
 
                 activity!!.supportFragmentManager.beginTransaction().run {

@@ -170,8 +170,8 @@ abstract class BaseAdapter(private var context: Context?,
     private fun fetchProfileImage(imageURL: String?, container: AppCompatImageView){
         requestManager.clear(container)
         requestManager.asBitmap()
-            .placeholder(R.drawable.ic_brand_user)
-            .error(R.drawable.ic_brand_user)
+            .placeholder(R.drawable.ic_object_user)
+            .error(R.drawable.ic_object_user)
             .load(imageURL)
             .apply(RequestOptions().circleCrop())
             .into(container)
@@ -184,7 +184,7 @@ abstract class BaseAdapter(private var context: Context?,
     }
     private fun showDetailSheet(file: File?){
         val bundleArgs = Bundle()
-        bundleArgs.putParcelable(Params.args, file)
+        bundleArgs.putParcelable(Params.payload, file)
 
         val bottomSheet = DetailsBottomSheet()
         bottomSheet.arguments = bundleArgs
@@ -192,7 +192,7 @@ abstract class BaseAdapter(private var context: Context?,
     }
     private fun showDetailDialog(file: File?){
         val args = Bundle()
-        args.putParcelable(Params.args, file)
+        args.putParcelable(Params.payload, file)
 
         val detailDialog = DetailFragment()
         detailDialog.arguments = args
@@ -236,7 +236,7 @@ abstract class BaseAdapter(private var context: Context?,
     private fun viewImage(file: File?){
         if (fragmentManager.findFragmentByTag(viewerScreenTag)?.isAdded != true){
             val args = Bundle()
-            args.putParcelable(Params.args, file)
+            args.putParcelable(Params.payload, file)
 
             val viewer = ViewerFragment()
             viewer.arguments = args

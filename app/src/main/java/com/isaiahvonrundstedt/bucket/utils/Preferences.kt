@@ -2,8 +2,10 @@ package com.isaiahvonrundstedt.bucket.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Environment
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 
 class Preferences(val context: Context?) {
@@ -12,10 +14,10 @@ class Preferences(val context: Context?) {
         const val metadataTimestamp = "timestamp"
         const val metadataAuthor = "author"
 
-        const val themeLight = "light"
-        const val themeDark = "dark"
-        const val themeBattery = "battery"
-        const val themeSystem = "system"
+        const val themeLight = AppCompatDelegate.MODE_NIGHT_NO
+        const val themeDark = AppCompatDelegate.MODE_NIGHT_YES
+        const val themeBattery = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
+        const val themeSystem = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     }
 
     private var sharedPreferences: SharedPreferences? = null
@@ -27,40 +29,24 @@ class Preferences(val context: Context?) {
         editor?.apply()
     }
 
-    var updateExists: Boolean
-        set(value) {
-            editor = context?.getSharedPreferences("corePreference", Context.MODE_PRIVATE)?.edit()
-            editor?.putBoolean("updateExists", value)
-            editor?.apply()
-        }
+    val isDarkEnabled: Boolean
         get() {
-            sharedPreferences = context?.getSharedPreferences("corePreference", Context.MODE_PRIVATE)
-            return sharedPreferences?.getBoolean("updateExists", false) as Boolean
+            val flags = context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
+            return flags == Configuration.UI_MODE_NIGHT_YES
         }
 
-    var downloadURL: String?
-        set(value) {
-            editor = context?.getSharedPreferences("corePreference", Context.MODE_PRIVATE)?.edit()
-            editor?.putString("newPackageURL", value)
-            editor?.apply()
-        }
-        get() {
-            sharedPreferences = context?.getSharedPreferences("corePreference", Context.MODE_PRIVATE)
-            return sharedPreferences?.getString("newPackageURL", null)
-        }
-
-    var theme: String
+    var theme: Int
         set(value) {
             editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-            editor?.putString("appThemePreference", value)
+            editor?.putInt("appThemePreference", value)
             editor?.apply()
         }
         get() {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences?.getString("appThemePreference", obtainAPIDependentDefaultTheme()) as String
+            return sharedPreferences?.getInt("appThemePreference", obtainAPIDependentDefaultTheme()) as Int
         }
 
-    private fun obtainAPIDependentDefaultTheme(): String? {
+    private fun obtainAPIDependentDefaultTheme(): Int {
         return if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
             themeSystem
         else themeBattery

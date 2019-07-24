@@ -18,14 +18,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/register_to_drop_bucket"
-                android:textSize="32sp"
+                android:textSize="28sp"
                 android:textColor="@color/colorPrimary"
                 android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/provide_the_required_information"
                 android:textColor="@color/colorHelperText"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                app:useDenseSpacing="true"
                 app:primaryColor="@color/colorPrimary"
                 app:secondaryColor="@color/colorHelperText"
                 app:hasFocus="true"
@@ -57,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                app:useDenseSpacing="true"
                 app:primaryColor="@color/colorPrimary"
                 app:secondaryColor="@color/colorHelperText"
                 app:hasClearButton="true"
@@ -78,6 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                app:useDenseSpacing="true"
                 app:primaryColor="@color/colorPrimary"
                 app:secondaryColor="@color/colorHelperText"
                 app:hasClearButton="true"

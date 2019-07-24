@@ -111,26 +111,26 @@
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
-
-    <style name="AppTheme.Widget.TabLayout" parent="Widget.MaterialComponents.TabLayout">
-        <item name="tabTextColor">@color/tab_selected</item>
-        <item name="tabIndicatorColor">@color/colorPrimary</item>
-        <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Button</item>
+    <style name="AppTheme.Widget.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextColor">@color/navigation_selected</item>
+        <item name="itemIconTint">@color/navigation_selected</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
     <!-- TextAppearance -->
+
     <style name="AppTheme.TextAppearance.Title" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">20sp</item>
-        <item name="android:fontFamily">@font/font_medium</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppTheme.TextAppearance.Emphasis" parent="TextAppearance.AppCompat.Body2">
         <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/font_medium</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
-    <style name="AppTheme.TextAppearance.Regular" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:fontFamily">@font/font_regular</item>
+    <style name="AppTheme.TextAppearance.Regular" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
 </resources>

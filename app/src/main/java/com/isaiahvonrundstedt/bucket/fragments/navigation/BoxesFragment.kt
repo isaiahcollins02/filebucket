@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.fragments.navigation.box.PublicFragment
-import com.isaiahvonrundstedt.bucket.fragments.navigation.box.UserFragment
+import com.isaiahvonrundstedt.bucket.fragments.navigation.box.SentFragment
+import com.isaiahvonrundstedt.bucket.fragments.navigation.box.SharedFragment
 import kotlinx.android.synthetic.main.fragment_box_main.*
 
 class BoxesFragment: BaseFragment() {
@@ -24,39 +22,34 @@ class BoxesFragment: BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.add(TabItem(getString(R.string.tab_box_public), PublicFragment()))
-        adapter.add(TabItem(getString(R.string.tab_box_user), UserFragment()))
+        onLoadFragment(selectedItem ?: R.id.navigation_shared)
 
-        viewPager.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            onLoadFragment(item.itemId)
+            true
+        }
     }
 
     override fun onPause() {
         super.onPause()
 
-        selectedItem = tabLayout.selectedTabPosition
+        selectedItem = bottomNavigationView.selectedItemId
     }
 
-    private data class TabItem (var title: String, var fragment: Fragment)
+    private fun onLoadFragment(itemId: Int){
+        val fragment: Fragment? =
+            when (itemId){
+                R.id.navigation_shared -> SharedFragment()
+                R.id.navigation_sent -> SentFragment()
+                else -> null
+            }
 
-    private class ViewPagerAdapter(manager: FragmentManager): FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-        private val tabItems = ArrayList<TabItem>()
-
-        fun add(tabItem: TabItem){
-            tabItems.add(tabItem)
-        }
-
-        override fun getItem(position: Int): Fragment {
-            return tabItems[position].fragment
-        }
-
-        override fun getCount(): Int {
-            return tabItems.size
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return tabItems[position].title
+        if (fragment != null) {
+            childFragmentManager.beginTransaction().run {
+                replace(R.id.containerLayout, fragment)
+                addToBackStack(null)
+                commit()
+            }
         }
     }
 

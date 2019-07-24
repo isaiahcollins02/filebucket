@@ -14,9 +14,9 @@
 
     <!-- UI Components -->
     <color name="colorIcons">#000000</color>
-    <color name="colorToolbar">#fafafa</color>
-    <color name="colorStatusBar">#e1e1e1</color>
-    <color name="colorDrawerStatusBar">#80ffffff</color>
+    <color name="colorToolbar">#ffffff</color>
+    <color name="colorStatusBar">#ffffff</color>
+    <color name="colorDrawerStatusBar">#50ffffff</color>
 
     <!-- Texts -->
     <color name="colorPrimaryText">#000000</color>
@@ -28,5 +28,10 @@
     <color name="colorIndicatorBlue">#0057e7</color>
     <color name="colorIndicatorRed">#d62d20</color>
     <color name="colorIndicatorYellow">#ffa700</color>
+
+    <color name="colorSlideBlue">#5c00ff</color>
+    <color name="colorSlideGreen">#00a99b</color>
+    <color name="colorSlideRed">#ff0022</color>
+    <color name="colorSlideYellow">#fb9f00</color>
 
 </resources>

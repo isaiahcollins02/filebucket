@@ -73,16 +73,9 @@ class SettingsFragment: BasePreference() {
             MaterialDialog(it.context).show {
                 title(R.string.settings_theme_dialog)
                 listItems(items = themeList){ _, _, theme ->
-                    val themeID : String? = when (theme){
-                        getString(R.string.settings_theme_item_light) -> Preferences.themeLight
-                        getString(R.string.settings_theme_item_dark) -> Preferences.themeDark
-                        getString(R.string.settings_theme_item_battery) -> Preferences.themeBattery
-                        getString(R.string.settings_theme_item_system) -> Preferences.themeSystem
-                        else -> null
-                    }
-                    notifyDelegate(themeID)
-                    themePref.summary = getThemeByID(themeID)
-                    Preferences(it.context).theme = themeID!!
+                    notifyDelegate(getThemeID(theme))
+                    themePref.summary = theme
+                    Preferences(it.context).theme = getThemeID(theme)
                 }
             }
             return@setOnPreferenceClickListener true
@@ -109,7 +102,7 @@ class SettingsFragment: BasePreference() {
         }
     }
 
-    private fun notifyDelegate(themeID: String?){
+    private fun notifyDelegate(themeID: Int){
         when (themeID){
             Preferences.themeLight -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             Preferences.themeDark -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -118,13 +111,23 @@ class SettingsFragment: BasePreference() {
         }
     }
 
-    private fun getThemeByID(item: String?): String? {
-        return when (item){
+    fun getThemeByID(item: Int): String? {
+        return when (item) {
             Preferences.themeLight -> getString(R.string.settings_theme_item_light)
             Preferences.themeDark -> getString(R.string.settings_theme_item_dark)
             Preferences.themeBattery -> getString(R.string.settings_theme_item_battery)
-            Preferences.themeSystem  -> getString(R.string.settings_theme_item_system)
+            Preferences.themeSystem -> getString(R.string.settings_theme_item_system)
             else -> null
+        }
+    }
+
+    private fun getThemeID(item: String): Int {
+        return when (item){
+            getString(R.string.settings_theme_item_light) -> Preferences.themeLight
+            getString(R.string.settings_theme_item_dark) -> Preferences.themeDark
+            getString(R.string.settings_theme_item_battery) -> Preferences.themeBattery
+            getString(R.string.settings_theme_item_system) -> Preferences.themeSystem
+            else -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) Preferences.themeSystem else Preferences.themeBattery
         }
     }
 

@@ -40,7 +40,7 @@ class DetailFragment: BaseScreenDialog() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        file = arguments?.getParcelable(Params.args)
+        file = arguments?.getParcelable(Params.payload)
         appDB = AppDatabase.getDatabase(context!!)
         savedDAO = appDB?.collectionAccessor()
 

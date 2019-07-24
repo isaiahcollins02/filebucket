@@ -41,15 +41,6 @@
             android:textAppearance="@style/AppTheme.TextAppearance.Regular"
             tools:text="isaiahcollins02@gmail.com"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="@dimen/activity_margin_start"
-            android:layout_marginEnd="@dimen/activity_margin_end"
-            android:text="@string/profile_actions"
-            android:textAppearance="@style/AppTheme.TextAppearance.Emphasis"/>
-
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"

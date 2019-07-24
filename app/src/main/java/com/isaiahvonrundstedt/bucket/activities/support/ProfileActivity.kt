@@ -53,8 +53,8 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
 
         GlideApp.with(this)
             .load(User(this).imageURL)
-            .placeholder(R.drawable.ic_brand_user)
-            .error(R.drawable.ic_brand_user)
+            .placeholder(R.drawable.ic_object_user)
+            .error(R.drawable.ic_object_user)
             .centerCrop()
             .apply(RequestOptions().circleCrop())
             .into(profileView)

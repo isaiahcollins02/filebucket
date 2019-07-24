@@ -14,6 +14,19 @@
     <string name="register_secure_account">Security</string>
     <string name="think_of_a_complex_password_that">Think of a complex password that comprises of a upper and lower case letters, symbols and numbers</string>
 
+    <!-- Intro -->
+    <string name="intro_cloud_storage_title">Secure Cloud Storage</string>
+    <string name="intro_cloud_storage_desc">Add files to the organization\'s secure and private cloud storage</string>
+
+    <string name="intro_share_people_title">Share with People</string>
+    <string name="intro_share_people_desc">Every file you upload will be shared among your classmates. So no more emailing.</string>
+
+    <string name="intro_collections_title">File Collections</string>
+    <string name="intro_collections_desc">Save files to your collections without downloading them</string>
+
+    <string name="intro_permissions_title">Grant us your Permissions</string>
+    <string name="intro_permissions_desc">We\'ll need you to grant us permissions, so you can have the best experience possible</string>
+
     <string name="instruction_password">Enter first your old password, then enter the new one twice, and press continue to save the changes</string>
     <string name="instruction_reset">Enter your email address and press continue to send the reset link</string>
 
@@ -98,8 +111,8 @@
     <string name="navigation_settings">Settings</string>
     <string name="navigation_about">About</string>
 
-    <string name="tab_box_public">Public Boxes</string>
-    <string name="tab_box_user">My Box</string>
+    <string name="navigation_box_shared">Shared</string>
+    <string name="navigation_box_sent">Sent</string>
 
     <string name="filter_all">All Files</string>
     <string name="filter_documents">Documents</string>

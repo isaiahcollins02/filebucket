@@ -37,7 +37,7 @@ class DetailsBottomSheet: BaseBottomSheet() {
         super.onCreate(savedInstanceState)
 
         val bundle = arguments
-        file = bundle?.getParcelable(Params.args)
+        file = bundle?.getParcelable(Params.payload)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

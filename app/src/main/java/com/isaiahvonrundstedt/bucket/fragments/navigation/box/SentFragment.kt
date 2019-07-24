@@ -20,7 +20,7 @@ import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.android.synthetic.main.fragment_box_child.*
 
-class UserFragment: BaseFragment() {
+class SentFragment: BaseFragment() {
 
     private var currentAuthor: String? = null
     private var factory: FileFactory? = null
