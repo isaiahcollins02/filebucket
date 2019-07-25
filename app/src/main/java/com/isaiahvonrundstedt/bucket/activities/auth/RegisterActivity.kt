@@ -6,7 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
-import com.isaiahvonrundstedt.bucket.fragments.register.BasicFragment
+import com.isaiahvonrundstedt.bucket.fragments.registration.BasicFragment
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import kotlinx.android.synthetic.main.activity_register.*
 

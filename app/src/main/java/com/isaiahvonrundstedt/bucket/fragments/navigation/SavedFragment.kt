@@ -5,17 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.SavedViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.SavedViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.objects.core.File
 import kotlinx.android.synthetic.main.fragment_saved.*
+import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class SavedFragment: BaseFragment() {
 
@@ -44,5 +46,7 @@ class SavedFragment: BaseFragment() {
         viewModel?.items?.observe(this, Observer<List<File>> { items ->
             adapter?.setObservableItems(items)
         })
+
+        noItemView.isVisible = viewModel?.size == 0
     }
 }

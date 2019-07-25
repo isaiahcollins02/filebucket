@@ -3,6 +3,7 @@ package com.isaiahvonrundstedt.bucket.activities.support
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.AbsListView
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
 import com.isaiahvonrundstedt.bucket.architecture.factory.FileFactory
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network.FileViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.FileViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import kotlinx.android.synthetic.main.activity_vault.*
+import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class VaultActivity: BaseAppBarActivity()  {
 
@@ -56,6 +58,7 @@ class VaultActivity: BaseAppBarActivity()  {
         viewModel?.itemList?.observe(this, Observer { itemList ->
             adapter?.setObservableItems(itemList)
         })
+        noItemView.isVisible = viewModel?.itemList?.value?.isEmpty() ?: false
     }
 
     private var isScrolling: Boolean = false

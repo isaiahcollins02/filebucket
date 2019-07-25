@@ -38,7 +38,6 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:gravity="center"
-            android:textAppearance="@style/AppTheme.TextAppearance.Regular"
             tools:text="isaiahcollins02@gmail.com"/>
 
     <androidx.recyclerview.widget.RecyclerView

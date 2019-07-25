@@ -1,12 +1,15 @@
 package com.isaiahvonrundstedt.bucket.activities.support
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
@@ -19,6 +22,7 @@ import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.interfaces.RecyclerNavigation
+import com.isaiahvonrundstedt.bucket.service.TransferService
 import com.isaiahvonrundstedt.bucket.utils.User
 import gun0912.tedbottompicker.TedBottomPicker
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -51,10 +55,13 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
             emailView.text = email
         }
 
+        val accountDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_object_user, null)
+        accountDrawable?.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP)
+
         GlideApp.with(this)
             .load(User(this).imageURL)
-            .placeholder(R.drawable.ic_object_user)
-            .error(R.drawable.ic_object_user)
+            .placeholder(accountDrawable)
+            .error(accountDrawable)
             .centerCrop()
             .apply(RequestOptions().circleCrop())
             .into(profileView)
@@ -71,7 +78,10 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
                         .load(imageUri.path)
                         .apply(requestOptions)
                         .into(imageView)
-                }
+                }.show { uri -> startService(Intent(this, TransferService::class.java)
+                    .putExtra(TransferService.extraFileURI, uri)
+                    .putExtra(TransferService.extraAccountID, userID)
+                    .setAction(TransferService.actionProfile))}
         }
     }
 

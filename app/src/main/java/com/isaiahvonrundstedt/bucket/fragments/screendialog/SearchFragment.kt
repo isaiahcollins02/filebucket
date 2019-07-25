@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.experience.SearchAdapter
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import kotlinx.android.synthetic.main.layout_dialog_search.*
@@ -21,7 +20,6 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
 
     private var searchQuery: String? = null
 
-    private var adapter: SearchAdapter? = null
     private var layoutManager: LinearLayoutManager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,13 +33,10 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
 
     override fun onStart() {
         super.onStart()
-
-        adapter = SearchAdapter(context)
         layoutManager = LinearLayoutManager(context)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(ItemDecoration(context))
-        recyclerView.adapter = adapter
 
         searchView.setOnQueryTextListener(this)
         searchView.findViewById<View?>(androidx.appcompat.R.id.search_plate)?.setBackgroundColor(Color.TRANSPARENT)

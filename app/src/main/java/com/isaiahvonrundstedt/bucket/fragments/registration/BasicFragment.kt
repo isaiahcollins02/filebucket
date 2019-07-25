@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.fragments.register
+package com.isaiahvonrundstedt.bucket.fragments.registration
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -33,11 +33,13 @@ class TransferService: BaseService() {
     }
 
     companion object {
-        const val actionUpload = "action_upload"
+        const val actionFile = "action_file"
+        const val actionProfile = "action_profile"
         const val statusCompleted = "status_completed"
         const val statusError = "status_error"
 
         const val extraFileURI = "extra_file_uri"
+        const val extraAccountID = "extra_account_id"
         const val extraDownloadURL = "extra_download_url"
 
         val intentFilter: IntentFilter
@@ -50,9 +52,13 @@ class TransferService: BaseService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (actionUpload == intent?.action){
+        if (actionFile == intent?.action){
             val fileUri: Uri = intent.getParcelableExtra(extraFileURI)
             initiateTransfer(fileUri)
+        } else if (actionProfile == intent?.action){
+            val fileUri: Uri = intent.getParcelableExtra(extraFileURI)
+            val accountID: String? = intent.getStringExtra(extraAccountID)
+            setProfile(accountID, fileUri)
         }
         return START_REDELIVER_INTENT
     }
@@ -72,7 +78,7 @@ class TransferService: BaseService() {
             }.continueWithTask {  task ->
                 // Forward any exceptions
                 if (!task.isSuccessful)
-                    throw task.exception!!
+                    Timber.e(task.exception)
 
                 // Request the downloadURL
                 fileReference.downloadUrl
@@ -186,4 +192,26 @@ class TransferService: BaseService() {
     private fun dismissProgressNotification(){
         manager.cancel(inProgressNotificationID)
     }
+
+    private fun setProfile(accountID: String?, uri: Uri?){
+        taskStarted()
+
+        val reference = storageReference.child(Firestore.users).child(accountID!!)
+        reference.putFile(uri!!)
+            .continueWithTask { task ->
+                if (!task.isSuccessful)
+                    Timber.e(task.exception)
+
+                reference.downloadUrl
+            }.addOnSuccessListener { downloadUri ->
+                firestore.collection(Firestore.files).document(accountID)
+                    .update("imageURL", downloadUri.toString())
+                    .addOnSuccessListener {
+                        showTransferFinishedNotification(downloadUri, uri)
+                    }
+            }.addOnFailureListener {
+                showTransferFinishedNotification(null, uri)
+            }
+    }
+
 }

@@ -1,8 +1,9 @@
 package com.isaiahvonrundstedt.bucket.activities
 
-import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
@@ -11,13 +12,11 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.navigation.NavigationView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
@@ -97,14 +96,18 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         val titleView: AppCompatTextView = headerLayout.findViewById(R.id.titleView)
         val subtitleView: AppCompatTextView = headerLayout.findViewById(R.id.subtitleView)
 
+        val accountDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_object_user, null)
+        accountDrawable?.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP)
+
         with(User(this)){
             titleView.text = fullName
             subtitleView.text = email
 
             GlideApp.with(this@MainActivity)
                 .load(imageURL)
+                .placeholder(accountDrawable)
                 .centerCrop()
-                .error(R.drawable.ic_object_user)
+                .error(accountDrawable)
                 .into(imageView)
         }
     }

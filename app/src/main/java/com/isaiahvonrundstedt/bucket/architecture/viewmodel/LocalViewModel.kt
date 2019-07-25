@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler
+package com.isaiahvonrundstedt.bucket.architecture.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -26,5 +26,8 @@ class LocalViewModel(app: Application): AndroidViewModel(app){
             _items.postValue(itemList)
         }
     }
+
+    val size: Int
+        get() = itemList.size
 
 }

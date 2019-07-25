@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.fragments.register
+package com.isaiahvonrundstedt.bucket.fragments.registration
 
 import android.content.Intent
 import android.os.Bundle

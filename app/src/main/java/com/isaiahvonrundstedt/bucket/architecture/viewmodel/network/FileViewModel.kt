@@ -1,14 +1,14 @@
-package com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network
+package com.isaiahvonrundstedt.bucket.architecture.viewmodel.network
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.isaiahvonrundstedt.bucket.architecture.store.network.CoreStore
+import com.isaiahvonrundstedt.bucket.architecture.store.network.FileStore
 import com.isaiahvonrundstedt.bucket.objects.core.File
 
-class CoreViewModel: ViewModel() {
+class FileViewModel(authorParams: String?): ViewModel() {
 
-    private val repository = CoreStore()
+    private val repository = FileStore(authorParams)
     private var initialList = mutableListOf<File>()
     private var _items: MutableLiveData<List<File>> = MutableLiveData()
     internal var itemList: LiveData<List<File>> = _items
@@ -25,8 +25,6 @@ class CoreViewModel: ViewModel() {
         }
     }
 
-    val isEmpty: Boolean
-        get() = initialList.isEmpty()
     val size: Int
         get() = initialList.size
 
@@ -35,5 +33,4 @@ class CoreViewModel: ViewModel() {
         initialList.clear()
         fetch()
     }
-
 }

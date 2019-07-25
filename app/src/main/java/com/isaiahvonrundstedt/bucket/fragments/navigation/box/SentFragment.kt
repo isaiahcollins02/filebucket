@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,12 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.SentAdapter
 import com.isaiahvonrundstedt.bucket.architecture.factory.FileFactory
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network.FileViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.FileViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.android.synthetic.main.fragment_box_child.*
+import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class SentFragment: BaseFragment() {
 
@@ -94,6 +96,8 @@ class SentFragment: BaseFragment() {
         viewModel?.itemList?.observe(this, Observer { items ->
             adapter?.setObservableItems(items)
         })
+
+        noItemView.isVisible = viewModel?.size == 0
     }
 
 }

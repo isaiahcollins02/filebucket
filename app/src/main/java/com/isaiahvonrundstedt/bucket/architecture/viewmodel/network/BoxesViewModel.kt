@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network
+package com.isaiahvonrundstedt.bucket.architecture.viewmodel.network
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,8 +25,6 @@ class BoxesViewModel: ViewModel() {
         }
     }
 
-    val isEmpty: Boolean
-        get() = initialList.isEmpty()
     val size: Int
         get() = initialList.size
 

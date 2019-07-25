@@ -72,7 +72,6 @@ class SupportActivity: BaseAppBarActivity() {
                 } else
                     Snackbar.make(window.decorView.rootView, R.string.status_error_occurred, Snackbar.LENGTH_SHORT).show()
                 progress.dismiss()
-
             }
     }
 

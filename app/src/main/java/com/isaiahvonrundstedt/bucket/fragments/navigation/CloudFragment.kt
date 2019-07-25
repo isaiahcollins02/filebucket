@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -17,10 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.files.fileChooser
+import com.bumptech.glide.Priority
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.network.CoreViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.CoreViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
@@ -29,7 +32,8 @@ import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
 import com.isaiahvonrundstedt.bucket.objects.experience.Picker
 import com.isaiahvonrundstedt.bucket.service.TransferService
 import gun0912.tedbottompicker.TedBottomPicker
-import kotlinx.android.synthetic.main.fragment_files.*
+import kotlinx.android.synthetic.main.fragment_cloud.*
+import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class CloudFragment: BaseFragment(), BottomSheetPicker {
 
@@ -63,7 +67,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_files, container, false)
+        return inflater.inflate(R.layout.fragment_cloud, container, false)
     }
 
     override fun onStart() {
@@ -88,9 +92,10 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         addAction.setOnClickListener { itemPicker.show(childFragmentManager, "pickerTag") }
 
         viewModel?.itemList?.observe(this, Observer { items ->
-           adapter?.setObservableItems(items)
+            adapter?.setObservableItems(items)
         })
 
+        noItemView.isVisible = viewModel?.size == 0
     }
 
     private var isScrolling: Boolean = false
@@ -121,7 +126,15 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
     override fun onItemSelected(index: Int) {
         when (index){
-            0 -> TedBottomPicker.with(activity).show { uri -> transferFromUri(uri) }
+            0 -> {
+                TedBottomPicker.with(activity).setImageProvider { imageView, imageUri ->
+                    val requestOptions = RequestOptions()
+                    requestOptions.centerCrop()
+                    requestOptions.priority(Priority.NORMAL)
+
+                    GlideApp.with(this).load(imageUri).apply(requestOptions).into(imageView)
+                }.show { uri -> transferFromUri(uri) }
+            }
             1 -> MaterialDialog(context!!).show { fileChooser { _, file -> transferFromUri(file.toUri()) } }
         }
     }
@@ -139,7 +152,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
         context?.startService(Intent(context, TransferService::class.java)
             .putExtra(TransferService.extraFileURI, uri)
-            .setAction(TransferService.actionUpload))
+            .setAction(TransferService.actionFile))
     }
 
     private fun onRefreshData(){

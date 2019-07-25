@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler
+package com.isaiahvonrundstedt.bucket.architecture.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -14,4 +14,7 @@ class NotificationViewModel(application: Application): AndroidViewModel(applicat
     init {
         items = store.getNotifications()
     }
+
+    val size: Int
+        get() = items.value?.size ?: 0
 }

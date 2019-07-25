@@ -55,7 +55,7 @@
     <string name="button_save">Save</string>
     <string name="button_remove">Remove</string>
     <string name="button_forgot_password">Forgot Password?</string>
-    <string name="button_see_more">See More</string>
+    <string name="button_turn_on_storage_access">Turn on Storage Access</string>
 
     <string name="file_details">File Details</string>
     <string name="file_user_repository">%1$s\'s Box</string>
@@ -98,10 +98,9 @@
     <string name="menu_clear">Clear</string>
 
     <!-- Empty Views -->
-    <string name="main_empty_generic">An Error Occurred</string>
-    <string name="main_empty_box">Unable to fetch available public boxes from the cloud</string>
-    <string name="main_empty_files">The cloud currently don\'t have files in them. Upload one or come back again later</string>
-    <string name="main_empty_saved">You currently don\'t have any saves from the available files in the cloud</string>
+    <string name="main_empty_no_notification">There are no notifications</string>
+    <string name="main_empty_no_items">Look\'s like the there is no items available</string>
+    <string name="main_empty_permission_not_granted">We\'ll need you to grant us some permissions before we can do anything</string>
 
     <string name="navigation_cloud">Cloud</string>
     <string name="navigation_local">Local Storage</string>
@@ -140,6 +139,7 @@
     <string name="status_change_committed">Changes Saved</string>
     <string name="status_error_unknown">An unknown error occurred</string>
     <string name="status_invalid_password">Email or Password is incorrect</string>
+    <string name="status_intent_no_app">No installed application can open this file type</string>
 
     <!-- Notification -->
     <string name="notification_channel_default">Default</string>

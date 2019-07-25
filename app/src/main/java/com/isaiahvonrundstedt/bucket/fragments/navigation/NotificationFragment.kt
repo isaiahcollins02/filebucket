@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.support.NotificationAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.recycler.NotificationViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.NotificationViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
 import kotlinx.android.synthetic.main.fragment_notifications.*
+import kotlinx.android.synthetic.main.layout_empty_no_notification.*
 
 class NotificationFragment: BaseFragment() {
 
@@ -45,5 +47,7 @@ class NotificationFragment: BaseFragment() {
         viewModel?.items?.observe(this, Observer<List<Notification>> { notifications ->
             adapter?.setObservableItems(notifications)
         })
+
+        noNotificationView.isVisible = viewModel?.size == 0
     }
 }

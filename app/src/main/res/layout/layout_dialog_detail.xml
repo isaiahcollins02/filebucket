@@ -32,8 +32,7 @@
                 android:layout_marginEnd="@dimen/activity_margin_end"
                 android:ellipsize="end"
                 android:maxLength="30"
-                android:textSize="22sp"
-                android:textAppearance="@style/AppTheme.TextAppearance.Emphasis"
+                android:textAppearance="@style/AppTheme.TextAppearance.Title"
                 tools:text="Sample File"/>
 
         <androidx.appcompat.widget.AppCompatTextView

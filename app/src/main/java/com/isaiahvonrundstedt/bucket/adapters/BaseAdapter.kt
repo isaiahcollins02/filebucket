@@ -8,17 +8,18 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.BaseApp
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.support.VaultActivity
 import com.isaiahvonrundstedt.bucket.constants.Params
-import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.DetailsBottomSheet
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.DetailFragment
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.ViewerFragment
 import com.isaiahvonrundstedt.bucket.objects.core.Account
@@ -100,7 +101,6 @@ abstract class BaseAdapter(private var context: Context?,
     internal inner class SentFileViewHolder(itemView: View): FileViewHolder(itemView){
         override fun onBindData(file: File?) {
             rootView.setOnClickListener { showDetailDialog(file) }
-            rootView.setOnLongClickListener { showDetailSheet(file); true }
             iconView.setImageDrawable(ItemManager.getFileIcon(context, file?.fileType))
             titleView.text = file?.name
             subtitleView.text = setMetadata(file)
@@ -111,7 +111,7 @@ abstract class BaseAdapter(private var context: Context?,
     internal inner class PublicFileViewHolder(itemView: View): FileViewHolder(itemView){
         override fun onBindData(file: File?) {
             rootView.setOnClickListener { onDownload(file) }
-            rootView.setOnLongClickListener { showDetailSheet(file); true }
+            rootView.setOnLongClickListener { showDetailDialog(file); true }
             iconView.setImageDrawable(ItemManager.getFileIcon(context, file?.fileType))
             titleView.text = file?.name
             subtitleView.text = setMetadata(file)
@@ -128,7 +128,6 @@ abstract class BaseAdapter(private var context: Context?,
 
         fun onBindData(file: File?){
             rootView.setOnClickListener { viewImage(file) }
-            rootView.setOnLongClickListener { showDetailSheet(file); true }
             fetchImageAsset(file?.downloadURL, containerView)
             titleView.text = file?.name
             subtitleView.text = setMetadata(file)
@@ -136,26 +135,29 @@ abstract class BaseAdapter(private var context: Context?,
     }
     
     internal inner class LocalViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        internal var rootView: View = itemView.findViewById(R.id.rootView)
-        internal var iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-        internal var titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
-        internal var subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
-        internal var sizeView: AppCompatTextView = itemView.findViewById(R.id.sizeView)
+        private var rootView: View = itemView.findViewById(R.id.rootView)
+        private var iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
+        private var titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
+        private var subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
+        private var sizeView: AppCompatTextView = itemView.findViewById(R.id.sizeView)
         
         fun onBindData(localFile: LocalFile?){
-            rootView.setOnClickListener { onParseIntent(localFile) }
+            rootView.setOnClickListener { onParseIntent(rootView, localFile) }
             iconView.setImageDrawable(ItemManager.getLocalIcon(context, localFile?.type))
             titleView.text = localFile?.name
             subtitleView.text = DataManager.formatDate(context, localFile?.date)
             sizeView.text = DataManager.formatSize(itemView.context, localFile?.size)
+            
+            if (localFile?.type == LocalFile.directory)
+                sizeView.isVisible = false
         }
     }
 
     internal inner class BoxViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val rootView: View = itemView.findViewById(R.id.rootView)
-        val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-        val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
-        val subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
+        private val rootView: View = itemView.findViewById(R.id.rootView)
+        private val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
+        private val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
+        private val subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
 
         fun onBindData(account: Account?){
             val fullName: String? = "${account?.firstName} ${account?.lastName}"
@@ -181,14 +183,6 @@ abstract class BaseAdapter(private var context: Context?,
         requestManager.asBitmap()
             .load(imageURL)
             .into(container)
-    }
-    private fun showDetailSheet(file: File?){
-        val bundleArgs = Bundle()
-        bundleArgs.putParcelable(Params.payload, file)
-
-        val bottomSheet = DetailsBottomSheet()
-        bottomSheet.arguments = bundleArgs
-        bottomSheet.show(fragmentManager, bottomSheetTag)
     }
     private fun showDetailDialog(file: File?){
         val args = Bundle()
@@ -222,7 +216,7 @@ abstract class BaseAdapter(private var context: Context?,
             else -> null
         }
     }
-    private fun onParseIntent(localFile: LocalFile?){
+    private fun onParseIntent(view: View, localFile: LocalFile?){
         if (localFile?.type == LocalFile.file){
             val uri: Uri? = FileProvider.getUriForFile(context!!, BaseApp.appPackage + ".components.AppFileProvider", java.io.File(localFile?.args?.path))
             context?.grantUriPermission(context?.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -231,6 +225,8 @@ abstract class BaseAdapter(private var context: Context?,
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             if (intent.resolveActivity(context?.packageManager!!) != null)
                 context?.startActivity(intent)
+            else
+                Snackbar.make(view, R.string.status_intent_no_app, Snackbar.LENGTH_SHORT).show()
         }
     }
     private fun viewImage(file: File?){
