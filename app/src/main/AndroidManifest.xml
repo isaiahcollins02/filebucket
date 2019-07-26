@@ -57,7 +57,6 @@
         <activity android:name=".activities.generic.AboutActivity"/>
         <activity android:name=".activities.generic.SettingsActivity"/>
         <activity android:name=".activities.wrapper.FrameActivity"/>
-        <activity android:name=".activities.wrapper.IntroActivity"/>
 
         <service android:name="com.isaiahvonrundstedt.bucket.service.TransferService"
                 android:exported="false"/>

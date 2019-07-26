@@ -24,15 +24,9 @@
     <color name="colorHelperText">#455a64</color>
 
     <!-- Default -->
-    <color name="colorIndicatorGreen">#008744</color>
-    <color name="colorIndicatorBlue">#0057e7</color>
-    <color name="colorIndicatorRed">#d62d20</color>
-    <color name="colorIndicatorYellow">#ffa700</color>
-
-    <color name="colorIntroBlue">#5c00ff</color>
-    <color name="colorIntroGreen">#00a99b</color>
-    <color name="colorIntroRed">#ff0022</color>
-    <color name="colorIntroYellow">#fb9f00</color>
+    <color name="colorIntro1">#00a99b</color>
+    <color name="colorIntro2">#ff0022</color>
+    <color name="colorIntro3">#fb9f00</color>
 
     <!-- Icons -->
     <color name="colorIconBlue">#3386D9</color>
@@ -41,7 +35,7 @@
     <color name="colorIconPurple">#5E57CA</color>
     <color name="colorIconTeal">#009573</color>
     <color name="colorIconMagenta">#E2367E</color>
-    <color name="colorIconSeaBlue">#16B3C6</color>
+    <color name="colorIconSea">#16B3C6</color>
     <color name="colorIconOrange">#F79A17</color>
 
 </resources>

@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.wrapper.IntroActivity
+import com.isaiahvonrundstedt.bucket.activities.SplashActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Account
@@ -72,7 +72,7 @@ class LoginActivity: BaseActivity() {
                             User(this).save(account!!)
 
                             dialog.dismiss()
-                            startActivity(Intent(this, IntroActivity::class.java))
+                            startActivity(Intent(this, SplashActivity::class.java))
                             finish()
                         }
                         .addOnFailureListener {

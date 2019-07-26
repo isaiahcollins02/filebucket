@@ -9,6 +9,17 @@ class User(var context: Context) {
     private var sharedPreferences: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
 
+    var id: String?
+        set(value){
+            editor = context.getSharedPreferences("userPreference", Context.MODE_PRIVATE)?.edit()
+            editor?.putString("accountID", value)
+            editor?.apply()
+        }
+        get(){
+            sharedPreferences = context.getSharedPreferences("userPreference", Context.MODE_PRIVATE)
+            return sharedPreferences?.getString("accountID", null)
+        }
+
     var firstName: String?
         set(value) {
             editor = context.getSharedPreferences("userPreference", Context.MODE_PRIVATE)?.edit()

@@ -58,7 +58,7 @@ object ItemManager {
         }
     }
     fun getLocalColor(type: Int?): Int {
-        return if (type == LocalFile.file) R.color.colorIconSeaBlue else R.color.colorIconOrange
+        return if (type == LocalFile.file) R.color.colorIconSea else R.color.colorIconOrange
     }
 
     fun obtainFileExtension(uri: Uri): Int {

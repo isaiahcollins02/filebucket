@@ -24,9 +24,6 @@
     <string name="intro_collections_title">File Collections</string>
     <string name="intro_collections_desc">Save files to your collections without downloading them</string>
 
-    <string name="intro_permissions_title">Grant us your Permissions</string>
-    <string name="intro_permissions_desc">We\'ll need you to grant us permissions, so you can have the best experience possible</string>
-
     <string name="instruction_password">Enter first your old password, then enter the new one twice, and press continue to save the changes</string>
     <string name="instruction_reset">Enter your email address and press continue to send the reset link</string>
 
@@ -96,6 +93,7 @@
     <string name="menu_dark_theme">Use Dark Theme</string>
     <string name="menu_search">Search</string>
     <string name="menu_clear">Clear</string>
+    <string name="menu_done">Done</string>
 
     <!-- Empty Views -->
     <string name="main_empty_no_notification">There are no notifications</string>

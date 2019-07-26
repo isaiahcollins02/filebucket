@@ -10,10 +10,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.wrapper.IntroActivity
+import com.isaiahvonrundstedt.bucket.activities.SplashActivity
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.objects.core.Account
+import com.isaiahvonrundstedt.bucket.utils.User
 import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.fragment_auth.*
 
@@ -59,7 +60,8 @@ class AuthFragment: Fragment() {
                 userReference.document(userID).set(newAccount)
                     .addOnCompleteListener { kProgressHUD.dismiss() }
                     .addOnSuccessListener {
-                        startActivity(Intent(context, IntroActivity::class.java))
+                        User(context!!).save(newAccount)
+                        startActivity(Intent(context, SplashActivity::class.java))
                         activity?.finish()
                     }
                     .addOnFailureListener {

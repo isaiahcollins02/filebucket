@@ -175,7 +175,7 @@ class TransferService: BaseService() {
     private fun showFinishedNotification(caption: String, intent: Intent, success: Boolean){
         // Make pending intent for notification
         val pendingIntent = PendingIntent.getActivity(this, 0
-            /* requestCode */, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            /* introRequestCode */, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val icon = if (success) R.drawable.ic_checked else R.drawable.ic_error
 
