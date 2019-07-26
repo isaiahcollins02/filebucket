@@ -26,13 +26,12 @@ import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.DetailFragment
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.ViewerFragment
 import com.isaiahvonrundstedt.bucket.objects.core.Account
-import com.isaiahvonrundstedt.bucket.objects.core.File
-import com.isaiahvonrundstedt.bucket.objects.core.LocalFile
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.service.FetchService
 import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
-import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
+import java.io.File
 
 abstract class BaseAdapter(private var context: Context?,
                            private var fragmentManager: FragmentManager,
@@ -49,21 +48,8 @@ abstract class BaseAdapter(private var context: Context?,
         internal const val detailScreenTag = "detailScreenDialog"
         internal const val viewerScreenTag = "viewerScreenDialog"
     }
-    
-    internal class FileDiffCallback(private val oldItems: List<File>, private val newItems: List<File>): DiffUtil.Callback(){
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldItems[oldItemPosition].fileID == newItems[newItemPosition].fileID
-        }
 
-        override fun getOldListSize(): Int = oldItems.size
-
-        override fun getNewListSize(): Int = newItems.size
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldItems[oldItemPosition] == newItems[newItemPosition]
-        }
-    }
-    internal class LocalFileDiffCallback(private val oldItems: List<LocalFile>, private val newItems: List<LocalFile>): DiffUtil.Callback(){
+    internal class ItemDiffCallback(private val oldItems: List<StorageItem>, private val newItems: List<StorageItem>): DiffUtil.Callback(){
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldItems[oldItemPosition].id == newItems[newItemPosition].id
         }
@@ -98,32 +84,32 @@ abstract class BaseAdapter(private var context: Context?,
         internal var subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
         internal var sizeView: AppCompatTextView = itemView.findViewById(R.id.sizeView)
 
-        abstract fun onBindData(file: File?)
+        abstract fun onBindData(item: StorageItem?)
     }
     
     internal inner class SentFileViewHolder(itemView: View): FileViewHolder(itemView){
-        override fun onBindData(file: File?) {
-            rootView.setOnClickListener { showDetailDialog(file) }
-            titleView.text = file?.name
-            subtitleView.text = setMetadata(file)
-            sizeView.text = DataManager.formatSize(context, file?.fileSize)
+        override fun onBindData(item: StorageItem?) {
+            rootView.setOnClickListener { showDetailDialog(item) }
+            titleView.text = item?.name
+            subtitleView.text = setMetadata(item)
+            sizeView.text = DataManager.formatSize(context, item?.size)
 
-            val icon = ResourcesCompat.getDrawable(rootView.context.resources, ItemManager.obtainFileIconRes(file?.fileType), null)
-            icon?.setColorFilter(ContextCompat.getColor(rootView.context, ItemManager.getFileColor(file?.fileType)), PorterDuff.Mode.SRC_ATOP)
+            val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
+            icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
             iconView.setImageDrawable(icon)
         }
     }
     
     internal inner class PublicFileViewHolder(itemView: View): FileViewHolder(itemView){
-        override fun onBindData(file: File?) {
-            rootView.setOnClickListener { onDownload(file) }
-            rootView.setOnLongClickListener { showDetailDialog(file); true }
-            titleView.text = file?.name
-            subtitleView.text = setMetadata(file)
-            sizeView.text = DataManager.formatSize(context, file?.fileSize)
+        override fun onBindData(item: StorageItem?) {
+            rootView.setOnClickListener { onDownload(item) }
+            rootView.setOnLongClickListener { showDetailDialog(item); true }
+            titleView.text = item?.name
+            subtitleView.text = setMetadata(item)
+            sizeView.text = DataManager.formatSize(context, item?.size)
 
-            val icon = ResourcesCompat.getDrawable(rootView.context.resources, ItemManager.obtainFileIconRes(file?.fileType), null)
-            icon?.setColorFilter(ContextCompat.getColor(rootView.context, ItemManager.getFileColor(file?.fileType)), PorterDuff.Mode.SRC_ATOP)
+            val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
+            icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
             iconView.setImageDrawable(icon)
         }
     }
@@ -134,32 +120,26 @@ abstract class BaseAdapter(private var context: Context?,
         private val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
         private val subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
 
-        fun onBindData(file: File?){
-            rootView.setOnClickListener { viewImage(file) }
-            fetchImageAsset(file?.downloadURL, containerView)
-            titleView.text = file?.name
-            subtitleView.text = setMetadata(file)
+        fun onBindData(item: StorageItem?){
+            rootView.setOnClickListener { viewImage(item) }
+            fetchImageAsset(item?.args, containerView)
+            titleView.text = item?.name
+            subtitleView.text = setMetadata(item)
         }
     }
     
-    internal inner class LocalViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private var rootView: View = itemView.findViewById(R.id.rootView)
-        private var iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-        private var titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
-        private var subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
-        private var sizeView: AppCompatTextView = itemView.findViewById(R.id.sizeView)
-        
-        fun onBindData(localFile: LocalFile?){
-            rootView.setOnClickListener { onParseIntent(rootView, localFile) }
-            titleView.text = localFile?.name
-            subtitleView.text = DataManager.formatDate(context, localFile?.date)
-            sizeView.text = DataManager.formatSize(itemView.context, localFile?.size)
+    internal inner class LocalViewHolder(itemView: View): FileViewHolder(itemView){
 
-            val icon = ResourcesCompat.getDrawable(rootView.context.resources, ItemManager.obtainLocalIconRes(localFile?.type), null)
-            icon?.setColorFilter(ContextCompat.getColor(rootView.context, ItemManager.getLocalColor(localFile?.type)), PorterDuff.Mode.SRC_ATOP)
+        override fun onBindData(item: StorageItem?) {
+            rootView.setOnClickListener { onParseIntent(rootView, item) }
+            titleView.text = item?.name
+            subtitleView.text = context?.getString(StorageItem.obtainItemTypeID(item?.type))
+
+            val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
+            icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
             iconView.setImageDrawable(icon)
 
-            if (localFile?.type == LocalFile.directory)
+            if (item?.type == StorageItem.typeDirectory)
                 sizeView.isVisible = false
         }
     }
@@ -195,41 +175,41 @@ abstract class BaseAdapter(private var context: Context?,
             .load(imageURL)
             .into(container)
     }
-    private fun showDetailDialog(file: File?){
+    private fun showDetailDialog(item: StorageItem?){
         val args = Bundle()
-        args.putParcelable(Params.payload, file)
+        args.putParcelable(Params.payload, item)
 
         val detailDialog = DetailFragment()
         detailDialog.arguments = args
         detailDialog.invoke(fragmentManager)
     }
-    private fun onDownload(file: File?){
+    private fun onDownload(item: StorageItem?){
         MaterialDialog(context!!).show {
-            title(text = String.format(context.getString(R.string.dialog_file_download_title), file?.name))
+            title(text = String.format(context.getString(R.string.dialog_file_download_title), item?.name))
             message(R.string.dialog_file_download_summary)
             positiveButton(R.string.button_download) {
                 it.context.startService(Intent(it.context, FetchService::class.java)
                     .setAction(FetchService.actionDownload)
-                    .putExtra(FetchService.extraFileName, file?.name)
-                    .putExtra(FetchService.extraDownloadURL, file?.downloadURL))
+                    .putExtra(FetchService.extraFileName, item?.name)
+                    .putExtra(FetchService.extraDownloadURL, item?.args))
 
                 it.context.startService(Intent(it.context, UsageService::class.java)
                     .setAction(UsageService.sendFileUsage)
-                    .putExtra(UsageService.extraObjectID, file?.fileID))
+                    .putExtra(UsageService.extraObjectID, item?.id))
             }
             negativeButton(R.string.button_cancel)
         }
     }
-    private fun setMetadata(file: File?): String? {
+    private fun setMetadata(item: StorageItem?): String? {
         return when (Preferences(context).metadata){
-            Preferences.metadataAuthor -> file?.author
-            Preferences.metadataTimestamp -> DataManager.formatTimestamp(context, file?.timestamp)
+            Preferences.metadataAuthor -> item?.author
+            Preferences.metadataTimestamp -> DataManager.formatTimestamp(context, item?.timestamp)
             else -> null
         }
     }
-    private fun onParseIntent(view: View, localFile: LocalFile?){
-        if (localFile?.type == LocalFile.file){
-            val uri: Uri? = FileProvider.getUriForFile(context!!, BaseApp.appPackage + ".components.AppFileProvider", java.io.File(localFile?.args?.path))
+    private fun onParseIntent(view: View, item: StorageItem?){
+        if (item?.type != StorageItem.typeDirectory){
+            val uri: Uri? = FileProvider.getUriForFile(context!!, BaseApp.appPackage + ".components.AppFileProvider", File(Uri.parse(item?.args).path))
             context?.grantUriPermission(context?.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             val intent = Intent(Intent.ACTION_VIEW)
                 .setDataAndType(uri, context?.contentResolver?.getType(uri!!))
@@ -240,10 +220,10 @@ abstract class BaseAdapter(private var context: Context?,
                 Snackbar.make(view, R.string.status_intent_no_app, Snackbar.LENGTH_SHORT).show()
         }
     }
-    private fun viewImage(file: File?){
+    private fun viewImage(item: StorageItem?){
         if (fragmentManager.findFragmentByTag(viewerScreenTag)?.isAdded != true){
             val args = Bundle()
-            args.putParcelable(Params.payload, file)
+            args.putParcelable(Params.payload, item)
 
             val viewer = ViewerFragment()
             viewer.arguments = args

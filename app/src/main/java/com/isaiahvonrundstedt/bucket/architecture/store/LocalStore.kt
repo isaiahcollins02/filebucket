@@ -1,30 +1,29 @@
 package com.isaiahvonrundstedt.bucket.architecture.store
 
 import android.app.Application
-import android.net.Uri
-import com.isaiahvonrundstedt.bucket.objects.core.LocalFile
+import androidx.core.net.toUri
+import com.google.firebase.Timestamp
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import java.io.File
-import java.util.*
-import kotlin.collections.ArrayList
 
 class LocalStore (app: Application) {
 
     private val currentDirectory: String? = Preferences(app).downloadDirectory
 
-    fun fetch( onFetch: (List<LocalFile>) -> Unit) {
-        val items: ArrayList<LocalFile> = ArrayList()
+    fun fetch( onFetch: (List<StorageItem>) -> Unit) {
+        val items: ArrayList<StorageItem> = ArrayList()
         val directory = File(currentDirectory)
         val files = directory.listFiles()
         for (bufferedFile: File in files){
-            val currentLocalFile = LocalFile().apply {
+            val currentLocalFile = StorageItem().apply {
                 id = DataManager.generateRandomID()
                 name = bufferedFile.name
-                type = if (bufferedFile.isFile) LocalFile.file else LocalFile.directory
-                args = Uri.parse(bufferedFile.path)
+                type = StorageItem.determineExtension(bufferedFile.toUri())
+                args = bufferedFile.path
                 size = bufferedFile.length()
-                date = Date(bufferedFile.lastModified())
+                timestamp = Timestamp.now()
             }
             items.add(currentLocalFile)
         }

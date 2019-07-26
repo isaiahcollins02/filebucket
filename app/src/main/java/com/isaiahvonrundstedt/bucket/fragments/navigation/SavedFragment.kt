@@ -15,7 +15,7 @@ import com.isaiahvonrundstedt.bucket.architecture.viewmodel.SavedViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
-import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
@@ -43,7 +43,7 @@ class SavedFragment: BaseFragment() {
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.adapter = adapter
 
-        viewModel?.items?.observe(this, Observer<List<File>> { items ->
+        viewModel?.items?.observe(this, Observer<List<StorageItem>> { items ->
             adapter?.setObservableItems(items)
         })
 

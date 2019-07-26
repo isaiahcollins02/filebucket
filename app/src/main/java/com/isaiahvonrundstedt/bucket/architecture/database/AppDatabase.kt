@@ -5,11 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.isaiahvonrundstedt.bucket.objects.core.File
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.converters.TimestampConverter
 
-@Database(entities = [File::class, Notification::class], version = 1)
+@Database(entities = [StorageItem::class, Notification::class], version = 1)
 @TypeConverters(TimestampConverter::class)
 abstract class AppDatabase: RoomDatabase() {
 

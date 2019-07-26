@@ -16,7 +16,7 @@ data class Notification @JvmOverloads constructor (
     var title: String? = null,
     var content: String? = null,
     var type: Int? = typeGeneric,
-    var objectID: String? = null,   // determines the object associated with the notification, e.g. the file ID
+    var objectID: String? = null,   // determines the object associated with the notification, e.g. the typeGeneric ID
     var objectArgs: String? = null, // determines the arguments associated with the object
                                                     // e.g. for files, the download url
     @TypeConverters(TimestampConverter::class)

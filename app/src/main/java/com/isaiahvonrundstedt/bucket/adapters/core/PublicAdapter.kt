@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.BaseAdapter
-import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 
 class PublicAdapter (private var context: Context?, fragmentManager: FragmentManager, requestManager: RequestManager):
     BaseAdapter(context, fragmentManager, requestManager) {
 
-    private var itemList: ArrayList<File> = ArrayList()
+    private var itemList: ArrayList<StorageItem> = ArrayList()
 
-    fun setObservableItems(items: List<File>){
-        val callback = FileDiffCallback(itemList, items)
+    fun setObservableItems(items: List<StorageItem>){
+        val callback = ItemDiffCallback(itemList, items)
         val result = DiffUtil.calculateDiff(callback)
         itemList.clear()
         itemList.addAll(items)
@@ -42,8 +42,8 @@ class PublicAdapter (private var context: Context?, fragmentManager: FragmentMan
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (itemList[position].fileType){
-            File.typeImage -> {
+        return when (itemList[position].type){
+            StorageItem.typeImage -> {
                 if (Preferences(context).previewPreference != false)
                     viewTypeImage
                 else viewTypeFilePublic

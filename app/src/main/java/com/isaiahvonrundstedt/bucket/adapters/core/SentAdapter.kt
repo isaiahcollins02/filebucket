@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.BaseAdapter
-import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 
 class SentAdapter (context: Context?, fragmentManager: FragmentManager, requestManager: RequestManager):
         BaseAdapter(context, fragmentManager, requestManager) {
@@ -26,10 +26,10 @@ class SentAdapter (context: Context?, fragmentManager: FragmentManager, requestM
         (viewHolder as SentFileViewHolder).onBindData(itemList[itemPosition])
     }
 
-    private val itemList: ArrayList<File> = ArrayList()
+    private val itemList: ArrayList<StorageItem> = ArrayList()
 
-    fun setObservableItems(items: List<File>){
-        val callback = FileDiffCallback(itemList, items)
+    fun setObservableItems(items: List<StorageItem>){
+        val callback = ItemDiffCallback(itemList, items)
         val result = DiffUtil.calculateDiff(callback)
         itemList.clear()
         itemList.addAll(items)

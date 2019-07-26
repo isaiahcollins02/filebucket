@@ -14,16 +14,16 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Params
-import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import kotlinx.android.synthetic.main.layout_dialog_viewer.*
 
 class ViewerFragment: BaseScreenDialog(), RequestListener<Drawable> {
 
-    private var currentFile: File? = null
+    private var storageItem: StorageItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        currentFile = arguments?.getParcelable(Params.payload)
+        storageItem = arguments?.getParcelable(Params.payload)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,14 +32,14 @@ class ViewerFragment: BaseScreenDialog(), RequestListener<Drawable> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbarTitle?.text = currentFile?.name
+        toolbarTitle?.text = storageItem?.name
     }
 
     override fun onStart() {
         super.onStart()
 
         GlideApp.with(this)
-            .load(currentFile?.downloadURL)
+            .load(storageItem?.args)
             .listener(this)
             .into(containerView)
             .clearOnDetach()

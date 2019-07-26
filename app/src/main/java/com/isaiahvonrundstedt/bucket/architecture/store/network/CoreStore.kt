@@ -3,7 +3,7 @@ package com.isaiahvonrundstedt.bucket.architecture.store.network
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.isaiahvonrundstedt.bucket.constants.Firestore
-import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 
 class CoreStore {
 
@@ -13,7 +13,7 @@ class CoreStore {
     private var initialQueryBatch: Query? = firestore.collection(Firestore.files).limit(15)
     private var nextQueryBatch: Query? = null
 
-    fun fetch( onFetch: (List<File>) -> Unit ){
+    fun fetch( onFetch: (List<StorageItem>) -> Unit ){
         val mainQuery = if (nextQueryBatch == null) initialQueryBatch else nextQueryBatch
 
         mainQuery?.get()
@@ -26,7 +26,7 @@ class CoreStore {
                         .startAfter(lastVisible)
                         .limit(15)
 
-                    onFetch (snapshots.map { val file: File = it.toObject(File::class.java).apply { fileID = it.id }; file })
+                    onFetch (snapshots.map { val item: StorageItem = it.toObject(StorageItem::class.java).apply { id = it.id }; item })
                 }
             }
     }

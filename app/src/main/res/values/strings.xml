@@ -67,6 +67,7 @@
 
     <string name="file_type_unknown">Unknown</string>
     <string name="file_type_document">Document</string>
+    <string name="file_type_package">Android App Package</string>
     <string name="file_type_code">Source Code</string>
     <string name="file_type_photo">Photo</string>
     <string name="file_type_music">Music</string>

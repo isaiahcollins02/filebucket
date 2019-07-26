@@ -18,11 +18,10 @@ import com.isaiahvonrundstedt.bucket.architecture.store.SavedStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.constants.Params
-import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.objects.experience.Information
 import com.isaiahvonrundstedt.bucket.service.UsageService
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
-import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import kotlinx.android.synthetic.main.layout_dialog_detail.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -31,7 +30,7 @@ import java.text.DecimalFormat
 
 class DetailFragment: BaseScreenDialog() {
 
-    private var file: File? = null
+    private var storageItem: StorageItem? = null
     private var fileInDatabase: Boolean? = false
 
     private var appDB: AppDatabase? = null
@@ -43,13 +42,13 @@ class DetailFragment: BaseScreenDialog() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        file = arguments?.getParcelable(Params.payload)
+        storageItem = arguments?.getParcelable(Params.payload)
         appDB = AppDatabase.getDatabase(context!!)
         savedDAO = appDB?.collectionAccessor()
 
         context?.startService(Intent(context, UsageService::class.java)
             .setAction(UsageService.sendFileUsage)
-            .putExtra(UsageService.extraObjectID, file?.fileID))
+            .putExtra(UsageService.extraObjectID, storageItem?.id))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -65,22 +64,19 @@ class DetailFragment: BaseScreenDialog() {
         super.onResume()
 
         fileInDatabase = withContext(Dispatchers.Default){
-            savedDAO?.checkIfExists(file)
+            savedDAO?.checkIfExists(storageItem)
         }
+        titleView.text = storageItem?.name
+        authorView.text = storageItem?.author
 
-        with(file!!){
-            titleView.text = name
-            authorView.text = author
-
-            val icon = ResourcesCompat.getDrawable(resources, ItemManager.obtainFileIconRes(fileType), null)
-            icon?.setColorFilter(ContextCompat.getColor(context!!, ItemManager.getFileColor(fileType)), PorterDuff.Mode.SRC_ATOP)
-            iconView.setImageDrawable(icon)
-        }
+        val icon = ResourcesCompat.getDrawable(resources, StorageItem.obtainIconID(storageItem?.type), null)
+        icon?.setColorFilter(ContextCompat.getColor(context!!, StorageItem.obtainIconID(storageItem?.type)), PorterDuff.Mode.SRC_ATOP)
+        iconView.setImageDrawable(icon)
 
         val supportItems = listOf(
-            Information(R.string.detail_file_size, String.format(getString(R.string.file_size_megabytes), DecimalFormat("#.##").format((file!!.fileSize / 1024) / 1024))),
-            Information(R.string.detail_file_type, getString(ItemManager.obtainFileType(file?.fileType))),
-            Information(R.string.detail_file_timestamp, DataManager.formatTimestamp(context, file!!.timestamp) ?: ""))
+            Information(R.string.detail_file_size, String.format(getString(R.string.file_size_megabytes), DecimalFormat("#.##").format((storageItem?.size!! / 1024) / 1024))),
+            Information(R.string.detail_file_type, getString(StorageItem.obtainItemTypeID(storageItem?.type))),
+            Information(R.string.detail_file_timestamp, DataManager.formatTimestamp(context, storageItem?.timestamp) ?: ""))
         adapter = InfoAdapter(supportItems)
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -88,10 +84,10 @@ class DetailFragment: BaseScreenDialog() {
 
         collectionsButton.setOnClickListener {
             if (!fileInDatabase!!){
-                store?.insert(file!!)
+                store?.insert(storageItem!!)
                 (it as MaterialButton).text = getString(R.string.button_remove)
             } else {
-                store?.remove(file!!)
+                store?.remove(storageItem!!)
                 (it as MaterialButton).text = getString(R.string.button_save)
             }
         }

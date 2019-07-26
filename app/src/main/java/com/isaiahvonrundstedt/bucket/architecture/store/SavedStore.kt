@@ -5,14 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
-import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import kotlinx.coroutines.runBlocking
 
 class SavedStore (application: Application){
 
     private var appDB: AppDatabase? = null
     private var savedDAO: SavedDAO? = null
-    private lateinit var collectionLiveData: LiveData<List<File>>
+    private lateinit var collectionLiveData: LiveData<List<StorageItem>>
 
     init {
         appDB = AppDatabase.getDatabase(application)
@@ -20,20 +20,20 @@ class SavedStore (application: Application){
         fetch { collectionLiveData = it }
     }
 
-    private fun fetch( onFetch: (LiveData<List<File>>) -> Unit) = runBlocking {
+    private fun fetch( onFetch: (LiveData<List<StorageItem>>) -> Unit) = runBlocking {
         val itemList = savedDAO?.getFiles()
-        val mutableLiveData: MutableLiveData<List<File>> = MutableLiveData()
+        val mutableLiveData: MutableLiveData<List<StorageItem>> = MutableLiveData()
         mutableLiveData.value = itemList
         onFetch(mutableLiveData)
     }
 
-    fun insert(file: File) = runBlocking {
-        savedDAO?.insert(file)
+    fun insert(item: StorageItem) = runBlocking {
+        savedDAO?.insert(item)
     }
 
-    fun remove(file: File) = runBlocking {
-        savedDAO?.remove(file)
+    fun remove(item: StorageItem) = runBlocking {
+        savedDAO?.remove(item)
     }
 
-    fun getCollections(): LiveData<List<File>> = collectionLiveData
+    fun getCollections(): LiveData<List<StorageItem>> = collectionLiveData
 }

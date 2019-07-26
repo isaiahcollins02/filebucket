@@ -17,9 +17,8 @@ import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.architecture.store.NotificationStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firestore
-import com.isaiahvonrundstedt.bucket.objects.core.File
+import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.User
-import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 import timber.log.Timber
 
 class TransferService: BaseService() {
@@ -68,7 +67,7 @@ class TransferService: BaseService() {
 
         showProgressNotification(fileUri.lastPathSegment!!, 0, 0)
 
-        // Get a reference to store a file at files reference
+        // Get a reference to store a typeGeneric at files reference
         val fileReference = storageReference.child(Firestore.files).child(fileUri.lastPathSegment!!)
 
         fileReference.putFile(fileUri)
@@ -88,7 +87,7 @@ class TransferService: BaseService() {
 
                 // Send a notification to the user
                 showTransferFinishedNotification(downloadUri, fileUri)
-                // Package the localCache for the location of the file in the server
+                // Package the localCache for the location of the typeGeneric in the server
                 finalizeTransfer(downloadUri, fileUri)
             }.addOnFailureListener {
                 // Broadcast whether the task is successful or not
@@ -133,18 +132,18 @@ class TransferService: BaseService() {
         val fileReference = firestore.collection(Firestore.files)
 
         if (downloadUri != null) {
-            // Create a buffered file to retrieve data about the uri
+            // Create a buffered typeGeneric to retrieve data about the uri
             val bufferedFile: java.io.File = java.io.File(selectedFileUri?.path)
 
-            val file = File()
-            file.name = bufferedFile.nameWithoutExtension
-            file.fileSize = bufferedFile.length().toDouble()
-            file.downloadURL = downloadUri.toString()
-            file.fileType = ItemManager.obtainFileExtension(bufferedFile.toUri())
-            file.author = User(this).fullName
-            file.timestamp = Timestamp.now()
+            val storageItem = StorageItem()
+            storageItem.name = bufferedFile.nameWithoutExtension
+            storageItem.size = bufferedFile.length()
+            storageItem.args = downloadUri.toString()
+            storageItem.type = StorageItem.determineExtension(bufferedFile.toUri())
+            storageItem.author = User(this).fullName
+            storageItem.timestamp = Timestamp.now()
 
-            fileReference.add(file)
+            fileReference.add(storageItem)
                 .addOnCompleteListener {
                     if (it.isSuccessful)
                         taskCompleted()
