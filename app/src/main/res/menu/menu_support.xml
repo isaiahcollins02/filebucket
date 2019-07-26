@@ -5,7 +5,6 @@
     <item
             android:id="@+id/action_send"
             android:title="@string/button_send"
-            android:icon="@drawable/ic_vector_send"
             app:iconTint="@color/colorIcons"
             app:showAsAction="ifRoom"/>
 

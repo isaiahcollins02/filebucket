@@ -3,7 +3,6 @@ package com.isaiahvonrundstedt.bucket.activities
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
@@ -96,7 +95,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         val titleView: AppCompatTextView = headerLayout.findViewById(R.id.titleView)
         val subtitleView: AppCompatTextView = headerLayout.findViewById(R.id.subtitleView)
 
-        val accountDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_object_user, null)
+        val accountDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_user, null)
         accountDrawable?.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP)
 
         with(User(this)){
@@ -120,7 +119,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId){
-            R.id.action_search -> SearchFragment().show(supportFragmentManager, SearchFragment.tag)
+            R.id.action_search -> SearchFragment().invoke(supportFragmentManager)
         }
         return true
     }

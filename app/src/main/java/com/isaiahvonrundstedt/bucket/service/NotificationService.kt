@@ -83,12 +83,12 @@ class NotificationService: BaseService() {
 
         val builder = NotificationCompat.Builder(this, Notification.defaultChannel)
             .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
-            .setSmallIcon(R.drawable.ic_vector_new)
+            .setSmallIcon(R.drawable.ic_balloons)
             .setContentTitle(notification.title)
             .setContentText(notification.content)
             .setContentIntent(defaultIntent)
-            .addAction(R.drawable.ic_vector_check, getString(R.string.button_download), downloadIntent)
-            .addAction(R.drawable.ic_vector_collections, getString(R.string.button_save), saveIntent)
+            .addAction(R.drawable.ic_checked, getString(R.string.button_download), downloadIntent)
+            .addAction(R.drawable.ic_floppy_disk, getString(R.string.button_save), saveIntent)
 
         manager.notify(newFileNotificationID, builder.build())
     }

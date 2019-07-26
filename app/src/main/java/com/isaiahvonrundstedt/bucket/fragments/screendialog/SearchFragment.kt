@@ -14,10 +14,6 @@ import kotlinx.android.synthetic.main.layout_dialog_search.*
 
 class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
 
-    companion object {
-        const val tag = "searchFragment"
-    }
-
     private var searchQuery: String? = null
 
     private var layoutManager: LinearLayoutManager? = null
@@ -28,7 +24,7 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(R.string.menu_search)
+        toolbarTitle?.text = getString(R.string.menu_search)
     }
 
     override fun onStart() {

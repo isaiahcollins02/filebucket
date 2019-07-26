@@ -34,4 +34,14 @@
     <color name="colorIntroRed">#ff0022</color>
     <color name="colorIntroYellow">#fb9f00</color>
 
+    <!-- Icons -->
+    <color name="colorIconBlue">#3386D9</color>
+    <color name="colorIconYellow">#F1C63A</color>
+    <color name="colorIconRed">#FB2C00</color>
+    <color name="colorIconPurple">#5E57CA</color>
+    <color name="colorIconTeal">#009573</color>
+    <color name="colorIconMagenta">#E2367E</color>
+    <color name="colorIconSeaBlue">#16B3C6</color>
+    <color name="colorIconOrange">#F79A17</color>
+
 </resources>

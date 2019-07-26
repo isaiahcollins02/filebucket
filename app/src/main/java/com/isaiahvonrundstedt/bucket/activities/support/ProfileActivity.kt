@@ -1,6 +1,8 @@
 package com.isaiahvonrundstedt.bucket.activities.support
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +26,7 @@ import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.interfaces.RecyclerNavigation
 import com.isaiahvonrundstedt.bucket.service.TransferService
+import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.User
 import gun0912.tedbottompicker.TedBottomPicker
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -55,7 +59,7 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
             emailView.text = email
         }
 
-        val accountDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_object_user, null)
+        val accountDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_user, null)
         accountDrawable?.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP)
 
         GlideApp.with(this)
@@ -67,22 +71,35 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
             .into(profileView)
 
         profileView.setOnClickListener {
-            TedBottomPicker.with(this)
-                .setImageProvider { imageView, imageUri ->
-
-                    val requestOptions = RequestOptions()
-                        .centerCrop()
-                        .priority(Priority.NORMAL)
-
-                    GlideApp.with(this)
-                        .load(imageUri.path)
-                        .apply(requestOptions)
-                        .into(imageView)
-                }.show { uri -> startService(Intent(this, TransferService::class.java)
-                    .putExtra(TransferService.extraFileURI, uri)
-                    .putExtra(TransferService.extraAccountID, userID)
-                    .setAction(TransferService.actionProfile))}
+            if (Permissions(this).readAccessGranted)
+                invokePhotoPicker()
+            else
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Permissions.readRequestCode)
         }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == Permissions.readRequestCode && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            invokePhotoPicker()
+        else super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun invokePhotoPicker(){
+        TedBottomPicker.with(this)
+            .setImageProvider { imageView, imageUri ->
+
+                val requestOptions = RequestOptions()
+                    .centerCrop()
+                    .priority(Priority.NORMAL)
+
+                GlideApp.with(this)
+                    .load(imageUri.path)
+                    .apply(requestOptions)
+                    .into(imageView)
+            }.show { uri -> startService(Intent(this, TransferService::class.java)
+                .putExtra(TransferService.extraFileURI, uri)
+                .putExtra(TransferService.extraAccountID, userID)
+                .setAction(TransferService.actionProfile))}
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

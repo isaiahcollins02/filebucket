@@ -108,7 +108,7 @@
                 android:layout_alignParentEnd="true"
                 android:focusable="true"
                 android:clickable="true"
-                app:drawableEndCompat="@drawable/ic_vector_next"/>
+                app:drawableEndCompat="@drawable/ic_next"/>
 
     </RelativeLayout>
 

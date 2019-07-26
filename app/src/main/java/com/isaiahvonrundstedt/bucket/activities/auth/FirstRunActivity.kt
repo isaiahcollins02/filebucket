@@ -32,20 +32,16 @@ class FirstRunActivity: BaseActivity() {
         val spannableString = SpannableString(getString(R.string.license_agreement_helper))
         spannableString.setSpan(object: ClickableSpan() {
             override fun onClick(widget: View) {
-                if (supportFragmentManager.findFragmentByTag(WebViewFragment.tag)?.isAdded != true){
-                    args.putInt(Params.viewType, WebViewFragment.viewTypePrivacy)
-                    webViewFragment.arguments = args
-                    webViewFragment.show(supportFragmentManager, WebViewFragment.tag)
-                }
+                args.putInt(Params.viewType, WebViewFragment.viewTypePrivacy)
+                webViewFragment.arguments = args
+                webViewFragment.invoke(supportFragmentManager)
             }
         }, 33, 47, 0)
         spannableString.setSpan(object: ClickableSpan(){
             override fun onClick(widget: View) {
-                if (supportFragmentManager.findFragmentByTag(WebViewFragment.tag)?.isAdded != true) {
-                    args.putInt(Params.viewType, WebViewFragment.viewTypeTerms)
-                    webViewFragment.arguments = args
-                    webViewFragment.show(supportFragmentManager, WebViewFragment.tag)
-                }
+                args.putInt(Params.viewType, WebViewFragment.viewTypeTerms)
+                webViewFragment.arguments = args
+                webViewFragment.invoke(supportFragmentManager)
             }
         }, 52, 68, 0)
         hyperlinkView.movementMethod = LinkMovementMethod.getInstance()

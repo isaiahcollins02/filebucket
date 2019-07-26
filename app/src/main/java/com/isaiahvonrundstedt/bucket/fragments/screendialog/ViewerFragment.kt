@@ -32,7 +32,7 @@ class ViewerFragment: BaseScreenDialog(), RequestListener<Drawable> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(currentFile?.name!!)
+        toolbarTitle?.text = currentFile?.name
     }
 
     override fun onStart() {

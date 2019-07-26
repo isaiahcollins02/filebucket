@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/noAccessView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin_start"
-            android:layout_marginEnd="@dimen/activity_margin_end"
+            android:orientation="vertical"
             android:layout_centerInParent="true"
-            android:orientation="vertical">
+            tools:ignore="UselessParent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_lock"
+                app:tint="@color/colorSecondaryText"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/noAccessView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
                 android:gravity="center"
                 android:text="@string/main_empty_permission_not_granted"
-                android:textAppearance="@style/AppTheme.TextAppearance.Status"
-                app:drawableTopCompat="@drawable/ic_vector_lock"
-                app:drawableTint="@color/colorSecondaryText"/>
+                android:textAppearance="@style/AppTheme.TextAppearance.Status"/>
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/requestButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/button_turn_on_storage_access"

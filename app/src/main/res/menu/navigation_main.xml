@@ -8,31 +8,31 @@
         <item
                 android:id="@+id/navigation_cloud"
                 android:title="@string/navigation_cloud"
-                android:icon="@drawable/ic_vector_cloud"
+                android:icon="@drawable/ic_cloud"
                 app:iconTint="@color/colorSecondaryText"/>
 
         <item
                 android:id="@+id/navigation_local"
                 android:title="@string/navigation_local"
-                android:icon="@drawable/ic_vector_folder"
+                android:icon="@drawable/ic_folder"
                 app:iconTint="@color/colorSecondaryText"/>
 
         <item
                 android:id="@+id/navigation_boxes"
                 android:title="@string/navigation_boxes"
-                android:icon="@drawable/ic_vector_boxes"
+                android:icon="@drawable/ic_package"
                 app:iconTint="@color/colorSecondaryText"/>
 
         <item
                 android:id="@+id/navigation_collections"
                 android:title="@string/navigation_saved"
-                android:icon="@drawable/ic_vector_collections"
+                android:icon="@drawable/ic_floppy_disk"
                 app:iconTint="@color/colorSecondaryText"/>
 
         <item
                 android:id="@+id/navigation_notifications"
                 android:title="@string/navigation_notifications"
-                android:icon="@drawable/ic_vector_notifications"
+                android:icon="@drawable/ic_bell"
                 app:iconTint="@color/colorSecondaryText"/>
 
     </group>

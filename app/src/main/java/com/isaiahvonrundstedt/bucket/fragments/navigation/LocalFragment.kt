@@ -1,7 +1,6 @@
 package com.isaiahvonrundstedt.bucket.fragments.navigation
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater

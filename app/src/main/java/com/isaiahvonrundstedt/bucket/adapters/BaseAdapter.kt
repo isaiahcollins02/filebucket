@@ -2,12 +2,15 @@ package com.isaiahvonrundstedt.bucket.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
@@ -101,10 +104,13 @@ abstract class BaseAdapter(private var context: Context?,
     internal inner class SentFileViewHolder(itemView: View): FileViewHolder(itemView){
         override fun onBindData(file: File?) {
             rootView.setOnClickListener { showDetailDialog(file) }
-            iconView.setImageDrawable(ItemManager.getFileIcon(context, file?.fileType))
             titleView.text = file?.name
             subtitleView.text = setMetadata(file)
             sizeView.text = DataManager.formatSize(context, file?.fileSize)
+
+            val icon = ResourcesCompat.getDrawable(rootView.context.resources, ItemManager.obtainFileIconRes(file?.fileType), null)
+            icon?.setColorFilter(ContextCompat.getColor(rootView.context, ItemManager.getFileColor(file?.fileType)), PorterDuff.Mode.SRC_ATOP)
+            iconView.setImageDrawable(icon)
         }
     }
     
@@ -112,12 +118,14 @@ abstract class BaseAdapter(private var context: Context?,
         override fun onBindData(file: File?) {
             rootView.setOnClickListener { onDownload(file) }
             rootView.setOnLongClickListener { showDetailDialog(file); true }
-            iconView.setImageDrawable(ItemManager.getFileIcon(context, file?.fileType))
             titleView.text = file?.name
             subtitleView.text = setMetadata(file)
             sizeView.text = DataManager.formatSize(context, file?.fileSize)
+
+            val icon = ResourcesCompat.getDrawable(rootView.context.resources, ItemManager.obtainFileIconRes(file?.fileType), null)
+            icon?.setColorFilter(ContextCompat.getColor(rootView.context, ItemManager.getFileColor(file?.fileType)), PorterDuff.Mode.SRC_ATOP)
+            iconView.setImageDrawable(icon)
         }
-        
     }
 
     internal inner class ImageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -143,11 +151,14 @@ abstract class BaseAdapter(private var context: Context?,
         
         fun onBindData(localFile: LocalFile?){
             rootView.setOnClickListener { onParseIntent(rootView, localFile) }
-            iconView.setImageDrawable(ItemManager.getLocalIcon(context, localFile?.type))
             titleView.text = localFile?.name
             subtitleView.text = DataManager.formatDate(context, localFile?.date)
             sizeView.text = DataManager.formatSize(itemView.context, localFile?.size)
-            
+
+            val icon = ResourcesCompat.getDrawable(rootView.context.resources, ItemManager.obtainLocalIconRes(localFile?.type), null)
+            icon?.setColorFilter(ContextCompat.getColor(rootView.context, ItemManager.getLocalColor(localFile?.type)), PorterDuff.Mode.SRC_ATOP)
+            iconView.setImageDrawable(icon)
+
             if (localFile?.type == LocalFile.directory)
                 sizeView.isVisible = false
         }
@@ -172,8 +183,8 @@ abstract class BaseAdapter(private var context: Context?,
     private fun fetchProfileImage(imageURL: String?, container: AppCompatImageView){
         requestManager.clear(container)
         requestManager.asBitmap()
-            .placeholder(R.drawable.ic_object_user)
-            .error(R.drawable.ic_object_user)
+            .placeholder(R.drawable.ic_user)
+            .error(R.drawable.ic_user)
             .load(imageURL)
             .apply(RequestOptions().circleCrop())
             .into(container)
@@ -190,7 +201,7 @@ abstract class BaseAdapter(private var context: Context?,
 
         val detailDialog = DetailFragment()
         detailDialog.arguments = args
-        detailDialog.show(fragmentManager, detailScreenTag)
+        detailDialog.invoke(fragmentManager)
     }
     private fun onDownload(file: File?){
         MaterialDialog(context!!).show {
@@ -236,7 +247,7 @@ abstract class BaseAdapter(private var context: Context?,
 
             val viewer = ViewerFragment()
             viewer.arguments = args
-            viewer.show(fragmentManager, viewerScreenTag)
+            viewer.invoke(fragmentManager)
         }
     }
 

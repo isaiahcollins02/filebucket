@@ -16,7 +16,7 @@
             android:layout_margin="24dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            app:srcCompat="@drawable/ic_brand_bucket_outline"
+            app:srcCompat="@drawable/ic_bucket"
             app:tint="@android:color/darker_gray"/>
 
     <LinearLayout

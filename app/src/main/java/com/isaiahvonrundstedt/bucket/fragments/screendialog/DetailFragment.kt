@@ -1,10 +1,13 @@
 package com.isaiahvonrundstedt.bucket.fragments.screendialog
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.isaiahvonrundstedt.bucket.R
@@ -55,7 +58,7 @@ class DetailFragment: BaseScreenDialog() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(R.string.file_details)
+        toolbarTitle?.text = getString(R.string.file_details)
     }
 
     override fun onResume() = runBlocking {
@@ -68,12 +71,15 @@ class DetailFragment: BaseScreenDialog() {
         with(file!!){
             titleView.text = name
             authorView.text = author
-            iconView.setImageDrawable(ItemManager.getFileIcon(context, fileType))
+
+            val icon = ResourcesCompat.getDrawable(resources, ItemManager.obtainFileIconRes(fileType), null)
+            icon?.setColorFilter(ContextCompat.getColor(context!!, ItemManager.getFileColor(fileType)), PorterDuff.Mode.SRC_ATOP)
+            iconView.setImageDrawable(icon)
         }
 
         val supportItems = listOf(
             Information(R.string.detail_file_size, String.format(getString(R.string.file_size_megabytes), DecimalFormat("#.##").format((file!!.fileSize / 1024) / 1024))),
-            Information(R.string.detail_file_type, ItemManager.getFileType(context, file!!.fileType) ?: ""),
+            Information(R.string.detail_file_type, getString(ItemManager.obtainFileType(file?.fileType))),
             Information(R.string.detail_file_timestamp, DataManager.formatTimestamp(context, file!!.timestamp) ?: ""))
         adapter = InfoAdapter(supportItems)
         recyclerView.addItemDecoration(ItemDecoration(context))

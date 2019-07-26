@@ -26,9 +26,9 @@ class WebViewFragment: BaseScreenDialog() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         when (userViewType){
-            viewTypeTerms -> setToolbarTitle(R.string.about_terms_of_service)
-            viewTypePrivacy -> setToolbarTitle(R.string.about_privacy_policy)
-            viewTypeLicense -> setToolbarTitle(R.string.about_licenses)
+            viewTypeTerms -> toolbarTitle?.text = getString(R.string.about_terms_of_service)
+            viewTypePrivacy -> toolbarTitle?.text = getString(R.string.about_privacy_policy)
+            viewTypeLicense -> toolbarTitle?.text = getString(R.string.about_licenses)
         }
     }
 
@@ -48,8 +48,6 @@ class WebViewFragment: BaseScreenDialog() {
         const val viewTypeTerms = 1
         const val viewTypePrivacy = 2
         const val viewTypeLicense = 3
-
-        const val tag = "webViewTag"
     }
 
 }

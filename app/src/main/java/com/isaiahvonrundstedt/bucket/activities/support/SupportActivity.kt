@@ -12,7 +12,7 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.diagnostics.Support
 import com.kaopiz.kprogresshud.KProgressHUD
-import kotlinx.android.synthetic.main.activity_support.*
+import kotlinx.android.synthetic.main.layout_dialog_support.*
 
 class SupportActivity: BaseAppBarActivity() {
 
@@ -21,7 +21,7 @@ class SupportActivity: BaseAppBarActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_support)
+        setContentView(R.layout.layout_dialog_support)
         setToolbarTitle(R.string.about_feedback)
     }
 

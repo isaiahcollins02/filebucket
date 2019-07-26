@@ -9,7 +9,7 @@ import java.util.*
 data class LocalFile @JvmOverloads constructor(
     var id: String? = null,
     var name: String? = null,
-    var type: Int? = 0,
+    var type: Int = 0,
     var size: Long = 0L,
     var args: Uri? = null,
     var date: Date? = null): Parcelable {

@@ -1,10 +1,7 @@
 package com.isaiahvonrundstedt.bucket
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.net.ConnectivityManagerCompat
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import androidx.preference.PreferenceManager

@@ -112,7 +112,7 @@ class FetchService: BaseService(){
 
         val builder = NotificationCompat.Builder(this, Notification.transferChannel)
             .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
-            .setSmallIcon(R.drawable.ic_vector_error)
+            .setSmallIcon(R.drawable.ic_error)
             .setContentTitle(notification.title)
             .setContentText(notification.content)
         manager.notify(notificationFailed, builder.build())
@@ -132,7 +132,7 @@ class FetchService: BaseService(){
 
         val builder = NotificationCompat.Builder(this, Notification.transferChannel)
             .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
-            .setSmallIcon(R.drawable.ic_vector_check)
+            .setSmallIcon(R.drawable.ic_checked)
             .setContentTitle(notification.title)
             .setContentText(notification.content)
 

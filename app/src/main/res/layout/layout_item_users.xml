@@ -21,8 +21,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/titleView"
-                app:srcCompat="@drawable/ic_object_update"/>
+                app:layout_constraintEnd_toStartOf="@id/titleView"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/titleView"

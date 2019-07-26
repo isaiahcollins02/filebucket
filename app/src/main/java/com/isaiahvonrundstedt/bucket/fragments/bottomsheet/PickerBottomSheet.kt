@@ -15,6 +15,8 @@ import com.isaiahvonrundstedt.bucket.objects.experience.Picker
 
 class PickerBottomSheet: BaseBottomSheet(), BottomSheetPicker {
 
+    companion object { const val tag = "bottomPickerTag"}
+
     fun setItems(list: List<Picker>){
         items.addAll(list)
     }

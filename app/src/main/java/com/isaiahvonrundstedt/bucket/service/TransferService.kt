@@ -161,7 +161,7 @@ class TransferService: BaseService() {
             createTransferChannel()
             val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_default))
                 .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                .setSmallIcon(R.drawable.ic_vector_upload)
+                .setSmallIcon(R.drawable.ic_upload)
                 .setContentTitle(String.format(getString(R.string.notification_transferring), fileName))
                 .setContentText(String.format(getString(R.string.notification_percent_complete), percentComplete))
                 .setProgress(100, percentComplete, false)
@@ -177,7 +177,7 @@ class TransferService: BaseService() {
         val pendingIntent = PendingIntent.getActivity(this, 0
             /* requestCode */, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val icon = if (success) R.drawable.ic_vector_check else R.drawable.ic_vector_error
+        val icon = if (success) R.drawable.ic_checked else R.drawable.ic_error
 
         createTransferChannel()
         val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_transfer))

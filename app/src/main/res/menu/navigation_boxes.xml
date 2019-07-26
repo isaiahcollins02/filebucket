@@ -3,10 +3,10 @@
 
     <item android:id="@+id/navigation_shared"
           android:title="@string/navigation_box_shared"
-          android:icon="@drawable/ic_vector_shared"/>
+          android:icon="@drawable/ic_earth"/>
 
     <item android:id="@+id/navigation_sent"
           android:title="@string/navigation_box_sent"
-          android:icon="@drawable/ic_vector_send"/>
+          android:icon="@drawable/ic_paper_plane"/>
 
 </menu>

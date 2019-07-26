@@ -1,8 +1,10 @@
 package com.isaiahvonrundstedt.bucket.fragments.navigation
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -31,6 +33,7 @@ import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.PickerBottomSheet
 import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
 import com.isaiahvonrundstedt.bucket.objects.experience.Picker
 import com.isaiahvonrundstedt.bucket.service.TransferService
+import com.isaiahvonrundstedt.bucket.utils.Permissions
 import gun0912.tedbottompicker.TedBottomPicker
 import kotlinx.android.synthetic.main.fragment_cloud.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
@@ -85,17 +88,28 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         recyclerView.adapter = adapter
 
         itemPicker = PickerBottomSheet()
-        itemPicker.setItems(listOf(Picker(R.drawable.ic_vector_photo, R.string.sheet_picker_image), Picker(R.drawable.ic_vector_files, R.string.sheet_picker_file)))
+        itemPicker.setItems(listOf(Picker(R.drawable.ic_add_media, R.string.sheet_picker_image), Picker(R.drawable.ic_add_file, R.string.sheet_picker_file)))
         itemPicker.setOnItemSelectedListener(this)
 
         swipeRefreshContainer.setOnRefreshListener { onRefreshData() }
-        addAction.setOnClickListener { itemPicker.show(childFragmentManager, "pickerTag") }
+        addAction.setOnClickListener {
+            if (Permissions(it.context).readAccessGranted)
+                itemPicker.show(childFragmentManager, PickerBottomSheet.tag)
+            else
+                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Permissions.readRequestCode)
+        }
 
         viewModel?.itemList?.observe(this, Observer { items ->
             adapter?.setObservableItems(items)
         })
 
         noItemView.isVisible = viewModel?.size == 0
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == Permissions.readRequestCode && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            itemPicker.show(childFragmentManager, PickerBottomSheet.tag)
+        else super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private var isScrolling: Boolean = false
