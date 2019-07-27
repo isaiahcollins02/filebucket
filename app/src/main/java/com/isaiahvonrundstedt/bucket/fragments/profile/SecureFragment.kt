@@ -9,8 +9,8 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.isaiahvonrundstedt.bucket.R
+import com.isaiahvonrundstedt.bucket.components.LoaderDialog
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.fragment_security.*
 
 class SecureFragment: BaseFragment() {
@@ -25,12 +25,9 @@ class SecureFragment: BaseFragment() {
         super.onStart()
 
         continueButton.setOnClickListener {
-            val kProgressHUD: KProgressHUD = KProgressHUD(it.context)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setAnimationSpeed(2)
-                .setCancellable(false)
-                .setDimAmount(.05f)
-                .show()
+
+            val progress = LoaderDialog(getString(R.string.dialog_working_on_it))
+            progress.invoke(childFragmentManager)
 
             val email: String = firebaseAuth.currentUser?.email!!
             val oldPassword: String = oldPasswordField.text.toString()
@@ -41,7 +38,7 @@ class SecureFragment: BaseFragment() {
 
             firebaseAuth.currentUser?.reauthenticate(authCredential)
                 ?.addOnSuccessListener { _ ->
-                    kProgressHUD.dismiss()
+                    progress.dismiss()
                     if (newPassword == confirmPassword){
                         firebaseAuth.currentUser!!.updatePassword(newPassword)
                             .addOnSuccessListener {
@@ -54,7 +51,7 @@ class SecureFragment: BaseFragment() {
                         Snackbar.make(view!!, R.string.status_password_not_match, Snackbar.LENGTH_SHORT).show()
                 }
                 ?.addOnFailureListener {
-                    kProgressHUD.dismiss()
+                    progress.dismiss()
                     Snackbar.make(view!!, R.string.dialog_token_error, Snackbar.LENGTH_SHORT).show()
                 }
         }

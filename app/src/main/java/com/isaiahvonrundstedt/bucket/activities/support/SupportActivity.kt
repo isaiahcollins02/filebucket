@@ -8,10 +8,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
+import com.isaiahvonrundstedt.bucket.components.LoaderDialog
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.diagnostics.Support
-import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.layout_dialog_support.*
 
 class SupportActivity: BaseAppBarActivity() {
@@ -50,12 +50,8 @@ class SupportActivity: BaseAppBarActivity() {
     }
 
     private fun sendFeedback(){
-        val progress: KProgressHUD = KProgressHUD(this)
-            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-            .setAnimationSpeed(2)
-            .setCancellable(false)
-            .setDimAmount(.50f)
-            .show()
+        val progress = LoaderDialog(getString(R.string.dialog_sending_reset_link))
+        progress.invoke(supportFragmentManager)
 
         val support = Support(firebaseAuth.currentUser?.uid).apply {
             type = getCheckedChip(chipGroup)

@@ -19,7 +19,7 @@
                 android:layout_height="72dp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_bell"
-                app:tint="@color/colorSecondaryText"/>
+                app:tint="?colorControlNormal"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
                 android:layout_margin="@dimen/activity_margin"
                 android:gravity="center"
                 android:text="@string/main_empty_no_notification"
-                android:textAppearance="@style/AppTheme.TextAppearance.Status"/>
+                android:textAppearance="@style/AppTheme.TextAppearance.Medium"/>
 
     </LinearLayout>
 

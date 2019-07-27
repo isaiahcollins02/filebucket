@@ -1,18 +1,21 @@
 <resources>
     <string name="app_name" translatable="false">File Bucket</string>
 
-    <string name="welcome_to_drop_bucket">Welcome!</string>
-    <string name="to_access_the_content">To access and create contents, login with your credentials</string>
-    <string name="license_agreement_helper">By continuing, you agree to the, Privacy Policy and Terms of Service.</string>
+    <string name="first_run_title">Welcome!</string>
+    <string name="first_run_summary">To access and create contents, login with your credentials</string>
+    <string name="first_run_terms">By continuing, you agree to the, Privacy Policy and Terms of Service.</string>
 
-    <string name="login_to_drop_bucket">Login</string>
-    <string name="enter_your_email_and_password_to_continue">Enter your email and password to continue</string>
+    <string name="auth_title">Sign in</string>
+    <string name="auth_summary">Enter the email address and password that you sign-ed up with</string>
 
-    <string name="register_to_drop_bucket">Register</string>
-    <string name="provide_the_required_information">Provide the following required information to continue</string>
+    <string name="register_email_title">Hi there!</string>
+    <string name="register_email_summary">Be sure to use the email address that you have access to</string>
 
-    <string name="register_secure_account">Security</string>
-    <string name="think_of_a_complex_password_that">Think of a complex password that comprises of a upper and lower case letters, symbols and numbers</string>
+    <string name="register_details_title">Tell us about yourself</string>
+    <string name="register_details_summary">We\'ll need some basic information about yourself to get you started</string>
+
+    <string name="register_password_title">Account Security</string>
+    <string name="register_password_summary">Think of a complex password that comprises of a upper and lower case letters, symbols and numbers</string>
 
     <!-- Intro -->
     <string name="intro_cloud_storage_title">Secure Cloud Storage</string>
@@ -40,7 +43,7 @@
     <string name="button_cancel">Cancel</string>
     <!-- Auth Button Text -->
     <string name="button_login">Login</string>
-    <string name="button_register">Register</string>
+    <string name="button_sign_up">Sign Up</string>
     <!-- Action Button Text -->
     <string name="button_browse">Browse</string>
     <string name="button_upload">Upload</string>
@@ -51,7 +54,7 @@
     <string name="button_edit">Edit</string>
     <string name="button_save">Save</string>
     <string name="button_remove">Remove</string>
-    <string name="button_forgot_password">Forgot Password?</string>
+    <string name="button_forgot_password">Forgot Password</string>
     <string name="button_turn_on_storage_access">Turn on Storage Access</string>
 
     <string name="file_details">File Details</string>
@@ -66,6 +69,7 @@
     <string name="detail_file_timestamp">Timestamp</string>
 
     <string name="file_type_unknown">Unknown</string>
+    <string name="file_type_directory">File Folder</string>
     <string name="file_type_document">Document</string>
     <string name="file_type_package">Android App Package</string>
     <string name="file_type_code">Source Code</string>
@@ -97,7 +101,7 @@
     <string name="menu_done">Done</string>
 
     <!-- Empty Views -->
-    <string name="main_empty_no_notification">There are no notifications</string>
+    <string name="main_empty_no_notification">There are currently no notifications</string>
     <string name="main_empty_no_items">Look\'s like the there is no items available</string>
     <string name="main_empty_permission_not_granted">We\'ll need you to grant us some permissions before we can do anything</string>
 
@@ -179,6 +183,10 @@
     <string name="dialog_permission_revoked_summary">To fully use this application, we\'ll need you to allow Storage Permission requests to download files</string>
 
     <string name="dialog_token_error">Token Error</string>
+    <string name="dialog_verifying_account">Verifying</string>
+    <string name="dialog_creating_account">Creating Account</string>
+    <string name="dialog_sending_reset_link">Sending</string>
+    <string name="dialog_working_on_it">Working on it</string>
 
     <string name="dialog_email_or_password_cannot_be_blank">Email Address or Password cannot be blank</string>
 

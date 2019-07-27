@@ -8,7 +8,7 @@
     <color name="colorOnPrimary">#ffffff</color>
 
     <!-- Backgrounds -->
-    <color name="colorWindowBackground">#f9f9f9</color>
+    <color name="colorWindowBackground">#ffffff</color>
     <color name="colorCardBackground">#ffffff</color>
     <color name="colorScreenBackground">#ffffff</color>
 
@@ -21,7 +21,6 @@
     <!-- Texts -->
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#9c9c9c</color>
-    <color name="colorHelperText">#455a64</color>
 
     <!-- Default -->
     <color name="colorIntro1">#00a99b</color>

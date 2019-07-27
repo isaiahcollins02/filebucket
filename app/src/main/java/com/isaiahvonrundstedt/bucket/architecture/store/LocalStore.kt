@@ -7,6 +7,8 @@ import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
 
 class LocalStore (app: Application) {
 
@@ -20,12 +22,13 @@ class LocalStore (app: Application) {
             val currentLocalFile = StorageItem().apply {
                 id = DataManager.generateRandomID()
                 name = bufferedFile.name
-                type = StorageItem.determineExtension(bufferedFile.toUri())
+                type = if (bufferedFile.isDirectory) StorageItem.typeDirectory else StorageItem.determineExtension(bufferedFile.toUri())
                 args = bufferedFile.path
                 size = bufferedFile.length()
                 timestamp = Timestamp.now()
             }
             items.add(currentLocalFile)
+            items.sortWith(compareBy({it.name?.toLowerCase(Locale.getDefault())}, {it.name?.toLowerCase(Locale.getDefault())}))
         }
         onFetch(items)
     }

@@ -2,11 +2,9 @@ package com.isaiahvonrundstedt.bucket.components.custom
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.isaiahvonrundstedt.bucket.adapters.BaseAdapter
 import com.isaiahvonrundstedt.bucket.utils.converters.MetricConverter
 
 class ItemDecoration (private var context: Context?): RecyclerView.ItemDecoration() {
@@ -51,17 +49,5 @@ class ItemDecoration (private var context: Context?): RecyclerView.ItemDecoratio
             divider?.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
             divider?.draw(canvas)
         }
-    }
-
-    override fun getItemOffsets(outRect: Rect, view: View, recyclerView: RecyclerView, state: RecyclerView.State) {
-        val itemPosition = recyclerView.getChildAdapterPosition(view)
-        val viewType = recyclerView.adapter?.getItemViewType(itemPosition)
-        val marginOffsets = MetricConverter.convertDPtoPixel(context!!, 16F).toInt()
-        if (viewType != BaseAdapter.viewTypeImage){
-            if (itemPosition == 0)
-                outRect.set(0, marginOffsets, 0, 0)
-            else outRect.setEmpty()
-        } else
-            outRect.set(0, marginOffsets, 0, marginOffsets)
     }
 }

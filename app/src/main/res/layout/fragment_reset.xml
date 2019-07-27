@@ -13,7 +13,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:text="@string/instruction_reset"
-            android:textColor="@color/colorHelperText"/>
+            android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 
     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             android:layout_width="match_parent"

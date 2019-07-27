@@ -17,12 +17,12 @@
     <!-- UI Components -->
     <!-- BottomSheets, Dialogs etc -->
 
-    <style name="AppTheme.ScreenDialog" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="AppTheme.ScreenDialog" parent="Theme.MaterialComponents.Dialog">
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowIsFloating">false</item>
-        <item name="android:windowBackground">@color/colorScreenBackground</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
     </style>
 
     <style name="AppTheme.BottomSheet" parent="BaseBottomSheetDialog"/>

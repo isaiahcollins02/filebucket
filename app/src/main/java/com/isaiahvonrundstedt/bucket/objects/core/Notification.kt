@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.firebase.Timestamp
+import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.utils.converters.TimestampConverter
 import kotlinx.android.parcel.Parcelize
 
@@ -27,11 +28,22 @@ data class Notification @JvmOverloads constructor (
         const val typeNewFile = 1
         const val typePackage = 2
         const val typeFetched = 3
-        const val typeTransfered = 4
+        const val typeTransferred = 4
 
         const val defaultChannel = "default"
         const val transferChannel = "transfer"
         const val supportChannel = "support"
+
+        fun obtainIconRes(type: Int?): Int? {
+            return when (type){
+                typeGeneric -> R.drawable.ic_bell
+                typeNewFile -> R.drawable.ic_balloons
+                typePackage -> R.drawable.ic_download
+                typeFetched -> R.drawable.ic_download
+                typeTransferred -> R.drawable.ic_upload
+                else -> null
+            }
+        }
     }
 
 }

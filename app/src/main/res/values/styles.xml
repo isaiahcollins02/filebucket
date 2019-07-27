@@ -4,6 +4,7 @@
         <item name="md_corner_radius">16dp</item>
         <item name="md_background_color">@color/colorCardBackground</item>
         <item name="md_color_button_text">@color/colorPrimary</item>
+        <item name="md_font_title">@font/font_cabin_medium</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
@@ -32,7 +33,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowIsFloating">false</item>
-        <item name="android:windowBackground">@color/colorScreenBackground</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
     </style>
 
     <style name="AppTheme.BottomSheet" parent="BaseBottomSheetDialog"/>
@@ -95,12 +96,17 @@
     <style name="AppTheme.Widget.Button" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/colorPrimary</item>
         <item name="iconTint">@color/colorPrimary</item>
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance.Button</item>
     </style>
     <style name="AppTheme.Widget.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="iconTint">@color/colorPrimary</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance.Button</item>
     </style>
     <style name="AppTheme.Widget.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="iconTint">@color/colorPrimary</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance.Button</item>
     </style>
 
     <style name="AppTheme.Widget.SearchView" parent="Widget.AppCompat.Light.SearchView">
@@ -118,21 +124,45 @@
 
     <!-- TextAppearance -->
 
-    <style name="AppTheme.TextAppearance" parent="TextAppearance.AppCompat"/>
-
-    <style name="AppTheme.TextAppearance.Title" parent="TextAppearance.AppCompat.Title"/>
-
-    <style name="AppTheme.TextAppearance.Status" parent="TextAppearance.MaterialComponents.Headline4">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/colorSecondaryText</item>
+    <style name="AppTheme.TextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/font_cabin_regular</item>
+        <item name="android:textColor">?colorControlNormal</item>
     </style>
 
-    <style name="AppTheme.TextAppearance.ListItem" parent="TextAppearance.MaterialComponents.Body2">
+    <style name="AppTheme.TextAppearance.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="fontFamily">@font/font_cabin_medium</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.AppBar.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="fontFamily">@font/font_cabin_medium</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Subtitle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?colorControlNormal</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Button" parent="TextAppearance.AppCompat.Button">
+        <item name="fontFamily">@font/font_cabin_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Medium" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/font_cabin_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?colorControlNormal</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.ListItem" parent="TextAppearance.AppCompat.Medium">
+        <item name="fontFamily">@font/font_cabin_regular</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
-    <style name="AppTheme.TextAppearance.ListItem.Secondary" parent="TextAppearance.MaterialComponents.Caption">
+    <style name="AppTheme.TextAppearance.ListItem.Secondary" parent="TextAppearance.AppCompat.Caption">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorSecondaryText</item>
     </style>

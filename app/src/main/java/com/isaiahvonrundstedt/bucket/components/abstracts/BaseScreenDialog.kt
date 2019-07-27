@@ -21,21 +21,20 @@ abstract class BaseScreenDialog: DialogFragment(){
         setStyle(STYLE_NORMAL, R.style.AppTheme_ScreenDialog)
     }
 
-    override fun onStart() {
-        super.onStart()
-        val width = ViewGroup.LayoutParams.MATCH_PARENT
-        val height = ViewGroup.LayoutParams.MATCH_PARENT
-        dialog?.window?.setLayout(width, height)
-        dialog?.window?.setWindowAnimations(R.style.AppTheme_Slide)
-    }
-
     fun invoke(fragmentManager: FragmentManager){
         if (dialog?.isShowing != true)
             show(fragmentManager, "screenTag")
     }
 
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setWindowAnimations(R.style.AppTheme_Slide)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val rootView: ViewGroup? = (view as ViewGroup)
 
         val appbarView: View = LayoutInflater.from(context!!).inflate(R.layout.layout_appbar_flat, rootView, false)

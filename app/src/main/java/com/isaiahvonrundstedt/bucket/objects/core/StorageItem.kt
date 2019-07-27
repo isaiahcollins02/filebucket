@@ -9,7 +9,6 @@ import androidx.room.TypeConverters
 import com.google.firebase.Timestamp
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.utils.converters.TimestampConverter
-import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "collections")
@@ -102,6 +101,7 @@ data class StorageItem @JvmOverloads constructor(
         }
         fun obtainItemTypeID(type: Int?): Int {
             return when (type) {
+                typeDirectory -> R.string.file_type_directory
                 typeCode -> R.string.file_type_code
                 typeVideo -> R.string.file_type_video
                 typeImage -> R.string.file_type_photo
@@ -112,4 +112,5 @@ data class StorageItem @JvmOverloads constructor(
             }
         }
     }
+
 }

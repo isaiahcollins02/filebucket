@@ -35,9 +35,9 @@ class WebViewFragment: BaseScreenDialog() {
     override fun onResume() {
         super.onResume()
         val url: String? = when (userViewType){
-            viewTypeTerms -> "typeGeneric:///android_asset/terms_and_conditions.html"
-            viewTypePrivacy -> "typeGeneric:///android_asset/privacy_policy.html"
-            viewTypeLicense -> "typeGeneric:///android_asset/software_licenses.html"
+            viewTypeTerms -> "file:///android_asset/terms_and_conditions.html"
+            viewTypePrivacy -> "file:///android_asset/privacy_policy.html"
+            viewTypeLicense -> "file:///android_asset/software_licenses.html"
             else -> null
         }
         webView.loadUrl(url)

@@ -8,47 +8,43 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_centerInParent="true"
+            android:orientation="vertical"
             android:paddingStart="48dp"
             android:paddingEnd="48dp">
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@string/register_secure_account"
-                android:textSize="28sp"
-                android:textColor="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@string/register_details_title"
+                android:textSize="24sp"
                 android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="@string/think_of_a_complex_password_that"
-                android:textColor="@color/colorHelperText"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                android:gravity="center"
+                android:text="@string/register_details_summary"
+                android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 app:useDenseSpacing="true"
-                app:primaryColor="@color/colorPrimary"
-                app:secondaryColor="@color/colorHelperText"
-                app:minCharacters="8"
-                app:hasFocus="true"
                 app:hasClearButton="true"
-                app:labelText="@string/field_hint_password">
+                app:labelText="@string/field_hint_name_first">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:id="@+id/passwordField"
+                    android:id="@+id/firstNameField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:maxLines="1"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionNext"
                     android:textColor="@color/colorPrimaryText"/>
 
             <requestFocus/>
@@ -58,50 +54,31 @@
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 app:useDenseSpacing="true"
-                app:primaryColor="@color/colorPrimary"
-                app:secondaryColor="@color/colorHelperText"
-                app:minCharacters="8"
                 app:hasClearButton="true"
-                app:labelText="@string/field_hint_password_confirm">
+                app:labelText="@string/field_hint_name_last">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:id="@+id/confirmPasswordField"
+                    android:id="@+id/lastNameField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:maxLines="1"
                     android:imeOptions="actionDone"
                     android:textColor="@color/colorPrimaryText"/>
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-    </LinearLayout>
-
-    <RelativeLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/registerButton"
+            android:layout_width="176dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:layout_alignParentBottom="true">
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center"
+            android:text="@string/button_sign_up"
+            style="@style/AppTheme.Widget.Button"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/registerButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:gravity="center"
-                android:text="@string/button_register"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:layout_alignParentEnd="true"
-                android:focusable="true"
-                android:clickable="true"
-                app:drawableEndCompat="@drawable/ic_next"/>
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

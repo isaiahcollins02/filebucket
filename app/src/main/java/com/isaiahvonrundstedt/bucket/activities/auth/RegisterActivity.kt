@@ -6,7 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
-import com.isaiahvonrundstedt.bucket.fragments.registration.BasicFragment
+import com.isaiahvonrundstedt.bucket.fragments.registration.EmailFragment
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -25,7 +25,7 @@ class RegisterActivity: BaseActivity() {
         super.onStart()
 
         supportFragmentManager.beginTransaction().run {
-            replace(R.id.childLayout, BasicFragment())
+            replace(R.id.childLayout, EmailFragment())
             commit()
         }
     }

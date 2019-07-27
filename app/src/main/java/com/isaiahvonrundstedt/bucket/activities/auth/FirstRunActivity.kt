@@ -29,7 +29,7 @@ class FirstRunActivity: BaseActivity() {
         val webViewFragment = WebViewFragment()
         val args = Bundle()
 
-        val spannableString = SpannableString(getString(R.string.license_agreement_helper))
+        val spannableString = SpannableString(getString(R.string.first_run_terms))
         spannableString.setSpan(object: ClickableSpan() {
             override fun onClick(widget: View) {
                 args.putInt(Params.viewType, WebViewFragment.viewTypePrivacy)

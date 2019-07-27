@@ -100,7 +100,7 @@ abstract class BaseAdapter(private var context: Context?,
         }
     }
     
-    internal inner class PublicFileViewHolder(itemView: View): FileViewHolder(itemView){
+    internal inner class SharedFileViewHolder(itemView: View): FileViewHolder(itemView){
         override fun onBindData(item: StorageItem?) {
             rootView.setOnClickListener { onDownload(item) }
             rootView.setOnLongClickListener { showDetailDialog(item); true }

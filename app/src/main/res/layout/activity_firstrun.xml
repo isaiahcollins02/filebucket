@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent" >
 
@@ -9,15 +8,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_margin="24dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            app:srcCompat="@drawable/ic_bucket"
-            app:tint="@android:color/darker_gray"/>
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -29,46 +19,48 @@
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
-                android:text="@string/welcome_to_drop_bucket"
-                android:textSize="32sp"
-                android:textColor="@color/colorPrimary"
+                android:text="@string/first_run_title"
+                android:textSize="24sp"
                 android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/to_access_the_content"
-                android:textColor="@color/colorHelperText"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                android:gravity="center"
+                android:text="@string/first_run_summary"
+                android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/hyperlinkView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/license_agreement_helper"
-                android:textColor="@color/colorHelperText"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                android:gravity="center"
+                android:text="@string/first_run_terms"
+                android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/loginButton"
-                android:layout_width="match_parent"
+                android:layout_width="176dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/button_login"
-                android:textColor="@android:color/white"
-                app:backgroundTint="@color/colorPrimary"
                 style="@style/AppTheme.Widget.Button"/>
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/registerButton"
-                android:layout_width="match_parent"
+                android:layout_width="176dp"
                 android:layout_height="wrap_content"
-                android:text="@string/button_register"
+                android:layout_gravity="center"
+                android:text="@string/button_sign_up"
+                android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
-                style="@style/AppTheme.Widget.Button.Outlined"/>
+                style="@style/AppTheme.Widget.Button.Text"/>
 
     </LinearLayout>
 

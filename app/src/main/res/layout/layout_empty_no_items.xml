@@ -17,9 +17,10 @@
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="72dp"
                 android:layout_height="72dp"
+                android:layout_marginTop="16dp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_lifebuoy"
-                app:tint="@color/colorSecondaryText"/>
+                app:tint="?colorControlNormal"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -27,7 +28,7 @@
                 android:layout_margin="@dimen/activity_margin"
                 android:gravity="center"
                 android:text="@string/main_empty_no_items"
-                android:textAppearance="@style/AppTheme.TextAppearance.Status"/>
+                android:textAppearance="@style/AppTheme.TextAppearance.Medium"/>
 
     </LinearLayout>
 

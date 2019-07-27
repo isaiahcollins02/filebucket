@@ -1,18 +1,14 @@
 package com.isaiahvonrundstedt.bucket.adapters.support
 
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
-import com.isaiahvonrundstedt.bucket.utils.managers.ItemManager
 
 class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
@@ -68,10 +64,6 @@ class NotificationAdapter: RecyclerView.Adapter<NotificationAdapter.ViewHolder>(
 
             titleView.text = notification.title
             subtitleView.text = notification.content
-
-            val drawable: Drawable? = ItemManager.getNotificationIcon(itemView.context, notification.type)
-            drawable?.setColorFilter(ContextCompat.getColor(itemView.context, R.color.colorIcons), PorterDuff.Mode.SRC_ATOP)
-            iconView.setImageDrawable(drawable)
         }
     }
 

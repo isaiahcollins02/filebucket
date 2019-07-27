@@ -24,7 +24,7 @@ class SupportFragment: BaseScreenDialog() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbarTitle?.text = getString(R.string.about_support)
+        toolbarTitle?.text = getString(R.string.about_feedback)
         toolbar?.inflateMenu(R.menu.menu_support)
         toolbar?.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId){

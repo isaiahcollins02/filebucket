@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.isaiahvonrundstedt.bucket.R
+import com.isaiahvonrundstedt.bucket.components.LoaderDialog
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.utils.User
-import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.fragment_reset.*
 
 class ResetFragment: BaseFragment() {
@@ -28,12 +28,8 @@ class ResetFragment: BaseFragment() {
         continueButton.setOnClickListener {
             if (emailField.text.toString().isNotBlank()){
 
-                val progress: KProgressHUD = KProgressHUD(it.context)
-                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                    .setAnimationSpeed(2)
-                    .setCancellable(false)
-                    .setDimAmount(.05f)
-                    .show()
+                val progress = LoaderDialog(getString(R.string.dialog_sending_reset_link))
+                progress.invoke(childFragmentManager)
 
                 firebaseAuth.sendPasswordResetEmail(emailField.text.toString())
                     .addOnCompleteListener { task ->

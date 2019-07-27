@@ -17,11 +17,6 @@ object DataManager {
         return value?.substring(0, value.lastIndexOf(' '))
     }
 
-    // Takes a string then capitalize its every word
-    fun capitalizeEachWord(s: String): String {
-        return s.split(" ").joinToString(" ") { it.capitalize() }
-    }
-
     // Takes a Firebase timestamp object which parses it to a Java
     // date object then formatting it with SimpleDateFormat class
     // to a string
@@ -36,22 +31,6 @@ object DataManager {
                 else -> String.format(context!!.getString(R.string.file_timestamp_today), SimpleDateFormat("h:mm a", Locale.getDefault()).format(date))
             }
         } else null
-    }
-
-    fun formatDate(context: Context?, date: Date?): String? {
-        return if (date != null){
-            val milliseconds: Long = date.time
-            val isToday = DateUtils.isToday(milliseconds)
-
-            return when {
-                !isToday -> SimpleDateFormat("h:mm a, MMM d", Locale.getDefault()).format(date)
-                else -> String.format(context!!.getString(R.string.file_timestamp_today), SimpleDateFormat("h:mm a", Locale.getDefault()).format(date))
-            }
-        } else null
-    }
-
-    fun formatSize(context: Context?, size: Double?): String {
-        return String.format(context?.getString(R.string.file_size_megabytes)!!, DecimalFormat("#.##").format((size!! / 1024) / 1024))
     }
 
     fun formatSize(context: Context?, size: Long?): String {

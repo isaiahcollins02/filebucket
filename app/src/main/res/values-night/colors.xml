@@ -21,6 +21,5 @@
     <!-- Texts -->
     <color name="colorPrimaryText">#ffffff</color>
     <color name="colorSecondaryText">#9c9c9c</color>
-    <color name="colorHelperText">#455a64</color>
 
 </resources>

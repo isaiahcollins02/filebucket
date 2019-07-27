@@ -11,6 +11,7 @@ object Params {
     const val firstName = "firstName"
     const val lastName = "lastName"
     const val email = "email"
+    const val password = "password"
 
     const val payload = "payload"
 

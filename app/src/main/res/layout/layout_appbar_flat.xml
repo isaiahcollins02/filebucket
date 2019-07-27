@@ -19,8 +19,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:maxLength="30"
-                android:textAppearance="@style/AppTheme.TextAppearance.Title"
-                tools:text="Title"/>
+                android:textAppearance="@style/AppTheme.TextAppearance.AppBar.Title"
+                tools:text="Storage Access"/>
 
     </androidx.appcompat.widget.Toolbar>
 

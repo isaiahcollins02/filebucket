@@ -29,14 +29,14 @@ class PublicAdapter (private var context: Context?, fragmentManager: FragmentMan
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutID: Int = if (viewTypeImage == viewType) R.layout.layout_item_photo else R.layout.layout_item_files
         val rowView: View = LayoutInflater.from(viewGroup.context).inflate(layoutID, viewGroup, false)
-        return if (viewTypeImage == viewType) ImageViewHolder(rowView) else PublicFileViewHolder(rowView)
+        return if (viewTypeImage == viewType) ImageViewHolder(rowView) else SharedFileViewHolder(rowView)
     }
 
     override fun getItemCount(): Int = itemList.size
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, itemPosition: Int) {
         when (viewHolder.itemViewType){
-            viewTypeFilePublic -> (viewHolder as PublicFileViewHolder).onBindData(itemList[itemPosition])
+            viewTypeFilePublic -> (viewHolder as SharedFileViewHolder).onBindData(itemList[itemPosition])
             viewTypeImage -> (viewHolder as ImageViewHolder).onBindData(itemList[itemPosition])
         }
     }
