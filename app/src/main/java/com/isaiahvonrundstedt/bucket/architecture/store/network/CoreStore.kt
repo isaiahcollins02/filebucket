@@ -9,7 +9,6 @@ class CoreStore {
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
 
-    private var resultSize: Int = 0
     private var initialQueryBatch: Query? = firestore.collection(Firestore.files).limit(15)
     private var nextQueryBatch: Query? = null
 
@@ -20,7 +19,6 @@ class CoreStore {
             ?.addOnSuccessListener { snapshots ->
                 if (snapshots.size() > 0){
                     val lastVisible = snapshots.documents[snapshots.size() - 1]
-                    resultSize = snapshots.size()
 
                     nextQueryBatch = firestore.collection(Firestore.files)
                         .startAfter(lastVisible)
@@ -30,8 +28,6 @@ class CoreStore {
                 }
             }
     }
-
-    fun size(): Int = resultSize
 
     fun refresh(){
         nextQueryBatch = null

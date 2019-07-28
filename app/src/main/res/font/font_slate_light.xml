@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <font
-        android:font="@font/cabin_regular"
+        android:font="@font/slate_for_oneplus_light"
         android:fontStyle="normal"
-        android:fontWeight="400"
-        app:font="@font/cabin_regular"
+        android:fontWeight="200"
+        app:font="@font/slate_for_oneplus_light"
         app:fontStyle="normal"
-        app:fontWeight="400"/>
+        app:fontWeight="200"/>
 
 </font-family>

@@ -49,7 +49,7 @@ abstract class BaseAdapter(private var context: Context?,
         internal const val viewerScreenTag = "viewerScreenDialog"
     }
 
-    internal class ItemDiffCallback(private val oldItems: List<StorageItem>, private val newItems: List<StorageItem>): DiffUtil.Callback(){
+    protected class ItemDiffCallback(private val oldItems: List<StorageItem>, private val newItems: List<StorageItem>): DiffUtil.Callback(){
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldItems[oldItemPosition].id == newItems[newItemPosition].id
         }
@@ -62,7 +62,7 @@ abstract class BaseAdapter(private var context: Context?,
             return oldItems[oldItemPosition] == newItems[newItemPosition]
         }
     }
-    internal class BoxDiffCallback(private val oldItems: List<Account>, private val newItems: List<Account>): DiffUtil.Callback(){
+    protected class BoxDiffCallback(private val oldItems: List<Account>, private val newItems: List<Account>): DiffUtil.Callback(){
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldItems[oldItemPosition].accountID == newItems[newItemPosition].accountID
         }
@@ -87,7 +87,7 @@ abstract class BaseAdapter(private var context: Context?,
         abstract fun onBindData(item: StorageItem?)
     }
     
-    internal inner class SentFileViewHolder(itemView: View): FileViewHolder(itemView){
+    protected inner class SentFileViewHolder(itemView: View): FileViewHolder(itemView){
         override fun onBindData(item: StorageItem?) {
             rootView.setOnClickListener { showDetailDialog(item) }
             titleView.text = item?.name
@@ -100,7 +100,7 @@ abstract class BaseAdapter(private var context: Context?,
         }
     }
     
-    internal inner class SharedFileViewHolder(itemView: View): FileViewHolder(itemView){
+    protected inner class SharedFileViewHolder(itemView: View): FileViewHolder(itemView){
         override fun onBindData(item: StorageItem?) {
             rootView.setOnClickListener { onDownload(item) }
             rootView.setOnLongClickListener { showDetailDialog(item); true }
@@ -114,7 +114,7 @@ abstract class BaseAdapter(private var context: Context?,
         }
     }
 
-    internal inner class ImageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    protected inner class ImageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val rootView: View = itemView.findViewById(R.id.rootView)
         private val containerView: AppCompatImageView = itemView.findViewById(R.id.containerView)
         private val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
@@ -128,7 +128,7 @@ abstract class BaseAdapter(private var context: Context?,
         }
     }
     
-    internal inner class LocalViewHolder(itemView: View): FileViewHolder(itemView){
+    protected inner class LocalViewHolder(itemView: View): FileViewHolder(itemView){
 
         override fun onBindData(item: StorageItem?) {
             rootView.setOnClickListener { onParseIntent(rootView, item) }
@@ -144,7 +144,7 @@ abstract class BaseAdapter(private var context: Context?,
         }
     }
 
-    internal inner class BoxViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    protected inner class BoxViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val rootView: View = itemView.findViewById(R.id.rootView)
         private val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
         private val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
@@ -154,6 +154,7 @@ abstract class BaseAdapter(private var context: Context?,
             val fullName: String? = "${account?.firstName} ${account?.lastName}"
             rootView.setOnClickListener { it.context.startActivity(Intent(it.context, VaultActivity::class.java)
                 .putExtra(Params.author, fullName)) }
+
             fetchProfileImage(account?.imageURL, iconView)
             titleView.text = fullName
             subtitleView.text = account?.email

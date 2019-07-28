@@ -19,6 +19,7 @@ import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.User
+import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity: BaseActivity() {
@@ -50,12 +51,17 @@ class LoginActivity: BaseActivity() {
         }
 
         loginButton.setOnClickListener {
-            handleAuthentication()
+            if (DataManager.isValidEmailAddress(emailField.text.toString()))
+                handleAuthentication()
+            else
+                Snackbar.make(window.decorView.rootView, R.string.fui_invalid_email_address, Snackbar.LENGTH_SHORT).show()
         }
 
         passwordField.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE){
-                handleAuthentication()
+                if (DataManager.isValidEmailAddress(emailField.text.toString())){
+                    handleAuthentication()
+                } else Snackbar.make(window.decorView.rootView, R.string.fui_invalid_email_address, Snackbar.LENGTH_SHORT).show()
                 return@setOnEditorActionListener true
             } else
                 return@setOnEditorActionListener false

@@ -6,7 +6,7 @@
     <string name="first_run_terms">By continuing, you agree to the, Privacy Policy and Terms of Service.</string>
 
     <string name="auth_title">Sign in</string>
-    <string name="auth_summary">Enter the email address and password that you sign-ed up with</string>
+    <string name="auth_summary">Enter the email address and password that you signed up with</string>
 
     <string name="register_email_title">Hi there!</string>
     <string name="register_email_summary">Be sure to use the email address that you have access to</string>
@@ -55,6 +55,7 @@
     <string name="button_save">Save</string>
     <string name="button_remove">Remove</string>
     <string name="button_forgot_password">Forgot Password</string>
+    <!-- Permission Button Text -->
     <string name="button_turn_on_storage_access">Turn on Storage Access</string>
 
     <string name="file_details">File Details</string>

@@ -12,9 +12,8 @@ class BoxStore {
     private val firestore by lazy { FirebaseFirestore.getInstance() }
     private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
-    private var resultSize: Int = 0
     private var currentUserID: String? = null
-    private var initialQueryBatch: Query? = firestore.collection(Firestore.files).limit(15)
+    private var initialQueryBatch: Query? = firestore.collection(Firestore.users).limit(15)
     private var nextQueryBatch: Query? = null
 
     init {
@@ -28,7 +27,6 @@ class BoxStore {
             ?.addOnSuccessListener { snapshots ->
                 if (snapshots.size() > 0){
                     val lastVisible = snapshots.documents[snapshots.size() -1 ]
-                    resultSize = snapshots.size()
 
                     nextQueryBatch = firestore.collection(Firestore.users)
                         .startAfter(lastVisible)
@@ -45,8 +43,6 @@ class BoxStore {
                 }
             }
     }
-
-    fun size(): Int = resultSize
 
     fun refresh(){
         nextQueryBatch = null

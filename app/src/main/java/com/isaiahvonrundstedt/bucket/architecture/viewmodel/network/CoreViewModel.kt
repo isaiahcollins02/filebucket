@@ -9,24 +9,27 @@ import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 class CoreViewModel: ViewModel() {
 
     private val repository = CoreStore()
+
     private var initialList = mutableListOf<StorageItem>()
-    private var _items: MutableLiveData<List<StorageItem>> = MutableLiveData()
-    internal var itemList: LiveData<List<StorageItem>> = _items
+    private var _itemList: MutableLiveData<List<StorageItem>> = MutableLiveData()
+    internal var itemList: LiveData<List<StorageItem>> = _itemList
+
+    private var _itemSize: MutableLiveData<Int> = MutableLiveData()
+    internal var itemSize: LiveData<Int> = _itemSize
 
     init {
         fetch()
     }
 
     fun fetch(){
-        repository.fetch { fileList ->
-            initialList.addAll(fileList)
+        repository.fetch { items ->
+            initialList.addAll(items)
             initialList.distinctBy { it.id }.toMutableList()
-            _items.postValue(initialList)
+            _itemList.postValue(initialList)
+
+            _itemSize.postValue(initialList.size)
         }
     }
-
-    val size: Int
-        get() = initialList.size
 
     fun refresh(){
         repository.refresh()

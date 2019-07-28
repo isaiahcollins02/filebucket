@@ -2,6 +2,7 @@ package com.isaiahvonrundstedt.bucket.utils.managers
 
 import android.content.Context
 import android.text.format.DateUtils
+import android.util.Patterns
 import com.google.firebase.Timestamp
 import com.isaiahvonrundstedt.bucket.R
 import java.text.DecimalFormat
@@ -9,13 +10,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object DataManager {
-
-    // Takes a client's full name (string) as parameter then
-    // returns a substring from index 0 of the parent string
-    // until the last index of the character ' '
-    fun sliceFullName(value: String?): String? {
-        return value?.substring(0, value.lastIndexOf(' '))
-    }
 
     // Takes a Firebase timestamp object which parses it to a Java
     // date object then formatting it with SimpleDateFormat class
@@ -39,5 +33,9 @@ object DataManager {
 
     fun generateRandomID(): String {
         return UUID.randomUUID().toString()
+    }
+
+    fun isValidEmailAddress(address: String?): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(address).matches()
     }
 }

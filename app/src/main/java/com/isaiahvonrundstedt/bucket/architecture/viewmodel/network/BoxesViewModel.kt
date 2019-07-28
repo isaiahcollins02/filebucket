@@ -9,24 +9,27 @@ import com.isaiahvonrundstedt.bucket.objects.core.Account
 class BoxesViewModel: ViewModel() {
 
     private val repository = BoxStore()
+
     private var initialList = mutableListOf<Account>()
-    private var _items: MutableLiveData<List<Account>> = MutableLiveData()
-    internal var itemList: LiveData<List<Account>> = _items
+    private var _itemList: MutableLiveData<List<Account>> = MutableLiveData()
+    internal var itemList: LiveData<List<Account>> = _itemList
+
+    private var _itemSize: MutableLiveData<Int> = MutableLiveData()
+    internal var itemSize: LiveData<Int> = _itemSize
 
     init {
         fetch()
     }
 
     fun fetch(){
-        repository.fetch { accountList ->
-            initialList.addAll(accountList)
+        repository.fetch { items ->
+            initialList.addAll(items)
             initialList.distinctBy { it.accountID }.toMutableList()
-            _items.postValue(initialList)
+            _itemList.postValue(initialList)
+
+            _itemSize.postValue(items.size)
         }
     }
-
-    val size: Int
-        get() = initialList.size
 
     fun refresh(){
         repository.refresh()

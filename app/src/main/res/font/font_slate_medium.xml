@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <font
-        android:font="@font/cabin_medium"
+        android:font="@font/slate_for_oneplus_medium"
         android:fontStyle="normal"
         android:fontWeight="500"
-        app:font="@font/cabin_medium"
+        app:font="@font/slate_for_oneplus_medium"
         app:fontStyle="normal"
         app:fontWeight="500"/>
 

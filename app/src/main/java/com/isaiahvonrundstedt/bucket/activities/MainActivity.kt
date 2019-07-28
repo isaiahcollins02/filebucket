@@ -1,7 +1,6 @@
 package com.isaiahvonrundstedt.bucket.activities
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
@@ -24,7 +23,6 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.fragments.navigation.*
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.SearchFragment
-import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.android.synthetic.main.activity_main.*
@@ -165,16 +163,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     override fun onResume() {
         super.onResume()
         replaceFragment(selectedItem ?: navigationItemCloud)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when (requestCode){
-            Permissions.writeRequestCode -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    replaceFragment(selectedItem ?: navigationItemCloud)
-            }
-            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
     }
 
     override fun onNavigationItemSelected(navigationItem: MenuItem): Boolean {

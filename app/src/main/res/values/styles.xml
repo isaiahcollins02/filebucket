@@ -4,9 +4,12 @@
         <item name="md_corner_radius">16dp</item>
         <item name="md_background_color">@color/colorCardBackground</item>
         <item name="md_color_button_text">@color/colorPrimary</item>
-        <item name="md_font_title">@font/font_cabin_medium</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="md_font_title">@font/font_slate_medium</item>
+        <item name="preferenceTheme">@style/AppTheme.Preference</item>
+        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
     </style>
+
+    <style name="AppTheme.Preference" parent="PreferenceThemeOverlay.v14.Material"/>
 
     <style name="AppTheme.Core" parent="AppTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -121,21 +124,24 @@
         <item name="itemIconTint">@color/navigation_selected</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
+    <style name="AppTheme.Widget.TextView" parent="android:Widget.TextView">
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
+    </style>
 
     <!-- TextAppearance -->
 
     <style name="AppTheme.TextAppearance" parent="TextAppearance.AppCompat">
-        <item name="fontFamily">@font/font_cabin_regular</item>
+        <item name="android:fontFamily">@font/slate_for_oneplus_regular</item>
         <item name="android:textColor">?colorControlNormal</item>
     </style>
 
     <style name="AppTheme.TextAppearance.Title" parent="TextAppearance.AppCompat.Title">
-        <item name="fontFamily">@font/font_cabin_medium</item>
+        <item name="android:fontFamily">@font/font_slate_medium</item>
         <item name="android:textSize">20sp</item>
     </style>
 
     <style name="AppTheme.TextAppearance.AppBar.Title" parent="TextAppearance.AppCompat.Title">
-        <item name="fontFamily">@font/font_cabin_medium</item>
+        <item name="android:fontFamily">@font/font_slate_regular</item>
         <item name="android:textSize">20sp</item>
     </style>
 
@@ -145,26 +151,25 @@
     </style>
 
     <style name="AppTheme.TextAppearance.Button" parent="TextAppearance.AppCompat.Button">
-        <item name="fontFamily">@font/font_cabin_medium</item>
+        <item name="android:fontFamily">@font/font_slate_regular</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="AppTheme.TextAppearance.Medium" parent="TextAppearance.MaterialComponents.Headline4">
-        <item name="fontFamily">@font/font_cabin_regular</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">?colorControlNormal</item>
     </style>
 
     <style name="AppTheme.TextAppearance.ListItem" parent="TextAppearance.AppCompat.Medium">
-        <item name="fontFamily">@font/font_cabin_regular</item>
+        <item name="android:fontFamily">@font/font_slate_regular</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppTheme.TextAppearance.ListItem.Secondary" parent="TextAppearance.AppCompat.Caption">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textColor">?colorControlNormal</item>
     </style>
 
 </resources>

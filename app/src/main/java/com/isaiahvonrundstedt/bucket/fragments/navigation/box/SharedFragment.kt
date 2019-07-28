@@ -77,7 +77,7 @@ class SharedFragment: BaseFragment() {
                 isScrolling = false
                 viewModel?.fetch()
 
-                if (viewModel?.size!! >= 15)
+                if (viewModel?.itemSize?.value!! >= 15)
                     isLastItemReached = true
             }
         }
@@ -90,6 +90,8 @@ class SharedFragment: BaseFragment() {
             adapter?.setObservableItems(items)
         })
 
-        noItemView.isVisible = viewModel?.size == 0
+        viewModel?.itemSize?.observe(this, Observer { size ->
+            noItemView.isVisible = size == 0
+        })
     }
 }

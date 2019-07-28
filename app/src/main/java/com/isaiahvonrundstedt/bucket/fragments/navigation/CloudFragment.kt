@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -48,7 +49,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
     private var layoutManager: LinearLayoutManager? = null
     private var viewModel: CoreViewModel? = null
 
-    private lateinit var itemPicker: PickerBottomSheet
+    private var itemPicker: PickerBottomSheet? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -73,11 +74,8 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         return inflater.inflate(R.layout.fragment_cloud, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        val manager = LocalBroadcastManager.getInstance(context!!)
-        manager.registerReceiver(receiver!!, TransferService.intentFilter)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         layoutManager = LinearLayoutManager(context)
         adapter = PublicAdapter(context, childFragmentManager, GlideApp.with(this))
@@ -86,30 +84,45 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         recyclerView.addOnScrollListener(onScrollListener)
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.adapter = adapter
+    }
 
-        itemPicker = PickerBottomSheet()
-        itemPicker.setItems(listOf(Picker(R.drawable.ic_add_media, R.string.sheet_picker_image), Picker(R.drawable.ic_add_file, R.string.sheet_picker_file)))
-        itemPicker.setOnItemSelectedListener(this)
+    override fun onStart() {
+        super.onStart()
+
+        val manager = LocalBroadcastManager.getInstance(context!!)
+        manager.registerReceiver(receiver!!, TransferService.intentFilter)
 
         swipeRefreshContainer.setOnRefreshListener { onRefreshData() }
         addAction.setOnClickListener {
-            if (Permissions(it.context).readAccessGranted)
-                itemPicker.show(childFragmentManager, PickerBottomSheet.tag)
+            if (Permissions(it.context).readAccessGranted){
+                itemPicker = PickerBottomSheet.Builder
+                    .setItems(getPickerItems())
+                    .setListener(this)
+                    .build()
+
+                itemPicker?.invoke(childFragmentManager)
+            }
             else
                 requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Permissions.readRequestCode)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         viewModel?.itemList?.observe(this, Observer { items ->
             adapter?.setObservableItems(items)
         })
 
-        noItemView.isVisible = viewModel?.size == 0
+        viewModel?.itemSize?.observe(this, Observer { size ->
+            noItemView.isVisible = size == 0
+        })
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Permissions.readRequestCode && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            itemPicker.show(childFragmentManager, PickerBottomSheet.tag)
-        else super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            Toast.makeText(context, "SS", Toast.LENGTH_SHORT).show()
     }
 
     private var isScrolling: Boolean = false
@@ -132,7 +145,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
                 isScrolling = false
                 viewModel?.fetch()
 
-                if (viewModel?.size!! >= 15)
+                if (viewModel?.itemSize?.value!! >= 15)
                     isLastItemReached = true
             }
         }
@@ -174,5 +187,10 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
         if (swipeRefreshContainer.isRefreshing)
             swipeRefreshContainer.isRefreshing = false
+    }
+
+    private fun getPickerItems(): List<Picker> {
+        return listOf(Picker(R.drawable.ic_add_media, R.string.sheet_picker_image),
+            Picker(R.drawable.ic_add_file, R.string.sheet_picker_file))
     }
 }

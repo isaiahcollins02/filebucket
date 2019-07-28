@@ -6,22 +6,60 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
 import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
 import com.isaiahvonrundstedt.bucket.objects.experience.Picker
+import kotlinx.android.synthetic.main.layout_sheet_picker.*
 
-class PickerBottomSheet: BaseBottomSheet(), BottomSheetPicker {
+class PickerBottomSheet(private var items: List<Picker>,
+                        private var itemListener: BottomSheetPicker?): BaseBottomSheet(), BottomSheetPicker {
 
-    companion object { const val tag = "bottomPickerTag"}
+    private var adapter = PickerAdapter(items, this)
 
-    fun setItems(list: List<Picker>){
-        items.addAll(list)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.layout_sheet_picker, container, false)
     }
 
-    internal class PickerAdapter(private var items: ArrayList<Picker>,
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerView.layoutManager = GridLayoutManager(context, items.size)
+        recyclerView.adapter = adapter
+    }
+
+    override fun onItemSelected(index: Int) {
+        itemListener?.onItemSelected(index)
+        this.dismiss()
+    }
+
+    fun invoke(fragmentManager: FragmentManager){
+        show(fragmentManager, "tag")
+    }
+
+    object Builder {
+        private var itemListener: BottomSheetPicker? = null
+        private var items: List<Picker> = ArrayList()
+
+        fun setItems(items: List<Picker>): Builder {
+            this.items = items
+            return this
+        }
+        fun setListener(itemListener: BottomSheetPicker): Builder {
+            this.itemListener = itemListener
+            return this
+        }
+        fun build(): PickerBottomSheet {
+            return PickerBottomSheet(this.items, this.itemListener)
+        }
+
+    }
+
+
+    private class PickerAdapter(private var items: List<Picker>,
                                  listener: BottomSheetPicker): RecyclerView.Adapter<PickerAdapter.ViewHolder>() {
 
         private var bottomSheet: BottomSheetPicker = listener
@@ -37,44 +75,12 @@ class PickerBottomSheet: BaseBottomSheet(), BottomSheetPicker {
             return ViewHolder(rowView)
         }
 
-        override fun getItemCount(): Int {
-            return items.size
-        }
+        override fun getItemCount(): Int = items.size
 
         class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
             val rowView: View = itemView.findViewById(R.id.rootView)
             val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
             val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
         }
-
     }
-
-    private var items: ArrayList<Picker> = ArrayList()
-
-    private lateinit var rootView: View
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: PickerAdapter
-    private lateinit var bottomSheet: BottomSheetPicker
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.layout_sheet_picker, container, false)
-
-        adapter = PickerAdapter(items, this)
-
-        recyclerView = rootView.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(rootView.context, items.size)
-        recyclerView.adapter = adapter
-
-        return rootView
-    }
-
-    override fun onItemSelected(index: Int) {
-        bottomSheet.onItemSelected(index)
-        this.dismiss()
-    }
-
-    fun setOnItemSelectedListener(listener: BottomSheetPicker){
-        this.bottomSheet = listener
-    }
-
 }

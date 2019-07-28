@@ -16,7 +16,7 @@
     <color name="colorIcons">#000000</color>
     <color name="colorToolbar">#ffffff</color>
     <color name="colorStatusBar">#ffffff</color>
-    <color name="colorDrawerStatusBar">#50ffffff</color>
+    <color name="colorDrawerStatusBar">#7fffffff</color>
 
     <!-- Texts -->
     <color name="colorPrimaryText">#000000</color>

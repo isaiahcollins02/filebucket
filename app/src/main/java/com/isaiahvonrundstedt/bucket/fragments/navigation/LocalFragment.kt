@@ -33,7 +33,7 @@ class LocalFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (Permissions(context!!).writeAccessGranted)
+        if (Permissions(view.context).writeAccessGranted)
             initStore()
     }
 

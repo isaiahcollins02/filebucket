@@ -35,7 +35,7 @@ class VaultActivity: BaseAppBarActivity()  {
         setContentView(R.layout.activity_vault)
 
         author = intent.getStringExtra(Params.author)
-        setToolbarTitle(String.format(resources.getString(R.string.file_user_repository), DataManager.sliceFullName(author)))
+        setToolbarTitle(String.format(resources.getString(R.string.file_user_repository), author))
 
         factory = FileFactory(author)
         viewModel = ViewModelProviders.of(this, factory).get(FileViewModel::class.java)
@@ -55,10 +55,14 @@ class VaultActivity: BaseAppBarActivity()  {
 
     override fun onResume(){
         super.onResume()
+
         viewModel?.itemList?.observe(this, Observer { itemList ->
             adapter?.setObservableItems(itemList)
         })
-        noItemView.isVisible = viewModel?.itemList?.value?.isEmpty() ?: false
+
+        viewModel?.itemSize?.observe(this, Observer { size ->
+            noItemView.isVisible = size == 0
+        })
     }
 
     private var isScrolling: Boolean = false
@@ -81,7 +85,7 @@ class VaultActivity: BaseAppBarActivity()  {
                 isScrolling = false
                 viewModel?.fetch()
 
-                if (viewModel?.size!! >= 15)
+                if (viewModel?.itemSize?.value!! >= 15)
                     isLastItemReached = true
             }
         }
