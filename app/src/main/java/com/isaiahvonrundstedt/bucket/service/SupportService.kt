@@ -3,7 +3,7 @@ package com.isaiahvonrundstedt.bucket.service
 import android.content.Intent
 import android.os.IBinder
 import com.google.firebase.firestore.FirebaseFirestore
-import com.isaiahvonrundstedt.bucket.architecture.store.NotificationStore
+import com.isaiahvonrundstedt.bucket.architecture.store.room.NotificationStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 
 class SupportService: BaseService() {

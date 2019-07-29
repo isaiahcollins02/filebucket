@@ -64,7 +64,8 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                 drawerLayout.setStatusBarBackground(R.color.colorDrawerStatusBar)
-            }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                drawerLayout.setStatusBarBackground(android.R.color.black)
         } else {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

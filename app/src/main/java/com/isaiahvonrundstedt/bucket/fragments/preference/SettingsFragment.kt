@@ -7,7 +7,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.preference.Preference
+import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.files.folderChooser
 import com.afollestad.materialdialogs.list.listItems
 import com.google.firebase.auth.FirebaseAuth
@@ -70,8 +72,9 @@ class SettingsFragment: BasePreference() {
         val themePref: Preference? = findPreference("appThemePreference")
         themePref?.summary = getThemeByID(Preferences(context).theme)
         themePref?.setOnPreferenceClickListener {
-            MaterialDialog(it.context).show {
-                title(R.string.settings_theme_dialog)
+            MaterialDialog(it.context, BottomSheet(LayoutMode.WRAP_CONTENT)).show {
+                title(R.string.settings_theme_sheet_title)
+                message(R.string.settings_theme_sheet_summary)
                 listItems(items = themeList){ _, _, theme ->
                     notifyDelegate(getThemeID(theme))
                     themePref.summary = theme
@@ -81,20 +84,22 @@ class SettingsFragment: BasePreference() {
             return@setOnPreferenceClickListener true
         }
 
-        val metadataList = listOf(getString(R.string.settings_metadata_item_timestamp), getString(R.string.settings_metadata_item_author))
+        val metadataList = listOf(getString(R.string.settings_metadata_item_timestamp), getString(R.string.settings_metadata_item_author), getString(R.string.settings_metadata_item_type))
         val metadataPref: Preference? = findPreference("metadataPreference")
         metadataPref?.summary = if (Preferences(context).metadata == Preferences.metadataTimestamp)
             getString(R.string.settings_metadata_item_timestamp) else getString(R.string.settings_metadata_item_author)
         metadataPref?.setOnPreferenceClickListener {
-            MaterialDialog(it.context).show {
-                title(R.string.settings_metadata_dialog)
-                listItems(items = metadataList){ _, _, metadata ->
-                    val newItem = when (metadata){
-                        getString(R.string.settings_metadata_item_timestamp) -> Preferences.metadataTimestamp
-                        getString(R.string.settings_metadata_item_author) -> Preferences.metadataAuthor
+            MaterialDialog(it.context, BottomSheet(LayoutMode.WRAP_CONTENT)).show {
+                title(R.string.settings_metadata_title)
+                message(R.string.settings_metadata_summary)
+                listItems(items = metadataList){ _, index, metadata ->
+                    val newItem = when (index){
+                        0 -> Preferences.metadataTimestamp
+                        1 -> Preferences.metadataAuthor
+                        2 -> Preferences.metadataType
                         else -> Preferences.metadataTimestamp
                     }
-                    metadataPref.summary = newItem.capitalize()
+                    metadataPref.summary = metadata
                     Preferences(it.context).metadata = newItem
                 }
             }

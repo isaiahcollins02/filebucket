@@ -4,13 +4,22 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:key="rootPref">
 
-    <Preference
+    <PreferenceCategory
+        android:title="@string/about_legal">
+
+        <Preference
             android:key="policyPref"
             android:title="@string/about_privacy_policy"/>
 
-    <Preference
+        <Preference
             android:key="termsPref"
             android:title="@string/about_terms_of_service"/>
+
+        <Preference
+            android:key="licensesPref"
+            android:title="@string/about_licenses"/>
+
+    </PreferenceCategory>
 
     <PreferenceCategory
             android:title="@string/team_development">
@@ -23,10 +32,6 @@
 
     <PreferenceCategory
             android:title="@string/about_support">
-
-        <Preference
-                android:key="licensesPref"
-                android:title="@string/about_licenses"/>
 
         <Preference
                 android:key="supportPref"

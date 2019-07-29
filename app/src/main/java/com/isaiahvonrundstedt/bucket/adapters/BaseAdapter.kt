@@ -43,10 +43,6 @@ abstract class BaseAdapter(private var context: Context?,
         const val viewTypeFileSent = 3
         const val viewTypeFileLocal = 4
         const val viewTypeBox = 5
-
-        internal const val bottomSheetTag = "detailsBottomSheet"
-        internal const val detailScreenTag = "detailScreenDialog"
-        internal const val viewerScreenTag = "viewerScreenDialog"
     }
 
     protected class ItemDiffCallback(private val oldItems: List<StorageItem>, private val newItems: List<StorageItem>): DiffUtil.Callback(){
@@ -205,6 +201,7 @@ abstract class BaseAdapter(private var context: Context?,
         return when (Preferences(context).metadata){
             Preferences.metadataAuthor -> item?.author
             Preferences.metadataTimestamp -> DataManager.formatTimestamp(context, item?.timestamp)
+            Preferences.metadataType -> context?.getString(StorageItem.obtainItemTypeID(item?.type))
             else -> null
         }
     }
@@ -222,14 +219,12 @@ abstract class BaseAdapter(private var context: Context?,
         }
     }
     private fun viewImage(item: StorageItem?){
-        if (fragmentManager.findFragmentByTag(viewerScreenTag)?.isAdded != true){
-            val args = Bundle()
-            args.putParcelable(Params.payload, item)
+        val args = Bundle()
+        args.putParcelable(Params.payload, item)
 
-            val viewer = ViewerFragment()
-            viewer.arguments = args
-            viewer.invoke(fragmentManager)
-        }
+        val viewer = ViewerFragment()
+        viewer.arguments = args
+        viewer.invoke(fragmentManager)
     }
 
 }

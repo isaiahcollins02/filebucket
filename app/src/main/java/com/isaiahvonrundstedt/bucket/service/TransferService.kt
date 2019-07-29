@@ -14,7 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.architecture.store.NotificationStore
+import com.isaiahvonrundstedt.bucket.architecture.store.room.NotificationStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
@@ -23,7 +23,7 @@ import timber.log.Timber
 
 class TransferService: BaseService() {
 
-    private val notificationStore by lazy { NotificationStore(application)}
+    private val notificationStore by lazy { NotificationStore(application) }
     private val firestore by lazy { FirebaseFirestore.getInstance() }
     private val storageReference by lazy { FirebaseStorage.getInstance().reference }
 

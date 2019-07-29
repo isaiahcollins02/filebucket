@@ -203,15 +203,18 @@
 
     <!-- Interface Group -->
     <string name="settings_theme">Theme</string>
-    <string name="settings_theme_dialog">Application Theme</string>
+    <string name="settings_theme_sheet_title">@string/settings_theme</string>
+    <string name="settings_theme_sheet_summary">Select either a light or dark theme or make the system automatically switch to dark when you set Battery Saver on</string>
     <string name="settings_theme_item_light">Light</string>
     <string name="settings_theme_item_dark">Dark</string>
     <string name="settings_theme_item_battery">Set by Battery Saver</string>
     <string name="settings_theme_item_system">System Default</string>
 
     <string name="settings_metadata">Metadata</string>
-    <string name="settings_metadata_dialog">Choose one metadata</string>
+    <string name="settings_metadata_title">@string/settings_metadata</string>
+    <string name="settings_metadata_summary">Select what supporting data will show below the item title</string>
     <string name="settings_metadata_item_timestamp">Date &amp; Time</string>
+    <string name="settings_metadata_item_type">Item Type</string>
     <string name="settings_metadata_item_author">Author</string>
 
     <string name="settings_image_previews">Image Previews</string>
@@ -228,9 +231,10 @@
     <string name="about_privacy_policy">Privacy Policy</string>
     <string name="about_terms_of_service">Terms and Conditions</string>
 
+    <string name="about_legal">Legal</string>
     <string name="about_support">Support Information</string>
     <string name="about_licenses">Licenses</string>
-    <string name="about_feedback">Help &amp; Feedback</string>
+    <string name="about_feedback">Send Feedback</string>
     <string name="about_version">Build Version</string>
 
 </resources>

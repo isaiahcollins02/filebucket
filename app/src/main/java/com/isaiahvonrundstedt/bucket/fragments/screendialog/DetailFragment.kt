@@ -14,7 +14,7 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.experience.InfoAdapter
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
-import com.isaiahvonrundstedt.bucket.architecture.store.SavedStore
+import com.isaiahvonrundstedt.bucket.architecture.store.room.SavedStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.constants.Params
@@ -58,19 +58,12 @@ class DetailFragment: BaseScreenDialog() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbarTitle?.text = getString(R.string.file_details)
-    }
 
-    override fun onResume() = runBlocking {
-        super.onResume()
-
-        fileInDatabase = withContext(Dispatchers.Default){
-            savedDAO?.checkIfExists(storageItem)
-        }
         titleView.text = storageItem?.name
         authorView.text = storageItem?.author
 
         val icon = ResourcesCompat.getDrawable(resources, StorageItem.obtainIconID(storageItem?.type), null)
-        icon?.setColorFilter(ContextCompat.getColor(context!!, StorageItem.obtainIconID(storageItem?.type)), PorterDuff.Mode.SRC_ATOP)
+        icon?.setColorFilter(ContextCompat.getColor(context!!, StorageItem.obtainColorID(storageItem?.type)), PorterDuff.Mode.SRC_ATOP)
         iconView.setImageDrawable(icon)
 
         val supportItems = listOf(
@@ -81,6 +74,16 @@ class DetailFragment: BaseScreenDialog() {
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+    }
+
+    override fun onResume() = runBlocking {
+        super.onResume()
+
+        fileInDatabase = withContext(Dispatchers.Default) {
+            savedDAO?.checkIfExists(storageItem)
+        }
+
+        collectionsButton.text = if (fileInDatabase == true) getString(R.string.button_remove) else getString(R.string.button_save)
 
         collectionsButton.setOnClickListener {
             if (!fileInDatabase!!){
@@ -92,4 +95,5 @@ class DetailFragment: BaseScreenDialog() {
             }
         }
     }
+
 }

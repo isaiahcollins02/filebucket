@@ -5,11 +5,8 @@
         <item name="md_background_color">@color/colorCardBackground</item>
         <item name="md_color_button_text">@color/colorPrimary</item>
         <item name="md_font_title">@font/font_slate_medium</item>
-        <item name="preferenceTheme">@style/AppTheme.Preference</item>
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
     </style>
-
-    <style name="AppTheme.Preference" parent="PreferenceThemeOverlay.v14.Material"/>
 
     <style name="AppTheme.Core" parent="AppTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -103,12 +100,12 @@
     </style>
     <style name="AppTheme.Widget.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="iconTint">@color/colorPrimary</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAllCaps">false</item>
         <item name="android:textAppearance">@style/AppTheme.TextAppearance.Button</item>
     </style>
     <style name="AppTheme.Widget.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="iconTint">@color/colorPrimary</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAllCaps">false</item>
         <item name="android:textAppearance">@style/AppTheme.TextAppearance.Button</item>
     </style>
 
@@ -153,7 +150,7 @@
     <style name="AppTheme.TextAppearance.Button" parent="TextAppearance.AppCompat.Button">
         <item name="android:fontFamily">@font/font_slate_regular</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="AppTheme.TextAppearance.Medium" parent="TextAppearance.MaterialComponents.Headline4">
@@ -170,6 +167,10 @@
     <style name="AppTheme.TextAppearance.ListItem.Secondary" parent="TextAppearance.AppCompat.Caption">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">?colorControlNormal</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Body2" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:fontFamily">@font/font_slate_medium</item>
     </style>
 
 </resources>

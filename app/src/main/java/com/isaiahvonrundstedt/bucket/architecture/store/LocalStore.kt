@@ -14,7 +14,7 @@ class LocalStore (app: Application) {
 
     private val currentDirectory: String? = Preferences(app).downloadDirectory
 
-    fun fetch( onFetch: (List<StorageItem>) -> Unit) {
+    fun fetch(onFetch: (List<StorageItem>) -> Unit) {
         val items: ArrayList<StorageItem> = ArrayList()
         val directory = File(currentDirectory)
         val files = directory.listFiles()

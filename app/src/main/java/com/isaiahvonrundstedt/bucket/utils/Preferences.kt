@@ -13,6 +13,7 @@ class Preferences(val context: Context?) {
     companion object {
         const val metadataTimestamp = "timestamp"
         const val metadataAuthor = "author"
+        const val metadataType = "type"
 
         const val themeLight = AppCompatDelegate.MODE_NIGHT_NO
         const val themeDark = AppCompatDelegate.MODE_NIGHT_YES

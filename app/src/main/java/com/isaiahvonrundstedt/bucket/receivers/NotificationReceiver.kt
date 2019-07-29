@@ -8,7 +8,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.core.net.toUri
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.architecture.store.SavedStore
+import com.isaiahvonrundstedt.bucket.architecture.store.room.SavedStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.Preferences

@@ -74,7 +74,7 @@
             android:id="@+id/registerButton"
             android:layout_width="176dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_gravity="center"
             android:text="@string/button_sign_up"
             style="@style/AppTheme.Widget.Button"/>

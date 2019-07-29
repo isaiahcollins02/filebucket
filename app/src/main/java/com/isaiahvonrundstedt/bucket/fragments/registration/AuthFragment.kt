@@ -40,7 +40,7 @@ class AuthFragment: Fragment() {
                     activity?.supportFragmentManager?.beginTransaction()?.run {
                         setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_out_left, R.anim.slide_in_right)
                         replace(R.id.childLayout, basicFragment)
-                        addToBackStack("basicFragment")
+                        addToBackStack("viewTag")
                         commit()
                     }
                 } else

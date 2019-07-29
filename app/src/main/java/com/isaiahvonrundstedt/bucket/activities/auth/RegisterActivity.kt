@@ -4,13 +4,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
+import com.isaiahvonrundstedt.bucket.fragments.registration.AuthFragment
+import com.isaiahvonrundstedt.bucket.fragments.registration.BasicFragment
 import com.isaiahvonrundstedt.bucket.fragments.registration.EmailFragment
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity: BaseActivity() {
+
+    private var currentView: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +26,39 @@ class RegisterActivity: BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    companion object {
+        const val viewTypeEmail = 1
+        const val viewTypePassword = 2
+        const val viewTypeBasic = 3
+    }
+
+    override fun onNightModeChanged(mode: Int) {
+        super.onNightModeChanged(mode)
+
+        currentView = when (supportFragmentManager.findFragmentByTag("viewTag")){
+            is EmailFragment -> viewTypeEmail
+            is AuthFragment -> viewTypePassword
+            is BasicFragment -> viewTypeBasic
+            else -> 0
+        }
+    }
+
     override fun onStart() {
         super.onStart()
 
         supportFragmentManager.beginTransaction().run {
-            replace(R.id.childLayout, EmailFragment())
+            replace(R.id.childLayout, getViewByID(currentView) ?: EmailFragment())
+            addToBackStack("viewTag")
             commit()
+        }
+    }
+
+    private fun getViewByID(int: Int?): Fragment? {
+        return when (int){
+            viewTypeEmail -> EmailFragment()
+            viewTypeBasic -> BasicFragment()
+            viewTypePassword -> AuthFragment()
+            else -> null
         }
     }
 

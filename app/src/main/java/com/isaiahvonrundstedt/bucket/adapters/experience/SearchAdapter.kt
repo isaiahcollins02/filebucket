@@ -17,11 +17,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class SearchAdapter(context: Context, fragmentManager: FragmentManager, requestManager: RequestManager):
-    BaseAdapter(context, fragmentManager, requestManager), Filterable {
+    BaseAdapter(context, fragmentManager, requestManager){
 
     private var itemList: ArrayList<StorageItem> = ArrayList()
-    private var filterList: ArrayList<StorageItem> = itemList
-    private var filter: SharedFilter? = null
 
     fun setObservableItems(items: List<StorageItem>){
         val callback = ItemDiffCallback(itemList, items)
@@ -38,47 +36,10 @@ class SearchAdapter(context: Context, fragmentManager: FragmentManager, requestM
         return SharedFileViewHolder(rowView)
     }
 
-    override fun getItemCount(): Int = filterList.size
+    override fun getItemCount(): Int = itemList.size
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, itemPosition: Int) {
-        (viewHolder as SharedFileViewHolder).onBindData(filterList[itemPosition])
+        (viewHolder as SharedFileViewHolder).onBindData(itemList[itemPosition])
     }
-
-    override fun getFilter(): Filter {
-        if (filter == null){
-            filter = SharedFilter()
-        }
-        return filter as SharedFilter
-    }
-
-    private inner class SharedFilter: Filter(){
-        override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val searchTerm: String? = constraint.toString()
-            val filteredList: ArrayList<StorageItem> = ArrayList()
-            if (searchTerm != null){
-                filterList.addAll(itemList)
-            } else {
-                itemList.forEachIndexed { _, storageItem ->
-                    if (storageItem.name?.toLowerCase(Locale.getDefault())?.contains(constraint!!) == true)
-                        filteredList.add(storageItem)
-                }
-            }
-            val results = FilterResults()
-            results.values = filteredList
-
-            return results
-        }
-
-        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            val newList: ArrayList<StorageItem> = results?.values as ArrayList<StorageItem>
-            val callback = ItemDiffCallback(filterList, newList)
-            val result = DiffUtil.calculateDiff(callback)
-
-            filterList.clear()
-            filterList.addAll(newList)
-            result.dispatchUpdatesTo(this@SearchAdapter)
-        }
-    }
-
 
 }

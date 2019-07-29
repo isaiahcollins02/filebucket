@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.SavedViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.room.SavedViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
@@ -42,11 +42,17 @@ class SavedFragment: BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.adapter = adapter
+    }
 
-        viewModel?.items?.observe(this, Observer<List<StorageItem>> { items ->
+    override fun onResume() {
+        super.onResume()
+
+        viewModel?.itemList?.observe(this, Observer { items ->
             adapter?.setObservableItems(items)
         })
 
-        noItemView.isVisible = viewModel?.size == 0
+        viewModel?.itemSize?.observe(this, Observer { size ->
+            noItemView.isVisible = size == 0
+        })
     }
 }

@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.support.NotificationAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.NotificationViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.room.NotificationViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
@@ -44,10 +44,13 @@ class NotificationFragment: BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        viewModel?.items?.observe(this, Observer<List<Notification>> { notifications ->
-            adapter?.setObservableItems(notifications)
+        viewModel?.itemList?.observe(this, Observer { items ->
+            adapter?.setObservableItems(items)
         })
 
-        noNotificationView.isVisible = viewModel?.size == 0
+        viewModel?.itemSize?.observe(this, Observer { size ->
+            noNotificationView.isVisible = size == 0
+        })
+
     }
 }

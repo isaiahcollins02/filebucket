@@ -54,12 +54,13 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        searchAdapter?.filter?.filter(query)
+        viewModel?.filter(query)
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        return false
+        viewModel?.filter(newText)
+        return true
     }
 
 }
