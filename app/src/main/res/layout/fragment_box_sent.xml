@@ -25,13 +25,4 @@
             android:layout_centerInParent="true"
             layout="@layout/layout_empty_no_sent"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/defaultAction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_margin"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            app:srcCompat="@drawable/ic_android_add"/>
-
 </RelativeLayout>

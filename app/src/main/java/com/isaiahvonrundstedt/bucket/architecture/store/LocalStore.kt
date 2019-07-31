@@ -32,5 +32,4 @@ class LocalStore (app: Application) {
         }
         return items
     }
-
 }

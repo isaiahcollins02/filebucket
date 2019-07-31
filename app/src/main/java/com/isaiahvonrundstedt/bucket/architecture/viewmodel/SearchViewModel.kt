@@ -1,11 +1,12 @@
 package com.isaiahvonrundstedt.bucket.architecture.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
+import com.isaiahvonrundstedt.bucket.architecture.store.LocalStore
 import com.isaiahvonrundstedt.bucket.architecture.store.network.CoreStore
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SearchViewModel: ViewModel(){
 
@@ -18,10 +19,13 @@ class SearchViewModel: ViewModel(){
         fetch()
     }
 
-    fun filter(search: String?): LiveData<List<StorageItem>> {
-        return Transformations.map(itemList) { items ->
-            items.filter { it.name?.contains(search!!) ?: false }
+    fun filter(searchTerm: String?) {
+        val filterList = ArrayList<StorageItem>()
+        initialList.forEachIndexed { _, storageItem ->
+            if (storageItem.name?.toLowerCase(Locale.getDefault())?.contains(searchTerm.toString()) == true)
+                filterList.add(storageItem)
         }
+        _items.postValue(filterList)
     }
 
     fun fetch(){
