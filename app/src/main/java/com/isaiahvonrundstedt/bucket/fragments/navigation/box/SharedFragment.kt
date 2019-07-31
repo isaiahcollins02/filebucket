@@ -17,7 +17,7 @@ import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.BoxesViewMod
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
-import kotlinx.android.synthetic.main.fragment_box_child.*
+import kotlinx.android.synthetic.main.fragment_box_shared.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class SharedFragment: BaseFragment() {
@@ -28,7 +28,7 @@ class SharedFragment: BaseFragment() {
     private var viewModel: BoxesViewModel? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_box_child, container, false)
+        return inflater.inflate(R.layout.fragment_box_shared, container, false)
     }
 
     override fun onAttach(context: Context) {

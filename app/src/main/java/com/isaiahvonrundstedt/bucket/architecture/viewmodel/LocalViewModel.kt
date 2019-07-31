@@ -20,11 +20,9 @@ class LocalViewModel(app: Application): AndroidViewModel(app){
     }
 
     private fun fetch() {
-        localStore.fetch { localItems ->
-            itemList.addAll(localItems)
-            itemList.distinctBy { it.id }.toMutableList()
-            _items.postValue(itemList)
-        }
+        itemList.addAll(localStore.fetch())
+        itemList.distinctBy { it.id }.toMutableList()
+        _items.postValue(itemList)
     }
 
     val size: Int

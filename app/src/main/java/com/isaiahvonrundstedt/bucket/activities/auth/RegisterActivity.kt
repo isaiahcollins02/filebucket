@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
+import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.fragments.registration.AuthFragment
 import com.isaiahvonrundstedt.bucket.fragments.registration.BasicFragment
 import com.isaiahvonrundstedt.bucket.fragments.registration.EmailFragment
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity: BaseActivity() {
 
-    private var currentView: Int? = null
+    private var currentView: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,15 +33,9 @@ class RegisterActivity: BaseActivity() {
         const val viewTypeBasic = 3
     }
 
-    override fun onNightModeChanged(mode: Int) {
-        super.onNightModeChanged(mode)
-
-        currentView = when (supportFragmentManager.findFragmentByTag("viewTag")){
-            is EmailFragment -> viewTypeEmail
-            is AuthFragment -> viewTypePassword
-            is BasicFragment -> viewTypeBasic
-            else -> 0
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(Params.viewType, currentView)
     }
 
     override fun onStart() {

@@ -7,18 +7,20 @@
                 android:layout_height="match_parent">
 
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin_horizontal"
+            android:layout_marginEnd="@dimen/activity_margin_horizontal"
             android:orientation="vertical"
             android:layout_centerInParent="true"
             tools:ignore="UselessParent">
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_lock"
-                app:tint="?colorControlNormal"/>
+                app:tint="@color/colorPrimary"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -26,7 +28,9 @@
                 android:layout_margin="@dimen/activity_margin"
                 android:gravity="center"
                 android:text="@string/main_empty_permission_not_granted"
-                android:textAppearance="@style/AppTheme.TextAppearance.Medium"/>
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryText"
+                android:textAppearance="@style/AppTheme.TextAppearance"/>
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/requestButton"

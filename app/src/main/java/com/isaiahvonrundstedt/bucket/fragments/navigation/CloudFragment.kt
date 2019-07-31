@@ -84,6 +84,11 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         recyclerView.addOnScrollListener(onScrollListener)
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.adapter = adapter
+
+        itemPicker = PickerBottomSheet.Builder
+            .setItems(getPickerItems())
+            .setListener(this)
+            .build()
     }
 
     override fun onStart() {
@@ -94,21 +99,11 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
         swipeRefreshContainer.setOnRefreshListener { onRefreshData() }
         addAction.setOnClickListener {
-            if (Permissions(it.context).readAccessGranted){
-                itemPicker = PickerBottomSheet.Builder
-                    .setItems(getPickerItems())
-                    .setListener(this)
-                    .build()
-
+            if (Permissions(it.context).readAccessGranted)
                 itemPicker?.invoke(childFragmentManager)
-            }
             else
                 requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Permissions.readRequestCode)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         viewModel?.itemList?.observe(this, Observer { items ->
             adapter?.setObservableItems(items)
@@ -117,12 +112,6 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         viewModel?.itemSize?.observe(this, Observer { size ->
             noItemView.isVisible = size == 0
         })
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == Permissions.readRequestCode && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            Toast.makeText(context, "SS", Toast.LENGTH_SHORT).show()
     }
 
     private var isScrolling: Boolean = false

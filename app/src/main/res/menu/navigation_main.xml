@@ -12,8 +12,8 @@
                 app:iconTint="@color/colorSecondaryText"/>
 
         <item
-                android:id="@+id/navigation_local"
-                android:title="@string/navigation_local"
+                android:id="@+id/navigation_downloads"
+                android:title="@string/navigation_downloads"
                 android:icon="@drawable/ic_folder"
                 app:iconTint="@color/colorSecondaryText"/>
 

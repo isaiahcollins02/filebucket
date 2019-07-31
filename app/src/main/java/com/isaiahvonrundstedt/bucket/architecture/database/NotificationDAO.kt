@@ -16,10 +16,10 @@ interface NotificationDAO {
     suspend fun remove(notification: Notification)
 
     @Query("SELECT * FROM notifications")
-    suspend fun getNotifications(): List<Notification>
+    suspend fun notifications(): List<Notification>
 
     @Query("SELECT * FROM notifications WHERE objectID = :id")
-    suspend fun getNotificationByObjectID(id: String): List<Notification>
+    suspend fun notificationByObjectID(id: String): List<Notification>
 
     @Query("DELETE FROM notifications")
     fun clearAll()

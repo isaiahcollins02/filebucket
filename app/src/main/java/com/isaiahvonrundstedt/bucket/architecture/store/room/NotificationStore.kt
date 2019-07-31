@@ -1,27 +1,32 @@
 package com.isaiahvonrundstedt.bucket.architecture.store.room
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
-import com.isaiahvonrundstedt.bucket.architecture.database.NotificationDAO
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class NotificationStore(application: Application) {
 
     private var database = AppDatabase.getDatabase(application)
-    private var notificationDAO = database?.notificationAccessor()
+    private var notificationDAO = database?.notifications()
 
-    fun fetch( onFetch: (List<Notification>) -> Unit ) = runBlocking {
-        onFetch(notificationDAO?.getNotifications() ?: ArrayList())
+    fun fetch(onFetch: (List<Notification>) -> Unit) = GlobalScope.launch {
+        onFetch(notificationDAO?.notifications() ?: ArrayList())
     }
 
-    fun insert(notification: Notification) = runBlocking {
+    fun insert(notification: Notification) = GlobalScope.launch {
         notificationDAO?.insert(notification)
     }
 
-    fun remove(notification: Notification) = runBlocking {
-        notificationDAO?.remove(notification)
+    fun update(notification: Notification) = GlobalScope.launch {
+        notificationDAO?.update(notification)
     }
+
+    fun remove(notification: Notification) = GlobalScope.launch {
+        notificationDAO?.insert(notification)
+    }
+
+
+
 }

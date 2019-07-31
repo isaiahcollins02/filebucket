@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/noNotificationView"
+        android:id="@+id/noItemView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,8 +19,9 @@
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_marginTop="16dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_bell"
+                app:srcCompat="@drawable/ic_paper_plane"
                 app:tint="@color/colorPrimary"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -28,10 +29,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_margin"
                 android:gravity="center"
-                android:text="@string/main_empty_no_notification"
+                android:text="@string/main_empty_no_sent"
                 android:textSize="18sp"
-                android:textColor="@color/colorPrimaryText"
-                android:textAppearance="@style/AppTheme.TextAppearance"/>
+                android:textColor="@color/colorPrimaryText"/>
 
     </LinearLayout>
 

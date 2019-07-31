@@ -8,15 +8,15 @@
     <color name="colorOnPrimary">#ffffff</color>
 
     <!-- Backgrounds -->
-    <color name="colorWindowBackground">#ffffff</color>
+    <color name="colorWindowBackground">#f9f9f9</color>
     <color name="colorCardBackground">#ffffff</color>
-    <color name="colorScreenBackground">#ffffff</color>
+    <color name="colorScreenBackground">@color/colorToolbar</color>
 
     <!-- UI Components -->
     <color name="colorIcons">#000000</color>
     <color name="colorToolbar">#ffffff</color>
-    <color name="colorStatusBar">#ffffff</color>
-    <color name="colorDrawerStatusBar">#7fffffff</color>
+    <color name="colorStatusBar">@color/colorToolbar</color>
+    <color name="colorDrawerStatusBar">#ffffffff</color>
 
     <!-- Texts -->
     <color name="colorPrimaryText">#000000</color>

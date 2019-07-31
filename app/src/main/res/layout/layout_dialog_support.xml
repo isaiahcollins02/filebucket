@@ -15,7 +15,10 @@
                 android:id="@+id/chipGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_margin"
+                android:layout_marginTop="@dimen/activity_margin_vertical"
+                android:layout_marginBottom="@dimen/activity_margin_vertical"
+                android:layout_marginStart="@dimen/activity_margin_horizontal"
+                android:layout_marginEnd="@dimen/activity_margin_horizontal"
                 app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
@@ -52,11 +55,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:layout_marginStart="@dimen/activity_margin_start"
-                android:layout_marginEnd="@dimen/activity_margin_end"
-                app:hasFocus="true"
+                android:layout_marginStart="@dimen/activity_margin_horizontal"
+                android:layout_marginEnd="@dimen/activity_margin_horizontal"
                 app:hasClearButton="true"
-                app:maxCharacters="72"
                 app:labelText="@string/field_hint_feedback_summary">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
@@ -73,10 +74,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:layout_marginStart="@dimen/activity_margin_start"
-                android:layout_marginEnd="@dimen/activity_margin_end"
-                app:labelText="@string/field_hint_feedback_information"
-                app:maxCharacters="256">
+                android:layout_marginStart="@dimen/activity_margin_horizontal"
+                android:layout_marginEnd="@dimen/activity_margin_horizontal"
+                app:labelText="@string/field_hint_feedback_information">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:id="@+id/infoField"

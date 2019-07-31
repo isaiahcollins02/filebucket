@@ -21,6 +21,8 @@
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@color/colorWindowBackground</item>
     </style>
@@ -37,8 +39,8 @@
 
     <style name="BottomSheetLayout" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/shape_bottom_sheet</item>
-        <item name="android:layout_marginStart">@dimen/bottom_sheet_margin_start</item>
-        <item name="android:layout_marginEnd">@dimen/bottom_sheet_margin_end</item>
+        <item name="android:layout_marginStart">@dimen/bottom_sheet_margin_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/bottom_sheet_margin_horizontal</item>
     </style>
 
     <!-- Transitions -->
@@ -60,8 +62,8 @@
     </style>
 
     <style name="AppTheme.Toolbar.Guidelines" parent="Widget.AppCompat.Toolbar">
-        <item name="android:paddingLeft">@dimen/toolbar_horizontal_padding</item>
-        <item name="android:paddingRight">@dimen/toolbar_horizontal_padding</item>
+        <item name="android:paddingLeft">@dimen/toolbar_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/toolbar_padding_horizontal</item>
         <item name="contentInsetStart">@dimen/toolbar_keyline</item>
         <item name="maxButtonHeight">48dp</item>
     </style>

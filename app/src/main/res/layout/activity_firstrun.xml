@@ -14,19 +14,20 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="vertical"
-            android:padding="48dp">
+            android:paddingStart="@dimen/first_run_margin_horizontal"
+            android:paddingEnd="@dimen/first_run_margin_horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
+                android:gravity="center"
                 android:text="@string/first_run_title"
                 android:textSize="24sp"
                 android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/first_run_summary"
@@ -34,7 +35,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/hyperlinkView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"

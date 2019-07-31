@@ -78,6 +78,9 @@ class LoginActivity: BaseActivity() {
 
         if (!authEmail.isNullOrBlank() && !authPassword.isNullOrBlank()) {
             firebaseAuth.signInWithEmailAndPassword(authEmail.toString(), authPassword.toString())
+                .addOnCompleteListener {
+                    dialog.dismiss()
+                }
                 .addOnSuccessListener { authResult ->
                     val userID: String? = authResult.user.uid
 

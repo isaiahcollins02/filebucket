@@ -67,7 +67,7 @@ class TransferService: BaseService() {
 
         showProgressNotification(fileUri.lastPathSegment!!, 0, 0)
 
-        // Get a reference to store a typeGeneric at files reference
+        // Get a reference to store a typeGeneric at storageItems reference
         val fileReference = storageReference.child(Firestore.files).child(fileUri.lastPathSegment!!)
 
         fileReference.putFile(fileUri)
@@ -161,7 +161,8 @@ class TransferService: BaseService() {
             val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_default))
                 .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_upload)
-                .setContentTitle(String.format(getString(R.string.notification_transferring), fileName))
+                .setContentTitle(getString(R.string.notification_transferring_title))
+                .setContentInfo(fileName)
                 .setContentText(String.format(getString(R.string.notification_percent_complete), percentComplete))
                 .setProgress(100, percentComplete, false)
                 .setOngoing(true)

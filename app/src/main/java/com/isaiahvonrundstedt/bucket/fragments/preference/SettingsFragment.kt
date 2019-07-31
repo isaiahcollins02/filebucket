@@ -72,7 +72,7 @@ class SettingsFragment: BasePreference() {
         val themePref: Preference? = findPreference("appThemePreference")
         themePref?.summary = getThemeByID(Preferences(context).theme)
         themePref?.setOnPreferenceClickListener {
-            MaterialDialog(it.context, BottomSheet(LayoutMode.WRAP_CONTENT)).show {
+            MaterialDialog(context!!, BottomSheet(LayoutMode.WRAP_CONTENT)).show {
                 title(R.string.settings_theme_sheet_title)
                 message(R.string.settings_theme_sheet_summary)
                 listItems(items = themeList){ _, _, theme ->
@@ -89,7 +89,7 @@ class SettingsFragment: BasePreference() {
         metadataPref?.summary = if (Preferences(context).metadata == Preferences.metadataTimestamp)
             getString(R.string.settings_metadata_item_timestamp) else getString(R.string.settings_metadata_item_author)
         metadataPref?.setOnPreferenceClickListener {
-            MaterialDialog(it.context, BottomSheet(LayoutMode.WRAP_CONTENT)).show {
+            MaterialDialog(context!!, BottomSheet(LayoutMode.WRAP_CONTENT)).show {
                 title(R.string.settings_metadata_title)
                 message(R.string.settings_metadata_summary)
                 listItems(items = metadataList){ _, index, metadata ->

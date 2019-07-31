@@ -11,20 +11,18 @@
             android:id="@+id/profileView"
             android:layout_width="128dp"
             android:layout_height="128dp"
+            android:layout_gravity="center"
             android:layout_marginTop="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
             android:clickable="true"
-            android:focusable="true"
-            android:layout_gravity="center"/>
+            android:focusable="true"/>
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/nameView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="@dimen/activity_margin_horizontal"
+            android:layout_marginEnd="@dimen/activity_margin_horizontal"
             android:gravity="center"
             android:textColor="@color/colorPrimary"
             android:textAppearance="@style/AppTheme.TextAppearance.Title"
@@ -36,14 +34,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="@dimen/activity_margin_horizontal"
+            android:layout_marginEnd="@dimen/activity_margin_horizontal"
             android:gravity="center"
             tools:text="isaiahcollins02@gmail.com"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/content_margin_horizontal"
+            android:layout_marginEnd="@dimen/content_margin_horizontal"/>
 
 </LinearLayout>

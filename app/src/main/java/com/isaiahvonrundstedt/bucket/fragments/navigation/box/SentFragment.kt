@@ -19,7 +19,7 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.utils.User
-import kotlinx.android.synthetic.main.fragment_box_child.*
+import kotlinx.android.synthetic.main.fragment_box_shared.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class SentFragment: BaseFragment() {
@@ -32,7 +32,7 @@ class SentFragment: BaseFragment() {
     private var layoutManager: LinearLayoutManager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_box_child, container, false)
+        return inflater.inflate(R.layout.fragment_box_sent, container, false)
     }
 
     override fun onAttach(context: Context) {

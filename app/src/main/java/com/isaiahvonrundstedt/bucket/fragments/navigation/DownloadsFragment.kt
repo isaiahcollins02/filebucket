@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_local.*
 import kotlinx.android.synthetic.main.layout_empty_no_access.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
-class LocalFragment: BaseFragment() {
+class DownloadsFragment: BaseFragment() {
 
     private var adapter: LocalAdapter? = null
     private var viewModel: LocalViewModel? = null
@@ -33,12 +33,14 @@ class LocalFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (Permissions(view.context).writeAccessGranted)
-            initStore()
+        adapter = LocalAdapter(context, childFragmentManager, GlideApp.with(this))
+
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.adapter = adapter
     }
 
     private fun initStore(){
-
         noAccessView.isVisible = false
         requestButton.isVisible = false
 
@@ -52,11 +54,8 @@ class LocalFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
-        adapter = LocalAdapter(context, childFragmentManager, GlideApp.with(this))
-
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.addItemDecoration(ItemDecoration(context))
-        recyclerView.adapter = adapter
+        if (Permissions(context!!).writeAccessGranted)
+            initStore()
     }
 
     override fun onResume() {

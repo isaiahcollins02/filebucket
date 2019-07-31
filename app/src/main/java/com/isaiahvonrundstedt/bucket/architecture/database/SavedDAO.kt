@@ -17,18 +17,18 @@ interface SavedDAO {
     suspend fun remove(item: StorageItem)
 
     @Query("SELECT * FROM collections WHERE id == :id")
-    suspend fun getFileByID(@NotNull id: String?): List<StorageItem>
+    suspend fun itemByID(@NotNull id: String?): List<StorageItem>
 
     @Query("SELECT * FROM collections")
-    suspend fun getFiles(): List<StorageItem>
+    suspend fun storageItems(): List<StorageItem>
 
     @Query("DELETE FROM collections")
-    suspend fun clearAll()
+    suspend fun removeEverything()
 
     @Transaction
     suspend fun checkIfExists(item: StorageItem?): Boolean {
         val itemList = ArrayList<StorageItem>()
-        itemList.addAll(getFileByID(item?.id))
+        itemList.addAll(itemByID(item?.id))
         return itemList.isNotEmpty()
     }
 

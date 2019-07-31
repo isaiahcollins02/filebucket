@@ -22,15 +22,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-            android:title="@string/team_development">
-
-        <Preference
-                android:title="@string/team_isaiah_collins_abetong"
-                android:summary="@string/team_position_chief"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
             android:title="@string/about_support">
 
         <Preference

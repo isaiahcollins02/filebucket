@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.isaiahvonrundstedt.bucket.architecture.store.room.SavedStore
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class SavedViewModel(application: Application): AndroidViewModel(application) {
 
@@ -18,13 +20,14 @@ class SavedViewModel(application: Application): AndroidViewModel(application) {
     private var _itemSize: MutableLiveData<Int> = MutableLiveData()
     internal var itemSize: LiveData<Int> = _itemSize
 
-    fun fetch(){
+    init { fetch() }
+
+    private fun fetch(){
         repository.fetch { items ->
             initialList.addAll(items)
             initialList.distinctBy { it.id }.toMutableList()
             _itemList.postValue(initialList)
-
-            _itemSize.postValue(items.size)
+            _itemSize.postValue(initialList.size)
         }
     }
 

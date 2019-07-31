@@ -8,10 +8,10 @@
     <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/activity_margin_vertical"
             android:layout_marginBottom="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="@dimen/activity_margin_horizontal"
+            android:layout_marginEnd="@dimen/activity_margin_horizontal"
             android:text="@string/instruction_reset"
             android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 

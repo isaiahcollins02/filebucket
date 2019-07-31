@@ -2,11 +2,9 @@ package com.isaiahvonrundstedt.bucket.activities
 
 import android.content.Intent
 import android.graphics.PorterDuff
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -23,7 +21,7 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.fragments.navigation.*
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.SearchFragment
-import com.isaiahvonrundstedt.bucket.utils.Preferences
+import com.isaiahvonrundstedt.bucket.service.SupportService
 import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_appbar_drawer.*
@@ -35,7 +33,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
     companion object {
         const val navigationItemCloud = 0
-        const val navigationItemLocal = 1
+        const val navigationItemDownloads = 1
         const val navigationItemBoxes = 2
         const val navigationItemSaved = 3
         const val navigationItemNotification = 4
@@ -60,27 +58,17 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
         actionBarToggle.drawerArrowDrawable.color = ContextCompat.getColor(this, R.color.colorIcons)
         actionBarToggle.syncState()
 
-        if (!Preferences(this).isDarkEnabled){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                drawerLayout.setStatusBarBackground(R.color.colorDrawerStatusBar)
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                drawerLayout.setStatusBarBackground(android.R.color.black)
-        } else {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                drawerLayout.setStatusBarBackground(R.color.colorDrawerStatusBar)
-            else drawerLayout.setStatusBarBackground(android.R.color.black)
-        }
-
         navigationView.setNavigationItemSelectedListener(this)
         navigationView.setCheckedItem(obtainMenuItemID(selectedItem))
+
+        startService(Intent(this, SupportService::class.java)
+            .setAction(SupportService.actionFetchPayload))
     }
 
     private fun obtainMenuItemID(int: Int?): Int {
         return when (int){
             navigationItemCloud -> R.id.navigation_cloud
-            navigationItemLocal -> R.id.navigation_local
+            navigationItemDownloads -> R.id.navigation_downloads
             navigationItemBoxes -> R.id.navigation_boxes
             navigationItemSaved -> R.id.navigation_collections
             navigationItemNotification -> R.id.navigation_notifications
@@ -132,7 +120,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
 
         when (item){
             navigationItemCloud -> setToolbarTitle(R.string.navigation_cloud)
-            navigationItemLocal -> setToolbarTitle(R.string.navigation_local)
+            navigationItemDownloads -> setToolbarTitle(R.string.navigation_downloads)
             navigationItemBoxes -> setToolbarTitle(R.string.navigation_boxes)
             navigationItemSaved -> setToolbarTitle(R.string.navigation_saved)
             navigationItemNotification -> setToolbarTitle(R.string.navigation_notifications)
@@ -146,7 +134,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     private fun getFragment(item: Int?): Fragment? {
         return when (item){
             navigationItemCloud -> CloudFragment()
-            navigationItemLocal -> LocalFragment()
+            navigationItemDownloads -> DownloadsFragment()
             navigationItemBoxes -> BoxesFragment()
             navigationItemSaved -> SavedFragment()
             navigationItemNotification -> NotificationFragment()
@@ -169,7 +157,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, NavigationView.OnNavigation
     override fun onNavigationItemSelected(navigationItem: MenuItem): Boolean {
         when (navigationItem.itemId){
             R.id.navigation_cloud -> replaceFragment(navigationItemCloud)
-            R.id.navigation_local -> replaceFragment(navigationItemLocal)
+            R.id.navigation_downloads -> replaceFragment(navigationItemDownloads)
             R.id.navigation_boxes -> replaceFragment(navigationItemBoxes)
             R.id.navigation_collections -> replaceFragment(navigationItemSaved)
             R.id.navigation_notifications -> replaceFragment(navigationItemNotification)

@@ -13,8 +13,8 @@ import com.isaiahvonrundstedt.bucket.utils.converters.TimestampConverter
 @TypeConverters(TimestampConverter::class)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun collectionAccessor(): SavedDAO
-    abstract fun notificationAccessor(): NotificationDAO
+    abstract fun saved(): SavedDAO
+    abstract fun notifications(): NotificationDAO
 
     companion object {
         private var INSTANCE: AppDatabase? = null
@@ -22,7 +22,7 @@ abstract class AppDatabase: RoomDatabase() {
         fun getDatabase(context: Context): AppDatabase? {
             if (INSTANCE == null)
                 synchronized(AppDatabase::class){
-                    INSTANCE = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "appDB")
+                    INSTANCE = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "bucketDB")
                         .build()
                 }
             return INSTANCE

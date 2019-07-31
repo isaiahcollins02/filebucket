@@ -37,7 +37,7 @@ class NotificationReceiver: BroadcastReceiver() {
                 Timber.i("Data Received")
             }
             BaseService.actionSave -> {
-                SavedStore(context.applicationContext as Application).insert(item!!)
+
             }
         }
     }

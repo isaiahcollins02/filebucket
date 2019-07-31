@@ -134,9 +134,6 @@ abstract class BaseAdapter(private var context: Context?,
             val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
             icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
             iconView.setImageDrawable(icon)
-
-            if (item?.type == StorageItem.typeDirectory)
-                sizeView.isVisible = false
         }
     }
 

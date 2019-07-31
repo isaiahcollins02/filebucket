@@ -58,10 +58,9 @@
     <!-- Permission Button Text -->
     <string name="button_turn_on_storage_access">Turn on Storage Access</string>
 
-    <string name="file_details">File Details</string>
     <string name="file_user_repository">%1$s\'s Box</string>
+    <string name="details_file_title">File Details</string>
 
-    <string name="detail_related_boxes">Related Files</string>
     <string name="detail_file_size_placeholder">Size: %1$s MB</string>
     <string name="detail_file_type_placeholder">Type: %1$s</string>
     <string name="detail_file_timestamp_placeholder">Date Uploaded: %1$s</string>
@@ -98,16 +97,18 @@
 
     <string name="menu_dark_theme">Use Dark Theme</string>
     <string name="menu_search">Search</string>
-    <string name="menu_clear">Clear</string>
     <string name="menu_done">Done</string>
 
     <!-- Empty Views -->
     <string name="main_empty_no_notification">There are currently no notifications</string>
     <string name="main_empty_no_items">Look\'s like the there is no items available</string>
+    <string name="main_empty_no_saved_title">There are no saved items from the cloud</string>
+    <string name="main_empty_no_sent">You do not have any shared files. Tap the plus icon to add one.</string>
+    <string name="main_empty_no_saved_summary">To save a file, long tap an item from the \"Cloud\" tab then tap \"Save\"</string>
     <string name="main_empty_permission_not_granted">We\'ll need you to grant us some permissions before we can do anything</string>
 
     <string name="navigation_cloud">Cloud</string>
-    <string name="navigation_local">Local Storage</string>
+    <string name="navigation_downloads">Downloads</string>
     <string name="navigation_boxes">Boxes</string>
     <string name="navigation_saved">Saved</string>
     <string name="navigation_notifications">Notifications</string>
@@ -142,15 +143,17 @@
     <string name="status_email_reset_sent">Password Reset Link Sent</string>
     <string name="status_change_committed">Changes Saved</string>
     <string name="status_error_unknown">An unknown error occurred</string>
+    <string name="status_item_saved">Item Saved</string>
+    <string name="status_item_removed">Item Removed</string>
     <string name="status_invalid_password">Email or Password is incorrect</string>
     <string name="status_intent_no_app">No installed application can open this file type</string>
 
     <!-- Notification -->
-    <string name="notification_channel_default">Default</string>
-    <string name="notification_channel_transfer">Transfer</string>
-    <string name="notification_channel_support">Support</string>
+    <string name="notification_channel_default" translatable="false">Default</string>
+    <string name="notification_channel_transfer" translatable="false">Transfer</string>
+    <string name="notification_channel_support" translatable="false">Support</string>
 
-    <string name="notification_transferring">Uploading %1$s</string>
+    <string name="notification_transferring_title">Uploading to the cloud</string>
 
     <string name="notification_percent_complete">%1$d%% Completed</string>
     <string name="notification_updating_profile">Updating Profile</string>
@@ -165,7 +168,7 @@
     <string name="notification_download_finished_title">Download finished</string>
     <string name="notification_download_finished_content">Your file has finished downloading. Tap this notification to open it.</string>
 
-    <string name="notification_update_available_title">File Bucket %1$d</string>
+    <string name="notification_update_available_title">New Update Available</string>
     <string name="notification_update_available_content">Install updates to make your experience faster and smoother.</string>
 
     <string name="notification_unsupported_version_title">Please update your File Bucket</string>
@@ -223,10 +226,6 @@
     <string name="settings_crash_reporting">Send Anonymous Crash Data</string>
     <string name="settings_analytics">Diagnostics and Analytics</string>
     <string name="settings_directory">Download Location</string>
-
-    <string name="team_development">Development Team</string>
-    <string name="team_position_chief">Chief Software Engineer</string>
-    <string name="team_isaiah_collins_abetong" translatable="false">Isaiah Collins von Ludendorff</string>
 
     <string name="about_privacy_policy">Privacy Policy</string>
     <string name="about_terms_of_service">Terms and Conditions</string>

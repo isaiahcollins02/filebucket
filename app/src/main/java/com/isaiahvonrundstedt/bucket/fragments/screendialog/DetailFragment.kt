@@ -2,6 +2,7 @@ package com.isaiahvonrundstedt.bucket.fragments.screendialog
 
 import android.content.Intent
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.experience.InfoAdapter
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
@@ -31,9 +33,8 @@ import java.text.DecimalFormat
 class DetailFragment: BaseScreenDialog() {
 
     private var storageItem: StorageItem? = null
-    private var fileInDatabase: Boolean? = false
+    private var exists: Boolean = false
 
-    private var appDB: AppDatabase? = null
     private var savedDAO: SavedDAO? = null
     private var store: SavedStore? = null
 
@@ -43,8 +44,8 @@ class DetailFragment: BaseScreenDialog() {
         super.onCreate(savedInstanceState)
 
         storageItem = arguments?.getParcelable(Params.payload)
-        appDB = AppDatabase.getDatabase(context!!)
-        savedDAO = appDB?.collectionAccessor()
+        savedDAO = AppDatabase.getDatabase(activity?.applicationContext!!)?.saved()
+        store = SavedStore(activity?.application!!)
 
         context?.startService(Intent(context, UsageService::class.java)
             .setAction(UsageService.sendFileUsage)
@@ -57,43 +58,55 @@ class DetailFragment: BaseScreenDialog() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbarTitle?.text = getString(R.string.file_details)
+
+        toolbarTitle?.text = getString(R.string.details_file_title)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        databaseInit()
 
         titleView.text = storageItem?.name
         authorView.text = storageItem?.author
-
-        val icon = ResourcesCompat.getDrawable(resources, StorageItem.obtainIconID(storageItem?.type), null)
-        icon?.setColorFilter(ContextCompat.getColor(context!!, StorageItem.obtainColorID(storageItem?.type)), PorterDuff.Mode.SRC_ATOP)
-        iconView.setImageDrawable(icon)
+        iconView.setImageDrawable(getIconDrawable(storageItem?.type))
 
         val supportItems = listOf(
             Information(R.string.detail_file_size, String.format(getString(R.string.file_size_megabytes), DecimalFormat("#.##").format((storageItem?.size!! / 1024) / 1024))),
             Information(R.string.detail_file_type, getString(StorageItem.obtainItemTypeID(storageItem?.type))),
             Information(R.string.detail_file_timestamp, DataManager.formatTimestamp(context, storageItem?.timestamp) ?: ""))
+
         adapter = InfoAdapter(supportItems)
+
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
 
-    override fun onResume() = runBlocking {
+    override fun onResume() {
         super.onResume()
 
-        fileInDatabase = withContext(Dispatchers.Default) {
-            savedDAO?.checkIfExists(storageItem)
-        }
-
-        collectionsButton.text = if (fileInDatabase == true) getString(R.string.button_remove) else getString(R.string.button_save)
-
         collectionsButton.setOnClickListener {
-            if (!fileInDatabase!!){
-                store?.insert(storageItem!!)
-                (it as MaterialButton).text = getString(R.string.button_remove)
-            } else {
+            if (exists){
                 store?.remove(storageItem!!)
+                Snackbar.make(it, R.string.status_item_removed, Snackbar.LENGTH_SHORT).show()
                 (it as MaterialButton).text = getString(R.string.button_save)
+            } else {
+                store?.insert(storageItem!!)
+                Snackbar.make(it, R.string.status_item_saved, Snackbar.LENGTH_SHORT).show()
+                (it as MaterialButton).text = getString(R.string.button_remove)
             }
         }
+    }
+
+    private fun databaseInit() = runBlocking {
+        exists = withContext(Dispatchers.Default) { savedDAO?.checkIfExists(storageItem) ?: false }
+        collectionsButton.text = if (exists) getString(R.string.button_remove) else getString(R.string.button_save)
+    }
+
+    private fun getIconDrawable(type: Int?): Drawable? {
+        val drawable = ResourcesCompat.getDrawable(context?.resources!!, StorageItem.obtainIconID(type), null)
+        drawable?.setColorFilter(ContextCompat.getColor(context!!, StorageItem.obtainColorID(type)), PorterDuff.Mode.SRC_ATOP)
+        return drawable
     }
 
 }

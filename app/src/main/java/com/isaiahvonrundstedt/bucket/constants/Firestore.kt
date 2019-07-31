@@ -10,7 +10,7 @@ object Firestore {
     object Support {
         const val core = "core"
         const val life = "life"
-        const val updates = "updates"
+        const val packages = "packages"
         const val maxVersion = "maxVersion"
         const val minVersion = "minVersion"
     }

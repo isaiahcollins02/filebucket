@@ -16,8 +16,8 @@
                 android:id="@+id/iconView"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginTop="@dimen/activity_margin_vertical"
+                android:layout_marginStart="@dimen/activity_margin_horizontal"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/titleView"
@@ -25,8 +25,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginStart="@dimen/activity_margin_start"
-                android:layout_marginEnd="@dimen/activity_margin_end"
+                android:layout_marginStart="@dimen/activity_margin_horizontal"
+                android:layout_marginEnd="@dimen/activity_margin_horizontal"
                 android:ellipsize="end"
                 android:maxLength="30"
                 android:textAppearance="@style/AppTheme.TextAppearance.Title"
@@ -36,16 +36,16 @@
                 android:id="@+id/authorView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/activity_margin_horizontal"
+                android:layout_marginEnd="@dimen/activity_margin_horizontal"
                 android:textSize="16sp"
                 tools:text="Author: Isaiah Collins von Ludendorff"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginTop="@dimen/activity_margin_horizontal"
+                android:layout_marginBottom="@dimen/activity_margin_horizontal"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
@@ -74,7 +74,9 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/content_margin_horizontal"
+                android:layout_marginEnd="@dimen/content_margin_horizontal"/>
 
     </LinearLayout>
 

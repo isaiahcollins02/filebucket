@@ -10,6 +10,7 @@ import com.google.firebase.Timestamp
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.utils.converters.TimestampConverter
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Entity(tableName = "collections")
 @Parcelize
@@ -68,7 +69,7 @@ data class StorageItem @JvmOverloads constructor(
         fun determineExtension(uri: Uri): Int {
             // Get the extension of the typeGeneric
             val fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri.toString())
-            when (fileExtension.toString().toLowerCase()){
+            when (fileExtension.toString().toLowerCase(Locale.getDefault())){
                 "apk" -> return typePackage
                 "png" -> return typeImage
                 "jpg" -> return typeImage

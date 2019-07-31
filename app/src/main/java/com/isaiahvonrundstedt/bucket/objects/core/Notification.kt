@@ -13,13 +13,13 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Notification @JvmOverloads constructor (
     @PrimaryKey(autoGenerate = true)
-                    var id: Int? = null,
+    var id: Int? = null,
     var title: String? = null,
     var content: String? = null,
     var type: Int? = typeGeneric,
     var objectID: String? = null,   // determines the object associated with the notification, e.g. the typeGeneric ID
     var objectArgs: String? = null, // determines the arguments associated with the object
-                                                    // e.g. for files, the download url
+                                                    // e.g. for storageItems, the download url
     @TypeConverters(TimestampConverter::class)
                     var timestamp: Timestamp? = null): Parcelable {
 
