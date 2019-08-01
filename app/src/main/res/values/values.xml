@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TextAppearance -->
+
+    <style name="AppTheme.TextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/slate_for_oneplus_regular</item>
+        <item name="android:textColor">?colorControlNormal</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:fontFamily">@font/font_slate_medium</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.AppBar.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:fontFamily">@font/font_slate_regular</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Subtitle" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/font_slate_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?colorControlNormal</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Button" parent="TextAppearance.AppCompat.Button">
+        <item name="android:fontFamily">@font/font_slate_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Medium" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:fontFamily">@font/slate_for_oneplus_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?colorControlNormal</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.ListItem" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:fontFamily">@font/font_slate_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.ListItem.Secondary" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:fontFamily">@font/font_slate_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?colorControlNormal</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Body2" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:fontFamily">@font/font_slate_medium</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.PreferenceGroup" parent="AppTheme.TextAppearance.Body2">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- Preferences -->
+    <style name="AppTheme.Preference.Core" parent="@style/Preference.Material">
+        <item name="android:layout">@layout/layout_preference_core</item>
+    </style>
+
+    <style name="AppTheme.Preference.Group" parent="@style/Preference.Category.Material">
+        <item name="android:layout">@layout/layout_preference_group</item>
+    </style>
+
+    <style name="AppTheme.Preference.Switch" parent="@style/Preference.SwitchPreference.Material">
+        <item name="android:layout">@layout/layout_preference_core</item>
+    </style>
+
+    <style name="AppTheme.Preference.Switch.Compat" parent="@style/Preference.SwitchPreferenceCompat.Material">
+        <item name="android:layout">@layout/layout_preference_core</item>
+    </style>
+
+    <style name="AppTheme.Preference.CheckBox.Compat" parent="@style/Preference.CheckBoxPreference.Material">
+        <item name="android:layout">@layout/layout_preference_core</item>
+    </style>
+
+</resources>

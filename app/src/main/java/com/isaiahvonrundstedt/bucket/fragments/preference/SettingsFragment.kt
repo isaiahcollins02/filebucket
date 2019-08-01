@@ -116,7 +116,7 @@ class SettingsFragment: BasePreference() {
         }
     }
 
-    fun getThemeByID(item: Int): String? {
+    private fun getThemeByID(item: Int): String? {
         return when (item) {
             Preferences.themeLight -> getString(R.string.settings_theme_item_light)
             Preferences.themeDark -> getString(R.string.settings_theme_item_dark)

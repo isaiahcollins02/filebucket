@@ -60,7 +60,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
                 downloadUri = intent?.getParcelableExtra(TransferService.extraDownloadURL)
                 fileUri = intent?.getParcelableExtra(TransferService.extraFileURI)
 
-                if (intent?.action == TransferService.statusError || downloadUri == null && fileUri == null)
+                if (intent?.action == TransferService.statusError && downloadUri == null && fileUri == null)
                     Snackbar.make(view!!, R.string.notification_file_upload_error, Snackbar.LENGTH_SHORT).show()
                 else if (intent?.action == TransferService.statusCompleted)
                     Snackbar.make(view!!, R.string.notification_file_upload_success, Snackbar.LENGTH_SHORT).show()
