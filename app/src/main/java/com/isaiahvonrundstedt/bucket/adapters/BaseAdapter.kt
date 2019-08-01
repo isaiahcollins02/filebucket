@@ -11,7 +11,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -29,8 +28,8 @@ import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.service.FetchService
 import com.isaiahvonrundstedt.bucket.service.UsageService
+import com.isaiahvonrundstedt.bucket.utils.Data
 import com.isaiahvonrundstedt.bucket.utils.Preferences
-import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import java.io.File
 
 abstract class BaseAdapter(private var context: Context?,
@@ -88,7 +87,7 @@ abstract class BaseAdapter(private var context: Context?,
             rootView.setOnClickListener { showDetailDialog(item) }
             titleView.text = item?.name
             subtitleView.text = setMetadata(item)
-            sizeView.text = DataManager.formatSize(context, item?.size)
+            sizeView.text = Data.formatSize(context, item?.size)
 
             val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
             icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
@@ -102,7 +101,7 @@ abstract class BaseAdapter(private var context: Context?,
             rootView.setOnLongClickListener { showDetailDialog(item); true }
             titleView.text = item?.name
             subtitleView.text = setMetadata(item)
-            sizeView.text = DataManager.formatSize(context, item?.size)
+            sizeView.text = Data.formatSize(context, item?.size)
 
             val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
             icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
@@ -169,7 +168,7 @@ abstract class BaseAdapter(private var context: Context?,
             .load(imageURL)
             .into(container)
     }
-    private fun showDetailDialog(item: StorageItem?){
+    protected fun showDetailDialog(item: StorageItem?){
         val args = Bundle()
         args.putParcelable(Params.payload, item)
 
@@ -177,7 +176,7 @@ abstract class BaseAdapter(private var context: Context?,
         detailDialog.arguments = args
         detailDialog.invoke(fragmentManager)
     }
-    private fun onDownload(item: StorageItem?){
+    protected fun onDownload(item: StorageItem?){
         MaterialDialog(context!!).show {
             title(text = String.format(context.getString(R.string.dialog_file_download_title), item?.name))
             message(R.string.dialog_file_download_summary)
@@ -197,7 +196,7 @@ abstract class BaseAdapter(private var context: Context?,
     private fun setMetadata(item: StorageItem?): String? {
         return when (Preferences(context).metadata){
             Preferences.metadataAuthor -> item?.author
-            Preferences.metadataTimestamp -> DataManager.formatTimestamp(context, item?.timestamp)
+            Preferences.metadataTimestamp -> Data.formatTimestamp(context, item?.timestamp)
             Preferences.metadataType -> context?.getString(StorageItem.obtainItemTypeID(item?.type))
             else -> null
         }

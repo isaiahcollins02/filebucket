@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.objects.experience.Information
+import com.isaiahvonrundstedt.bucket.objects.experience.Info
 
-class InfoAdapter(private var items: List<Information>): RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
+class InfoAdapter(private var items: List<Info>): RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val rowView: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_item_info, viewGroup, false)
@@ -27,9 +27,9 @@ class InfoAdapter(private var items: List<Information>): RecyclerView.Adapter<In
         private val titleView: AppCompatTextView = itemView.findViewById(R.id.infoTitleView)
         private val contentView: AppCompatTextView = itemView.findViewById(R.id.infoContentView)
 
-        fun bind(information: Information){
-            titleView.text = itemView.context.getString(information.id)
-            contentView.text = information.content
+        fun bind(info: Info){
+            titleView.text = itemView.context.getString(info.id)
+            contentView.text = info.content
         }
     }
 }

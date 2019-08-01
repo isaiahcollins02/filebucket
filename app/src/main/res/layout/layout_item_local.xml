@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/rootView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorCardBackground"
-        android:foreground="?attr/selectableItemBackground">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorCardBackground"
+    android:foreground="?attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/activity_margin">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin">
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iconView"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/titleView"
-                app:tint="@color/colorPrimary"/>
+            android:id="@+id/iconView"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/titleView"
+            app:tint="@color/colorPrimary"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/titleView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:maxLength="30"
-                android:textAppearance="@style/AppTheme.TextAppearance.ListItem"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/subtitleView"
-                app:layout_constraintStart_toEndOf="@id/iconView"
-                tools:text="Sample Spacing "/>
+            android:id="@+id/titleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxLength="30"
+            android:textAppearance="@style/AppTheme.TextAppearance.ListItem"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/subtitleView"
+            app:layout_constraintStart_toEndOf="@id/iconView"
+            tools:text="Sample Spacing "/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/subtitleView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textAppearance="@style/AppTheme.TextAppearance.ListItem.Secondary"
-                app:layout_constraintTop_toBottomOf="@id/titleView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iconView"
-                tools:text="Sample Text"/>
+            android:id="@+id/subtitleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAppearance="@style/AppTheme.TextAppearance.ListItem.Secondary"
+            app:layout_constraintTop_toBottomOf="@id/titleView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iconView"
+            tools:text="Sample Text"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/sizeView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="2.4MB"/>
+            android:id="@+id/sizeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="2.4MB"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

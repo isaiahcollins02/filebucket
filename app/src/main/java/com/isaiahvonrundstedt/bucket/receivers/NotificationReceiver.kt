@@ -1,6 +1,5 @@
 package com.isaiahvonrundstedt.bucket.receivers
 
-import android.app.Application
 import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -8,7 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.core.net.toUri
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.architecture.store.room.SavedStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.Preferences

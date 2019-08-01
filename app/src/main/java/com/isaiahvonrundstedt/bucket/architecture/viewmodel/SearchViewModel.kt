@@ -1,8 +1,8 @@
 package com.isaiahvonrundstedt.bucket.architecture.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.*
-import com.isaiahvonrundstedt.bucket.architecture.store.LocalStore
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.isaiahvonrundstedt.bucket.architecture.store.network.CoreStore
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import java.util.*
@@ -21,8 +21,14 @@ class SearchViewModel: ViewModel(){
 
     fun filter(searchTerm: String?) {
         val filterList = ArrayList<StorageItem>()
+        val filterString = searchTerm.toString().toLowerCase(Locale.getDefault())
+
         initialList.forEachIndexed { _, storageItem ->
-            if (storageItem.name?.toLowerCase(Locale.getDefault())?.contains(searchTerm.toString()) == true)
+            val itemName = storageItem.name?.toLowerCase(Locale.getDefault())
+            val itemAuthor = storageItem.author?.toLowerCase(Locale.getDefault())
+            if (itemName?.contains(filterString) == true)
+                filterList.add(storageItem)
+            else if (itemAuthor?.contains(filterString) == true)
                 filterList.add(storageItem)
         }
         _items.postValue(filterList)

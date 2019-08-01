@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iconView"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="@dimen/activity_margin_vertical"
-                android:layout_marginStart="@dimen/activity_margin_horizontal"/>
+            android:id="@+id/iconView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="@dimen/activity_margin_vertical"
+            android:layout_marginStart="@dimen/activity_margin_horizontal"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/titleView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="@dimen/activity_margin_horizontal"
-                android:layout_marginEnd="@dimen/activity_margin_horizontal"
-                android:ellipsize="end"
-                android:maxLength="30"
-                android:textAppearance="@style/AppTheme.TextAppearance.Title"
-                tools:text="Sample File"/>
+            android:id="@+id/titleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="@dimen/activity_margin_horizontal"
+            android:layout_marginEnd="@dimen/activity_margin_horizontal"
+            android:ellipsize="end"
+            android:maxLength="30"
+            android:textAppearance="@style/AppTheme.TextAppearance.Title"
+            tools:text="Sample File"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/authorView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin_horizontal"
-                android:layout_marginEnd="@dimen/activity_margin_horizontal"
-                android:textSize="16sp"
-                tools:text="Author: Isaiah Collins von Ludendorff"/>
+            android:id="@+id/authorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin_horizontal"
+            android:layout_marginEnd="@dimen/activity_margin_horizontal"
+            android:textSize="16sp"
+            tools:text="Author: Isaiah Collins von Ludendorff"/>
 
         <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_margin_horizontal"
+            android:layout_marginBottom="@dimen/activity_margin_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/collectionsButton"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin_horizontal"
-                android:layout_marginBottom="@dimen/activity_margin_horizontal"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/button_save"
+                style="@style/AppTheme.Widget.Button.Outlined"/>
 
             <com.google.android.material.button.MaterialButton
-                    android:id="@+id/collectionsButton"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/button_save"
-                    style="@style/AppTheme.Widget.Button.Outlined"/>
-
-            <com.google.android.material.button.MaterialButton
-                    android:id="@+id/downloadButton"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/button_download"
-                    style="@style/AppTheme.Widget.Button"/>
+                android:id="@+id/downloadButton"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/button_download"
+                style="@style/AppTheme.Widget.Button"/>
 
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/content_margin_horizontal"
-                android:layout_marginEnd="@dimen/content_margin_horizontal"/>
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/content_margin_horizontal"
+            android:layout_marginEnd="@dimen/content_margin_horizontal"/>
 
     </LinearLayout>
 

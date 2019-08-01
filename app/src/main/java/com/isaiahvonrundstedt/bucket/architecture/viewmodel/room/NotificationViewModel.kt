@@ -18,9 +18,7 @@ class NotificationViewModel(application: Application): AndroidViewModel(applicat
     private var _itemSize: MutableLiveData<Int> = MutableLiveData()
     internal var itemSize: LiveData<Int> = _itemSize
 
-    init {
-        fetch()
-    }
+    init { fetch() }
 
     fun fetch() {
         store.fetch { items ->
@@ -30,6 +28,11 @@ class NotificationViewModel(application: Application): AndroidViewModel(applicat
 
             _itemSize.postValue(items.size)
         }
+    }
+
+    fun refresh(){
+        initialList.clear()
+        fetch()
     }
 
 }

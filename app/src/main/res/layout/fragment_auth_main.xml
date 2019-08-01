@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/first_run_margin_horizontal"
+        android:paddingEnd="@dimen/first_run_margin_horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/first_run_margin_horizontal"
-            android:paddingEnd="@dimen/first_run_margin_horizontal">
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/register_password_title"
+            android:textSize="24sp"
+            android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="@string/register_password_title"
-                android:textSize="24sp"
-                android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:text="@string/register_password_summary"
-                android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/register_password_summary"
+            android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:useDenseSpacing="true"
-                app:minCharacters="8"
-                app:hasClearButton="true"
-                app:labelText="@string/field_hint_password">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:useDenseSpacing="true"
+            app:minCharacters="8"
+            app:hasClearButton="true"
+            app:labelText="@string/field_hint_password">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:id="@+id/passwordField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:imeOptions="actionNext"
-                    android:textColor="@color/colorPrimaryText"/>
+                android:id="@+id/passwordField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorPrimaryText"/>
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:useDenseSpacing="true"
-                app:minCharacters="8"
-                app:hasClearButton="true"
-                app:labelText="@string/field_hint_password_confirm">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:useDenseSpacing="true"
+            app:minCharacters="8"
+            app:hasClearButton="true"
+            app:labelText="@string/field_hint_password_confirm">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:id="@+id/confirmPasswordField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:imeOptions="actionDone"
-                    android:textColor="@color/colorPrimaryText"/>
+                android:id="@+id/confirmPasswordField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:textColor="@color/colorPrimaryText"/>
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 

@@ -21,9 +21,9 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
-import com.isaiahvonrundstedt.bucket.objects.experience.Information
+import com.isaiahvonrundstedt.bucket.objects.experience.Info
 import com.isaiahvonrundstedt.bucket.service.UsageService
-import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
+import com.isaiahvonrundstedt.bucket.utils.Data
 import kotlinx.android.synthetic.main.layout_dialog_detail.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -71,9 +71,9 @@ class DetailFragment: BaseScreenDialog() {
         iconView.setImageDrawable(getIconDrawable(storageItem?.type))
 
         val supportItems = listOf(
-            Information(R.string.detail_file_size, String.format(getString(R.string.file_size_megabytes), DecimalFormat("#.##").format((storageItem?.size!! / 1024) / 1024))),
-            Information(R.string.detail_file_type, getString(StorageItem.obtainItemTypeID(storageItem?.type))),
-            Information(R.string.detail_file_timestamp, DataManager.formatTimestamp(context, storageItem?.timestamp) ?: ""))
+            Info(R.string.detail_file_size, String.format(getString(R.string.file_size_megabytes), DecimalFormat("#.##").format((storageItem?.size!! / 1024) / 1024))),
+            Info(R.string.detail_file_type, getString(StorageItem.obtainItemTypeID(storageItem?.type))),
+            Info(R.string.detail_file_timestamp, Data.formatTimestamp(context, storageItem?.timestamp) ?: ""))
 
         adapter = InfoAdapter(supportItems)
 

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_margin"
-            android:text="@string/sheet_picker_title"
-            android:textAppearance="@style/AppTheme.TextAppearance.Title"
-            android:fontFamily="@font/font_slate_medium"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        android:text="@string/sheet_picker_title"
+        android:textAppearance="@style/AppTheme.TextAppearance.Title"
+        android:fontFamily="@font/font_slate_medium"/>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/activity_margin_horizontal"
-            android:layout_marginEnd="@dimen/activity_margin_horizontal"/>
+        android:id="@+id/recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/activity_margin_horizontal"
+        android:layout_marginEnd="@dimen/activity_margin_horizontal"/>
 
 </LinearLayout>

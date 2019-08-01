@@ -6,16 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.files.fileChooser
-import com.bumptech.glide.Priority
-import com.bumptech.glide.request.RequestOptions
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.SentAdapter
 import com.isaiahvonrundstedt.bucket.architecture.factory.FileFactory
@@ -23,11 +18,7 @@ import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.FileViewMode
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
-import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.PickerBottomSheet
-import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
-import com.isaiahvonrundstedt.bucket.objects.experience.Picker
 import com.isaiahvonrundstedt.bucket.utils.User
-import gun0912.tedbottompicker.TedBottomPicker
 import kotlinx.android.synthetic.main.fragment_box_sent.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 

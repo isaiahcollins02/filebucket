@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorCardBackground"
-        android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorCardBackground"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/profileView"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="48dp"
-            android:clickable="true"
-            android:focusable="true"/>
+        android:id="@+id/profileView"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="48dp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/nameView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="@dimen/activity_margin_horizontal"
-            android:layout_marginEnd="@dimen/activity_margin_horizontal"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            android:textAppearance="@style/AppTheme.TextAppearance.Title"
-            tools:text="Collins von Ludendorff"/>
+        android:id="@+id/nameView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/activity_margin_horizontal"
+        android:layout_marginEnd="@dimen/activity_margin_horizontal"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="@style/AppTheme.TextAppearance.Title"
+        tools:text="Collins von Ludendorff"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/emailView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="@dimen/activity_margin_horizontal"
-            android:layout_marginEnd="@dimen/activity_margin_horizontal"
-            android:gravity="center"
-            tools:text="isaiahcollins02@gmail.com"/>
+        android:id="@+id/emailView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="@dimen/activity_margin_horizontal"
+        android:layout_marginEnd="@dimen/activity_margin_horizontal"
+        android:gravity="center"
+        tools:text="isaiahcollins02@gmail.com"/>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/content_margin_horizontal"
-            android:layout_marginEnd="@dimen/content_margin_horizontal"/>
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/content_margin_horizontal"
+        android:layout_marginEnd="@dimen/content_margin_horizontal"/>
 
 </LinearLayout>

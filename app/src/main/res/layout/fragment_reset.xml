@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_vertical"
-            android:layout_marginBottom="48dp"
-            android:layout_marginStart="@dimen/activity_margin_horizontal"
-            android:layout_marginEnd="@dimen/activity_margin_horizontal"
-            android:text="@string/instruction_reset"
-            android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin_vertical"
+        android:layout_marginBottom="48dp"
+        android:layout_marginStart="@dimen/activity_margin_horizontal"
+        android:layout_marginEnd="@dimen/activity_margin_horizontal"
+        android:text="@string/instruction_reset"
+        android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 
     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            app:labelText="@string/field_hint_email">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        app:labelText="@string/field_hint_email">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/emailField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:imeOptions="actionDone"/>
+            android:id="@+id/emailField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:imeOptions="actionDone"/>
 
     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/continueButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_gravity="end"
-            android:text="@string/button_continue"
-            style="@style/AppTheme.Widget.Button"/>
+        android:id="@+id/continueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_gravity="end"
+        android:text="@string/button_continue"
+        style="@style/AppTheme.Widget.Button"/>
 
 </LinearLayout>

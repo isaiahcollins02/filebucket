@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/rootView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorCardBackground"
-        android:foreground="?attr/selectableItemBackground">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorCardBackground"
+    android:foreground="?attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/activity_margin">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin">
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iconView"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/titleView"/>
+            android:id="@+id/iconView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/titleView"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/titleView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:maxLength="25"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textAppearance="@style/AppTheme.TextAppearance.ListItem"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/subtitleView"
-                app:layout_constraintStart_toEndOf="@id/iconView"
-                tools:text="Sample File Today is the Day"/>
+            android:id="@+id/titleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:maxLength="25"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/AppTheme.TextAppearance.ListItem"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/subtitleView"
+            app:layout_constraintStart_toEndOf="@id/iconView"
+            tools:text="Sample File Today is the Day"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/subtitleView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textAppearance="@style/AppTheme.TextAppearance.ListItem.Secondary"
-                app:layout_constraintTop_toBottomOf="@id/titleView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iconView"
-                tools:text="Sample Text"/>
+            android:id="@+id/subtitleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAppearance="@style/AppTheme.TextAppearance.ListItem.Secondary"
+            app:layout_constraintTop_toBottomOf="@id/titleView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iconView"
+            tools:text="Sample Text"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

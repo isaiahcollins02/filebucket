@@ -1,12 +1,13 @@
 package com.isaiahvonrundstedt.bucket.fragments.preference
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.preference.Preference
 import com.isaiahvonrundstedt.bucket.BuildConfig
 import com.isaiahvonrundstedt.bucket.R
+import com.isaiahvonrundstedt.bucket.activities.support.SupportActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BasePreference
 import com.isaiahvonrundstedt.bucket.constants.Params
-import com.isaiahvonrundstedt.bucket.fragments.screendialog.SupportFragment
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.WebViewFragment
 
 class AboutFragment: BasePreference() {
@@ -46,7 +47,7 @@ class AboutFragment: BasePreference() {
 
         val supportPref: Preference? = findPreference("supportPref")
         supportPref?.setOnPreferenceClickListener {
-            SupportFragment().invoke(childFragmentManager)
+            startActivity(Intent(context, SupportActivity::class.java))
             return@setOnPreferenceClickListener true
         }
 

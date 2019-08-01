@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -25,6 +26,7 @@ import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.interfaces.RecyclerNavigation
+import com.isaiahvonrundstedt.bucket.objects.experience.Navigation
 import com.isaiahvonrundstedt.bucket.service.TransferService
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.User
@@ -45,10 +47,19 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
         userID = firebaseAuth.currentUser?.uid
 
         val itemList = listOf(R.string.profile_secure_account, R.string.profile_reset_password)
-        adapter = NavigationAdapter(itemList, this)
+
+        adapter = NavigationAdapter(getNavigationItems(), this)
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(ItemDecoration(this))
         recyclerView.adapter = adapter
+    }
+
+    private fun getNavigationItems(): List<Navigation> {
+        return listOf(
+            Navigation(R.drawable.ic_lock, R.string.profile_secure_account),
+            Navigation(R.drawable.ic_wizard, R.string.profile_reset_password)
+        )
     }
 
     override fun onResume() {
@@ -119,7 +130,7 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
         }
     }
 
-    private class NavigationAdapter(private var itemList: List<Int>,
+    private class NavigationAdapter(private var itemList: List<Navigation>,
                                 private var itemSelection: RecyclerNavigation): RecyclerView.Adapter<NavigationAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -128,7 +139,7 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
         }
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-            viewHolder.titleView.text = viewHolder.itemView.context.getString(itemList[position])
+            viewHolder.titleView.text = viewHolder.itemView.context.getString(itemList[position].titleID)
             viewHolder.rootView.setOnClickListener { itemSelection.onItemSelected(position) }
         }
 

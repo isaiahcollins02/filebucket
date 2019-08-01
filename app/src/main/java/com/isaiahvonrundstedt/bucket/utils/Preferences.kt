@@ -30,10 +30,15 @@ class Preferences(val context: Context?) {
         editor?.apply()
     }
 
-    val isDarkEnabled: Boolean
+    var isFirstRun: Boolean
+        set(value) {
+            editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor?.putBoolean("firstRunPreference", value)
+            editor?.apply()
+        }
         get() {
-            val flags = context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
-            return flags == Configuration.UI_MODE_NIGHT_YES
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return sharedPreferences?.getBoolean("firstRunPreference", true) ?: false
         }
 
     var theme: Int

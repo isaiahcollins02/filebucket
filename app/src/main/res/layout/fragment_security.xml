@@ -1,82 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/instruction_password"
-            android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/instruction_password"
+        android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 
     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            app:labelText="@string/field_hint_password_old">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        app:labelText="@string/field_hint_password_old">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/oldPasswordField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:imeOptions="actionNext"/>
+            android:id="@+id/oldPasswordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:imeOptions="actionNext"/>
 
     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            app:labelText="@string/field_hint_password_new">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        app:labelText="@string/field_hint_password_new">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/newPasswordField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:imeOptions="actionNext"/>
+            android:id="@+id/newPasswordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:imeOptions="actionNext"/>
 
     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            app:labelText="@string/field_hint_password_confirm">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        app:labelText="@string/field_hint_password_confirm">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/confirmPasswordField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:imeOptions="actionDone"/>
+            android:id="@+id/confirmPasswordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:imeOptions="actionDone"/>
 
     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/continueButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_gravity="end"
-            android:text="@string/button_continue"
-            style="@style/AppTheme.Widget.Button"/>
+        android:id="@+id/continueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_gravity="end"
+        android:text="@string/button_continue"
+        style="@style/AppTheme.Widget.Button"/>
 
 </LinearLayout>

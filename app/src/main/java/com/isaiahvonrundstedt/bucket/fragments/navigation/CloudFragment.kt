@@ -4,14 +4,12 @@ import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
-import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -49,8 +47,6 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
     private var layoutManager: LinearLayoutManager? = null
     private var viewModel: CoreViewModel? = null
 
-    private var itemPicker: PickerBottomSheet? = null
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -84,11 +80,6 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         recyclerView.addOnScrollListener(onScrollListener)
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.adapter = adapter
-
-        itemPicker = PickerBottomSheet.Builder
-            .setItems(getPickerItems())
-            .setListener(this)
-            .build()
     }
 
     override fun onStart() {
@@ -100,7 +91,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         swipeRefreshContainer.setOnRefreshListener { onRefreshData() }
         addAction.setOnClickListener {
             if (Permissions(it.context).readAccessGranted)
-                itemPicker?.invoke(childFragmentManager)
+                invokePicker()
             else
                 requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Permissions.readRequestCode)
         }
@@ -112,6 +103,14 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         viewModel?.itemSize?.observe(this, Observer { size ->
             noItemView.isVisible = size == 0
         })
+    }
+
+    private fun invokePicker(){
+        val itemPicker = PickerBottomSheet.Builder
+            .setItems(getPickerItems())
+            .setListener(this)
+            .build()
+        itemPicker.invoke(childFragmentManager)
     }
 
     private var isScrolling: Boolean = false
@@ -173,9 +172,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
     private fun onRefreshData(){
         viewModel?.refresh()
-
-        if (swipeRefreshContainer.isRefreshing)
-            swipeRefreshContainer.isRefreshing = false
+        swipeRefreshContainer.isRefreshing = false
     }
 
     private fun getPickerItems(): List<Picker> {

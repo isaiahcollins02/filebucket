@@ -19,13 +19,13 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility '1.8'
-        targetCompatibility '1.8'
+        sourceCompatibility "1.7"
+        targetCompatibility "1.7"
     }
     packagingOptions {
         pickFirst("META-INF/atomicfu.kotlin_module")
@@ -95,7 +95,6 @@ dependencies {
     implementation 'gun0912.ted:tedbottompicker:2.0.1'
 
     // Open-Source Framework Libraries
-    implementation 'com.evernote:android-job:1.2.6'
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Glide Components

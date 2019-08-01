@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,25 +14,28 @@
         android:paddingEnd="@dimen/first_run_margin_horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@string/register_email_title"
+            android:text="@string/auth_title"
             android:textSize="24sp"
             android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="@string/register_email_summary"
+            android:text="@string/auth_summary"
             android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             app:useDenseSpacing="true"
             app:hasClearButton="true"
             app:labelText="@string/field_hint_email">
@@ -43,19 +46,48 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorPrimaryText"/>
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:useDenseSpacing="true"
+            app:minCharacters="8"
+            app:hasClearButton="true"
+            app:labelText="@string/field_hint_password">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/passwordField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1"
                 android:imeOptions="actionDone"
                 android:textColor="@color/colorPrimaryText"/>
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/continueButton"
+            android:id="@+id/loginButton"
             android:layout_width="176dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:text="@string/button_continue"
             style="@style/AppTheme.Widget.Button"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/forgotButton"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:text="@string/button_forgot_password"
+            android:textAllCaps="false"
+            style="@style/AppTheme.Widget.Button.Text"/>
 
     </LinearLayout>
 

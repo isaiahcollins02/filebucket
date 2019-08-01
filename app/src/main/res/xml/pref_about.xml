@@ -22,15 +22,15 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-            android:title="@string/about_support">
+        android:title="@string/about_support">
 
         <Preference
-                android:key="supportPref"
-                android:title="@string/about_feedback"/>
+            android:key="supportPref"
+            android:title="@string/about_feedback"/>
 
         <Preference
-                android:key="versionPreference"
-                android:title="@string/about_version"/>
+            android:key="versionPreference"
+            android:title="@string/about_version"/>
 
     </PreferenceCategory>
 

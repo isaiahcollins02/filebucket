@@ -11,11 +11,9 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.architecture.store.room.NotificationStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firestore
-import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.objects.diagnostics.Support
-import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 
 class SupportService: BaseService() {
 

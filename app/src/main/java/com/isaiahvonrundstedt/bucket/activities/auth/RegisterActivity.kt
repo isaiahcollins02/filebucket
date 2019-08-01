@@ -22,15 +22,17 @@ class RegisterActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        currentView = savedInstanceState?.getInt(Params.viewType) ?: 0
+
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     companion object {
-        const val viewTypeEmail = 1
-        const val viewTypePassword = 2
-        const val viewTypeBasic = 3
+        const val viewTypeEmail = 0
+        const val viewTypePassword = 1
+        const val viewTypeBasic = 2
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

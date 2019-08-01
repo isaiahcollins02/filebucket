@@ -32,8 +32,6 @@
 
     <style name="AppTheme.ScreenDialog" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@color/colorCardBackground</item>
     </style>
@@ -112,12 +110,15 @@
     </style>
 
     <style name="AppTheme.Widget.SearchView" parent="Widget.AppCompat.Light.SearchView">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:iconifiedByDefault">false</item>
-        <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
     </style>
+
+    <style name="AppTheme.Widget.Chip.Filter" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
+    </style>
+
     <style name="AppTheme.Widget.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemTextColor">@color/navigation_selected</item>
         <item name="itemIconTint">@color/navigation_selected</item>

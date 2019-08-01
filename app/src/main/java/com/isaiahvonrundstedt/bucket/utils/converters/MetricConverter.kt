@@ -3,6 +3,7 @@ package com.isaiahvonrundstedt.bucket.utils.converters
 import android.content.Context
 import android.util.DisplayMetrics
 
+@Deprecated("")
 object MetricConverter {
 
     fun convertDPtoPixel(context: Context, value: Float): Float {

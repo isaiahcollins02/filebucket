@@ -20,7 +20,7 @@ class EmailFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         continueButton.setOnClickListener {
-            if (emailField.text != null){
+            if (emailField.text.isNotEmpty()){
                 val arguments = Bundle()
                 arguments.putString(Params.email, emailField.text.toString())
 
@@ -28,7 +28,7 @@ class EmailFragment: BaseFragment() {
                 authFragment.arguments = arguments
 
                 activity?.supportFragmentManager?.beginTransaction()?.run {
-                    setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_out_left, R.anim.slide_in_right)
+                    setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
                     replace(R.id.childLayout, authFragment)
                     addToBackStack("viewTag")
                     commit()

@@ -16,7 +16,6 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Params
-import com.isaiahvonrundstedt.bucket.utils.managers.DataManager
 import kotlinx.android.synthetic.main.activity_vault.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 

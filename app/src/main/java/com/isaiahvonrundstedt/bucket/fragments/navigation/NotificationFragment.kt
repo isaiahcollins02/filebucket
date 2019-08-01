@@ -13,7 +13,6 @@ import com.isaiahvonrundstedt.bucket.adapters.support.NotificationAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.room.NotificationViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
-import com.isaiahvonrundstedt.bucket.objects.core.Notification
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import kotlinx.android.synthetic.main.layout_empty_no_notification.*
 

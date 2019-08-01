@@ -6,8 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.isaiahvonrundstedt.bucket.architecture.store.room.SavedStore
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class SavedViewModel(application: Application): AndroidViewModel(application) {
 
@@ -29,6 +27,11 @@ class SavedViewModel(application: Application): AndroidViewModel(application) {
             _itemList.postValue(initialList)
             _itemSize.postValue(initialList.size)
         }
+    }
+
+    fun refresh(){
+        initialList.clear()
+        fetch()
     }
 
 }

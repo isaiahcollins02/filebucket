@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/rootView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorCardBackground"
-        android:foreground="?attr/selectableItemBackground">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorCardBackground"
+    android:foreground="?attr/selectableItemBackground">
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin" >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/infoTitleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_margin" >
+            android:textAppearance="@style/AppTheme.TextAppearance.ListItem"
+            android:layout_alignParentTop="true"
+            tools:text="Storage Used"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/infoTitleView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/AppTheme.TextAppearance.ListItem"
-                android:layout_alignParentTop="true"
-                tools:text="Storage Used"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/infoContentView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_below="@id/infoTitleView"
-                android:textAppearance="@style/AppTheme.TextAppearance.ListItem.Secondary"
-                tools:text="2.35GB in Internal Storage"/>
+            android:id="@+id/infoContentView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_below="@id/infoTitleView"
+            android:textAppearance="@style/AppTheme.TextAppearance.ListItem.Secondary"
+            tools:text="2.35GB in Internal Storage"/>
 
     </RelativeLayout>
 
