@@ -1,9 +1,12 @@
 package com.isaiahvonrundstedt.bucket.activities.support
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -14,10 +17,12 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
@@ -37,6 +42,7 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
 
     private var userID: String? = null
     private var adapter: NavigationAdapter? = null
+    private var receiver: BroadcastReceiver? = null
     private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,15 +50,39 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
         setContentView(R.layout.activity_profile)
         setToolbarTitle(R.string.activity_account_settings)
 
-        userID = firebaseAuth.currentUser?.uid
+        receiver = object: BroadcastReceiver(){
+            override fun onReceive(context: Context?, intent: Intent?) {
+                // Get a new intent from Upload Service with a success or failure
+                val downloadUri: Uri? = intent?.getParcelableExtra(TransferService.extraDownloadURL)
+                val fileUri: Uri? = intent?.getParcelableExtra(TransferService.extraFileURI)
 
-        val itemList = listOf(R.string.profile_secure_account, R.string.profile_reset_password)
+                if (intent?.action == TransferService.statusError && downloadUri == null && fileUri == null)
+                    Snackbar.make(window.decorView.rootView, R.string.notification_file_upload_error, Snackbar.LENGTH_SHORT).show()
+                else if (intent?.action == TransferService.statusCompleted)
+                    Snackbar.make(window.decorView.rootView, R.string.notification_file_upload_success, Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+        userID = firebaseAuth.currentUser?.uid
 
         adapter = NavigationAdapter(getNavigationItems(), this)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(ItemDecoration(this))
         recyclerView.adapter = adapter
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val manager = LocalBroadcastManager.getInstance(this)
+        manager.registerReceiver(receiver!!, TransferService.intentFilter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver!!)
     }
 
     private fun getNavigationItems(): List<Navigation> {

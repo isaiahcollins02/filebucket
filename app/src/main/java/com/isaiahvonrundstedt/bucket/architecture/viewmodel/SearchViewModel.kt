@@ -11,9 +11,13 @@ import kotlin.collections.ArrayList
 class SearchViewModel: ViewModel(){
 
     private val repository = CoreStore()
+
     private var initialList = mutableListOf<StorageItem>()
-    private var _items: MutableLiveData<List<StorageItem>> = MutableLiveData()
-    internal var itemList: LiveData<List<StorageItem>> = _items
+    private var _itemList: MutableLiveData<List<StorageItem>> = MutableLiveData()
+    internal var itemList: LiveData<List<StorageItem>> = _itemList
+
+    private var _itemSize: MutableLiveData<Int> = MutableLiveData()
+    internal var itemSize: LiveData<Int> = _itemSize
 
     init {
         fetch()
@@ -31,23 +35,23 @@ class SearchViewModel: ViewModel(){
             else if (itemAuthor?.contains(filterString) == true)
                 filterList.add(storageItem)
         }
-        _items.postValue(filterList)
+        _itemList.postValue(filterList)
+        _itemSize.postValue(filterList.size)
     }
 
     fun fetch(){
         repository.fetch { fileList ->
             initialList.addAll(fileList)
             initialList.distinctBy { it.id }.toMutableList()
-            _items.postValue(initialList)
+            _itemList.postValue(initialList)
+            _itemSize.postValue(initialList.size)
         }
     }
-
-    val size: Int
-        get() = initialList.size
 
     fun refresh(){
         repository.refresh()
         initialList.clear()
         fetch()
     }
+
 }

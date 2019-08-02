@@ -103,10 +103,12 @@
     <!-- Empty Views -->
     <string name="main_empty_no_notification">There are currently no notifications</string>
     <string name="main_empty_no_items">Look\'s like the there is no items available</string>
-    <string name="main_empty_no_saved_title">There are no saved items from the cloud</string>
     <string name="main_empty_no_sent">You do not have any shared files</string>
-    <string name="main_empty_no_saved_summary">To save a file, long tap an item from the \"Cloud\" tab then tap \"Save\"</string>
     <string name="main_empty_permission_not_granted">We\'ll need you to grant us some permissions before we can do anything</string>
+    <string name="main_empty_no_saved_title">There are no saved items from the cloud</string>
+    <string name="main_empty_no_saved_summary">To save a file, long tap an item from the \"Cloud\" tab then tap \"Save\"</string>
+    <string name="main_empty_no_result_title">No Results for \"%1$s\"</string>
+    <string name="main_empty_no_result_summary">Try a different search term using the name or the author\'s name</string>
 
     <string name="navigation_cloud">Cloud</string>
     <string name="navigation_downloads">Downloads</string>

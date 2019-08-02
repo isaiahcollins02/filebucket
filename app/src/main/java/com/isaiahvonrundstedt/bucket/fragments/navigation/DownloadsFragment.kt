@@ -46,7 +46,7 @@ class DownloadsFragment: BaseFragment() {
 
         viewModel = ViewModelProviders.of(this).get(LocalViewModel::class.java)
 
-        viewModel?.items?.observe(this, Observer { items ->
+        viewModel?.itemList?.observe(this, Observer { items ->
             adapter?.setObservableItems(items)
         })
     }
@@ -61,7 +61,9 @@ class DownloadsFragment: BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        noItemView.isVisible = viewModel?.size == 0
+        viewModel?.itemSize?.observe(this, Observer { size ->
+            noItemView.isVisible = size == 0
+        })
 
         requestButton.setOnClickListener {
             requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE),

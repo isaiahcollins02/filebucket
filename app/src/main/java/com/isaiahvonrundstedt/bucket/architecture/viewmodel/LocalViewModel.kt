@@ -11,21 +11,22 @@ class LocalViewModel(app: Application): AndroidViewModel(app){
 
     private val localStore: LocalStore = LocalStore(app)
 
-    private val itemList: ArrayList<StorageItem> = ArrayList()
-    private val _items: MutableLiveData<List<StorageItem>> = MutableLiveData()
-    internal var items: LiveData<List<StorageItem>> = _items
+    private val initialList: ArrayList<StorageItem> = ArrayList()
+    private val _itemList: MutableLiveData<List<StorageItem>> = MutableLiveData()
+    internal var itemList: LiveData<List<StorageItem>> = _itemList
+
+    private val _itemSize: MutableLiveData<Int> = MutableLiveData()
+    internal var itemSize: LiveData<Int> = _itemSize
 
     init {
         fetch()
     }
 
     private fun fetch() {
-        itemList.addAll(localStore.fetch())
-        itemList.distinctBy { it.id }.toMutableList()
-        _items.postValue(itemList)
+        initialList.addAll(localStore.fetch())
+        initialList.distinctBy { it.id }.toMutableList()
+        _itemList.postValue(initialList)
+        _itemSize.postValue(initialList.size)
     }
-
-    val size: Int
-        get() = itemList.size
 
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import kotlinx.android.synthetic.main.layout_dialog_search.*
+import kotlinx.android.synthetic.main.layout_empty_no_result.*
 
 class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
 
@@ -51,6 +53,12 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
         viewModel?.itemList?.observe(this, Observer { items ->
             searchAdapter?.setObservableItems(items)
         })
+
+        viewModel?.itemSize?.observe(this, Observer { size ->
+            noResultView.isVisible = size == 0
+            noResultViewTitle.text = String.format(getString(R.string.main_empty_no_result_title), searchView.query)
+        })
+
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

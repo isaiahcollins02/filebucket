@@ -10,27 +10,38 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchView"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="@string/field_hint_search"
+                    style="@style/AppTheme.Widget.SearchView"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/content_margin_horizontal"
+                    android:layout_marginEnd="@dimen/content_margin_horizontal"/>
+
+            </LinearLayout>
+
+            <include
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:iconifiedByDefault="false"
-                app:queryHint="@string/field_hint_search"
-                style="@style/AppTheme.Widget.SearchView"/>
+                android:layout_height="match_parent"
+                layout="@layout/layout_empty_no_result"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/content_margin_horizontal"
-                android:layout_marginEnd="@dimen/content_margin_horizontal"/>
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </FrameLayout>
 

@@ -20,6 +20,7 @@ import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.User
 import timber.log.Timber
+import java.io.File
 
 class TransferService: BaseService() {
 
@@ -133,7 +134,7 @@ class TransferService: BaseService() {
 
         if (downloadUri != null) {
             // Create a buffered typeGeneric to retrieve data about the uri
-            val bufferedFile: java.io.File = java.io.File(selectedFileUri?.path)
+            val bufferedFile = File(selectedFileUri?.path)
 
             val storageItem = StorageItem()
             storageItem.name = bufferedFile.nameWithoutExtension
@@ -198,18 +199,26 @@ class TransferService: BaseService() {
 
         val reference = storageReference.child(Firestore.users).child(accountID!!)
         reference.putFile(uri!!)
+            .addOnProgressListener { taskSnapshot ->
+                showProgressNotification(uri.lastPathSegment!!,
+                    taskSnapshot.bytesTransferred, taskSnapshot.totalByteCount)
+            }
             .continueWithTask { task ->
                 if (!task.isSuccessful)
                     Timber.e(task.exception)
 
                 reference.downloadUrl
             }.addOnSuccessListener { downloadUri ->
+                broadcastTransferFinished(downloadUri, uri)
+
                 firestore.collection(Firestore.files).document(accountID)
                     .update("imageURL", downloadUri.toString())
                     .addOnSuccessListener {
                         showTransferFinishedNotification(downloadUri, uri)
                     }
             }.addOnFailureListener {
+                broadcastTransferFinished(null, uri)
+
                 showTransferFinishedNotification(null, uri)
             }
     }
