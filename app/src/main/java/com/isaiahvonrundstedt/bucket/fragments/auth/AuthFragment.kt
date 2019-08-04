@@ -19,7 +19,7 @@ import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.isaiahvonrundstedt.bucket.utils.Data
 import com.isaiahvonrundstedt.bucket.utils.User
-import kotlinx.android.synthetic.main.fragment_auth.*
+import kotlinx.android.synthetic.main.fragment_auth_login.*
 
 class AuthFragment: BaseFragment() {
 
@@ -27,7 +27,7 @@ class AuthFragment: BaseFragment() {
     private val firestore by lazy { FirebaseFirestore.getInstance() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_auth, container, false)
+        return inflater.inflate(R.layout.fragment_auth_login, container, false)
     }
 
     override fun onStart() {

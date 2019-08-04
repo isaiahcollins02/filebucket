@@ -9,7 +9,7 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.fragments.registration.AuthFragment
-import com.isaiahvonrundstedt.bucket.fragments.registration.BasicFragment
+import com.isaiahvonrundstedt.bucket.fragments.registration.InformationFragment
 import com.isaiahvonrundstedt.bucket.fragments.registration.EmailFragment
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import kotlinx.android.synthetic.main.activity_register.*
@@ -53,7 +53,7 @@ class RegisterActivity: BaseActivity() {
     private fun getViewByID(int: Int?): Fragment? {
         return when (int){
             viewTypeEmail -> EmailFragment()
-            viewTypeBasic -> BasicFragment()
+            viewTypeBasic -> InformationFragment()
             viewTypePassword -> AuthFragment()
             else -> null
         }

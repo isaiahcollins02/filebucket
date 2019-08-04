@@ -56,8 +56,9 @@
     <string name="button_save">Save</string>
     <string name="button_remove">Remove</string>
     <string name="button_forgot_password">Forgot Password</string>
-    <!-- Permission Button Text -->
+    <!-- Other Button Text -->
     <string name="button_turn_on_storage_access">Turn on Storage Access</string>
+    <string name="button_go_to_notification_settings">Go to Notification Settings</string>
 
     <string name="file_user_repository">%1$s\'s Box</string>
     <string name="details_file_title">File Details</string>
@@ -101,8 +102,8 @@
     <string name="menu_done">Done</string>
 
     <!-- Empty Views -->
-    <string name="main_empty_no_notification">There are currently no notifications</string>
-    <string name="main_empty_no_items">Look\'s like the there is no items available</string>
+    <string name="main_empty_no_notifications">There are currently no notifications</string>
+    <string name="main_empty_no_items">Look\'s like there\'s no items available</string>
     <string name="main_empty_no_sent">You do not have any shared files</string>
     <string name="main_empty_permission_not_granted">We\'ll need you to grant us some permissions before we can do anything</string>
     <string name="main_empty_no_saved_title">There are no saved items from the cloud</string>
@@ -179,6 +180,9 @@
     <string name="notification_file_upload_success">Upload Successful</string>
     <string name="notification_file_upload_error">Upload Task Encountered an Error</string>
 
+    <string name="notification_support_feedback_sent_title">Feedback Sent</string>
+    <string name="notification_support_feedback_sent_content">Thanks for making this app better!</string>
+
     <string name="dialog_sign_out_title">Sign Out?</string>
     <string name="dialog_sign_out_summary">You\'ll need to enter your credentials once again if you need to access the materials.</string>
 
@@ -187,6 +191,9 @@
 
     <string name="dialog_permission_revoked_title">Grant us your permission</string>
     <string name="dialog_permission_revoked_summary">To fully use this application, we\'ll need you to allow Storage Permission requests to download files</string>
+
+    <string name="dialog_confirm_password_title">Confirm your password</string>
+    <string name="dialog_confirm_password_summary">For security purposes, please enter your password again.</string>
 
     <string name="dialog_token_error">Token Error</string>
     <string name="dialog_verifying_account">Verifying</string>
@@ -198,7 +205,7 @@
 
     <!-- Settings -->
     <string name="settings_group_account">Account</string>
-    <string name="settings_group_display">Display</string>
+    <string name="settings_group_interface">Interface</string>
     <string name="settings_group_notifications">Notifications</string>
     <string name="settings_group_privacy">Privacy</string>
     <string name="settings_group_general">General</string>
@@ -223,8 +230,11 @@
     <string name="settings_metadata_item_author">Author</string>
 
     <string name="settings_image_previews">Image Previews</string>
+
     <string name="settings_new_files">New Files</string>
     <string name="settings_new_packages">Updates</string>
+    <string name="settings_app_notifications">Others &amp; Do Not Disturb</string>
+
     <string name="settings_crash_reporting">Send Anonymous Crash Data</string>
     <string name="settings_analytics">Diagnostics and Analytics</string>
     <string name="settings_directory">Download Location</string>

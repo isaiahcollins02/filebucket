@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_margin"
             android:gravity="center"
-            android:text="@string/main_empty_no_notification"
+            android:text="@string/main_empty_no_notifications"
             android:textSize="18sp"
             android:textColor="@color/colorPrimaryText"
             android:textAppearance="@style/AppTheme.TextAppearance"/>

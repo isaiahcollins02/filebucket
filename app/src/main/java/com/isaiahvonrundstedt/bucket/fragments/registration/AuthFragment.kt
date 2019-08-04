@@ -34,7 +34,7 @@ class AuthFragment: Fragment() {
                     arguments.putString(Params.email, email)
                     arguments.putString(Params.password, passwordField.text.toString())
 
-                    val basicFragment = BasicFragment()
+                    val basicFragment = InformationFragment()
                     basicFragment.arguments = arguments
 
                     activity?.supportFragmentManager?.beginTransaction()?.run {

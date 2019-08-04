@@ -1,12 +1,11 @@
 package com.isaiahvonrundstedt.bucket.components.abstracts
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.support.SupportActivity
+import com.isaiahvonrundstedt.bucket.fragments.screendialog.FeedbackFragment
 
 abstract class BaseAppBarActivity: BaseActivity() {
 
@@ -47,10 +46,12 @@ abstract class BaseAppBarActivity: BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId){
-            R.id.action_support -> startActivity(Intent(this, SupportActivity::class.java))
+        return when (item?.itemId){
+            R.id.action_support -> {
+                FeedbackFragment().invoke(supportFragmentManager)
+                true
+            } else -> super.onOptionsItemSelected(item)
         }
-        return true
     }
 
 }

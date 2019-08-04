@@ -34,14 +34,14 @@ data class Notification @JvmOverloads constructor (
         const val transferChannel = "transfer"
         const val supportChannel = "support"
 
-        fun obtainIconRes(type: Int?): Int? {
+        fun obtainIconRes(type: Int?): Int {
             return when (type){
                 typeGeneric -> R.drawable.ic_bell
                 typeNewFile -> R.drawable.ic_balloons
                 typePackage -> R.drawable.ic_download
                 typeFetched -> R.drawable.ic_download
                 typeTransferred -> R.drawable.ic_upload
-                else -> null
+                else -> R.drawable.ic_bell
             }
         }
     }

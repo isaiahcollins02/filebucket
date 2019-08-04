@@ -19,7 +19,6 @@ class SupportService: BaseService() {
 
     private val notificationStore by lazy { NotificationStore(application) }
     private val firestore by lazy { FirebaseFirestore.getInstance() }
-    private val repository by lazy { NotificationStore(application) }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -36,6 +35,7 @@ class SupportService: BaseService() {
         const val statusFailure = "status_failure"
 
         private const val newPackageNotificationID = 1
+        private const val feedbackSentNotificationID = 2
 
         val intentFilter: IntentFilter
             get(){
@@ -59,6 +59,8 @@ class SupportService: BaseService() {
         firestore.collection(Firestore.feedback)
             .add(support)
             .addOnSuccessListener {
+
+                sentFeedbackNotification()
                 broadcastTaskFinished(true, actionSendFeedback)
             }
             .addOnFailureListener {
@@ -77,6 +79,26 @@ class SupportService: BaseService() {
             .addOnFailureListener {
                 broadcastTaskFinished(false, actionFetchPayload)
             }
+    }
+
+    private fun sentFeedbackNotification(){
+        val notification = Notification().apply {
+            title = getString(R.string.notification_support_feedback_sent_title)
+            content = getString(R.string.notification_support_feedback_sent_content)
+            type = Notification.typeGeneric
+        }
+
+        notificationStore.insert(notification)
+        createDefaultChannel()
+
+        val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_default))
+            .setContentTitle(notification.title)
+            .setContentText(notification.content)
+            .setSmallIcon(R.drawable.ic_bell)
+            .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
+            .setAutoCancel(false)
+
+        manager.notify(feedbackSentNotificationID, builder.build())
     }
 
     private fun sendNewPackageNotification(item: StorageItem?){
@@ -98,6 +120,7 @@ class SupportService: BaseService() {
             .setAutoCancel(true)
 
         manager.notify(newPackageNotificationID, builder.build())
+        notificationStore.insert(notification)
     }
 
     private fun broadcastTaskFinished(status: Boolean, task: String): Boolean {

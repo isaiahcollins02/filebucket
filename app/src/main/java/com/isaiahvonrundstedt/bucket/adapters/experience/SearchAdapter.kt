@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.BaseAdapter
+import com.isaiahvonrundstedt.bucket.adapters.BaseCoreAdapter
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.Data
 
 class SearchAdapter(context: Context, fragmentManager: FragmentManager, requestManager: RequestManager):
-    BaseAdapter(context, fragmentManager, requestManager){
+    BaseCoreAdapter(context, fragmentManager, requestManager){
 
     private var itemList: ArrayList<StorageItem> = ArrayList()
 

@@ -16,10 +16,10 @@ import com.isaiahvonrundstedt.bucket.components.LoaderDialog
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.objects.core.Account
-import kotlinx.android.synthetic.main.fragment_auth_basic.*
+import kotlinx.android.synthetic.main.fragment_auth_information.*
 import timber.log.Timber
 
-class BasicFragment: Fragment() {
+class InformationFragment: Fragment() {
 
     private var credentialEmail: String? = null
     private var credentialPassword: String? = null
@@ -37,7 +37,7 @@ class BasicFragment: Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_auth_basic, container, false)
+        return inflater.inflate(R.layout.fragment_auth_information, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

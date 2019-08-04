@@ -8,24 +8,18 @@
     <color name="colorOnPrimary">#ffffff</color>
 
     <!-- Backgrounds -->
-    <color name="colorWindowBackground">#f9f9f9</color>
+    <color name="colorWindowBackground">@color/colorCardBackground</color>
     <color name="colorCardBackground">#ffffff</color>
-    <color name="colorScreenBackground">@color/colorToolbar</color>
 
     <!-- UI Components -->
     <color name="colorIcons">#000000</color>
-    <color name="colorToolbar">#ffffff</color>
+    <color name="colorToolbar">@color/colorCardBackground</color>
     <color name="colorStatusBar">@color/colorToolbar</color>
     <color name="colorDrawerStatusBar">#ffffffff</color>
 
     <!-- Texts -->
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#9c9c9c</color>
-
-    <!-- Default -->
-    <color name="colorIntro1">#00a99b</color>
-    <color name="colorIntro2">#ff0022</color>
-    <color name="colorIntro3">#fb9f00</color>
 
     <!-- Icons -->
     <color name="colorIconBlue">#3386D9</color>
@@ -36,5 +30,8 @@
     <color name="colorIconMagenta">#E2367E</color>
     <color name="colorIconSea">#16B3C6</color>
     <color name="colorIconOrange">#F79A17</color>
+
+    <!-- Background Color in Adaptive Icon -->
+    <color name="colorLauncherBackground">#FFFFFF</color>
 
 </resources>

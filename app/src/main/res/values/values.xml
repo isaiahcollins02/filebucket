@@ -56,6 +56,23 @@
     </style>
 
     <!-- Preferences -->
+    <string name="settings_key_theme" translatable="false">appThemePreference</string>
+    <string name="settings_key_metadata" translatable="false">metadataPreference</string>
+    <string name="settings_key_account" translatable="false">accountPreference</string>
+    <string name="settings_key_signout" translatable="false">signOutPreference</string>
+    <string name="settings_key_image_preview" translatable="false">previewPreference</string>
+    <string name="settings_key_file_notifications" translatable="false">notificationFilePreference</string>
+    <string name="settings_key_update_notification" translatable="false">notificationPackagePreference</string>
+    <string name="settings_key_app_notification" translatable="false">notificationAppPreference</string>
+    <string name="settings_key_diagnostics" translatable="false">diagnosticsPreference</string>
+    <string name="settings_key_crash" translatable="false">crashPreference</string>
+    <string name="settings_key_directory" translatable="false">directoryPreference</string>
+    <string name="settings_key_feedback" translatable="false">feedbackPreference</string>
+    <string name="settings_key_terms" translatable="false">termsPreference</string>
+    <string name="settings_key_privacy_policy" translatable="false">privacyPolicyPreference</string>
+    <string name="settings_key_licenses" translatable="false">licensesPreference</string>
+    <string name="settings_key_version" translatable="false">versionPreference</string>
+
     <style name="AppTheme.Preference.Core" parent="@style/Preference.Material">
         <item name="android:layout">@layout/layout_preference_core</item>
     </style>
@@ -72,7 +89,7 @@
         <item name="android:layout">@layout/layout_preference_core</item>
     </style>
 
-    <style name="AppTheme.Preference.CheckBox.Compat" parent="@style/Preference.CheckBoxPreference.Material">
+    <style name="AppTheme.Preference.CheckBox" parent="@style/Preference.CheckBoxPreference.Material">
         <item name="android:layout">@layout/layout_preference_core</item>
     </style>
 

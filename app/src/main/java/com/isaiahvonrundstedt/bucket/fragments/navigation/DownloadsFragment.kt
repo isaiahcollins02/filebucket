@@ -62,7 +62,10 @@ class DownloadsFragment: BaseFragment() {
         super.onResume()
 
         viewModel?.itemSize?.observe(this, Observer { size ->
-            noItemView.isVisible = size == 0
+            if (Permissions(context!!).readAccessGranted)
+                noItemView.isVisible = false
+            else if (size == 0)
+                noItemView.isVisible = true
         })
 
         requestButton.setOnClickListener {

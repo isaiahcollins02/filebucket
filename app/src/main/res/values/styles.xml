@@ -32,6 +32,8 @@
 
     <style name="AppTheme.ScreenDialog" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@color/colorCardBackground</item>
     </style>
@@ -133,7 +135,7 @@
         <item name="preferenceCategoryStyle">@style/AppTheme.Preference.Group</item>
         <item name="switchPreferenceStyle">@style/AppTheme.Preference.Switch</item>
         <item name="switchPreferenceCompatStyle">@style/AppTheme.Preference.Switch.Compat</item>
-        <item name="checkBoxPreferenceStyle">@style/AppTheme.Preference.CheckBox.Compat</item>
+        <item name="checkBoxPreferenceStyle">@style/AppTheme.Preference.CheckBox</item>
     </style>
 
 </resources>

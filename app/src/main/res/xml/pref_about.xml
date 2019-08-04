@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress ALL -->
 <PreferenceScreen
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:key="rootPref">
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
         android:title="@string/about_legal">
 
         <Preference
-            android:key="policyPref"
+            android:key="@string/settings_key_privacy_policy"
             android:title="@string/about_privacy_policy"/>
 
         <Preference
-            android:key="termsPref"
+            android:key="@string/settings_key_terms"
             android:title="@string/about_terms_of_service"/>
 
         <Preference
-            android:key="licensesPref"
+            android:key="@string/settings_key_licenses"
             android:title="@string/about_licenses"/>
 
     </PreferenceCategory>
@@ -25,11 +23,11 @@
         android:title="@string/about_support">
 
         <Preference
-            android:key="supportPref"
+            android:key="@string/settings_key_feedback"
             android:title="@string/about_feedback"/>
 
         <Preference
-            android:key="versionPreference"
+            android:key="@string/settings_key_version"
             android:title="@string/about_version"/>
 
     </PreferenceCategory>

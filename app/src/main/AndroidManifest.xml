@@ -38,7 +38,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity"
-                android:theme="@style/AppTheme.Drawer">
+                android:theme="@style/AppTheme.Drawer"
+                android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
@@ -53,7 +54,6 @@
                   android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".activities.support.ProfileActivity" />
         <activity android:name=".activities.support.VaultActivity"/>
-        <activity android:name=".activities.support.SupportActivity"/>
         <activity android:name=".activities.generic.AboutActivity"/>
         <activity android:name=".activities.generic.SettingsActivity"/>
         <activity android:name=".activities.wrapper.FrameActivity"/>

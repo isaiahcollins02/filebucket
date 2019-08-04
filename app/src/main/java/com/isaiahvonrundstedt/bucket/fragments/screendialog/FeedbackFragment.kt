@@ -1,42 +1,42 @@
-package com.isaiahvonrundstedt.bucket.activities.support
+package com.isaiahvonrundstedt.bucket.fragments.screendialog
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.components.LoaderDialog
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.objects.diagnostics.Support
 import com.isaiahvonrundstedt.bucket.service.SupportService
-import kotlinx.android.synthetic.main.activity_feedback.*
+import kotlinx.android.synthetic.main.activity_support.*
 
-class SupportActivity: BaseAppBarActivity() {
+class FeedbackFragment: BaseScreenDialog(), Toolbar.OnMenuItemClickListener {
 
     private val firebaseAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_feedback)
-        setToolbarTitle(R.string.about_feedback)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.activity_support, container, false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_support, menu)
-        return true
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        toolbarTitle?.text = getString(R.string.about_feedback)
+        toolbar?.inflateMenu(R.menu.menu_support)
+        toolbar?.setOnMenuItemClickListener(this)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId){
-            android.R.id.home -> finish()
-            R.id.action_send -> sendFeedback()
-            else -> return super.onOptionsItemSelected(item)
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId){
+            R.id.action_send -> {
+                sendFeedback()
+                true
+            } else -> false
         }
-        return true
     }
 
     private fun getCheckedChip(chipGroup: ChipGroup): Int {
@@ -56,9 +56,10 @@ class SupportActivity: BaseAppBarActivity() {
             body = infoField.text.toString()
         }
 
-        startService(Intent(this, SupportService::class.java)
+        context?.startService(Intent(context, SupportService::class.java)
                 .putExtra(SupportService.extraSupportItem, support)
                 .setAction(SupportService.actionSendFeedback))
     }
+
 
 }

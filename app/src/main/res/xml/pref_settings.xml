@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress ALL -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -7,28 +6,28 @@
         android:title="@string/settings_group_account">
 
         <Preference
-            android:key="accountPreference" />
+            android:key="@string/settings_key_account" />
 
         <Preference
-            android:key="signoutPreference"
+            android:key="@string/settings_key_signout"
             android:title="@string/settings_sign_out"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/settings_group_display" >
+        android:title="@string/settings_group_interface" >
 
         <Preference
-            android:key="appThemePreference"
+            android:key="@string/settings_key_theme"
             android:title="@string/settings_theme"/>
 
         <Preference
-            android:key="metadataPreference"
+            android:key="@string/settings_key_metadata"
             android:title="@string/settings_metadata"
             android:summary="@string/settings_metadata_item_timestamp"/>
 
-        <SwitchPreference
-            android:key="previewPreference"
+        <SwitchPreferenceCompat
+            android:key="@string/settings_key_image_preview"
             android:title="@string/settings_image_previews"
             android:defaultValue="true"/>
 
@@ -38,27 +37,31 @@
         android:title="@string/settings_group_notifications">
 
         <CheckBoxPreference
-            android:key="notificationFilePreference"
+            android:key="@string/settings_key_file_notifications"
             android:title="@string/settings_new_files"
             android:defaultValue="true"/>
 
         <CheckBoxPreference
-            android:key="notificationPackagePreference"
+            android:key="@string/settings_key_update_notification"
             android:title="@string/settings_new_packages"
             android:defaultValue="true"/>
+
+        <Preference
+            android:key="@string/settings_key_app_notification"
+            android:title="@string/settings_app_notifications"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/settings_group_privacy">
 
-        <SwitchPreference
-            android:key="diagnosticsPreference"
+        <SwitchPreferenceCompat
+            android:key="@string/settings_key_diagnostics"
             android:title="@string/settings_analytics"
             android:defaultValue="true"/>
 
-        <SwitchPreference
-            android:key="crashPreference"
+        <SwitchPreferenceCompat
+            android:key="@string/settings_key_crash"
             android:title="@string/settings_crash_reporting"
             android:dependency="diagnosticsPreference"
             android:defaultValue="true"/>
@@ -69,7 +72,7 @@
         android:title="@string/settings_group_general">
 
         <Preference
-            android:key="directoryPreference"
+            android:key="@string/settings_key_directory"
             android:title="@string/settings_directory"/>
 
     </PreferenceCategory>

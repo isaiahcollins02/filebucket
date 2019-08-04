@@ -39,6 +39,11 @@ class SearchViewModel: ViewModel(){
         _itemSize.postValue(filterList.size)
     }
 
+    fun fetchFiltered(searchTerm: String?){
+        fetch()
+        if (searchTerm != null) filter(searchTerm)
+    }
+
     fun fetch(){
         repository.fetch { fileList ->
             initialList.addAll(fileList)
