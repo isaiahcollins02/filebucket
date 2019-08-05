@@ -18,4 +18,5 @@ object Params {
     const val viewType = "viewType"
     const val viewArgs = "viewArgs"
 
+    const val recyclerState = "recyclerState"
 }

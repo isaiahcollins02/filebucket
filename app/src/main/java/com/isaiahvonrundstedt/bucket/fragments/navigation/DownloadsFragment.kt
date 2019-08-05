@@ -3,6 +3,7 @@ package com.isaiahvonrundstedt.bucket.fragments.navigation
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.isaiahvonrundstedt.bucket.architecture.viewmodel.LocalViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
+import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import kotlinx.android.synthetic.main.fragment_local.*
 import kotlinx.android.synthetic.main.layout_empty_no_access.*
@@ -23,8 +25,12 @@ import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class DownloadsFragment: BaseFragment() {
 
+    private var onBackgroundState: Parcelable? = null
+
     private var adapter: LocalAdapter? = null
     private var viewModel: LocalViewModel? = null
+
+    private var layoutManager: LinearLayoutManager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_local, container, false)
@@ -33,9 +39,10 @@ class DownloadsFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        layoutManager = LinearLayoutManager(context)
         adapter = LocalAdapter(context, childFragmentManager, GlideApp.with(this))
 
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(ItemDecoration(context))
         recyclerView.adapter = adapter
     }
@@ -54,8 +61,16 @@ class DownloadsFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
+        if (onBackgroundState != null)
+            recyclerView.layoutManager?.onRestoreInstanceState(onBackgroundState)
+
         if (Permissions(context!!).writeAccessGranted)
             initStore()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        onBackgroundState = recyclerView.layoutManager?.onSaveInstanceState()
     }
 
     override fun onResume() {
@@ -79,6 +94,18 @@ class DownloadsFragment: BaseFragment() {
             initStore()
         else
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        val recyclerPastState: Parcelable? = savedInstanceState?.getParcelable(Params.recyclerState)
+        if (recyclerPastState != null)
+            recyclerView.layoutManager?.onRestoreInstanceState(recyclerPastState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(Params.recyclerState, recyclerView.layoutManager?.onSaveInstanceState())
     }
 
 }

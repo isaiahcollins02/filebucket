@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.AbsListView
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -36,6 +37,7 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbarTitle?.text = getString(R.string.menu_search)
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
         viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
     }

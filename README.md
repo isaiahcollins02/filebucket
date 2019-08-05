@@ -1,18 +1,18 @@
 # Bucket - File Sharing App for a Specific Group
 
-This is the source code for the app, "Bucket" which is written by me for my university and as a final project
+This is the source code for the app, "File Bucket" which is written by me for my university and as a final project
 
-## Motivation
-As a student, we need access and share all of our academic materials that our instructors have given us. Unfortunately, the app of choice for instant messaging have implemented a dark mode before the attachment of files. So I decided to make an app that will store and handle our materials.
+## Information
+Uploading and sharing files has never been easier! File Bucket focuses on file sharing more than anything. It uses Google's Firebase services as a backend; specifically FirebaseAuth, Firestore and Storage. So you'll need have to worry about security and reliability.
 
 ## Details
 * Native Android App
-* Written in Kotlin (why not?)
-* Depends on Open Source Libraries
-* Uses Firebase as back-end
+* Written in Kotlin
+* Completely Open Source
+* Uses Android Architecture Components
 
 ## Forking & Issues
-You may fork the source code for your own use. If you have issues, bugs and glitches, please open an issue first.
+You may fork the source code of the application for your use, see License. If you see something not right, open an issue on this repository.
 
 ## Licenses
 MIT License
