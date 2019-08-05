@@ -11,13 +11,14 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.experience.SearchAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.SearchViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
-import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseViewModel
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import kotlinx.android.synthetic.main.layout_dialog_search.*
 import kotlinx.android.synthetic.main.layout_empty_no_result.*
@@ -49,7 +50,7 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
         layoutManager = LinearLayoutManager(context)
 
         recyclerView.layoutManager = layoutManager
-        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         recyclerView.addOnScrollListener(onScrollListener)
         recyclerView.adapter = searchAdapter
 
@@ -65,6 +66,13 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
             noResultViewTitle.text = String.format(getString(R.string.main_empty_no_result_title), searchView.query)
         })
 
+        viewModel?.dataState?.observe(this, Observer { dataState ->
+            if (dataState == BaseViewModel.stateDataPreparing){
+                noResultView.isVisible = false
+                progressBar.isVisible = true
+            } else if (dataState == BaseViewModel.stateDataReady)
+                progressBar.isVisible = false
+        })
     }
 
     private var isScrolling: Boolean = false

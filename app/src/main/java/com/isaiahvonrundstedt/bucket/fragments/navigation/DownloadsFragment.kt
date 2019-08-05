@@ -10,12 +10,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.LocalAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.LocalViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.utils.Permissions
@@ -43,7 +43,7 @@ class DownloadsFragment: BaseFragment() {
         adapter = LocalAdapter(context, childFragmentManager, GlideApp.with(this))
 
         recyclerView.layoutManager = layoutManager
-        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
     }
 

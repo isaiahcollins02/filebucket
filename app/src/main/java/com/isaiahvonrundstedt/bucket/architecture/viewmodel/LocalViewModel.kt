@@ -9,7 +9,7 @@ import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 
 class LocalViewModel(app: Application): AndroidViewModel(app){
 
-    private val localStore: LocalStore = LocalStore(app)
+    private val store: LocalStore = LocalStore(app)
 
     private val initialList: ArrayList<StorageItem> = ArrayList()
     private val _itemList: MutableLiveData<List<StorageItem>> = MutableLiveData()
@@ -23,7 +23,7 @@ class LocalViewModel(app: Application): AndroidViewModel(app){
     }
 
     private fun fetch() {
-        localStore.fetch { items ->
+        store.fetch { items ->
             initialList.addAll(items)
             initialList.distinctBy { it.id }.toMutableList()
             _itemList.postValue(initialList)

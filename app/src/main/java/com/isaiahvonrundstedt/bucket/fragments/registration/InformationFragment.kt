@@ -14,7 +14,6 @@ import com.isaiahvonrundstedt.bucket.activities.MainActivity
 import com.isaiahvonrundstedt.bucket.activities.auth.FirstRunActivity
 import com.isaiahvonrundstedt.bucket.components.LoaderDialog
 import com.isaiahvonrundstedt.bucket.constants.Firestore
-import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.objects.core.Account
 import kotlinx.android.synthetic.main.fragment_auth_information.*
 import timber.log.Timber

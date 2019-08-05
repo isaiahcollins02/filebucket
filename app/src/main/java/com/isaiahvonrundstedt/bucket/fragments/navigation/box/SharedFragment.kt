@@ -9,13 +9,14 @@ import android.widget.AbsListView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.BoxesAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.BoxesViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseViewModel
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import kotlinx.android.synthetic.main.fragment_box_shared.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
@@ -44,7 +45,7 @@ class SharedFragment: BaseFragment() {
         adapter = BoxesAdapter(context, childFragmentManager, GlideApp.with(this))
 
         recyclerView.layoutManager = layoutManager
-        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         recyclerView.addOnScrollListener(onScrollListener)
         recyclerView.adapter = adapter
 
@@ -92,6 +93,14 @@ class SharedFragment: BaseFragment() {
 
         viewModel?.itemSize?.observe(this, Observer { size ->
             noItemView.isVisible = size == 0
+        })
+
+        viewModel?.dataState?.observe(this, Observer { dataState ->
+            if (dataState == BaseViewModel.stateDataPreparing){
+                noItemView.isVisible = false
+                progressBar.isVisible = true
+            } else if (dataState == BaseViewModel.stateDataReady)
+                progressBar.isVisible = false
         })
     }
 }

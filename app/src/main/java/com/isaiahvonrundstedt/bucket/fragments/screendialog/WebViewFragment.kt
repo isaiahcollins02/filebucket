@@ -8,8 +8,6 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.constants.Params
 import kotlinx.android.synthetic.main.layout_dialog_webview.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class WebViewFragment: BaseScreenDialog() {
 

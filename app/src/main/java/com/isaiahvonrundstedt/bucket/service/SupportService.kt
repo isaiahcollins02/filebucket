@@ -120,7 +120,6 @@ class SupportService: BaseService() {
             .setAutoCancel(true)
 
         manager.notify(newPackageNotificationID, builder.build())
-        notificationStore.insert(notification)
     }
 
     private fun broadcastTaskFinished(status: Boolean, task: String): Boolean {

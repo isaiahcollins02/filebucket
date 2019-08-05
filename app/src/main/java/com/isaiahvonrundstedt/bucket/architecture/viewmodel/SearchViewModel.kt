@@ -2,13 +2,13 @@ package com.isaiahvonrundstedt.bucket.architecture.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.isaiahvonrundstedt.bucket.architecture.store.network.CoreStore
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseViewModel
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SearchViewModel: ViewModel(){
+class SearchViewModel: BaseViewModel() {
 
     private val repository = CoreStore()
 
@@ -16,11 +16,9 @@ class SearchViewModel: ViewModel(){
     private var _itemList: MutableLiveData<List<StorageItem>> = MutableLiveData()
     internal var itemList: LiveData<List<StorageItem>> = _itemList
 
-    private var _itemSize: MutableLiveData<Int> = MutableLiveData()
-    internal var itemSize: LiveData<Int> = _itemSize
-
     init {
         fetch()
+        _dataState.postValue(stateDataPreparing)
     }
 
     fun filter(searchTerm: String?) {
@@ -37,6 +35,7 @@ class SearchViewModel: ViewModel(){
         }
         _itemList.postValue(filterList)
         _itemSize.postValue(filterList.size)
+        _dataState.postValue(stateDataReady)
     }
 
     fun fetchFiltered(searchTerm: String?){
@@ -44,16 +43,17 @@ class SearchViewModel: ViewModel(){
         if (searchTerm != null) filter(searchTerm)
     }
 
-    fun fetch(){
+    override fun fetch(){
         repository.fetch { fileList ->
             initialList.addAll(fileList)
             initialList.distinctBy { it.id }.toMutableList()
             _itemList.postValue(initialList)
             _itemSize.postValue(initialList.size)
+            _dataState.postValue(stateDataReady)
         }
     }
 
-    fun refresh(){
+    override fun refresh(){
         repository.refresh()
         initialList.clear()
         fetch()

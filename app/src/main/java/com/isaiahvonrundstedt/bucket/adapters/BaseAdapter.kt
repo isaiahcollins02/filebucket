@@ -6,7 +6,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
-import com.isaiahvonrundstedt.bucket.objects.experience.Navigation
 
 abstract class BaseAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

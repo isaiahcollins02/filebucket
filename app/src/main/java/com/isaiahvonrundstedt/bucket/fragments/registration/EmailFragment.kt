@@ -8,7 +8,6 @@ import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.constants.Params
 import kotlinx.android.synthetic.main.fragment_auth_email.*
 
 class EmailFragment: BaseFragment() {

@@ -234,6 +234,7 @@
     <string name="settings_new_files">New Files</string>
     <string name="settings_new_packages">Updates</string>
     <string name="settings_app_notifications">Others &amp; Do Not Disturb</string>
+    <string name="settings_clear_notifications">Clear Notifications</string>
 
     <string name="settings_crash_reporting">Send Anonymous Crash Data</string>
     <string name="settings_analytics">Diagnostics and Analytics</string>

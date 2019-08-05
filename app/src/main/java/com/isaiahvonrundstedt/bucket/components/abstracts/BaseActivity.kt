@@ -4,8 +4,6 @@ import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import com.isaiahvonrundstedt.bucket.utils.Preferences
 
 abstract class BaseActivity: AppCompatActivity() {
 

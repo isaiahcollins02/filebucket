@@ -1,22 +1,28 @@
 package com.isaiahvonrundstedt.bucket.components.custom
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.DisplayMetrics
+import android.graphics.Rect
+import android.util.TypedValue
+import android.view.View
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.isaiahvonrundstedt.bucket.adapters.BaseCoreAdapter
 
-class ItemDecoration (private var context: Context?): RecyclerView.ItemDecoration() {
+class ItemDecoration (private var context: Context?): DividerItemDecoration(context, VERTICAL) {
 
-    private var divider: Drawable? = null
+    private fun convert(value: Float): Int
+        = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context?.resources?.displayMetrics).toInt()
 
-    init {
-        val styledAttributes = context?.obtainStyledAttributes(attrs)
-        divider = styledAttributes?.getDrawable(0)
-        styledAttributes?.recycle()
+    override fun getItemOffsets(outRect: Rect, view: View, recyclerView: RecyclerView, state: RecyclerView.State) {
+        val offset = convert(16F)
+
+        val itemPosition: Int = recyclerView.getChildAdapterPosition(view)
+        val viewType: Int? = recyclerView.adapter?.getItemViewType(itemPosition)
+
+        if (viewType == BaseCoreAdapter.viewTypeImage)
+            outRect.set(0, offset, 0, offset)
+        else
+            outRect.setEmpty()
     }
-
-    companion object { private val attrs = intArrayOf(android.R.attr.listDivider) }
-
-    fun convertToPixel(size: Int): Int = (size * (context?.resources?.displayMetrics!!.densityDpi / DisplayMetrics.DENSITY_DEFAULT))
 
 }

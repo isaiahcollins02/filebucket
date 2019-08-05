@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.support.NotificationAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.room.NotificationViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import kotlinx.android.synthetic.main.layout_empty_no_notification.*
 
@@ -37,7 +37,7 @@ class NotificationFragment: BaseFragment() {
         adapter = NotificationAdapter()
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
     }
     override fun onResume() {

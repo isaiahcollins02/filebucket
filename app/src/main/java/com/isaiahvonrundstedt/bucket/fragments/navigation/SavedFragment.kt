@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.room.SavedViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import kotlinx.android.synthetic.main.fragment_saved.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
@@ -39,7 +39,7 @@ class SavedFragment: BaseFragment() {
         adapter = PublicAdapter(context, childFragmentManager, GlideApp.with(this))
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
 
         swipeRefreshContainer.setOnRefreshListener { viewModel?.refresh(); swipeRefreshContainer.isRefreshing = false }

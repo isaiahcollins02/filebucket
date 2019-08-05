@@ -15,6 +15,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
@@ -26,7 +27,7 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.CoreViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import com.isaiahvonrundstedt.bucket.components.custom.ItemDecoration
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseViewModel
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.PickerBottomSheet
 import com.isaiahvonrundstedt.bucket.interfaces.BottomSheetPicker
@@ -58,7 +59,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
                 if (intent?.action == TransferService.statusError && downloadUri == null && fileUri == null)
                     Snackbar.make(view!!, R.string.notification_file_upload_error, Snackbar.LENGTH_SHORT).show()
-                else if (intent?.action == TransferService.statusCompleted)
+                else if (intent?.action == TransferService.statusCompleted && downloadUri != null && fileUri != null)
                     Snackbar.make(view!!, R.string.notification_file_upload_success, Snackbar.LENGTH_SHORT).show()
             }
         }
@@ -78,7 +79,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
         recyclerView.layoutManager = layoutManager
         recyclerView.addOnScrollListener(onScrollListener)
-        recyclerView.addItemDecoration(ItemDecoration(context))
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
     }
 
@@ -102,6 +103,14 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
         viewModel?.itemSize?.observe(this, Observer { size ->
             noItemView.isVisible = size == 0
+        })
+
+        viewModel?.dataState?.observe(this, Observer { dataState ->
+            if (dataState == BaseViewModel.stateDataPreparing){
+                noItemView.isVisible = false
+                progressBar.isVisible = true
+            } else if (dataState == BaseViewModel.stateDataReady)
+                progressBar.isVisible = false
         })
     }
 

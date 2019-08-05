@@ -41,6 +41,12 @@
                 android:layout_height="match_parent"
                 layout="@layout/layout_empty_no_result"/>
 
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+
         </RelativeLayout>
 
     </FrameLayout>
