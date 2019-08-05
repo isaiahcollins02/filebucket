@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.constants.Params
@@ -14,12 +17,6 @@ class AuthFragment: Fragment() {
 
     private var email: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        email = arguments?.getString(Params.email)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_auth_main, container, false)
     }
@@ -27,22 +24,19 @@ class AuthFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        arguments.let {
+            val args = AuthFragmentArgs.fromBundle(it!!)
+            email = args.email
+        }
+
         continueButton.setOnClickListener {
             if (passwordField.text != null && confirmPasswordField.text != null){
+                val action = AuthFragmentDirections.actionContinueAuth(email!!, passwordField.text.toString())
+                action.email = email!!
+                action.password = passwordField.text.toString()
+                Navigation.findNavController(view).navigate(action)
+
                 if (passwordField.text == confirmPasswordField.text){
-                    val arguments = Bundle()
-                    arguments.putString(Params.email, email)
-                    arguments.putString(Params.password, passwordField.text.toString())
-
-                    val basicFragment = InformationFragment()
-                    basicFragment.arguments = arguments
-
-                    activity?.supportFragmentManager?.beginTransaction()?.run {
-                        setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
-                        replace(R.id.childLayout, basicFragment)
-                        addToBackStack("viewTag")
-                        commit()
-                    }
                 } else
                     Snackbar.make(view, R.string.status_password_not_match, Snackbar.LENGTH_SHORT).show()
             } else

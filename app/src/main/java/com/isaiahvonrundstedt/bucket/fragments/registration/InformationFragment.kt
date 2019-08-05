@@ -29,19 +29,18 @@ class InformationFragment: Fragment() {
     private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
     private val firebaseAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        credentialEmail = arguments?.getString(Params.email)
-        credentialPassword = arguments?.getString(Params.password)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_auth_information, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        arguments.let {
+            val args = InformationFragmentArgs.fromBundle(it!!)
+            credentialEmail = args.email
+            credentialPassword = args.password
+        }
 
         registerButton.setOnClickListener {
             val dialog = LoaderDialog(getString(R.string.dialog_creating_account))

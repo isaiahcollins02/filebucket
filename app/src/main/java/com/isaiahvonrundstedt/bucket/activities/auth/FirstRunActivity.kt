@@ -76,11 +76,11 @@ class FirstRunActivity: BaseActivity() {
                 if (!item.isChecked){
                     item.isChecked = true
                     Preferences(this).theme = Preferences.themeDark
-                    delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+                    AppCompatDelegate.setDefaultNightMode(Preferences.themeDark)
                 } else {
                     item.isChecked = false
                     Preferences(this).theme = Preferences.themeLight
-                    delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+                    AppCompatDelegate.setDefaultNightMode(Preferences.themeLight)
                 }
                 true
             } else -> super.onOptionsItemSelected(item)

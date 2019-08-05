@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph_register"
+    app:startDestination="@id/emailFragment">
+
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.isaiahvonrundstedt.bucket.fragments.registration.EmailFragment"
+        android:label="EmailFragment"
+        tools:layout="@layout/fragment_auth_email">
+
+        <action
+            android:id="@+id/actionContinueEmail"
+            app:destination="@id/authFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.isaiahvonrundstedt.bucket.fragments.registration.AuthFragment"
+        android:label="AuthFragment"
+        tools:layout="@layout/fragment_auth_main">
+
+        <action
+            android:id="@+id/actionContinueAuth"
+            app:destination="@id/informationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+
+        <argument
+            android:name="email"
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.isaiahvonrundstedt.bucket.fragments.registration.InformationFragment"
+        android:label="InformationFragment"
+        tools:layout="@layout/fragment_auth_information">
+
+        <argument
+            android:name="email"
+            app:argType="string" />
+
+        <argument
+            android:name="password"
+            app:argType="string" />
+
+    </fragment>
+
+</navigation>

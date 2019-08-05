@@ -11,6 +11,7 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import timber.log.Timber
+import java.io.File
 
 class NotificationReceiver: BroadcastReceiver() {
 
@@ -23,7 +24,7 @@ class NotificationReceiver: BroadcastReceiver() {
         downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val item: StorageItem? = intent?.getParcelableExtra(BaseService.objectArgs)
         val externalDir: String? = Preferences(context).downloadDirectory
-        val bufferedFile = java.io.File(externalDir, item?.name)
+        val bufferedFile = File(externalDir, item?.name)
 
         when (intent?.action){
             BaseService.actionDownload -> {

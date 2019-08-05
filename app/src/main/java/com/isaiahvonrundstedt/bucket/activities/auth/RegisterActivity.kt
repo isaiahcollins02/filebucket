@@ -5,6 +5,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.constants.Params
@@ -16,47 +19,22 @@ import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity: BaseActivity() {
 
-    private var currentView: Int = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-        currentView = savedInstanceState?.getInt(Params.viewType) ?: 0
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    companion object {
-        const val viewTypeEmail = 0
-        const val viewTypePassword = 1
-        const val viewTypeBasic = 2
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(Params.viewType, currentView)
-    }
-
     override fun onStart() {
         super.onStart()
 
-        supportFragmentManager.beginTransaction().run {
-            replace(R.id.childLayout, getViewByID(currentView) ?: EmailFragment())
-            addToBackStack("viewTag")
-            commit()
-        }
-    }
-
-    private fun getViewByID(int: Int?): Fragment? {
-        return when (int){
-            viewTypeEmail -> EmailFragment()
-            viewTypeBasic -> InformationFragment()
-            viewTypePassword -> AuthFragment()
-            else -> null
-        }
+        val navigationHost = NavHostFragment.create(R.navigation.graph_register)
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, navigationHost)
+            .setPrimaryNavigationFragment(navigationHost)
+            .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

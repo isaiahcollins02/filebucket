@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
@@ -21,18 +22,8 @@ class EmailFragment: BaseFragment() {
 
         continueButton.setOnClickListener {
             if (emailField.text.isNotEmpty()){
-                val arguments = Bundle()
-                arguments.putString(Params.email, emailField.text.toString())
-
-                val authFragment = AuthFragment()
-                authFragment.arguments = arguments
-
-                activity?.supportFragmentManager?.beginTransaction()?.run {
-                    setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
-                    replace(R.id.childLayout, authFragment)
-                    addToBackStack("viewTag")
-                    commit()
-                }
+                val action = EmailFragmentDirections.actionContinueEmail(emailField.text.toString())
+                Navigation.findNavController(view).navigate(action)
             } else
                 Snackbar.make(view, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
         }
