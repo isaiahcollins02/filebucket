@@ -27,10 +27,6 @@ import com.isaiahvonrundstedt.bucket.utils.User
 
 class SettingsFragment: BasePreference() {
 
-    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
-
-    private val accountKey by lazy { getString(R.string.settings_key_account) }
-    private val signOutKey by lazy { getString(R.string.settings_key_signout) }
     private val appThemeKey by lazy { getString(R.string.settings_key_theme) }
     private val metadataKey by lazy { getString(R.string.settings_key_metadata) }
     private val appNotificationKey by lazy { getString(R.string.settings_key_app_notification) }
@@ -51,36 +47,6 @@ class SettingsFragment: BasePreference() {
 
     override fun onStart() {
         super.onStart()
-
-        val accountPreference: Preference? = findPreference(accountKey)
-        with (User(context!!)) {
-            accountPreference?.title = fullName
-            accountPreference?.summary = email
-        }
-        accountPreference?.setOnPreferenceClickListener {
-            startActivity(Intent(context, ProfileActivity::class.java))
-            return@setOnPreferenceClickListener true
-        }
-
-        val signOutPreference: Preference? = findPreference(signOutKey)
-        signOutPreference?.setOnPreferenceClickListener {
-            MaterialDialog(context!!).show {
-                lifecycleOwner(this@SettingsFragment)
-                title(R.string.dialog_sign_out_title)
-                message(R.string.dialog_sign_out_summary)
-                positiveButton(R.string.settings_sign_out) {
-                    firebaseAuth.signOut()
-
-                    Preferences(context).clear()
-                    AppDatabase.destroyDatabase()
-
-                    if (firebaseAuth.currentUser == null)
-                        startActivity(Intent(context, FirstRunActivity::class.java))
-                }
-                negativeButton(R.string.button_cancel)
-            }
-            return@setOnPreferenceClickListener true
-        }
 
         val themePreference: Preference? = findPreference(appThemeKey)
         themePreference?.summary = getThemeByID(Preferences(context!!).theme)

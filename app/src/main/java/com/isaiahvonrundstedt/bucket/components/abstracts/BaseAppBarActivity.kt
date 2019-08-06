@@ -19,7 +19,7 @@ abstract class BaseAppBarActivity: BaseActivity() {
     private fun setPersistentActionBar() {
         val rootView: ViewGroup? = findViewById(R.id.action_bar_root)
         if (rootView != null){
-            val view: View = LayoutInflater.from(this).inflate(R.layout.layout_appbar_main, rootView, false)
+            val view: View = LayoutInflater.from(this).inflate(R.layout.layout_appbar_core, rootView, false)
             rootView.addView(view, 0)
 
             val toolbar: Toolbar = rootView.findViewById(R.id.toolbar)

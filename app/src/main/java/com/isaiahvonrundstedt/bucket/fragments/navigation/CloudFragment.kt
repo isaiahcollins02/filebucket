@@ -35,7 +35,7 @@ import com.isaiahvonrundstedt.bucket.objects.experience.Picker
 import com.isaiahvonrundstedt.bucket.service.TransferService
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import gun0912.tedbottompicker.TedBottomPicker
-import kotlinx.android.synthetic.main.fragment_cloud.*
+import kotlinx.android.synthetic.main.fragment_main_cloud.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class CloudFragment: BaseFragment(), BottomSheetPicker {
@@ -68,7 +68,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_cloud, container, false)
+        return inflater.inflate(R.layout.fragment_main_cloud, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

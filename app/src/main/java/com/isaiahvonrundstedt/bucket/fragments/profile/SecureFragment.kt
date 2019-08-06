@@ -11,14 +11,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.LoaderDialog
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import kotlinx.android.synthetic.main.fragment_security.*
+import kotlinx.android.synthetic.main.fragment_user_security.*
 
 class SecureFragment: BaseFragment() {
 
     private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_security, container, false)
+        return inflater.inflate(R.layout.fragment_user_security, container, false)
     }
 
     override fun onStart() {

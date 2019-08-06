@@ -86,8 +86,8 @@ class ProfileActivity: BaseAppBarActivity(), RecyclerNavigation {
 
     private fun getNavigationItems(): List<Navigation> {
         return listOf(
-            Navigation(R.drawable.ic_lock, R.string.profile_secure_account),
-            Navigation(R.drawable.ic_wizard, R.string.profile_reset_password)
+            Navigation(R.drawable.ic_lock, R.string.navigation_secure),
+            Navigation(R.drawable.ic_wizard, R.string.navigation_reset)
         )
     }
 

@@ -35,7 +35,7 @@ class AuthFragment: BaseFragment() {
 
         forgotButton.setOnClickListener {
             MaterialDialog(context!!).show {
-                title(R.string.profile_reset_password)
+                title(R.string.navigation_reset)
                 message(R.string.instruction_reset)
                 input(waitForPositiveButton = true, hintRes = R.string.field_hint_email) { _, inputText ->
                     firebaseAuth?.sendPasswordResetEmail(inputText.toString())

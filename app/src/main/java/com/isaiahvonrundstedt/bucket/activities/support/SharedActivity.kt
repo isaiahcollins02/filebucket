@@ -1,10 +1,6 @@
-package com.isaiahvonrundstedt.bucket.fragments.navigation.box
+package com.isaiahvonrundstedt.bucket.activities.support
 
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -13,49 +9,48 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.core.BoxesAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.BoxesViewModel
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
+import com.isaiahvonrundstedt.bucket.adapters.core.SentAdapter
+import com.isaiahvonrundstedt.bucket.architecture.factory.FileFactory
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.FileViewModel
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseViewModel
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
-import kotlinx.android.synthetic.main.fragment_box_shared.*
+import com.isaiahvonrundstedt.bucket.utils.User
+import kotlinx.android.synthetic.main.activity_shared.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
-class SharedFragment: BaseFragment() {
+class SharedActivity: BaseAppBarActivity() {
 
-    private var adapter: BoxesAdapter? = null
+    private var currentAuthor: String? = null
+    private var factory: FileFactory? = null
+    private var viewModel: FileViewModel? = null
+
+    private var adapter: SentAdapter? = null
     private var layoutManager: LinearLayoutManager? = null
 
-    private var viewModel: BoxesViewModel? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_shared)
+        setToolbarTitle(R.string.navigation_shared)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_box_shared, container, false)
-    }
+        currentAuthor = User(this).fullName
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        viewModel = ViewModelProviders.of(this).get(BoxesViewModel::class.java)
+        factory = FileFactory(currentAuthor)
+        viewModel = ViewModelProviders.of(this, factory).get(FileViewModel::class.java)
     }
 
     override fun onStart() {
         super.onStart()
 
-        layoutManager = LinearLayoutManager(context)
-        adapter = BoxesAdapter(context, childFragmentManager, GlideApp.with(this))
+        layoutManager = LinearLayoutManager(this)
+        adapter = SentAdapter(this, supportFragmentManager, GlideApp.with(this))
 
-        recyclerView.layoutManager = layoutManager
-        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView.addOnScrollListener(onScrollListener)
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
         swipeRefreshContainer.setOnRefreshListener { onRefresh() }
-    }
-    private fun onRefresh(){
-        viewModel?.refresh()
-
-        if (swipeRefreshContainer.isRefreshing)
-            swipeRefreshContainer.isRefreshing = false
     }
 
     private var isScrolling: Boolean = false
@@ -74,7 +69,7 @@ class SharedFragment: BaseFragment() {
             val visibleItemCount: Int = layoutManager?.childCount!!
             val firstVisibleItems: Int = layoutManager?.findFirstVisibleItemPosition()!!
 
-            if ((firstVisibleItems + visibleItemCount >= totalItemCount) && isScrolling && !isLastItemReached){
+            if ((firstVisibleItems + visibleItemCount >= totalItemCount) && isScrolling && !isLastItemReached) {
                 isScrolling = false
                 viewModel?.fetch()
 
@@ -82,6 +77,14 @@ class SharedFragment: BaseFragment() {
                     isLastItemReached = true
             }
         }
+    }
+
+
+    private fun onRefresh(){
+        viewModel?.refresh()
+
+        if (swipeRefreshContainer.isRefreshing)
+            swipeRefreshContainer.isRefreshing = false
     }
 
     override fun onResume() {
@@ -103,4 +106,5 @@ class SharedFragment: BaseFragment() {
                 progressBar.isVisible = false
         })
     }
+
 }

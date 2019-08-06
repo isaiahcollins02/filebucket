@@ -1,9 +1,6 @@
-package com.isaiahvonrundstedt.bucket.fragments.navigation
+package com.isaiahvonrundstedt.bucket.activities.support
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -12,23 +9,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.support.NotificationAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.room.NotificationViewModel
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
-import kotlinx.android.synthetic.main.fragment_notifications.*
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
+import kotlinx.android.synthetic.main.activity_notifications.*
 import kotlinx.android.synthetic.main.layout_empty_no_notification.*
 
-class NotificationFragment: BaseFragment() {
+class NotificationActivity: BaseAppBarActivity() {
 
     private var viewModel: NotificationViewModel? = null
     private var adapter: NotificationAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_notifications)
+        setToolbarTitle(R.string.navigation_notifications)
 
         viewModel = ViewModelProviders.of(this).get(NotificationViewModel::class.java)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_notifications, container, false)
     }
 
     override fun onStart() {
@@ -36,8 +31,8 @@ class NotificationFragment: BaseFragment() {
 
         adapter = NotificationAdapter()
 
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
     }
     override fun onResume() {

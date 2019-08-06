@@ -58,8 +58,6 @@
     <!-- Preferences -->
     <string name="settings_key_theme" translatable="false">appThemePreference</string>
     <string name="settings_key_metadata" translatable="false">metadataPreference</string>
-    <string name="settings_key_account" translatable="false">accountPreference</string>
-    <string name="settings_key_signout" translatable="false">signOutPreference</string>
     <string name="settings_key_image_preview" translatable="false">previewPreference</string>
     <string name="settings_key_file_notifications" translatable="false">notificationFilePreference</string>
     <string name="settings_key_update_notification" translatable="false">notificationPackagePreference</string>
@@ -92,5 +90,15 @@
     <style name="AppTheme.Preference.CheckBox" parent="@style/Preference.CheckBoxPreference.Material">
         <item name="android:layout">@layout/layout_preference_core</item>
     </style>
+
+    <!-- Navigation Keys -->
+    <string name="sharedNavKey" translatable="false">sharedNav</string>
+    <string name="notificationNavKey" translatable="false">notificationNav</string>
+    <string name="storageNavKey" translatable="false">storageNav</string>
+    <string name="secureNavKey" translatable="false">secureNav</string>
+    <string name="resetNavKey" translatable="false">resetNav</string>
+    <string name="signoutNavKey" translatable="false">signoutKey</string>
+    <string name="settingsNavKey" translatable="false">settingsNav</string>
+    <string name="aboutNavKey" translatable="false">aboutNav</string>
 
 </resources>

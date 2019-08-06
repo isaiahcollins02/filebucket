@@ -37,9 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity"
-                android:theme="@style/AppTheme.Drawer"
-                android:windowSoftInputMode="adjustResize">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
@@ -56,7 +54,7 @@
         <activity android:name=".activities.support.VaultActivity"/>
         <activity android:name=".activities.generic.AboutActivity"/>
         <activity android:name=".activities.generic.SettingsActivity"/>
-        <activity android:name=".activities.wrapper.FrameActivity"/>
+        <activity android:name=".activities.wrapper.FrameActivity"/><activity android:name=".activities.support.StorageActivity" /><activity android:name=".activities.support.NotificationActivity" /><activity android:name=".activities.support.SharedActivity" />
 
         <service android:name="com.isaiahvonrundstedt.bucket.service.TransferService"
                 android:exported="false"/>

@@ -10,14 +10,14 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.LoaderDialog
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.utils.User
-import kotlinx.android.synthetic.main.fragment_reset.*
+import kotlinx.android.synthetic.main.fragment_user_reset.*
 
 class ResetFragment: BaseFragment() {
 
     private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_reset, container, false)
+        return inflater.inflate(R.layout.fragment_user_reset, container, false)
     }
 
     override fun onStart() {

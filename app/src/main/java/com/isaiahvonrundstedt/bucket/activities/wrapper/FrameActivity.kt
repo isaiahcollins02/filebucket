@@ -31,8 +31,8 @@ class FrameActivity: BaseAppBarActivity() {
         viewArgs = intent?.getBundleExtra(Params.viewArgs)
 
         when (userViewType){
-            viewTypePassword -> setToolbarTitle(R.string.profile_secure_account)
-            viewTypeReset -> setToolbarTitle(R.string.profile_reset_password)
+            viewTypePassword -> setToolbarTitle(R.string.navigation_secure)
+            viewTypeReset -> setToolbarTitle(R.string.navigation_reset)
         }
 
         when (userViewType){

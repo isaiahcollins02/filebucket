@@ -15,7 +15,7 @@ import com.isaiahvonrundstedt.bucket.adapters.core.PublicAdapter
 import com.isaiahvonrundstedt.bucket.architecture.viewmodel.room.SavedViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
-import kotlinx.android.synthetic.main.fragment_saved.*
+import kotlinx.android.synthetic.main.fragment_main_saved.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class SavedFragment: BaseFragment() {
@@ -30,7 +30,7 @@ class SavedFragment: BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_saved, container, false)
+        return inflater.inflate(R.layout.fragment_main_saved, container, false)
     }
 
     override fun onStart() {

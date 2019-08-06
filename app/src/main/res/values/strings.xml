@@ -107,20 +107,23 @@
     <string name="main_empty_no_sent">You do not have any shared files</string>
     <string name="main_empty_permission_not_granted">We\'ll need you to grant us some permissions before we can do anything</string>
     <string name="main_empty_no_saved_title">There are no saved items from the cloud</string>
-    <string name="main_empty_no_saved_summary">To save a file, long tap an item from the \"Cloud\" tab then tap \"Save\"</string>
+    <string name="main_empty_no_saved_summary">To save a file, long tap an item on the \"Cloud\" section then tap "\Save\"</string>
     <string name="main_empty_no_result_title">No Results for \"%1$s\"</string>
     <string name="main_empty_no_result_summary">Try a different search term using the name or the author\'s name</string>
 
     <string name="navigation_cloud">Cloud</string>
-    <string name="navigation_downloads">Downloads</string>
     <string name="navigation_boxes">Boxes</string>
     <string name="navigation_saved">Saved</string>
+    <string name="navigation_account">Account</string>
+
+    <string name="navigation_shared">Shared</string>
     <string name="navigation_notifications">Notifications</string>
+    <string name="navigation_downloads">Downloads</string>
     <string name="navigation_settings">Settings</string>
     <string name="navigation_about">About</string>
-
-    <string name="navigation_box_shared">Shared</string>
-    <string name="navigation_box_sent">Sent</string>
+    <string name="navigation_secure">Secure Account</string>
+    <string name="navigation_reset">Reset Password</string>
+    <string name="navigation_signout">Sign out</string>
 
     <string name="filter_all">All Files</string>
     <string name="filter_documents">Documents</string>
@@ -133,9 +136,6 @@
 
     <string name="activity_account_settings">Account Settings</string>
     <string name="activity_about">About</string>
-
-    <string name="profile_secure_account">Secure Account</string>
-    <string name="profile_reset_password">Reset Password</string>
 
     <string name="status_drawer_open">Drawer Open</string>
     <string name="status_drawer_closed">Drawer Closed</string>
@@ -209,9 +209,6 @@
     <string name="settings_group_notifications">Notifications</string>
     <string name="settings_group_privacy">Privacy</string>
     <string name="settings_group_general">General</string>
-
-    <!-- Account Group -->
-    <string name="settings_sign_out">Sign out</string>
 
     <!-- Interface Group -->
     <string name="settings_theme">Theme</string>
