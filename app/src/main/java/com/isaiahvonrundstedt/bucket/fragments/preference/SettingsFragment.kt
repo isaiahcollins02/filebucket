@@ -15,15 +15,10 @@ import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.files.folderChooser
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.afollestad.materialdialogs.list.listItems
-import com.google.firebase.auth.FirebaseAuth
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.auth.FirstRunActivity
-import com.isaiahvonrundstedt.bucket.activities.support.ProfileActivity
-import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.components.abstracts.BasePreference
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import com.isaiahvonrundstedt.bucket.utils.Preferences
-import com.isaiahvonrundstedt.bucket.utils.User
 
 class SettingsFragment: BasePreference() {
 
@@ -33,7 +28,7 @@ class SettingsFragment: BasePreference() {
     private val directoryKey by lazy { getString(R.string.settings_key_directory) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.pref_settings, rootKey)
+        setPreferencesFromResource(R.xml.preference_settings, rootKey)
     }
 
     private fun notifyDelegate(themeID: Int){
@@ -156,4 +151,8 @@ class SettingsFragment: BasePreference() {
             listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark), getString(R.string.settings_theme_item_battery))
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        activity?.finish()
+    }
 }

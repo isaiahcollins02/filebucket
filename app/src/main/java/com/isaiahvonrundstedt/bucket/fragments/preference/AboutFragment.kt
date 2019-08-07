@@ -18,7 +18,7 @@ class AboutFragment: BasePreference() {
     private val versionKey by lazy { getString(R.string.settings_key_version) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.pref_about, rootKey)
+        setPreferencesFromResource(R.xml.preference_about, rootKey)
     }
 
     override fun onStart() {
@@ -71,5 +71,4 @@ class AboutFragment: BasePreference() {
         super.onDetach()
         activity?.finish()
     }
-
 }

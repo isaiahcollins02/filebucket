@@ -24,7 +24,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
         const val navigationItemCloud = 0
         const val navigationItemBoxes = 1
         const val navigationItemSaved = 2
-        const val navigationItemAccount = 3
+        const val navigationItemMore = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +82,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
             navigationItemCloud -> setToolbarTitle(R.string.navigation_cloud)
             navigationItemBoxes -> setToolbarTitle(R.string.navigation_boxes)
             navigationItemSaved -> setToolbarTitle(R.string.navigation_saved)
-            navigationItemAccount -> setToolbarTitle(R.string.navigation_account)
+            navigationItemMore -> setToolbarTitle(R.string.navigation_more)
         }
     }
 
@@ -95,7 +95,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
             navigationItemCloud -> CloudFragment()
             navigationItemBoxes -> BoxesFragment()
             navigationItemSaved -> SavedFragment()
-            navigationItemAccount -> AccountFragment()
+            navigationItemMore -> OverflowFragment()
             else -> null
         }
     }
@@ -115,7 +115,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
             R.id.navigation_cloud -> replaceFragment(navigationItemCloud)
             R.id.navigation_boxes -> replaceFragment(navigationItemBoxes)
             R.id.navigation_saved -> replaceFragment(navigationItemSaved)
-            R.id.navigation_account -> replaceFragment(navigationItemAccount)
+            R.id.navigation_more -> replaceFragment(navigationItemMore)
         }
 
         return true

@@ -30,33 +30,4 @@ class LoginActivity: BaseActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_auth, menu)
-        return true
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        menu?.findItem(R.id.action_theme)?.isChecked = Preferences(this).theme == Preferences.themeDark
-        return super.onPrepareOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId){
-            R.id.action_theme -> {
-                if (!item.isChecked){
-                    item.isChecked = true
-                    Preferences(this).theme = Preferences.themeDark
-                    delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
-                } else {
-                    item.isChecked = false
-                    Preferences(this).theme = Preferences.themeLight
-                    delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
-                }
-                true
-            } android.R.id.home -> {
-                onBackPressed()
-                true
-            } else -> super.onOptionsItemSelected(item)
-        }
-    }
 }

@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-            android:name="com.isaiahvonrundstedt.bucket.BaseApp"
+            android:name=".CoreApplication"
             android:label="@string/app_name"
             android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_round"
@@ -54,7 +54,7 @@
         <activity android:name=".activities.support.VaultActivity"/>
         <activity android:name=".activities.generic.AboutActivity"/>
         <activity android:name=".activities.generic.SettingsActivity"/>
-        <activity android:name=".activities.wrapper.FrameActivity"/><activity android:name=".activities.support.StorageActivity" /><activity android:name=".activities.support.NotificationActivity" /><activity android:name=".activities.support.SharedActivity" />
+        <activity android:name=".activities.wrapper.FrameActivity"/><activity android:name=".activities.support.account.StorageActivity" /><activity android:name=".activities.support.account.NotificationActivity" /><activity android:name=".activities.support.account.SharedActivity" /><activity android:name=".activities.support.AccountActivity" />
 
         <service android:name="com.isaiahvonrundstedt.bucket.service.TransferService"
                 android:exported="false"/>

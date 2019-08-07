@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.activities.support
+package com.isaiahvonrundstedt.bucket.activities.support.account
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -56,11 +56,9 @@ class StorageActivity: BaseAppBarActivity() {
     override fun onStart() {
         super.onStart()
 
+        noItemView.isVisible = false
         if (onBackgroundState != null)
             recyclerView.layoutManager?.onRestoreInstanceState(onBackgroundState)
-
-        if (Permissions(this).writeAccessGranted)
-            initStore()
     }
 
     override fun onStop() {
@@ -70,6 +68,9 @@ class StorageActivity: BaseAppBarActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        if (Permissions(this).writeAccessGranted)
+            initStore()
 
         viewModel?.itemSize?.observe(this, Observer { size ->
             if (Permissions(this).readAccessGranted)

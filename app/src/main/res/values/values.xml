@@ -92,13 +92,15 @@
     </style>
 
     <!-- Navigation Keys -->
+    <string name="accountNavKey" translatable="false">accountNav</string>
     <string name="sharedNavKey" translatable="false">sharedNav</string>
     <string name="notificationNavKey" translatable="false">notificationNav</string>
     <string name="storageNavKey" translatable="false">storageNav</string>
-    <string name="secureNavKey" translatable="false">secureNav</string>
-    <string name="resetNavKey" translatable="false">resetNav</string>
-    <string name="signoutNavKey" translatable="false">signoutKey</string>
     <string name="settingsNavKey" translatable="false">settingsNav</string>
     <string name="aboutNavKey" translatable="false">aboutNav</string>
+
+    <string name="secureNavKey" translatable="false">secureNav</string>
+    <string name="resetNavKey" translatable="false">resetNav</string>
+    <string name="signoutNavKey" translatable="false">signoutNav</string>
 
 </resources>

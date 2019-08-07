@@ -18,7 +18,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
-import com.isaiahvonrundstedt.bucket.BaseApp
+import com.isaiahvonrundstedt.bucket.CoreApplication
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.support.VaultActivity
 import com.isaiahvonrundstedt.bucket.constants.Params
@@ -203,7 +203,7 @@ abstract class BaseCoreAdapter(private var context: Context?,
     }
     private fun onParseIntent(view: View, item: StorageItem?){
         if (item?.type != StorageItem.typeDirectory){
-            val uri: Uri? = FileProvider.getUriForFile(context!!, BaseApp.appPackage + ".components.AppFileProvider", File(Uri.parse(item?.args).path))
+            val uri: Uri? = FileProvider.getUriForFile(context!!, CoreApplication.appPackage + ".components.AppFileProvider", File(Uri.parse(item?.args).path))
             context?.grantUriPermission(context?.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             val intent = Intent(Intent.ACTION_VIEW)
                 .setDataAndType(uri, context?.contentResolver?.getType(uri!!))

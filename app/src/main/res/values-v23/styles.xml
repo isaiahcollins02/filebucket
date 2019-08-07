@@ -13,10 +13,6 @@
         <item name="android:windowBackground">@color/colorWindowBackground</item>
     </style>
 
-    <style name="AppTheme.Drawer" parent="AppTheme.Core">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    </style>
-
     <!-- UI Components -->
     <!-- BottomSheets, Dialogs etc -->
 

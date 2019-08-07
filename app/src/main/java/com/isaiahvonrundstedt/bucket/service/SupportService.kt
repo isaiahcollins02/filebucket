@@ -14,6 +14,7 @@ import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.objects.diagnostics.Support
+import timber.log.Timber
 
 class SupportService: BaseService() {
 
@@ -70,11 +71,14 @@ class SupportService: BaseService() {
 
     private fun checkPackages(){
         firestore.collection(Firestore.Support.core).document(Firestore.Support.packages).get()
-            .addOnSuccessListener {
-                val item = it.toObject(StorageItem::class.java)
+            .addOnSuccessListener { snapshot ->
+                if (snapshot != null){
+                    val item: StorageItem? = snapshot.toObject(StorageItem::class.java)
 
-                sendNewPackageNotification(item)
-                broadcastTaskFinished(true, actionFetchPayload)
+                    sendNewPackageNotification(item)
+                    broadcastTaskFinished(true, actionFetchPayload)
+                } else
+                    Timber.i("No Updates")
             }
             .addOnFailureListener {
                 broadcastTaskFinished(false, actionFetchPayload)

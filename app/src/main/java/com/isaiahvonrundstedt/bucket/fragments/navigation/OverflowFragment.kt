@@ -11,25 +11,31 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.auth.FirstRunActivity
 import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
 import com.isaiahvonrundstedt.bucket.activities.generic.SettingsActivity
-import com.isaiahvonrundstedt.bucket.activities.support.NotificationActivity
-import com.isaiahvonrundstedt.bucket.activities.support.SharedActivity
-import com.isaiahvonrundstedt.bucket.activities.support.StorageActivity
+import com.isaiahvonrundstedt.bucket.activities.support.AccountActivity
+import com.isaiahvonrundstedt.bucket.activities.support.account.NotificationActivity
+import com.isaiahvonrundstedt.bucket.activities.support.account.SharedActivity
+import com.isaiahvonrundstedt.bucket.activities.support.account.StorageActivity
 import com.isaiahvonrundstedt.bucket.activities.wrapper.FrameActivity
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.components.abstracts.BasePreference
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 
-class AccountFragment: BasePreference() {
+class OverflowFragment: BasePreference() {
 
-    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.pref_account, rootKey)
+        setPreferencesFromResource(R.xml.preference_overflow, rootKey)
     }
 
     override fun onStart() {
         super.onStart()
+
+        val accountNav: Preference? = findPreference(getKey(R.string.accountNavKey))
+        accountNav?.setOnPreferenceClickListener {
+            startActivity(Intent(context, AccountActivity::class.java))
+            return@setOnPreferenceClickListener true
+        }
 
         val sharedNav: Preference? = findPreference(getKey(R.string.sharedNavKey))
         sharedNav?.setOnPreferenceClickListener {
@@ -46,40 +52,6 @@ class AccountFragment: BasePreference() {
         val storageNav: Preference? = findPreference(getKey(R.string.storageNavKey))
         storageNav?.setOnPreferenceClickListener {
             startActivity(Intent(context, StorageActivity::class.java))
-            return@setOnPreferenceClickListener true
-        }
-
-        val secureNav: Preference? = findPreference(getKey(R.string.secureNavKey))
-        secureNav?.setOnPreferenceClickListener {
-            startActivity(Intent(context, FrameActivity::class.java)
-                .putExtra(Params.viewType, FrameActivity.viewTypePassword))
-            return@setOnPreferenceClickListener true
-        }
-
-        val resetNav: Preference? = findPreference(getKey(R.string.resetNavKey))
-        resetNav?.setOnPreferenceClickListener {
-            startActivity(Intent(context, FrameActivity::class.java)
-                .putExtra(Params.viewType, FrameActivity.viewTypeReset))
-            return@setOnPreferenceClickListener true
-        }
-
-        val signoutNav: Preference? = findPreference(getKey(R.string.signoutNavKey))
-        signoutNav?.setOnPreferenceClickListener {
-            MaterialDialog(context!!).show {
-                lifecycleOwner(this@AccountFragment)
-                title(R.string.dialog_sign_out_title)
-                message(R.string.dialog_sign_out_summary)
-                positiveButton(R.string.navigation_signout) {
-                    firebaseAuth.signOut()
-
-                    Preferences(context).clear()
-                    AppDatabase.destroyDatabase()
-
-                    if (firebaseAuth.currentUser == null)
-                        startActivity(Intent(context, FirstRunActivity::class.java))
-                }
-                negativeButton(R.string.button_cancel)
-            }
             return@setOnPreferenceClickListener true
         }
 

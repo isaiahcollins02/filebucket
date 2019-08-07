@@ -15,23 +15,22 @@
     <color name="colorIcons">#000000</color>
     <color name="colorToolbar">@color/colorCardBackground</color>
     <color name="colorStatusBar">@color/colorToolbar</color>
-    <color name="colorDrawerStatusBar">#ffffffff</color>
 
     <!-- Texts -->
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#9c9c9c</color>
 
     <!-- Icons -->
-    <color name="colorIconBlue">#3386D9</color>
-    <color name="colorIconYellow">#F1C63A</color>
-    <color name="colorIconRed">#FB2C00</color>
-    <color name="colorIconPurple">#5E57CA</color>
+    <color name="colorIconBlue">#3386d9</color>
+    <color name="colorIconYellow">#f1c63a</color>
+    <color name="colorIconRed">#fb2c00</color>
+    <color name="colorIconPurple">#5e57cA</color>
     <color name="colorIconTeal">#009573</color>
-    <color name="colorIconMagenta">#E2367E</color>
-    <color name="colorIconSea">#16B3C6</color>
-    <color name="colorIconOrange">#F79A17</color>
+    <color name="colorIconMagenta">#e2367e</color>
+    <color name="colorIconSea">#16b3c6</color>
+    <color name="colorIconOrange">#f79A17</color>
 
-    <!-- Background Color in Adaptive Icon -->
-    <color name="colorLauncherBackground">#FFFFFF</color>
+    <!-- background Color in Adaptive Icon -->
+    <color name="colorLauncherBackground">#ffffff</color>
 
 </resources>

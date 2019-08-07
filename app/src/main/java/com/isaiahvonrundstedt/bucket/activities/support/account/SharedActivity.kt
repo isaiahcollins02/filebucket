@@ -1,4 +1,4 @@
-package com.isaiahvonrundstedt.bucket.activities.support
+package com.isaiahvonrundstedt.bucket.activities.support.account
 
 import android.os.Bundle
 import android.widget.AbsListView

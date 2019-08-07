@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
+        android:key="@string/accountNavKey"
+        android:title="@string/navigation_account"
+        android:icon="@drawable/ic_user"/>
+
+    <Preference
         android:key="@string/sharedNavKey"
         android:title="@string/navigation_shared"
         android:icon="@drawable/ic_earth"/>
@@ -26,22 +31,6 @@
         <Preference
             android:key="@string/aboutNavKey"
             android:title="@string/navigation_about"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory>
-
-        <Preference
-            android:key="@string/secureNavKey"
-            android:title="@string/navigation_secure"/>
-
-        <Preference
-            android:key="@string/resetNavKey"
-            android:title="@string/navigation_reset"/>
-
-        <Preference
-            android:key="@string/signoutNavKey"
-            android:title="@string/navigation_signout"/>
 
     </PreferenceCategory>
   

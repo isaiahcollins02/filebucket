@@ -87,7 +87,8 @@ class Preferences(val context: Context?) {
         }
         get() {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences?.getString("directoryPreference", Environment.getExternalStorageDirectory().path)
+            return sharedPreferences?.getString("directoryPreference",
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path)
         }
 
     var previewPreference: Boolean?
