@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_margin"
             android:gravity="center"
-            android:text="@string/main_empty_no_sent"
+            android:text="@string/main_empty_no_shared"
             android:textSize="18sp"
             android:textColor="@color/colorPrimaryText"/>
 

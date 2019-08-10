@@ -18,7 +18,6 @@ import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
-
 class SplashActivity: BaseActivity() {
 
     private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
@@ -67,7 +66,8 @@ class SplashActivity: BaseActivity() {
                     .addOnFailureListener {
                         MaterialDialog(this).show { title(R.string.dialog_token_error) }
                         Timber.i(it)
-                        startActivity(Intent(this, FirstRunActivity::class.java))
+                        startActivity(Intent(this, FirstRunActivity::class.java)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
                         finish()
                     }
             } else {

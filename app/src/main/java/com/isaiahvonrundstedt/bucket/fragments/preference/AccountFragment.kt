@@ -54,8 +54,11 @@ class AccountFragment: BasePreference() {
                     Preferences(context).clear()
                     AppDatabase.destroyDatabase()
 
-                    if (firebaseAuth.currentUser == null)
-                        startActivity(Intent(context, FirstRunActivity::class.java))
+                    if (firebaseAuth.currentUser == null){
+                        startActivity(Intent(context, FirstRunActivity::class.java)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+                        activity?.finish()
+                    }
                 }
                 negativeButton(R.string.button_cancel)
             }

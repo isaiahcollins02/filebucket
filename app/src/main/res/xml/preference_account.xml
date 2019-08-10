@@ -2,16 +2,20 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <Preference
-            android:key="@string/secureNavKey"
-            android:title="@string/navigation_secure"/>
+        <PreferenceCategory>
 
-        <Preference
-            android:key="@string/resetNavKey"
-            android:title="@string/navigation_reset"/>
+            <Preference
+                android:key="@string/secureNavKey"
+                android:title="@string/navigation_secure"/>
 
-        <Preference
-            android:key="@string/signoutNavKey"
-            android:title="@string/navigation_signout"/>
+            <Preference
+                android:key="@string/resetNavKey"
+                android:title="@string/navigation_reset"/>
+
+            <Preference
+                android:key="@string/signoutNavKey"
+                android:title="@string/navigation_signout"/>
+
+        </PreferenceCategory>
   
 </PreferenceScreen>

@@ -85,7 +85,8 @@ class AuthFragment: BaseFragment() {
                             val account: Account? = it.toObject(Account::class.java)
                             User(context!!).save(account!!)
 
-                            startActivity(Intent(context!!, SplashActivity::class.java))
+                            startActivity(Intent(context!!, SplashActivity::class.java)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
                             activity?.finish()
                         }
                         .addOnFailureListener {

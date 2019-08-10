@@ -2,25 +2,25 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference
-        android:key="@string/accountNavKey"
-        android:title="@string/navigation_account"
-        android:icon="@drawable/ic_user"/>
+    <PreferenceCategory>
 
-    <Preference
-        android:key="@string/sharedNavKey"
-        android:title="@string/navigation_shared"
-        android:icon="@drawable/ic_earth"/>
+        <Preference
+            android:key="@string/accountNavKey"
+            android:title="@string/navigation_account"/>
 
-    <Preference
-        android:key="@string/notificationNavKey"
-        android:title="@string/navigation_notifications"
-        android:icon="@drawable/ic_bell"/>
+        <Preference
+            android:key="@string/sharedNavKey"
+            android:title="@string/navigation_shared"/>
 
-    <Preference
-        android:key="@string/storageNavKey"
-        android:title="@string/navigation_downloads"
-        android:icon="@drawable/ic_folder"/>
+        <Preference
+            android:key="@string/notificationNavKey"
+            android:title="@string/navigation_notifications"/>
+
+        <Preference
+            android:key="@string/storageNavKey"
+            android:title="@string/navigation_downloads"/>
+
+    </PreferenceCategory>
 
     <PreferenceCategory>
 
@@ -33,5 +33,5 @@
             android:title="@string/navigation_about"/>
 
     </PreferenceCategory>
-  
+
 </PreferenceScreen>

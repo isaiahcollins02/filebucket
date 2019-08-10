@@ -47,6 +47,9 @@ class VaultActivity: BaseAppBarActivity()  {
         layoutManager = LinearLayoutManager(this)
         adapter = PublicAdapter(this, supportFragmentManager, GlideApp.with(this))
 
+        swipeRefreshContainer.setColorSchemeResources(R.color.colorPrimary)
+        swipeRefreshContainer.setOnRefreshListener { viewModel?.refresh(); swipeRefreshContainer.isRefreshing = false }
+
         recyclerView.layoutManager = layoutManager
         recyclerView.addOnScrollListener(onScrollListener)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))

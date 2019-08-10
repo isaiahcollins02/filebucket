@@ -117,7 +117,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
             R.id.navigation_saved -> replaceFragment(navigationItemSaved)
             R.id.navigation_more -> replaceFragment(navigationItemMore)
         }
-
         return true
     }
 

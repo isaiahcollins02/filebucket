@@ -44,6 +44,10 @@ abstract class BaseCoreAdapter(private var context: Context?,
         const val viewTypeBox = 5
     }
 
+    /**
+     *  Used when comparing StorageItem data class objects in the list observed
+     *  by the ViewModel
+     */
     protected class ItemDiffCallback(private val oldItems: List<StorageItem>, private val newItems: List<StorageItem>): DiffUtil.Callback(){
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldItems[oldItemPosition].id == newItems[newItemPosition].id
@@ -57,6 +61,11 @@ abstract class BaseCoreAdapter(private var context: Context?,
             return oldItems[oldItemPosition] == newItems[newItemPosition]
         }
     }
+
+    /**
+     *  Used for comparing Account data objects from the list observed by the
+     *  ViewModel
+     */
     protected class BoxDiffCallback(private val oldItems: List<Account>, private val newItems: List<Account>): DiffUtil.Callback(){
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldItems[oldItemPosition].accountID == newItems[newItemPosition].accountID
@@ -72,6 +81,11 @@ abstract class BaseCoreAdapter(private var context: Context?,
     }
 
 
+    /**
+     *  Base Class for creating a ViewHolder for a StorageItem object, this
+     *  class should use the layout R.layout.layout_files to be able to bind
+     *  the items successfully.
+     */
     abstract class FileViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         internal var rootView: View = itemView.findViewById(R.id.rootView)
         internal var iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
@@ -81,7 +95,12 @@ abstract class BaseCoreAdapter(private var context: Context?,
 
         abstract fun onBindData(item: StorageItem?)
     }
-    
+
+
+    /**
+     *  Used for StorageItem objects that cannot be "Downloaded", the rootView is setup to
+     *  show a detail dialog when the user taps on it.
+     */
     protected inner class SentFileViewHolder(itemView: View): FileViewHolder(itemView){
         override fun onBindData(item: StorageItem?) {
             rootView.setOnClickListener { showDetailDialog(item) }
@@ -94,7 +113,11 @@ abstract class BaseCoreAdapter(private var context: Context?,
             iconView.setImageDrawable(icon)
         }
     }
-    
+
+    /**
+     *  Used for StorageItem objects that can be "Downloaded", the rootView is setup to
+     *  show a confirmation dialog to Download the file from Firebase.
+     */
     protected inner class SharedFileViewHolder(itemView: View): FileViewHolder(itemView){
         override fun onBindData(item: StorageItem?) {
             rootView.setOnClickListener { onDownload(item) }
@@ -109,6 +132,10 @@ abstract class BaseCoreAdapter(private var context: Context?,
         }
     }
 
+    /**
+     *  Used for display a Reddit-like post for the StorageItem objects that are
+     *  images.
+     */
     protected inner class ImageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val rootView: View = itemView.findViewById(R.id.rootView)
         private val containerView: AppCompatImageView = itemView.findViewById(R.id.containerView)
@@ -122,9 +149,12 @@ abstract class BaseCoreAdapter(private var context: Context?,
             subtitleView.text = setMetadata(item)
         }
     }
-    
-    protected inner class LocalViewHolder(itemView: View): FileViewHolder(itemView){
 
+    /**
+     *  Used for local StorageItem objects that are in the default downloads
+     *  directory. The rootView is setup to open the app that handles the file
+     */
+    protected inner class LocalViewHolder(itemView: View): FileViewHolder(itemView){
         override fun onBindData(item: StorageItem?) {
             rootView.setOnClickListener { onParseIntent(rootView, item) }
             titleView.text = item?.name
@@ -136,6 +166,9 @@ abstract class BaseCoreAdapter(private var context: Context?,
         }
     }
 
+    /**
+     *   Used for Account item objects; the rootView is setup to launch VaultActivity
+     */
     protected inner class BoxViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val rootView: View = itemView.findViewById(R.id.rootView)
         private val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)

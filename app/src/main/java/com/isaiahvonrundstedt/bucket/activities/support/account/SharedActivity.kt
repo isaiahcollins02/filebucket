@@ -45,6 +45,9 @@ class SharedActivity: BaseAppBarActivity() {
         layoutManager = LinearLayoutManager(this)
         adapter = SentAdapter(this, supportFragmentManager, GlideApp.with(this))
 
+        swipeRefreshContainer.setColorSchemeResources(R.color.colorPrimary)
+        swipeRefreshContainer.setOnRefreshListener { viewModel?.refresh() }
+
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView.addOnScrollListener(onScrollListener)
         recyclerView.layoutManager = LinearLayoutManager(this)

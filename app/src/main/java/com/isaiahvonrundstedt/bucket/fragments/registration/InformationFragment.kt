@@ -61,7 +61,8 @@ class InformationFragment: Fragment() {
 
                             firestore.collection(Firestore.users).document(newAccount.accountID!!).set(newAccount)
                                 .addOnSuccessListener {
-                                    startActivity(Intent(context, MainActivity::class.java))
+                                    startActivity(Intent(context, MainActivity::class.java)
+                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
                                     activity?.finish()
                                 }
                         }
