@@ -56,6 +56,14 @@
     </style>
 
     <!-- Preferences -->
+    <style name="AppTheme.Preference" parent="PreferenceThemeOverlay.v14.Material">
+        <item name="preferenceStyle">@style/AppTheme.Preference.Core</item>
+        <item name="preferenceCategoryStyle">@style/AppTheme.Preference.Group</item>
+        <item name="switchPreferenceStyle">@style/AppTheme.Preference.Switch</item>
+        <item name="switchPreferenceCompatStyle">@style/AppTheme.Preference.Switch.Compat</item>
+        <item name="checkBoxPreferenceStyle">@style/AppTheme.Preference.CheckBox</item>
+    </style>
+
     <string name="settings_key_theme" translatable="false">appThemePreference</string>
     <string name="settings_key_metadata" translatable="false">metadataPreference</string>
     <string name="settings_key_image_preview" translatable="false">previewPreference</string>
