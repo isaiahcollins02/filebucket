@@ -10,8 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_margin"
         android:text="@string/sheet_picker_title"
-        android:textAppearance="@style/AppTheme.TextAppearance.Title"
-        android:fontFamily="@font/font_slate_medium"/>
+        android:textAppearance="@style/AppTheme.TextAppearance.Title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

@@ -36,10 +36,6 @@ class PickerBottomSheet(private var items: List<Picker>,
         this.dismiss()
     }
 
-    fun invoke(fragmentManager: FragmentManager){
-        show(fragmentManager, "tag")
-    }
-
     object Builder {
         private var itemListener: BottomSheetPicker? = null
         private var items: List<Picker> = ArrayList()

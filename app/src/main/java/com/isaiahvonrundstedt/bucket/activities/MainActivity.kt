@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
+import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.OverflowBottomSheet
 import com.isaiahvonrundstedt.bucket.fragments.navigation.*
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.SearchFragment
 import com.isaiahvonrundstedt.bucket.service.SupportService
@@ -24,7 +25,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
         const val navigationItemCloud = 0
         const val navigationItemBoxes = 1
         const val navigationItemSaved = 2
-        const val navigationItemMore = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +44,13 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
             rootView.addView(view, 0)
 
             val toolbar: Toolbar = rootView.findViewById(R.id.toolbar)
+            toolbar.setNavigationIcon(R.drawable.ic_android_menu)
             setSupportActionBar(toolbar)
 
-            toolbar.setNavigationOnClickListener { finish() }
+            toolbar.setNavigationOnClickListener {
+                val overflowSheet = OverflowBottomSheet()
+                overflowSheet.invoke(supportFragmentManager)
+            }
             supportActionBar?.title = null
             toolbarTitleView = findViewById(R.id.titleView)
         }
@@ -82,7 +86,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
             navigationItemCloud -> setToolbarTitle(R.string.navigation_cloud)
             navigationItemBoxes -> setToolbarTitle(R.string.navigation_boxes)
             navigationItemSaved -> setToolbarTitle(R.string.navigation_saved)
-            navigationItemMore -> setToolbarTitle(R.string.navigation_more)
         }
     }
 
@@ -95,7 +98,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
             navigationItemCloud -> CloudFragment()
             navigationItemBoxes -> BoxesFragment()
             navigationItemSaved -> SavedFragment()
-            navigationItemMore -> OverflowFragment()
             else -> null
         }
     }
@@ -115,7 +117,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
             R.id.navigation_cloud -> replaceFragment(navigationItemCloud)
             R.id.navigation_boxes -> replaceFragment(navigationItemBoxes)
             R.id.navigation_saved -> replaceFragment(navigationItemSaved)
-            R.id.navigation_more -> replaceFragment(navigationItemMore)
         }
         return true
     }

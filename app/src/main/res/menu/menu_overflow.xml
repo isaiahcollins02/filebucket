@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+
+        <item
+            android:id="@+id/action_account"
+            android:title="@string/navigation_account"
+            android:icon="@drawable/ic_user"/>
+
+        <item
+            android:id="@+id/action_shared"
+            android:title="@string/navigation_shared"
+            android:icon="@drawable/ic_earth"/>
+
+        <item
+            android:id="@+id/action_notifications"
+            android:title="@string/navigation_notifications"
+            android:icon="@drawable/ic_bell"/>
+
+        <item
+            android:id="@+id/action_downloads"
+            android:title="@string/navigation_downloads"
+            android:icon="@drawable/ic_folder"/>
+
+    </group>
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/navigation_settings" />
+
+    <item
+        android:id="@+id/action_about"
+        android:title="@string/navigation_about"/>
+
+</menu>

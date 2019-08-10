@@ -17,10 +17,4 @@
         android:title="@string/navigation_saved"
         android:icon="@drawable/ic_floppy_disk"/>
 
-    <item
-        android:id="@+id/navigation_more"
-        android:title="@string/navigation_more"
-        android:icon="@drawable/ic_more"/>
-
-
 </menu>
