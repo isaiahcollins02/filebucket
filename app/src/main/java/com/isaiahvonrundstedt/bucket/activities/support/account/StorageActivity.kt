@@ -42,7 +42,13 @@ class StorageActivity: BaseAppBarActivity() {
         recyclerView.adapter = adapter
     }
 
-    private fun initStore(){
+    override fun onStart() {
+        super.onStart()
+
+        noItemView.isVisible = false
+        if (onBackgroundState != null)
+            recyclerView.layoutManager?.onRestoreInstanceState(onBackgroundState)
+
         noAccessView.isVisible = false
         requestButton.isVisible = false
 
@@ -51,14 +57,11 @@ class StorageActivity: BaseAppBarActivity() {
         viewModel?.itemList?.observe(this, Observer { items ->
             adapter?.setObservableItems(items)
         })
-    }
 
-    override fun onStart() {
-        super.onStart()
-
-        noItemView.isVisible = false
-        if (onBackgroundState != null)
-            recyclerView.layoutManager?.onRestoreInstanceState(onBackgroundState)
+        viewModel?.itemSize?.observe(this, Observer { size ->
+            if (Permissions(this).writeAccessGranted)
+                noItemView.isVisible = size == 0
+        })
     }
 
     override fun onStop() {
@@ -69,15 +72,10 @@ class StorageActivity: BaseAppBarActivity() {
     override fun onResume() {
         super.onResume()
 
-        if (Permissions(this).writeAccessGranted)
-            initStore()
-
-        viewModel?.itemSize?.observe(this, Observer { size ->
-            if (Permissions(this).readAccessGranted)
-                noItemView.isVisible = false
-            else if (size == 0)
-                noItemView.isVisible = true
-        })
+        if (!Permissions(this).readAccessGranted){
+            noAccessView.isVisible = true
+            requestButton.isVisible = true
+        }
 
         requestButton.setOnClickListener {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -86,9 +84,12 @@ class StorageActivity: BaseAppBarActivity() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == Permissions.storageRequestCode && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            initStore()
-        else
+        if (requestCode == Permissions.readRequestCode && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            viewModel?.setStorageAccessChanged()
+
+            noAccessView.isVisible = false
+            requestButton.isVisible = false
+        } else
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 

@@ -6,10 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.isaiahvonrundstedt.bucket.architecture.store.LocalStore
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
+import com.isaiahvonrundstedt.bucket.utils.Permissions
+import timber.log.Timber
 
-class LocalViewModel(app: Application): AndroidViewModel(app){
+class LocalViewModel(private var app: Application): AndroidViewModel(app){
 
-    private val store: LocalStore = LocalStore(app)
+    private var store: LocalStore? = null
 
     private val initialList: ArrayList<StorageItem> = ArrayList()
     private val _itemList: MutableLiveData<List<StorageItem>> = MutableLiveData()
@@ -18,12 +20,23 @@ class LocalViewModel(app: Application): AndroidViewModel(app){
     private val _itemSize: MutableLiveData<Int> = MutableLiveData()
     internal var itemSize: LiveData<Int> = _itemSize
 
+    private var isPermissionGranted: Boolean = false
+
     init {
-        fetch()
+        setStorageAccessChanged()
+    }
+
+    fun setStorageAccessChanged(){
+        isPermissionGranted = Permissions(app).readAccessGranted
+        if (isPermissionGranted){
+            store = LocalStore(app)
+            fetch()
+        } else
+            Timber.i("Storage Permission still denied")
     }
 
     private fun fetch() {
-        store.fetch { items ->
+        store?.fetch { items ->
             initialList.addAll(items)
             initialList.distinctBy { it.id }.toMutableList()
             _itemList.postValue(initialList)

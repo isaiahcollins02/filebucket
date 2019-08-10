@@ -151,8 +151,4 @@ class SettingsFragment: BasePreference() {
             listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark), getString(R.string.settings_theme_item_battery))
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        activity?.finish()
-    }
 }

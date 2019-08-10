@@ -72,7 +72,7 @@ class SupportService: BaseService() {
     private fun checkPackages(){
         firestore.collection(Firestore.Support.core).document(Firestore.Support.packages).get()
             .addOnSuccessListener { snapshot ->
-                if (snapshot != null){
+                if (snapshot != null && snapshot.exists()){
                     val item: StorageItem? = snapshot.toObject(StorageItem::class.java)
 
                     sendNewPackageNotification(item)
