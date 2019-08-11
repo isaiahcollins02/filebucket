@@ -16,7 +16,7 @@ class LocalAdapter(context: Context?, fragmentManager: FragmentManager, requestM
     BaseCoreAdapter(context, fragmentManager, requestManager){
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val rowView: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_item_local, viewGroup, false)
+        val rowView: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_item_files, viewGroup, false)
         return LocalViewHolder(rowView)
     }
 

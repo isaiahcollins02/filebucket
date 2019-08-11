@@ -51,11 +51,14 @@
         <activity android:name=".activities.auth.RegisterActivity"
                   android:theme="@style/AppTheme.FirstRun"
                   android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".activities.support.ProfileActivity" />
         <activity android:name=".activities.support.VaultActivity"/>
         <activity android:name=".activities.generic.AboutActivity"/>
         <activity android:name=".activities.generic.SettingsActivity"/>
-        <activity android:name=".activities.wrapper.FrameActivity"/><activity android:name=".activities.support.account.StorageActivity" /><activity android:name=".activities.support.account.NotificationActivity" /><activity android:name=".activities.support.account.SharedActivity" /><activity android:name=".activities.support.AccountActivity" />
+        <activity android:name=".activities.wrapper.FrameActivity"/>
+        <activity android:name=".activities.support.AccountActivity" />
+        <activity android:name=".activities.support.account.StorageActivity" />
+        <activity android:name=".activities.support.account.NotificationActivity" />
+        <activity android:name=".activities.support.account.SharedActivity" />
 
         <service android:name="com.isaiahvonrundstedt.bucket.service.TransferService"
                 android:exported="false"/>

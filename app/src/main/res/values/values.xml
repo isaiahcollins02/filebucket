@@ -35,6 +35,10 @@
         <item name="android:textColor">?colorControlNormal</item>
     </style>
 
+    <style name="AppTheme.TextAppearance.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:fontFamily">@font/slate_for_oneplus_regular</item>
+    </style>
+
     <style name="AppTheme.TextAppearance.ListItem" parent="TextAppearance.AppCompat.Medium">
         <item name="android:fontFamily">@font/font_slate_regular</item>
         <item name="android:textSize">16sp</item>
@@ -100,13 +104,6 @@
     </style>
 
     <!-- Navigation Keys -->
-    <string name="accountNavKey" translatable="false">accountNav</string>
-    <string name="sharedNavKey" translatable="false">sharedNav</string>
-    <string name="notificationNavKey" translatable="false">notificationNav</string>
-    <string name="storageNavKey" translatable="false">storageNav</string>
-    <string name="settingsNavKey" translatable="false">settingsNav</string>
-    <string name="aboutNavKey" translatable="false">aboutNav</string>
-
     <string name="secureNavKey" translatable="false">secureNav</string>
     <string name="resetNavKey" translatable="false">resetNav</string>
     <string name="signoutNavKey" translatable="false">signoutNav</string>
