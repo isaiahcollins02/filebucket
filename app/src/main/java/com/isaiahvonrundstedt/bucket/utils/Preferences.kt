@@ -29,17 +29,6 @@ class Preferences(val context: Context?) {
         editor?.apply()
     }
 
-    var isFirstRun: Boolean
-        set(value) {
-            editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-            editor?.putBoolean("firstRunPreference", value)
-            editor?.apply()
-        }
-        get() {
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences?.getBoolean("firstRunPreference", true) ?: false
-        }
-
     var theme: Int
         set(value) {
             editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
@@ -47,15 +36,14 @@ class Preferences(val context: Context?) {
             editor?.apply()
         }
         get() {
+            val defaultThemeValue = when {
+                Build.VERSION.SDK_INT > Build.VERSION_CODES.P -> themeSystem
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> themeBattery
+                else -> themeLight
+            }
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences?.getInt("appThemePreference", obtainAPIDependentDefaultTheme()) as Int
+            return sharedPreferences?.getInt("appThemePreference", defaultThemeValue) as Int
         }
-
-    private fun obtainAPIDependentDefaultTheme(): Int {
-        return if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
-            themeSystem
-        else themeBattery
-    }
 
     var updateNotification: Boolean
         set(value) {

@@ -145,10 +145,14 @@ class SettingsFragment: BasePreference() {
     }
 
     private fun obtainAPIDependentThemes(): List<String> {
-        return if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
-            listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark), getString(R.string.settings_theme_item_system))
-        else
-            listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark), getString(R.string.settings_theme_item_battery))
+        return when {
+            Build.VERSION.SDK_INT > Build.VERSION_CODES.P ->
+                listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark), getString(R.string.settings_theme_item_system))
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ->
+                listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark), getString(R.string.settings_theme_item_battery))
+            else ->
+                listOf(getString(R.string.settings_theme_item_light), getString(R.string.settings_theme_item_dark))
+        }
     }
 
 }
