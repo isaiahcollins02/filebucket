@@ -20,6 +20,8 @@
         <item name="android:windowBackground">@color/colorWindowBackground</item>
     </style>
 
+    <style name="AppTheme.Main" parent="AppTheme.Core"/>
+
     <style name="AppTheme.FirstRun" parent="AppTheme.Core">
         <item name="android:windowBackground">@color/colorCardBackground</item>
         <item name="android:windowAnimationStyle">@style/AppTheme.SlidingTransition</item>

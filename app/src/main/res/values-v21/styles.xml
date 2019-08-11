@@ -12,6 +12,10 @@
         <item name="android:windowBackground">@color/colorWindowBackground</item>
     </style>
 
+    <style name="AppTheme.Main" parent="AppTheme.Core">
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+    </style>
+
     <!-- UI Components -->
     <!-- BottomSheets, Dialogs etc -->
 
