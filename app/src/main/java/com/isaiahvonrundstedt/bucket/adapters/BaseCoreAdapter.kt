@@ -80,6 +80,12 @@ abstract class BaseCoreAdapter(private var context: Context?,
         }
     }
 
+    protected abstract class CoreViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        protected val rootView: View = itemView.findViewById(R.id.rootView)
+        protected val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
+        protected val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
+        protected val subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
+    }
 
     /**
      *  Base Class for creating a ViewHolder for a StorageItem object, this
@@ -169,12 +175,7 @@ abstract class BaseCoreAdapter(private var context: Context?,
     /**
      *   Used for Account item objects; the rootView is setup to launch VaultActivity
      */
-    protected inner class BoxViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val rootView: View = itemView.findViewById(R.id.rootView)
-        private val iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-        private val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
-        private val subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
-
+    protected inner class BoxViewHolder(itemView: View): CoreViewHolder(itemView){
         fun onBindData(account: Account?){
             val fullName: String? = "${account?.firstName} ${account?.lastName}"
             rootView.setOnClickListener { it.context.startActivity(Intent(it.context, VaultActivity::class.java)

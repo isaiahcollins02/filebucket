@@ -44,6 +44,15 @@ data class Notification @JvmOverloads constructor (
                 else -> R.drawable.ic_bell
             }
         }
+        fun obtainColorRes(type: Int?): Int {
+            return when (type){
+                typeGeneric -> R.color.colorIconTeal
+                typeFetched -> R.color.colorIconMagenta
+                typeNewFile -> R.color.colorIconBlue
+                typeTransferred -> R.color.colorIconRed
+                else -> R.color.colorIconYellow
+            }
+        }
     }
 
 }

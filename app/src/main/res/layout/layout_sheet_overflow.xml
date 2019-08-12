@@ -21,10 +21,19 @@
             android:layout_marginEnd="@dimen/activity_margin_horizontal"
             android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/subtitleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin_horizontal"
+            android:layout_marginEnd="@dimen/activity_margin_horizontal"
+            android:layout_marginBottom="@dimen/activity_margin"/>
+
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorCardBackground"
             app:elevation="0dp"
             app:itemTextAppearance="@style/AppTheme.TextAppearance.ListItem"
             app:menu="@menu/menu_overflow"/>

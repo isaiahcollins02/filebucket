@@ -28,7 +28,11 @@ class OverflowBottomSheet: BaseBottomSheet(), NavigationView.OnNavigationItemSel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigationView.setNavigationItemSelectedListener(this)
-        titleView.text = User(context!!).fullName
+
+        with (User(context!!)){
+            titleView.text = fullName
+            subtitleView.text = email
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
