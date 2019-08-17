@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent" >
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
     <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"/>
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"/>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/first_run_margin_horizontal"
+        android:paddingEnd="@dimen/first_run_margin_horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/first_run_margin_horizontal"
-            android:paddingEnd="@dimen/first_run_margin_horizontal">
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/first_run_title"
+            android:textSize="24sp"
+            android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="@string/first_run_title"
-                android:textSize="24sp"
-                android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/first_run_summary"
+            android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/first_run_summary"
-                android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/hyperlinkView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:text="@string/first_run_terms"
-                android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
+            android:id="@+id/hyperlinkView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/first_run_terms"
+            android:textAppearance="@style/AppTheme.TextAppearance.Subtitle"/>
 
         <com.google.android.material.button.MaterialButton
-                android:id="@+id/loginButton"
-                android:layout_width="176dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/button_login"
-                style="@style/AppTheme.Widget.Button"/>
+            android:id="@+id/loginButton"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/button_login"
+            style="@style/AppTheme.Widget.Button"/>
 
         <com.google.android.material.button.MaterialButton
-                android:id="@+id/registerButton"
-                android:layout_width="176dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/button_sign_up"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
-                style="@style/AppTheme.Widget.Button.Text"/>
+            android:id="@+id/registerButton"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/button_sign_up"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            style="@style/AppTheme.Widget.Button.Text"/>
 
     </LinearLayout>
 

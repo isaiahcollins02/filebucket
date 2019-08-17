@@ -20,8 +20,6 @@
         <item name="android:windowBackground">@color/colorWindowBackground</item>
     </style>
 
-    <style name="AppTheme.Main" parent="AppTheme.Core"/>
-
     <style name="AppTheme.FirstRun" parent="AppTheme.Core">
         <item name="android:windowBackground">@color/colorCardBackground</item>
         <item name="android:windowAnimationStyle">@style/AppTheme.SlidingTransition</item>
@@ -121,10 +119,6 @@
         <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
     </style>
 
-    <style name="AppTheme.Widget.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="itemTextColor">@color/selector_navigation</item>
-        <item name="itemIconTint">@color/selector_navigation</item>
-    </style>
     <style name="AppTheme.Widget.TextView" parent="android:Widget.TextView">
         <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
     </style>

@@ -58,6 +58,7 @@
     <string name="button_forgot_password">Forgot Password</string>
     <!-- Other Button Text -->
     <string name="button_turn_on_storage_access">Turn on Storage Access</string>
+    <string name="button_go_to_settings">Go to Settings</string>
     <string name="button_go_to_notification_settings">Go to Notification Settings</string>
 
     <string name="file_user_repository">%1$s\'s Box</string>
@@ -144,6 +145,7 @@
     <string name="status_item_removed">Item Removed</string>
     <string name="status_invalid_password">Email or Password is incorrect</string>
     <string name="status_intent_no_app">No installed application can open this file type</string>
+    <string name="status_network_no_internet">Can\'t connect at the moment</string>
 
     <!-- Notification -->
     <string name="notification_channel_default" translatable="false">Default</string>

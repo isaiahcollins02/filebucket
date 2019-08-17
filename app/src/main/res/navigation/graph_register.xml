@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.isaiahvonrundstedt.bucket.fragments.registration.AuthFragment"
+        android:name="com.isaiahvonrundstedt.bucket.fragments.registration.PasswordFragment"
         android:label="AuthFragment"
         tools:layout="@layout/fragment_auth_main">
 
