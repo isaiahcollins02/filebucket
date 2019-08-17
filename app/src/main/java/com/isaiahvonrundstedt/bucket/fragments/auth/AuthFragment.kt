@@ -17,6 +17,7 @@ import com.isaiahvonrundstedt.bucket.components.LoaderDialog
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Account
+import com.isaiahvonrundstedt.bucket.receivers.NetworkReceiver
 import com.isaiahvonrundstedt.bucket.utils.Data
 import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.android.synthetic.main.fragment_auth_login.*
@@ -45,10 +46,13 @@ class AuthFragment: BaseFragment() {
         }
 
         loginButton.setOnClickListener {
-            if (Data.isValidEmailAddress(emailField.text.toString()))
-                handleAuthentication()
-            else
-                Snackbar.make(view!!, R.string.fui_invalid_email_address, Snackbar.LENGTH_SHORT).show()
+            if (NetworkReceiver.getConnectivityStatus(context) != NetworkReceiver.typeNotConnected){
+                if (Data.isValidEmailAddress(emailField.text.toString()))
+                    handleAuthentication()
+                else
+                    Snackbar.make(it, R.string.fui_invalid_email_address, Snackbar.LENGTH_SHORT).show()
+            } else
+                Snackbar.make(it, R.string.status_network_no_internet, Snackbar.LENGTH_SHORT).show()
         }
 
         passwordField.setOnEditorActionListener { _, actionId, _ ->

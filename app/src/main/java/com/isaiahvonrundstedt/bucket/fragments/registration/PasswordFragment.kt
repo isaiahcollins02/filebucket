@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import kotlinx.android.synthetic.main.fragment_auth_main.*
 
-class AuthFragment: Fragment() {
+class PasswordFragment: Fragment() {
 
     private var email: String? = null
 
@@ -22,13 +22,13 @@ class AuthFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments.let {
-            val args = AuthFragmentArgs.fromBundle(it!!)
+            val args = PasswordFragmentArgs.fromBundle(it!!)
             email = args.email
         }
 
         continueButton.setOnClickListener {
             if (passwordField.text != null && confirmPasswordField.text != null){
-                val action = AuthFragmentDirections.actionContinueAuth(email!!, passwordField.text.toString())
+                val action = PasswordFragmentDirections.actionContinueAuth(email!!, passwordField.text.toString())
                 action.email = email!!
                 action.password = passwordField.text.toString()
                 Navigation.findNavController(view).navigate(action)

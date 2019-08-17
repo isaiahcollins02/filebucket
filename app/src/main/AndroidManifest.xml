@@ -37,8 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity"
-            android:theme="@style/AppTheme.Main">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
@@ -70,11 +69,18 @@
         <service android:name=".service.FetchService"/>
 
         <receiver
-                android:name="com.isaiahvonrundstedt.bucket.receivers.RestartReceiver"
-                android:enabled="true"/>
+            android:name=".receivers.RestartReceiver"
+            android:enabled="true"/>
         <receiver
-                android:name="com.isaiahvonrundstedt.bucket.receivers.NotificationReceiver"
-                android:enabled="true"/>
+            android:name=".receivers.NotificationReceiver"
+            android:enabled="true"/>
+        <receiver android:name=".receivers.NetworkReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

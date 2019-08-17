@@ -1,22 +1,39 @@
 package com.isaiahvonrundstedt.bucket.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.*
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.OverflowBottomSheet
 import com.isaiahvonrundstedt.bucket.fragments.navigation.*
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.SearchFragment
+import com.isaiahvonrundstedt.bucket.receivers.NetworkReceiver
 import com.isaiahvonrundstedt.bucket.service.SupportService
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavigationItemSelectedListener,
+    NetworkReceiver.ConnectivityListener {
+
+    override fun onNetworkChanged(status: Int) {
+        if (status == NetworkReceiver.typeNotConnected){
+            val snackbar = Snackbar.make(window.decorView.rootView, R.string.status_network_no_internet, Snackbar.LENGTH_INDEFINITE)
+            snackbar.setAction(R.string.button_go_to_settings) {
+                // After the Android Q APIs is finalized implement in-app
+                // settings panel
+                startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
+            }
+            snackbar.show()
+        }
+    }
 
     private var selectedItem: Int? = null
     private var toolbarTitleView: AppCompatTextView? = null

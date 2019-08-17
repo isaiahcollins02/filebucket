@@ -15,6 +15,7 @@ import com.isaiahvonrundstedt.bucket.activities.auth.FirstRunActivity
 import com.isaiahvonrundstedt.bucket.components.LoaderDialog
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Account
+import com.isaiahvonrundstedt.bucket.receivers.NetworkReceiver
 import kotlinx.android.synthetic.main.fragment_auth_information.*
 import timber.log.Timber
 
@@ -42,45 +43,48 @@ class InformationFragment: Fragment() {
         }
 
         registerButton.setOnClickListener {
-            val dialog = LoaderDialog(getString(R.string.dialog_creating_account))
-            dialog.invoke(childFragmentManager)
+            if (NetworkReceiver.getConnectivityStatus(context) != NetworkReceiver.typeNotConnected){
+                val dialog = LoaderDialog(getString(R.string.dialog_creating_account))
+                dialog.invoke(childFragmentManager)
 
-            if (firstNameField.text != null && lastNameField.text != null){
+                if (firstNameField.text != null && lastNameField.text != null){
 
-                newAccount.email = credentialEmail
-                newAccount.firstName = firstNameField.text.toString()
-                newAccount.lastName = lastNameField.text.toString()
+                    newAccount.email = credentialEmail
+                    newAccount.firstName = firstNameField.text.toString()
+                    newAccount.lastName = lastNameField.text.toString()
 
-                if (credentialEmail != null && credentialPassword != null){
-                    firebaseAuth.createUserWithEmailAndPassword(credentialEmail!!, credentialPassword!!)
-                        .addOnCompleteListener {
-                            dialog.dismiss()
-                        }
-                        .addOnSuccessListener { authResult ->
-                            newAccount.accountID = authResult?.user?.uid
+                    if (credentialEmail != null && credentialPassword != null){
+                        firebaseAuth.createUserWithEmailAndPassword(credentialEmail!!, credentialPassword!!)
+                            .addOnCompleteListener {
+                                dialog.dismiss()
+                            }
+                            .addOnSuccessListener { authResult ->
+                                newAccount.accountID = authResult?.user?.uid
 
-                            firestore.collection(Firestore.users).document(newAccount.accountID!!).set(newAccount)
-                                .addOnSuccessListener {
-                                    startActivity(Intent(context, MainActivity::class.java)
-                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
-                                    activity?.finish()
-                                }
-                        }
-                        .addOnFailureListener {
-                            Timber.e(it)
-                            Snackbar.make(view, R.string.status_error_occurred, Snackbar.LENGTH_SHORT).show()
-                        }
+                                firestore.collection(Firestore.users).document(newAccount.accountID!!).set(newAccount)
+                                    .addOnSuccessListener {
+                                        startActivity(Intent(context, MainActivity::class.java)
+                                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+                                        activity?.finish()
+                                    }
+                            }
+                            .addOnFailureListener {
+                                Timber.e(it)
+                                Snackbar.make(view, R.string.status_error_occurred, Snackbar.LENGTH_SHORT).show()
+                            }
+                    } else {
+                        dialog.dismiss()
+
+                        Snackbar.make(view, R.string.status_error_unknown, Snackbar.LENGTH_SHORT).show()
+                        startActivity(Intent(context, FirstRunActivity::class.java))
+                    }
                 } else {
                     dialog.dismiss()
 
-                    Snackbar.make(view, R.string.status_error_unknown, Snackbar.LENGTH_SHORT).show()
-                    startActivity(Intent(context, FirstRunActivity::class.java))
+                    Snackbar.make(view, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
                 }
-            } else {
-                dialog.dismiss()
-
-                Snackbar.make(view, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
-            }
+            } else
+                Snackbar.make(it, R.string.status_network_no_internet, Snackbar.LENGTH_SHORT).show()
         }
     }
 

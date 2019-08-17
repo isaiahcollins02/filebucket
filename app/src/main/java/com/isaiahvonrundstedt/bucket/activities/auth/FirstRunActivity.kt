@@ -1,6 +1,9 @@
 package com.isaiahvonrundstedt.bucket.activities.auth
 
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
@@ -10,14 +13,16 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.WebViewFragment
+import com.isaiahvonrundstedt.bucket.receivers.NetworkReceiver
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import kotlinx.android.synthetic.main.activity_firstrun.*
 
-class FirstRunActivity: BaseActivity() {
+class FirstRunActivity: BaseActivity(), NetworkReceiver.ConnectivityListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +56,8 @@ class FirstRunActivity: BaseActivity() {
     override fun onStart() {
         super.onStart()
 
+        registerReceiver(NetworkReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+
         loginButton.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
@@ -58,6 +65,16 @@ class FirstRunActivity: BaseActivity() {
         registerButton.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        NetworkReceiver.connectivityListener = this
+    }
+
+    override fun onNetworkChanged(status: Int) {
+        if (status == NetworkReceiver.typeNotConnected)
+            Snackbar.make(window.decorView.rootView, R.string.status_network_no_internet, Snackbar.LENGTH_INDEFINITE).show()
     }
 
 }
