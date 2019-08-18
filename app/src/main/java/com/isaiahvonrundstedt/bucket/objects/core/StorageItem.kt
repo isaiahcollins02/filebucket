@@ -22,7 +22,7 @@ data class StorageItem @JvmOverloads constructor(
         var type: Int = typeGeneric,
         var size: Long? = null,
         var args: String? = null,
-    @TypeConverters(TimestampConverter::class)
+        @TypeConverters(TimestampConverter::class)
         var timestamp: Timestamp? = null
     ): Comparable<StorageItem>, Parcelable {
 
@@ -39,6 +39,7 @@ data class StorageItem @JvmOverloads constructor(
         const val typeVideo = 5
         const val typeCode = 6
         const val typePackage = 7
+        const val typeDatabase = 8
 
         fun obtainIconID(type: Int?): Int {
             return when (type){
@@ -49,6 +50,7 @@ data class StorageItem @JvmOverloads constructor(
                 typeVideo -> R.drawable.ic_video_camera
                 typeCode -> R.drawable.ic_coding
                 typePackage -> R.drawable.ic_package
+                typeDatabase -> R.drawable.ic_database
                 else -> R.drawable.ic_file
             }
         }
@@ -62,6 +64,7 @@ data class StorageItem @JvmOverloads constructor(
                 typeVideo -> R.color.colorIconRed
                 typePackage -> R.color.colorIconTeal
                 typeDocument-> R.color.colorIconMagenta
+                typeDatabase -> R.color.colorIconOrange
                 else -> R.color.colorIconYellow
             }
         }
@@ -97,6 +100,10 @@ data class StorageItem @JvmOverloads constructor(
                 "mkv" -> return typeVideo
                 "avi" -> return typeVideo
                 "wmv" -> return typeVideo
+                "accdb" -> return typeDatabase
+                "mdb" -> return typeDatabase
+                "frm" -> return typeDatabase
+                "sql" -> return typeDocument
                 else -> return typeGeneric
             }
         }
@@ -109,6 +116,7 @@ data class StorageItem @JvmOverloads constructor(
                 typeAudio -> R.string.file_type_music
                 typeDocument -> R.string.file_type_document
                 typePackage -> R.string.file_type_package
+                typeDatabase -> R.string.file_type_database
                 else -> R.string.file_type_unknown
             }
         }

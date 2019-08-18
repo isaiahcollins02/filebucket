@@ -79,6 +79,7 @@
     <string name="file_type_photo">Photo</string>
     <string name="file_type_music">Music</string>
     <string name="file_type_video">Video</string>
+    <string name="file_type_database">Database</string>
 
     <string name="field_hint_name_file">File Name</string>
     <string name="field_hint_search">Search for files</string>

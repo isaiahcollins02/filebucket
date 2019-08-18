@@ -19,7 +19,7 @@ class FileViewModel(authorParams: String?): BaseViewModel() {
         _dataState.postValue(stateDataPreparing)
     }
 
-    override fun fetch(){
+    override fun fetch() {
         repository.fetch { items ->
             initialList.addAll(items)
             initialList.distinctBy { it.id }.toMutableList()

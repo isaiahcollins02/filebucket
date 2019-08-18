@@ -17,6 +17,7 @@ class LoginActivity: BaseActivity() {
         setContentView(R.layout.activity_login)
 
         setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

@@ -17,6 +17,7 @@ class RegisterActivity: BaseActivity() {
         setContentView(R.layout.activity_register)
 
         setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
         supportActionBar?.title = null
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

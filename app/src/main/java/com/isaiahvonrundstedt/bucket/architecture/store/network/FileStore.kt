@@ -10,7 +10,8 @@ class FileStore (authorParams: String?) {
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
 
-    private var initialQueryBatch: Query? = firestore.collection(Firestore.files).limit(15).whereEqualTo(Params.author, authorParams)
+    private var initialQueryBatch: Query? = firestore.collection(Firestore.files).limit(15)
+        .whereEqualTo(Params.author, authorParams)
     private var nextQueryBatch: Query? = null
 
     fun fetch( onFetch: (List<StorageItem>) -> Unit ){
