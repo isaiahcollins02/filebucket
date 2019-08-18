@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
-    android:layout_height="?attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
     android:background="@color/colorCardBackground"
     android:foreground="?attr/selectableItemBackground">
 
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/AppTheme.TextAppearance.Overline"
             android:layout_alignParentTop="true"
-            tools:text="Storage Used"/>
+            tools:text="Uploaded in"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/infoContentView"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/infoTitleView"
             android:textAppearance="@style/AppTheme.TextAppearance.ListItem"
-            tools:text="2.35GB"/>
+            tools:text="12:00PM at July 15"/>
 
     </RelativeLayout>
 

@@ -1,6 +1,8 @@
 package com.isaiahvonrundstedt.bucket.activities
 
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -25,11 +27,11 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
 
     override fun onNetworkChanged(status: Int) {
         if (status == NetworkReceiver.typeNotConnected){
-            val snackbar = Snackbar.make(window.decorView.rootView, R.string.status_network_no_internet, Snackbar.LENGTH_INDEFINITE)
+            val snackbar = Snackbar.make(window.decorView.rootView, R.string.status_network_no_internet, Snackbar.LENGTH_SHORT)
             snackbar.setAction(R.string.button_go_to_settings) {
                 // After the Android Q APIs is finalized implement in-app
                 // settings panel
-                startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
+                startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
             }
             snackbar.show()
         }
@@ -76,6 +78,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
     override fun onStart() {
         super.onStart()
 
+        registerReceiver(NetworkReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         navigationView.setOnNavigationItemSelectedListener(this)
     }
 
@@ -92,18 +95,36 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
         return true
     }
 
-    private fun replaceFragment(item: Int?){
-        selectedItem = item
-        supportFragmentManager.beginTransaction().run {
-            replace(R.id.containerLayout, getFragment(item)!!)
-            commit()
-        }
+    private var startingPosition = 0
+    private fun replaceFragment(item: Int?, newPosition: Int): Boolean {
+        if (item != null){
+            selectedItem = item
+            when {
+                newPosition == 0 -> supportFragmentManager.beginTransaction().run {
+                    replace(R.id.containerLayout, getFragment(item)!!)
+                    commit()
+                }
+                startingPosition > newPosition -> supportFragmentManager.beginTransaction().run {
+                    setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                    replace(R.id.containerLayout, getFragment(item)!!)
+                    commit()
+                }
+                startingPosition < newPosition -> supportFragmentManager.beginTransaction().run {
+                    setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                    replace(R.id.containerLayout, getFragment(item)!!)
+                    commit()
+                }
+            }
+            startingPosition = newPosition
 
-        when (item){
-            navigationItemCloud -> setToolbarTitle(R.string.navigation_cloud)
-            navigationItemBoxes -> setToolbarTitle(R.string.navigation_boxes)
-            navigationItemSaved -> setToolbarTitle(R.string.navigation_saved)
+            when (item){
+                navigationItemCloud -> setToolbarTitle(R.string.navigation_cloud)
+                navigationItemBoxes -> setToolbarTitle(R.string.navigation_boxes)
+                navigationItemSaved -> setToolbarTitle(R.string.navigation_saved)
+            }
+            return true
         }
+        return false
     }
 
     private fun setToolbarTitle(int: Int) {
@@ -121,7 +142,9 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
 
     override fun onResume() {
         super.onResume()
-        replaceFragment(selectedItem ?: navigationItemCloud)
+
+        NetworkReceiver.connectivityListener = this
+        replaceFragment(selectedItem ?: navigationItemCloud, 0)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -130,12 +153,23 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        var selectedFragment: Int? = null
+        var newPosition = 0
         when (item.itemId){
-            R.id.navigation_cloud -> replaceFragment(navigationItemCloud)
-            R.id.navigation_boxes -> replaceFragment(navigationItemBoxes)
-            R.id.navigation_saved -> replaceFragment(navigationItemSaved)
+            R.id.navigation_cloud -> {
+                selectedFragment = navigationItemCloud
+                newPosition = 1
+            }
+            R.id.navigation_boxes -> {
+                selectedFragment = navigationItemBoxes
+                newPosition = 2
+            }
+            R.id.navigation_saved -> {
+                selectedFragment = navigationItemSaved
+                newPosition = 3
+            }
         }
-        return true
+        return replaceFragment(selectedFragment, newPosition)
     }
 
 }

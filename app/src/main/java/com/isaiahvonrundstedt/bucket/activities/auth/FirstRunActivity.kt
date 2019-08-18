@@ -74,7 +74,7 @@ class FirstRunActivity: BaseActivity(), NetworkReceiver.ConnectivityListener {
 
     override fun onNetworkChanged(status: Int) {
         if (status == NetworkReceiver.typeNotConnected)
-            Snackbar.make(window.decorView.rootView, R.string.status_network_no_internet, Snackbar.LENGTH_INDEFINITE).show()
+            Snackbar.make(window.decorView.rootView, R.string.status_network_no_internet, Snackbar.LENGTH_SHORT).show()
     }
 
 }
