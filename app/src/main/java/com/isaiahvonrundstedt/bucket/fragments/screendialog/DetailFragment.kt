@@ -71,9 +71,9 @@ class DetailFragment: BaseScreenDialog() {
         iconView.setImageDrawable(getIconDrawable(storageItem?.type))
 
         val supportItems = listOf(
-            Info(R.string.detail_file_size, String.format(getString(R.string.file_size_megabytes), DecimalFormat("#.##").format((storageItem?.size!! / 1024) / 1024))),
+            Info(R.string.detail_file_size, storageItem?.formatSize(context!!) ?: ""),
             Info(R.string.detail_file_type, getString(StorageItem.obtainItemTypeID(storageItem?.type))),
-            Info(R.string.detail_file_timestamp, Data.formatTimestamp(context, storageItem?.timestamp) ?: ""))
+            Info(R.string.detail_file_timestamp, storageItem?.formatTimestamp(context!!) ?: ""))
 
         adapter = InfoAdapter(supportItems)
 

@@ -6,6 +6,7 @@ import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -35,7 +36,7 @@ import java.io.File
 abstract class BaseCoreAdapter(private var context: Context?,
                                private var fragmentManager: FragmentManager,
                                private var requestManager: RequestManager): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-    
+
     companion object {
         const val viewTypeImage = 1
         const val viewTypeFilePublic = 2
@@ -88,7 +89,7 @@ abstract class BaseCoreAdapter(private var context: Context?,
     }
 
     /**
-     *  Base Class for creating a ViewHolder for a StorageItem object, this
+     *  Base class for creating a ViewHolder for a StorageItem object, this
      *  class should use the layout R.layout.layout_files to be able to bind
      *  the items successfully.
      */
@@ -102,7 +103,6 @@ abstract class BaseCoreAdapter(private var context: Context?,
         abstract fun onBindData(item: StorageItem?)
     }
 
-
     /**
      *  Used for StorageItem objects that cannot be "Downloaded", the rootView is setup to
      *  show a detail dialog when the user taps on it.
@@ -112,7 +112,7 @@ abstract class BaseCoreAdapter(private var context: Context?,
             rootView.setOnClickListener { showDetailDialog(item) }
             titleView.text = item?.name
             subtitleView.text = setMetadata(item)
-            sizeView.text = Data.formatSize(context, item?.size)
+            sizeView.text = item?.formatSize(itemView.context)
 
             val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
             icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
@@ -130,7 +130,7 @@ abstract class BaseCoreAdapter(private var context: Context?,
             rootView.setOnLongClickListener { showDetailDialog(item); true }
             titleView.text = item?.name
             subtitleView.text = setMetadata(item)
-            sizeView.text = Data.formatSize(context, item?.size)
+            sizeView.text = item?.formatSize(itemView.context)
 
             val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
             icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
@@ -230,7 +230,7 @@ abstract class BaseCoreAdapter(private var context: Context?,
     private fun setMetadata(item: StorageItem?): String? {
         return when (Preferences(context).metadata){
             Preferences.metadataAuthor -> item?.author
-            Preferences.metadataTimestamp -> Data.formatTimestamp(context, item?.timestamp)
+            Preferences.metadataTimestamp -> item?.formatTimestamp(context!!)
             Preferences.metadataType -> context?.getString(StorageItem.obtainItemTypeID(item?.type))
             else -> null
         }
@@ -256,5 +256,7 @@ abstract class BaseCoreAdapter(private var context: Context?,
         viewer.arguments = args
         viewer.invoke(fragmentManager)
     }
+
+    fun getString(@StringRes id: Int): String = context?.getString(id) ?: ""
 
 }

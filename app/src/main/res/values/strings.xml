@@ -31,6 +31,7 @@
     <string name="instruction_reset">Enter your email address and press continue to send the reset link</string>
 
     <string name="file_timestamp_today">Today at %1$s</string>
+    <string name="file_size_kilobytes">%1$s KB</string>
     <string name="file_size_megabytes">%1$s MB</string>
 
     <string name="support_feedback_item_privacy">Privacy</string>

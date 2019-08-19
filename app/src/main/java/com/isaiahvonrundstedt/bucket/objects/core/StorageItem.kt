@@ -1,7 +1,9 @@
 package com.isaiahvonrundstedt.bucket.objects.core
 
+import android.content.Context
 import android.net.Uri
 import android.os.Parcelable
+import android.text.format.DateUtils
 import android.webkit.MimeTypeMap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,6 +12,7 @@ import com.google.firebase.Timestamp
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.utils.converters.TimestampConverter
 import kotlinx.android.parcel.Parcelize
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity(tableName = "collections")
@@ -20,7 +23,7 @@ data class StorageItem @JvmOverloads constructor(
         var name: String? = null,
         var author: String? = null,
         var type: Int = typeGeneric,
-        var size: Long? = null,
+        var size: Long = 0L,
         var args: String? = null,
         @TypeConverters(TimestampConverter::class)
         var timestamp: Timestamp? = null
@@ -28,6 +31,29 @@ data class StorageItem @JvmOverloads constructor(
 
     override fun compareTo(other: StorageItem): Int {
         return this.id.compareTo(other.id)
+    }
+
+    fun formatTimestamp(context: Context): String? {
+        val date: Date? = timestamp?.toDate()
+        return if (date != null) {
+            val milliseconds: Long = date.time
+            val isToday = DateUtils.isToday(milliseconds)
+
+            return when {
+                !isToday -> SimpleDateFormat("h:mm a, MMM d", Locale.getDefault()).format(date)
+                else -> String.format(context.getString(R.string.file_timestamp_today),
+                    SimpleDateFormat("h:mm a", Locale.getDefault()).format(date))
+            }
+        } else null
+    }
+
+    fun formatSize(context: Context): String {
+        val formattedSize = (size / 1024) / 1024
+        // Check if the size is below 1MB, then formatSize it
+        // to kilobytes
+        return if (formattedSize < 1)
+            String.format(context.getString(R.string.file_size_kilobytes), size / 1024)
+        else String.format(context.getString(R.string.file_size_megabytes), formattedSize)
     }
 
     companion object {
@@ -107,6 +133,7 @@ data class StorageItem @JvmOverloads constructor(
                 else -> return typeGeneric
             }
         }
+
         fun obtainItemTypeID(type: Int?): Int {
             return when (type) {
                 typeDirectory -> R.string.file_type_directory
@@ -120,6 +147,7 @@ data class StorageItem @JvmOverloads constructor(
                 else -> R.string.file_type_unknown
             }
         }
+
     }
 
 }

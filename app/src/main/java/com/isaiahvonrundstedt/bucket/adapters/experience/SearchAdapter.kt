@@ -48,7 +48,7 @@ class SearchAdapter(context: Context, fragmentManager: FragmentManager, requestM
             rootView.setOnLongClickListener { showDetailDialog(item); true }
             titleView.text = item?.name
             subtitleView.text = item?.author
-            sizeView.text = Data.formatSize(itemView.context, item?.size)
+            sizeView.text = item?.formatSize(itemView.context)
 
             val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
             icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
