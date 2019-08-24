@@ -68,8 +68,8 @@ class InformationFragment: Fragment() {
                                         activity?.finish()
                                     }
                             }
-                            .addOnFailureListener {
-                                Timber.e(it)
+                            .addOnFailureListener { exception ->
+                                Timber.e(exception)
                                 Snackbar.make(view, R.string.status_error_occurred, Snackbar.LENGTH_SHORT).show()
                             }
                     } else {

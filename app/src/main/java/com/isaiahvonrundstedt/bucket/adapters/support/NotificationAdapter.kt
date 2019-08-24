@@ -1,5 +1,6 @@
 package com.isaiahvonrundstedt.bucket.adapters.support
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.BaseAdapter
 import com.isaiahvonrundstedt.bucket.objects.core.Notification
 
-class NotificationAdapter: BaseAdapter() {
+class NotificationAdapter(context: Context): BaseAdapter(context) {
 
     private var itemList: ArrayList<Notification> = ArrayList()
 
@@ -34,7 +35,7 @@ class NotificationAdapter: BaseAdapter() {
     }
 
     private class NotificationDiffCallback(private var oldItems: List<Notification>,
-                                           private var newItems: List<Notification>): DiffUtil.Callback(){
+                                           private var newItems: List<Notification>): DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldItems[oldItemPosition].id == newItems[newItemPosition].id

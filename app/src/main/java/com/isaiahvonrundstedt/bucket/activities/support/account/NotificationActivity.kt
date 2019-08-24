@@ -29,7 +29,7 @@ class NotificationActivity: BaseAppBarActivity() {
     override fun onStart() {
         super.onStart()
 
-        adapter = NotificationAdapter()
+        adapter = NotificationAdapter(this)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))

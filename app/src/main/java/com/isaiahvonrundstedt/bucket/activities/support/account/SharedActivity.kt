@@ -1,6 +1,10 @@
 package com.isaiahvonrundstedt.bucket.activities.support.account
 
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.AbsListView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -15,8 +19,10 @@ import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.FileViewMode
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseViewModel
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
+import com.isaiahvonrundstedt.bucket.receivers.NetworkReceiver
 import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.android.synthetic.main.activity_shared.*
+import kotlinx.android.synthetic.main.layout_banner_network.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class SharedActivity: BaseAppBarActivity() {
@@ -92,6 +98,8 @@ class SharedActivity: BaseAppBarActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        statusRootView.setOnClickListener { startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
 
         viewModel?.itemList?.observe(this, Observer { items ->
             adapter?.setObservableItems(items)

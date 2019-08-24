@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.generic.AboutActivity
 import com.isaiahvonrundstedt.bucket.activities.generic.SettingsActivity
@@ -16,6 +14,7 @@ import com.isaiahvonrundstedt.bucket.activities.support.AccountActivity
 import com.isaiahvonrundstedt.bucket.activities.support.account.NotificationActivity
 import com.isaiahvonrundstedt.bucket.activities.support.account.SharedActivity
 import com.isaiahvonrundstedt.bucket.activities.support.account.StorageActivity
+import com.isaiahvonrundstedt.bucket.components.abstracts.BaseBottomSheet
 import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.android.synthetic.main.layout_sheet_overflow.*
 

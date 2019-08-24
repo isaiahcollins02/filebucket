@@ -13,7 +13,8 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class CoreApplication extends MultiDexApplication {
 
-    public static String appPackage = "com.isaiahvonrundstedt.bucket";
+    public static final String appPackage = "com.isaiahvonrundstedt.bucket";
+    public static final String appProvider = appPackage + ".components.AppFileProvider";
 
     @Override
     public void onCreate() {

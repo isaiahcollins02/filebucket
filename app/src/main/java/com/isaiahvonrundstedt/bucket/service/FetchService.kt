@@ -136,7 +136,6 @@ class FetchService: BaseService(){
             .setContentTitle(notification.title)
             .setContentText(notification.content)
 
-
         manager.notify(notificationSuccess, builder.build())
     }
 }

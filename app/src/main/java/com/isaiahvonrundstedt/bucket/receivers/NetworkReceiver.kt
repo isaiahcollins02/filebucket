@@ -5,19 +5,30 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.TYPE_MOBILE
-import android.net.NetworkInfo
 import android.net.ConnectivityManager.TYPE_WIFI
-import android.net.Network
 import android.net.NetworkCapabilities
 import android.os.Build
+import androidx.core.net.ConnectivityManagerCompat
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 
 
 class NetworkReceiver: BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val status = getConnectivityStatus(context)
-        if (connectivityListener != null)
-            connectivityListener!!.onNetworkChanged(status)
+        if (status != typeNotConnected){
+            val request = StringRequest(Request.Method.GET, "http://captive.apple.com",
+                Response.Listener<String> {
+                    connectivityListener!!.onNetworkChanged(status)
+                },
+                Response.ErrorListener {
+                    connectivityListener!!.onNetworkChanged(typeNotConnected)
+                })
+            Volley.newRequestQueue(context).add(request)
+        }
     }
 
     interface ConnectivityListener {

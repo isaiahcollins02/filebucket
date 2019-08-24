@@ -56,6 +56,7 @@
     <string name="button_edit">Edit</string>
     <string name="button_save">Save</string>
     <string name="button_remove">Remove</string>
+    <string name="button_dismiss">Dismiss</string>
     <string name="button_forgot_password">Forgot Password</string>
     <!-- Other Button Text -->
     <string name="button_turn_on_storage_access">Turn on Storage Access</string>
@@ -100,6 +101,7 @@
     <!-- Empty Views -->
     <string name="main_empty_no_notifications">There are currently no notifications</string>
     <string name="main_empty_no_items">Look\'s like there\'s no items available</string>
+    <string name="main_empty_no_local">There\'s no items in your Downloads folder</string>
     <string name="main_empty_no_shared">You do not have any shared files</string>
     <string name="main_empty_permission_not_granted">We\'ll need you to grant us some permissions before we can do anything</string>
     <string name="main_empty_no_saved_title">There are no saved items from the cloud</string>
@@ -148,6 +150,7 @@
     <string name="status_invalid_password">Email or Password is incorrect</string>
     <string name="status_intent_no_app">No installed application can open this file type</string>
     <string name="status_network_no_internet">Can\'t connect at the moment</string>
+    <string name="status_network_no_internet_actionable">Can\'t connect at the moment. Tap here to open WiFi Settings</string>
 
     <!-- Notification -->
     <string name="notification_channel_default" translatable="false">Default</string>

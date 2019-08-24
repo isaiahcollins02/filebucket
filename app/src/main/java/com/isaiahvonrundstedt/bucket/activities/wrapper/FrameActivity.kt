@@ -15,7 +15,6 @@ class FrameActivity: BaseAppBarActivity() {
     companion object {
         const val viewTypePassword: Int = 0
         const val viewTypeReset: Int = 1
-        const val viewTypeDetails: Int = 2
     }
 
     private var viewArgs: Bundle? = null

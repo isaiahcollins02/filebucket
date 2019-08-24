@@ -35,4 +35,5 @@ class LoaderDialog(var title: String? = null): DialogFragment() {
         if (dialog?.isShowing != true)
             show(fragmentManager, "tag")
     }
+
 }

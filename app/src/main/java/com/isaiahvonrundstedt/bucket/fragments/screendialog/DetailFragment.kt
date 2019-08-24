@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.adapters.experience.InfoAdapter
+import com.isaiahvonrundstedt.bucket.adapters.support.InfoAdapter
 import com.isaiahvonrundstedt.bucket.architecture.database.AppDatabase
 import com.isaiahvonrundstedt.bucket.architecture.database.SavedDAO
 import com.isaiahvonrundstedt.bucket.architecture.store.room.SavedStore
@@ -23,12 +23,10 @@ import com.isaiahvonrundstedt.bucket.constants.Params
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.objects.experience.Info
 import com.isaiahvonrundstedt.bucket.service.UsageService
-import com.isaiahvonrundstedt.bucket.utils.Data
 import kotlinx.android.synthetic.main.layout_dialog_detail.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import java.text.DecimalFormat
 
 class DetailFragment: BaseScreenDialog() {
 

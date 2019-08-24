@@ -116,7 +116,8 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
     private fun invokePicker(){
         val itemPicker = PickerBottomSheet.Builder
-            .setItems(getPickerItems())
+            .setItems(listOf(Picker(R.drawable.ic_add_media, R.string.sheet_picker_image),
+                Picker(R.drawable.ic_add_file, R.string.sheet_picker_file)))
             .setListener(this)
             .build()
         itemPicker.invoke(childFragmentManager)
@@ -184,8 +185,4 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         swipeRefreshContainer.isRefreshing = false
     }
 
-    private fun getPickerItems(): List<Picker> {
-        return listOf(Picker(R.drawable.ic_add_media, R.string.sheet_picker_image),
-            Picker(R.drawable.ic_add_file, R.string.sheet_picker_file))
-    }
 }

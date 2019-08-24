@@ -14,7 +14,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.architecture.store.room.NotificationStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
@@ -24,7 +23,6 @@ import java.io.File
 
 class TransferService: BaseService() {
 
-    private val notificationStore by lazy { NotificationStore(application) }
     private val firestore by lazy { FirebaseFirestore.getInstance() }
     private val storageReference by lazy { FirebaseStorage.getInstance().reference }
 
@@ -137,7 +135,7 @@ class TransferService: BaseService() {
             val bufferedFile = File(selectedFileUri?.path)
 
             val storageItem = StorageItem()
-            storageItem.name = bufferedFile.nameWithoutExtension
+            storageItem.name = bufferedFile.name
             storageItem.size = bufferedFile.length()
             storageItem.args = downloadUri.toString()
             storageItem.type = StorageItem.determineExtension(bufferedFile.toUri())

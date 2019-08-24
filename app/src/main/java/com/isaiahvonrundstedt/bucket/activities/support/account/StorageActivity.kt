@@ -18,7 +18,7 @@ import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.utils.Permissions
 import kotlinx.android.synthetic.main.activity_storage.*
 import kotlinx.android.synthetic.main.layout_empty_no_access.*
-import kotlinx.android.synthetic.main.layout_empty_no_items.*
+import kotlinx.android.synthetic.main.layout_empty_no_local.*
 
 class StorageActivity: BaseAppBarActivity() {
 

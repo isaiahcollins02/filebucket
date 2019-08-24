@@ -3,42 +3,39 @@ package com.isaiahvonrundstedt.bucket.activities
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.provider.Settings
 import android.view.*
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseActivity
 import com.isaiahvonrundstedt.bucket.fragments.bottomsheet.OverflowBottomSheet
-import com.isaiahvonrundstedt.bucket.fragments.navigation.*
+import com.isaiahvonrundstedt.bucket.fragments.navigation.BoxesFragment
+import com.isaiahvonrundstedt.bucket.fragments.navigation.CloudFragment
+import com.isaiahvonrundstedt.bucket.fragments.navigation.SavedFragment
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.SearchFragment
 import com.isaiahvonrundstedt.bucket.receivers.NetworkReceiver
 import com.isaiahvonrundstedt.bucket.service.SupportService
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_banner_network.*
 
 class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavigationItemSelectedListener,
     NetworkReceiver.ConnectivityListener {
 
-    override fun onNetworkChanged(status: Int) {
-        if (status == NetworkReceiver.typeNotConnected){
-            val snackbar = Snackbar.make(window.decorView.rootView, R.string.status_network_no_internet, Snackbar.LENGTH_SHORT)
-            snackbar.setAction(R.string.button_go_to_settings) {
-                // After the Android Q APIs is finalized implement in-app
-                // settings panel
-                startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
-            }
-            snackbar.show()
-        }
-    }
+    private var cloudFragment: CloudFragment? = null
+    private var boxFragment: BoxesFragment? = null
+    private var savedFragment: SavedFragment? = null
 
     private var selectedItem: Int? = null
     private var toolbarTitleView: AppCompatTextView? = null
+
+    private var networkReceiver: NetworkReceiver? = null
 
     companion object {
         const val navigationItemCloud = 0
@@ -51,9 +48,20 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
         setContentView(R.layout.activity_main)
         setPersistentActionBar()
 
+        cloudFragment = CloudFragment()
+        boxFragment = BoxesFragment()
+        savedFragment = SavedFragment()
+
         selectedItem = savedInstanceState?.getInt("savedTab")
+        startingPosition = savedInstanceState?.getInt("currentPosition") ?: 0
         startService(Intent(this, SupportService::class.java)
             .setAction(SupportService.actionFetchPayload))
+
+        networkReceiver = NetworkReceiver()
+    }
+
+    override fun onNetworkChanged(status: Int) {
+        statusRootView.isVisible = status == NetworkReceiver.typeNotConnected
     }
 
     private fun setPersistentActionBar() {
@@ -78,13 +86,11 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
     override fun onStart() {
         super.onStart()
 
-        registerReceiver(NetworkReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         navigationView.setOnNavigationItemSelectedListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
-
         return true
     }
 
@@ -133,18 +139,20 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
 
     private fun getFragment(item: Int?): Fragment? {
         return when (item){
-            navigationItemCloud -> CloudFragment()
-            navigationItemBoxes -> BoxesFragment()
-            navigationItemSaved -> SavedFragment()
+            navigationItemCloud -> cloudFragment
+            navigationItemBoxes -> boxFragment
+            navigationItemSaved -> savedFragment
             else -> null
         }
     }
 
     override fun onResume() {
         super.onResume()
-
-        NetworkReceiver.connectivityListener = this
         replaceFragment(selectedItem ?: navigationItemCloud, 0)
+
+        registerReceiver(networkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        NetworkReceiver.connectivityListener = this
+        statusRootView.setOnClickListener { startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -170,6 +178,16 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
             }
         }
         return replaceFragment(selectedFragment, newPosition)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(networkReceiver)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState?.putInt("currentPosition", startingPosition)
     }
 
 }

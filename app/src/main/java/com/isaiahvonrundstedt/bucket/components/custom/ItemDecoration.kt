@@ -6,7 +6,7 @@ import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.isaiahvonrundstedt.bucket.adapters.BaseCoreAdapter
+import com.isaiahvonrundstedt.bucket.adapters.BaseAdapter
 
 class ItemDecoration (private var context: Context?): DividerItemDecoration(context, VERTICAL) {
 
@@ -19,7 +19,7 @@ class ItemDecoration (private var context: Context?): DividerItemDecoration(cont
         val itemPosition: Int = recyclerView.getChildAdapterPosition(view)
         val viewType: Int? = recyclerView.adapter?.getItemViewType(itemPosition)
 
-        if (viewType == BaseCoreAdapter.viewTypeImage)
+        if (viewType == BaseAdapter.viewTypeImage)
             outRect.set(0, offset, 0, offset)
         else
             outRect.setEmpty()
