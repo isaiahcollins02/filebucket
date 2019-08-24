@@ -8,7 +8,6 @@ import android.net.ConnectivityManager.TYPE_MOBILE
 import android.net.ConnectivityManager.TYPE_WIFI
 import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.core.net.ConnectivityManagerCompat
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -22,13 +21,14 @@ class NetworkReceiver: BroadcastReceiver() {
         if (status != typeNotConnected){
             val request = StringRequest(Request.Method.GET, "http://captive.apple.com",
                 Response.Listener<String> {
-                    connectivityListener!!.onNetworkChanged(status)
+                    connectivityListener?.onNetworkChanged(status)
                 },
                 Response.ErrorListener {
-                    connectivityListener!!.onNetworkChanged(typeNotConnected)
+                    connectivityListener?.onNetworkChanged(typeNotConnected)
                 })
             Volley.newRequestQueue(context).add(request)
-        }
+        } else
+            connectivityListener?.onNetworkChanged(typeNotConnected)
     }
 
     interface ConnectivityListener {

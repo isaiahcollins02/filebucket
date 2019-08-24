@@ -1,11 +1,7 @@
 package com.isaiahvonrundstedt.bucket.fragments.screendialog
 
-import android.content.Intent
-import android.content.IntentFilter
 import android.graphics.Color
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,11 +20,8 @@ import com.isaiahvonrundstedt.bucket.architecture.viewmodel.SearchViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseScreenDialog
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseViewModel
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
-import com.isaiahvonrundstedt.bucket.receivers.NetworkReceiver
-import kotlinx.android.synthetic.main.layout_banner_network.*
 import kotlinx.android.synthetic.main.layout_dialog_search.*
 import kotlinx.android.synthetic.main.layout_empty_no_result.*
-import timber.log.Timber
 
 class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
 

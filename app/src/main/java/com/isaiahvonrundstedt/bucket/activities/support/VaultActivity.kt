@@ -1,11 +1,6 @@
 package com.isaiahvonrundstedt.bucket.activities.support
 
-import android.content.Intent
-import android.content.IntentFilter
-import android.net.ConnectivityManager
-import android.net.Network
 import android.os.Bundle
-import android.provider.Settings
 import android.view.MenuItem
 import android.widget.AbsListView
 import androidx.core.view.isVisible
@@ -22,9 +17,7 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseAppBarActivity
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseViewModel
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
 import com.isaiahvonrundstedt.bucket.constants.Params
-import com.isaiahvonrundstedt.bucket.receivers.NetworkReceiver
 import kotlinx.android.synthetic.main.activity_vault.*
-import kotlinx.android.synthetic.main.layout_banner_network.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
 
 class VaultActivity: BaseAppBarActivity() {
