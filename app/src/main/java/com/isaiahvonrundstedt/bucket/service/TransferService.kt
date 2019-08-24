@@ -141,7 +141,6 @@ class TransferService: BaseService() {
             storageItem.args = downloadUri.toString()
             storageItem.type = StorageItem.determineExtension(bufferedFile.toUri())
             storageItem.author = User(this).fullName
-            storageItem.extension = MimeTypeMap.getFileExtensionFromUrl(selectedFileUri.toString()).toLowerCase()
             storageItem.timestamp = Timestamp.now()
 
             fileReference.add(storageItem)
