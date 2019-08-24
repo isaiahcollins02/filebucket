@@ -28,12 +28,15 @@ class PasswordFragment: Fragment() {
 
         continueButton.setOnClickListener {
             if (passwordField.text != null && confirmPasswordField.text != null){
-                val action = PasswordFragmentDirections.actionContinueAuth(email!!, passwordField.text.toString())
-                action.email = email!!
-                action.password = passwordField.text.toString()
-                Navigation.findNavController(view).navigate(action)
 
-                if (passwordField.text == confirmPasswordField.text){
+                val newPassword = passwordField.text.toString()
+                val confirmedPassword = confirmPasswordField.text.toString()
+
+                if (newPassword == confirmedPassword){
+                    val action = PasswordFragmentDirections.actionContinueAuth(email!!, passwordField.text.toString())
+                    action.email = email!!
+                    action.password = newPassword
+                    Navigation.findNavController(view).navigate(action)
                 } else
                     Snackbar.make(view, R.string.status_password_not_match, Snackbar.LENGTH_SHORT).show()
             } else

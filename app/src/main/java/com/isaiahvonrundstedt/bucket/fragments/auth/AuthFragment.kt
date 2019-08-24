@@ -79,7 +79,7 @@ class AuthFragment: BaseFragment() {
                     dialog.dismiss()
                 }
                 .addOnSuccessListener { authResult ->
-                    val userID: String? = authResult.user.uid
+                    val userID: String? = authResult.user?.uid
 
                     firestore.collection(Firestore.users).document(userID!!).get()
                         .addOnCompleteListener {
