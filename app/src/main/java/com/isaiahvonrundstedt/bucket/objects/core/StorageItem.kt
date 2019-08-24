@@ -25,6 +25,7 @@ data class StorageItem @JvmOverloads constructor(
         var type: Int = typeGeneric,
         var size: Long = 0L,
         var args: String? = null,
+        var extension: String? = null,
         @TypeConverters(TimestampConverter::class)
         var timestamp: Timestamp? = null
     ): Comparable<StorageItem>, Parcelable {
@@ -92,6 +93,43 @@ data class StorageItem @JvmOverloads constructor(
                 typeDocument-> R.color.colorIconMagenta
                 typeDatabase -> R.color.colorIconOrange
                 else -> R.color.colorIconYellow
+            }
+        }
+
+        fun determineExtension(string: String): Int {
+            when (string.toLowerCase(Locale.getDefault())){
+                "apk" -> return typePackage
+                "png" -> return typeImage
+                "jpg" -> return typeImage
+                "jpeg" -> return typeImage
+                "bmp" -> return typeImage
+                "pdf" -> return typeDocument
+                "xls" -> return typeDocument
+                "xlsx" -> return typeDocument
+                "doc" -> return typeDocument
+                "docx"  -> return typeDocument
+                "ppt" -> return typeDocument
+                "pptx" -> return typeDocument
+                "html" -> return typeDocument
+                "psd"  -> return typeDocument
+                "ai" -> return typeDocument
+                "c" -> return typeCode
+                "cpp" -> return typeCode
+                "kt" -> return typeCode
+                "java" -> return typeCode
+                "mp3" -> return typeAudio
+                "ogg" -> return typeAudio
+                "wav" -> return typeAudio
+                "mp4" -> return typeVideo
+                "mov" -> return typeVideo
+                "mkv" -> return typeVideo
+                "avi" -> return typeVideo
+                "wmv" -> return typeVideo
+                "accdb" -> return typeDatabase
+                "mdb" -> return typeDatabase
+                "frm" -> return typeDatabase
+                "sql" -> return typeDocument
+                else -> return typeGeneric
             }
         }
 

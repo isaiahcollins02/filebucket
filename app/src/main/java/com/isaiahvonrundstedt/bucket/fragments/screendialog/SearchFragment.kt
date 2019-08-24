@@ -118,10 +118,4 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
         return true
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        statusRootView.setOnClickListener { startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
-    }
-
 }

@@ -99,8 +99,6 @@ class SharedActivity: BaseAppBarActivity() {
     override fun onResume() {
         super.onResume()
 
-        statusRootView.setOnClickListener { startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
-
         viewModel?.itemList?.observe(this, Observer { items ->
             adapter?.setObservableItems(items)
         })

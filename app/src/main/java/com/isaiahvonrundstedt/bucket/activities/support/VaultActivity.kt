@@ -42,7 +42,7 @@ class VaultActivity: BaseAppBarActivity() {
         setContentView(R.layout.activity_vault)
 
         author = intent.getStringExtra(Params.author)
-        setToolbarTitle(String.format(resources.getString(R.string.file_user_repository), author))
+        setToolbarTitle(String.format(resources.getString(R.string.file_user_repository), author?.substring(0, author?.indexOf(' ') ?: author?.length!!)))
 
         factory = FileFactory(author)
         viewModel = ViewModelProviders.of(this, factory).get(FileViewModel::class.java)
@@ -65,8 +65,6 @@ class VaultActivity: BaseAppBarActivity() {
 
     override fun onResume(){
         super.onResume()
-
-        statusRootView.setOnClickListener { startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
 
         viewModel?.itemList?.observe(this, Observer { itemList ->
             adapter?.setObservableItems(itemList)

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.IBinder
+import android.webkit.MimeTypeMap
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
@@ -140,6 +141,7 @@ class TransferService: BaseService() {
             storageItem.args = downloadUri.toString()
             storageItem.type = StorageItem.determineExtension(bufferedFile.toUri())
             storageItem.author = User(this).fullName
+            storageItem.extension = MimeTypeMap.getFileExtensionFromUrl(selectedFileUri.toString()).toLowerCase()
             storageItem.timestamp = Timestamp.now()
 
             fileReference.add(storageItem)
