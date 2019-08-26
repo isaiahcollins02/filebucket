@@ -25,7 +25,8 @@ class CoreStore {
                         .limit(15)
 
                     onFetch (snapshots.map { val item: StorageItem = it.toObject(StorageItem::class.java).apply { id = it.id }; item })
-                }
+                } else
+                    onFetch(ArrayList())
             }
     }
 

@@ -40,7 +40,8 @@ class BoxStore {
                             accountItems.add(account)
                     }
                     onFetch(accountItems)
-                }
+                } else
+                    onFetch(ArrayList())
             }
     }
 
