@@ -2,6 +2,7 @@ package com.isaiahvonrundstedt.bucket.fragments.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,6 @@ import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.objects.core.Account
 import com.isaiahvonrundstedt.bucket.receivers.NetworkReceiver
-import com.isaiahvonrundstedt.bucket.utils.Data
 import com.isaiahvonrundstedt.bucket.utils.User
 import kotlinx.android.synthetic.main.fragment_auth_login.*
 
@@ -39,7 +39,7 @@ class AuthFragment: BaseFragment() {
                 title(R.string.navigation_reset)
                 message(R.string.instruction_reset)
                 input(waitForPositiveButton = true, hintRes = R.string.field_hint_email) { _, inputText ->
-                    firebaseAuth?.sendPasswordResetEmail(inputText.toString())
+                    firebaseAuth.sendPasswordResetEmail(inputText.toString())
                 }
                 positiveButton(R.string.button_continue)
             }
@@ -47,19 +47,19 @@ class AuthFragment: BaseFragment() {
 
         loginButton.setOnClickListener {
             if (NetworkReceiver.getConnectivityStatus(context) != NetworkReceiver.typeNotConnected){
-                if (Data.isValidEmailAddress(emailField.text.toString()))
+                if (Patterns.EMAIL_ADDRESS.matcher(emailField.text.toString()).matches())
                     handleAuthentication()
                 else
-                    Snackbar.make(it, R.string.fui_invalid_email_address, Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(it, R.string.status_invalid_email_address, Snackbar.LENGTH_SHORT).show()
             } else
                 Snackbar.make(it, R.string.status_network_no_internet, Snackbar.LENGTH_SHORT).show()
         }
 
         passwordField.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE){
-                if (Data.isValidEmailAddress(emailField.text.toString())){
+                if (Patterns.EMAIL_ADDRESS.matcher(emailField.text.toString()).matches()){
                     handleAuthentication()
-                } else Snackbar.make(view!!, R.string.fui_invalid_email_address, Snackbar.LENGTH_SHORT).show()
+                } else Snackbar.make(view!!, R.string.status_invalid_email_address, Snackbar.LENGTH_SHORT).show()
                 return@setOnEditorActionListener true
             } else
                 return@setOnEditorActionListener false
@@ -67,7 +67,7 @@ class AuthFragment: BaseFragment() {
     }
 
     private fun handleAuthentication() {
-        val dialog = LoaderDialog(getString(R.string.fui_verifying))
+        val dialog = LoaderDialog(getString(R.string.status_verifying))
         dialog.invoke(childFragmentManager)
 
         val authEmail = emailField.text

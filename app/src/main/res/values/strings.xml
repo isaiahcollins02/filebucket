@@ -147,7 +147,10 @@
     <string name="status_error_unknown">An unknown error occurred</string>
     <string name="status_item_saved">Item Saved</string>
     <string name="status_item_removed">Item Removed</string>
+    <string name="status_verifying">Verifying…</string>
+    <string name="status_invalid_email_address">Invalid Email Address</string>
     <string name="status_invalid_password">Email or Password is incorrect</string>
+    <string name="status_email_already_taken">Email Address already has an account associated with it</string>
     <string name="status_intent_no_app">No installed application can open this file type</string>
     <string name="status_network_no_internet">Can\'t connect at the moment</string>
     <string name="status_network_no_internet_actionable">Can\'t connect at the moment. Tap here to open WiFi Settings</string>

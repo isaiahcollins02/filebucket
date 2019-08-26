@@ -56,6 +56,8 @@
     </style>
 
     <style name="AppTheme.TextAppearance.PreferenceGroup" parent="AppTheme.TextAppearance.Body2">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
