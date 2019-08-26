@@ -29,7 +29,7 @@ android {
     packagingOptions {
         pickFirst("META-INF/atomicfu.kotlin_module")
     }
-    buildToolsVersion = '29.0.1'
+    buildToolsVersion = '29.0.2'
     androidExtensions {
         experimental = true
     }
@@ -77,11 +77,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.0.0'
     implementation 'com.google.firebase:firebase-firestore:21.0.0'
     implementation 'com.google.firebase:firebase-storage:19.0.0'
-
-    // Firebase UI Components
-    implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
-    implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'
-    implementation 'com.firebaseui:firebase-ui-storage:5.0.0'
 
     // Open-Source UI Libraries
     implementation 'com.github.HITGIF:TextFieldBoxes:1.4.5'
