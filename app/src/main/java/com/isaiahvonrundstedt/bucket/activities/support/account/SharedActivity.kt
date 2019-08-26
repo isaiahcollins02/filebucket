@@ -46,14 +46,12 @@ class SharedActivity: BaseAppBarActivity() {
         adapter = SentAdapter(this, supportFragmentManager, GlideApp.with(this))
 
         swipeRefreshContainer.setColorSchemeResources(R.color.colorPrimary)
-        swipeRefreshContainer.setOnRefreshListener { viewModel?.refresh() }
+        swipeRefreshContainer.setOnRefreshListener { viewModel?.refresh(); swipeRefreshContainer.isRefreshing = false }
 
-        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        recyclerView.layoutManager = layoutManager
         recyclerView.addOnScrollListener(onScrollListener)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
-
-        swipeRefreshContainer.setOnRefreshListener { onRefresh() }
     }
 
     private var isScrolling: Boolean = false
@@ -80,14 +78,6 @@ class SharedActivity: BaseAppBarActivity() {
                     isLastItemReached = true
             }
         }
-    }
-
-
-    private fun onRefresh(){
-        viewModel?.refresh()
-
-        if (swipeRefreshContainer.isRefreshing)
-            swipeRefreshContainer.isRefreshing = false
     }
 
     override fun onResume() {

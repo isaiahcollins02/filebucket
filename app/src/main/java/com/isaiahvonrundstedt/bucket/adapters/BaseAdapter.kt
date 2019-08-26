@@ -112,11 +112,7 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
      *  class should use the layout R.layout.layout_files to be able to bind
      *  the items successfully.
      */
-    abstract class FileViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        internal var rootView: View = itemView.findViewById(R.id.rootView)
-        internal var iconView: AppCompatImageView = itemView.findViewById(R.id.iconView)
-        internal var titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
-        internal var subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
+    protected abstract class FileViewHolder(itemView: View): CoreViewHolder(itemView){
         internal var sizeView: AppCompatTextView = itemView.findViewById(R.id.sizeView)
 
         abstract fun onBindData(item: StorageItem?)

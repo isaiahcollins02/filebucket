@@ -27,7 +27,8 @@ class FileStore (authorParams: String?) {
                         .limit(15)
 
                     onFetch (snapshots.map { val item: StorageItem = it.toObject(StorageItem::class.java).apply { id = it.id }; item })
-                }
+                } else
+                    onFetch(ArrayList())
             }
     }
 
