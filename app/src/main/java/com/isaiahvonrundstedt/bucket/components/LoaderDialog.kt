@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -14,6 +15,8 @@ import kotlinx.android.synthetic.main.layout_dialog_progress.*
 class LoaderDialog(var title: String? = null): DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+
         return inflater.inflate(R.layout.layout_dialog_progress, container, false)
     }
 
@@ -24,6 +27,7 @@ class LoaderDialog(var title: String? = null): DialogFragment() {
 
     override fun onStart() {
         super.onStart()
+
         val cardBackground = ResourcesCompat.getDrawable(context?.resources!!, R.drawable.shape_dialog_background, null)
 
         dialog?.setCancelable(false)
