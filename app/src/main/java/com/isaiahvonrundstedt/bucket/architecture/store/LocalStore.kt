@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.core.net.toUri
 import com.google.firebase.Timestamp
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
-import com.isaiahvonrundstedt.bucket.utils.Data
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,7 +22,7 @@ class LocalStore (app: Application) {
             val files = directory.listFiles()
             for (bufferedFile: File in files){
                 val currentItem = StorageItem().apply {
-                    id = Data.generateRandomID()
+                    id = UUID.randomUUID().toString()
                     name = bufferedFile.name
                     type = if (bufferedFile.isDirectory) StorageItem.typeDirectory else StorageItem.determineExtension(bufferedFile.toUri())
                     args = bufferedFile.path

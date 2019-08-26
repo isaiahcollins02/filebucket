@@ -22,6 +22,7 @@ import com.isaiahvonrundstedt.bucket.fragments.navigation.SavedFragment
 import com.isaiahvonrundstedt.bucket.fragments.screendialog.SearchFragment
 import com.isaiahvonrundstedt.bucket.receivers.NetworkReceiver
 import com.isaiahvonrundstedt.bucket.service.SupportService
+import com.isaiahvonrundstedt.bucket.utils.Preferences
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_banner_network.*
 
@@ -54,8 +55,11 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
 
         selectedItem = savedInstanceState?.getInt("savedTab")
         startingPosition = savedInstanceState?.getInt("currentPosition") ?: 0
-        startService(Intent(this, SupportService::class.java)
-            .setAction(SupportService.actionFetchPayload))
+
+        if (Preferences(this).updateNotification) {
+            startService(Intent(this, SupportService::class.java)
+                .setAction(SupportService.actionFetchPayload))
+        }
 
         networkReceiver = NetworkReceiver()
     }

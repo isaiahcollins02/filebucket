@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +12,8 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
-import androidx.lifecycle.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,8 +37,6 @@ import com.isaiahvonrundstedt.bucket.utils.Permissions
 import gun0912.tedbottompicker.TedBottomPicker
 import kotlinx.android.synthetic.main.fragment_main_cloud.*
 import kotlinx.android.synthetic.main.layout_empty_no_items.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class CloudFragment: BaseFragment(), BottomSheetPicker {
 

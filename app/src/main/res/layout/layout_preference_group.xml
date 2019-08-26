@@ -45,4 +45,5 @@
             style="@style/PreferenceSummaryTextStyle"/>
 
     </RelativeLayout>
+
 </LinearLayout>

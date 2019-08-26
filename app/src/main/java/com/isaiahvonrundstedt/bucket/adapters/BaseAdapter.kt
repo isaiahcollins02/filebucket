@@ -3,6 +3,7 @@ package com.isaiahvonrundstedt.bucket.adapters
 import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -219,10 +220,17 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     }
     
     private fun fetchProfileImage(imageURL: String?, container: AppCompatImageView){
+
+        var drawable: Drawable? = null
+        if (imageURL == null){
+            drawable = ContextCompat.getDrawable(context!!, R.drawable.ic_user)
+            drawable?.setColorFilter(ContextCompat.getColor(context!!, R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP)
+        }
+
         requestManager?.clear(container)
         requestManager?.asBitmap()
             ?.placeholder(R.drawable.ic_user)
-            ?.error(R.drawable.ic_user)
+            ?.error(drawable)
             ?.load(imageURL)
             ?.apply(RequestOptions().circleCrop())
             ?.into(container)

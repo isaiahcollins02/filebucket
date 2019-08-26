@@ -8,5 +8,6 @@
     android:clickable="true"
     android:padding="@dimen/activity_margin"
     android:gravity="center"
+    android:background="?colorError"
     android:text="@string/status_network_no_internet_actionable"
-    android:textColor="?colorError"/>
+    android:textColor="@android:color/white"/>
