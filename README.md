@@ -1,39 +1,28 @@
 # Bucket - File Sharing App for a Specific Group
 
-This is the source code for the app, "File Bucket" which is written by me for my university and as a final project
-
-## Information
 Uploading and sharing files has never been easier! File Bucket focuses on file sharing more than anything. It uses Google's Firebase services as a backend; specifically FirebaseAuth, Firestore and Storage. So you'll need have to worry about security and reliability.
 
-## Details
-* Native Android App
-* Written in Kotlin
-* Completely Open Source
-* Uses Android Architecture Components
+## Built with
+* Kotlin
+* Google Firebase
+* AndroidX
+* Other cool open-source libraries (see Acknowledgements)
 
-## Forking & Issues
-You may fork the source code of the application for your use, see License. If you see something not right, open an issue on this repository.
+## Versioning
+We use [SemVer](http://www.semver.org) for versioning. Foe the versios available, see the [tags on this repository](https://github.com/isaiahcollins02/filebucket/tags)
 
 ## Licenses
-MIT License
+This project is licensed under the AGPL-3.0 - see the license file for more details
 
-Copyright (c) 2019, Isaiah Collins Abetong
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## Acknowledgements
+* [Timber](https://github.com/JakeWharton/timber) - Jake Wharton
+* [Material Dialogs](https://github.com/afollestad/material-dialogs) - Aidan Follestad
+* [Android-Job](https://github.com/evernote/android-job) - Evernote
+* [TextFieldBoxes](https://github.com/HITGIF/TextFieldBoxes) - Mark Wang
+* [TedBottomPicker](https://github.com/ParkSangGwon/TedBottomPicker) - Ted Park
+* [MaterialProgressBar](https://github.com/zhanghai/MaterialProgressBar) - Hai Zhang
+* [Glide Transformations](https://github.com/wasabeef/glide-transformations) - Daichi Furiya
+* [Android GPU-Image](https://github.com/cats-oss/android-gpuimage) - CyberAgent Inc.
+* [Volley](https://github.com/google/volley) - Google Inc.
+* Slate for OnePlus Font - Rod McDonald
 
