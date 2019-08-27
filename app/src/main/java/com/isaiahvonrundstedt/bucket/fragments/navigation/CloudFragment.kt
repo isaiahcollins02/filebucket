@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -42,6 +43,8 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
     private var fileUri: Uri? = null
     private var downloadUri: Uri? = null
+
+    private var isPickerRequested = false
 
     private var receiver: BroadcastReceiver? = null
     private var adapter: PublicAdapter? = null
@@ -91,10 +94,11 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
 
         swipeRefreshContainer.setOnRefreshListener { onRefreshData() }
         addAction.setOnClickListener {
-            if (Permissions(it.context).readAccessGranted)
+            if (Permissions(it.context).readAccessGranted && Permissions(it.context).writeAccessGranted)
                 invokePicker()
             else
-                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Permissions.readRequestCode)
+                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    Permissions.storageRequestCode)
         }
 
         viewModel?.itemList?.observe(this, Observer { items ->
@@ -112,6 +116,15 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
             } else if (dataState == BaseViewModel.stateDataReady)
                 progressBar.isVisible = false
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (isPickerRequested){
+            invokePicker()
+            isPickerRequested = false
+        }
     }
 
     private fun invokePicker(){
@@ -183,6 +196,12 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
     private fun onRefreshData(){
         viewModel?.refresh()
         swipeRefreshContainer.isRefreshing = false
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == Permissions.storageRequestCode && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            isPickerRequested = true
+        else super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
 }
