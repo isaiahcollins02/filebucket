@@ -17,22 +17,33 @@
     <string name="register_password_title">Account Security</string>
     <string name="register_password_summary">Think of a complex password that comprises of a upper and lower case letters, symbols and numbers</string>
 
-    <!-- Intro -->
-    <string name="intro_cloud_storage_title">Secure Cloud Storage</string>
-    <string name="intro_cloud_storage_desc">Add files to the organization\'s secure and private cloud storage</string>
-
-    <string name="intro_share_people_title">Share with People</string>
-    <string name="intro_share_people_desc">Every file you upload will be shared among your classmates. So no more emailing.</string>
-
-    <string name="intro_collections_title">File Collections</string>
-    <string name="intro_collections_desc">Save files to your collections without downloading them</string>
-
-    <string name="instruction_password">Enter first your old password, then enter the new one twice, and press continue to save the changes</string>
-    <string name="instruction_reset">Enter your email address and press continue to send the reset link</string>
+    <string name="instruction_reset">Enter your account\'s email address then tap continue. Then check yor email for your reset link.</string>
+    <string name="instruction_secure">Enter your old password, then your new password twice, then tap the button to continue.</string>
 
     <string name="file_timestamp_today">Today at %1$s</string>
     <string name="file_size_kilobytes">%1$s KB</string>
     <string name="file_size_megabytes">%1$s MB</string>
+
+    <string name="unknown_file_author">Unknown Author</string>
+    <string name="unknown_file_timestamp">Unknown Upload Date</string>
+    <string name="unknown_file_size">Size cannot be determined</string>
+
+    <string name="file_type_unknown">Unknown</string>
+    <string name="file_type_directory">File Folder</string>
+    <string name="file_type_document">Document</string>
+    <string name="file_type_package">Android App Package</string>
+    <string name="file_type_code">Source Code</string>
+    <string name="file_type_photo">Photo</string>
+    <string name="file_type_music">Music</string>
+    <string name="file_type_video">Video</string>
+    <string name="file_type_database">Database</string>
+
+    <string name="detail_file_title">File Details</string>
+    <string name="detail_file_size">Size</string>
+    <string name="detail_file_type">Type</string>
+    <string name="detail_file_timestamp">Timestamp</string>
+
+    <string name="user_repository_title">%1$s\'s Box</string>
 
     <string name="support_feedback_item_privacy">Privacy</string>
     <string name="support_feedback_item_interface">Interface and Design</string>
@@ -62,26 +73,6 @@
     <string name="button_turn_on_storage_access">Turn on Storage Access</string>
     <string name="button_go_to_settings">Go to Settings</string>
     <string name="button_go_to_notification_settings">Go to Notification Settings</string>
-
-    <string name="file_user_repository">%1$s\'s Box</string>
-    <string name="details_file_title">File Details</string>
-
-    <string name="detail_file_size_placeholder">Size: %1$s MB</string>
-    <string name="detail_file_type_placeholder">Type: %1$s</string>
-    <string name="detail_file_timestamp_placeholder">Date Uploaded: %1$s</string>
-    <string name="detail_file_size">Size</string>
-    <string name="detail_file_type">Type</string>
-    <string name="detail_file_timestamp">Timestamp</string>
-
-    <string name="file_type_unknown">Unknown</string>
-    <string name="file_type_directory">File Folder</string>
-    <string name="file_type_document">Document</string>
-    <string name="file_type_package">Android App Package</string>
-    <string name="file_type_code">Source Code</string>
-    <string name="file_type_photo">Photo</string>
-    <string name="file_type_music">Music</string>
-    <string name="file_type_video">Video</string>
-    <string name="file_type_database">Database</string>
 
     <string name="field_hint_name_file">File Name</string>
     <string name="field_hint_search">Search for files</string>
@@ -123,11 +114,6 @@
     <string name="navigation_secure">Secure Account</string>
     <string name="navigation_reset">Reset Password</string>
     <string name="navigation_signout">Sign out</string>
-
-    <string name="filter_all">All Files</string>
-    <string name="filter_documents">Documents</string>
-    <string name="filter_code">Source Codes</string>
-    <string name="filter_media">Media Files</string>
 
     <string name="sheet_picker_title">Add New File</string>
     <string name="sheet_picker_file">Documents</string>

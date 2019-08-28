@@ -3,7 +3,6 @@ package com.isaiahvonrundstedt.bucket.activities.support
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.AbsListView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -36,7 +35,7 @@ class VaultActivity: BaseAppBarActivity() {
         setContentView(R.layout.activity_vault)
 
         author = intent.getStringExtra(Params.author)
-        setToolbarTitle(String.format(resources.getString(R.string.file_user_repository), author?.substring(0, author?.indexOf(' ') ?: author?.length!!)))
+        setToolbarTitle(String.format(resources.getString(R.string.user_repository_title), author?.substring(0, author?.indexOf(' ') ?: author?.length!!)))
 
         factory = FileFactory(author)
         viewModel = ViewModelProviders.of(this, factory).get(FileViewModel::class.java)

@@ -44,7 +44,7 @@ data class StorageItem @JvmOverloads constructor(
                 else -> String.format(context.getString(R.string.file_timestamp_today),
                     SimpleDateFormat("h:mm a", Locale.getDefault()).format(date))
             }
-        } else null
+        } else context.getString(R.string.unknown_file_timestamp)
     }
 
     fun formatSize(context: Context): String {

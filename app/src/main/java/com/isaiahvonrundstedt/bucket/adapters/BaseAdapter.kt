@@ -264,7 +264,7 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     }
     private fun setMetadata(item: StorageItem?): String? {
         return when (Preferences(context).metadata){
-            Preferences.metadataAuthor -> item?.author
+            Preferences.metadataAuthor -> item?.author ?: getString(R.string.unknown_file_author)
             Preferences.metadataTimestamp -> item?.formatTimestamp(context!!)
             Preferences.metadataType -> context?.getString(StorageItem.obtainItemTypeID(item?.type))
             else -> null

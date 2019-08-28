@@ -57,7 +57,7 @@ class DetailFragment: BaseScreenDialog() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbarTitle?.text = getString(R.string.details_file_title)
+        toolbarTitle?.text = getString(R.string.detail_file_title)
     }
 
     override fun onStart() {
@@ -69,9 +69,9 @@ class DetailFragment: BaseScreenDialog() {
         iconView.setImageDrawable(getIconDrawable(storageItem?.type))
 
         val supportItems = listOf(
-            Info(R.string.detail_file_size, storageItem?.formatSize(context!!) ?: ""),
+            Info(R.string.detail_file_size, storageItem?.formatSize(context!!) ?: getString(R.string.unknown_file_size)),
             Info(R.string.detail_file_type, getString(StorageItem.obtainItemTypeID(storageItem?.type))),
-            Info(R.string.detail_file_timestamp, storageItem?.formatTimestamp(context!!) ?: ""))
+            Info(R.string.detail_file_timestamp, storageItem?.formatTimestamp(context!!) ?: getString(R.string.unknown_file_timestamp)))
 
         adapter = InfoAdapter(supportItems)
 
