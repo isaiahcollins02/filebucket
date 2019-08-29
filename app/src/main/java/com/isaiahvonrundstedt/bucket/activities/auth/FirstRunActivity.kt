@@ -3,6 +3,7 @@ package com.isaiahvonrundstedt.bucket.activities.auth
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.SpannableString
@@ -56,7 +57,11 @@ class FirstRunActivity: BaseActivity(), NetworkReceiver.ConnectivityListener {
         super.onResume()
         NetworkReceiver.connectivityListener = this
 
-        statusRootView.setOnClickListener { startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
+        statusRootView.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                startActivity(Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY))
+            else startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+        }
 
         val webViewFragment = WebViewFragment()
         val args = Bundle()

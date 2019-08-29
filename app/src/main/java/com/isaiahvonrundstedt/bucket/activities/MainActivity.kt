@@ -3,6 +3,7 @@ package com.isaiahvonrundstedt.bucket.activities
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.provider.Settings
@@ -156,7 +157,11 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
 
         registerReceiver(networkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         NetworkReceiver.connectivityListener = this
-        statusRootView.setOnClickListener { startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
+        statusRootView.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                startActivity(Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY))
+            else startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -187,11 +192,6 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
     override fun onStop() {
         super.onStop()
         unregisterReceiver(networkReceiver)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        outState?.putInt("currentPosition", startingPosition)
     }
 
 }
