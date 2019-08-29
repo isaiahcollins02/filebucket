@@ -12,12 +12,12 @@
     <color name="colorCardBackground">#ffffff</color>
 
     <!-- UI Components -->
-    <color name="colorIcons">#000000</color>
+    <color name="colorIcons">#2b2b2b</color>
     <color name="colorToolbar">@color/colorCardBackground</color>
     <color name="colorStatusBar">@color/colorToolbar</color>
 
     <!-- Texts -->
-    <color name="colorPrimaryText">#000000</color>
+    <color name="colorPrimaryText">#2b2b2b</color>
     <color name="colorSecondaryText">#9c9c9c</color>
 
     <!-- Icons -->
