@@ -72,7 +72,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
     private fun setPersistentActionBar() {
         val rootView: ViewGroup? = findViewById(R.id.action_bar_root)
         if (rootView != null){
-            val view: View = LayoutInflater.from(this).inflate(R.layout.layout_appbar_main, rootView, false)
+            val view: View = LayoutInflater.from(this).inflate(R.layout.layout_appbar_core, rootView, false)
             rootView.addView(view, 0)
 
             val toolbar: Toolbar = rootView.findViewById(R.id.toolbar)
@@ -84,7 +84,7 @@ class MainActivity : BaseActivity(), LifecycleOwner, BottomNavigationView.OnNavi
                 overflowSheet.invoke(supportFragmentManager)
             }
             supportActionBar?.title = null
-            toolbarTitleView = findViewById(R.id.titleView)
+            toolbarTitleView = findViewById(R.id.toolbarTitle)
         }
     }
 
