@@ -165,6 +165,7 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         fun onBindData(item: StorageItem?){
             rootView.setOnClickListener { viewImage(item) }
+            rootView.setOnLongClickListener { onDownload(item); true }
             fetchImageAsset(item?.args, containerView)
             titleView.text = item?.name
             subtitleView.text = setMetadata(item)
@@ -216,7 +217,6 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     }
     
     private fun fetchProfileImage(imageURL: String?, container: AppCompatImageView){
-
         var drawable: Drawable? = null
         if (imageURL == null){
             drawable = ContextCompat.getDrawable(context!!, R.drawable.ic_user)

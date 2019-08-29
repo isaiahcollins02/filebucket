@@ -34,7 +34,7 @@
             android:background="@color/colorCardBackground"
             app:elevation="0dp"
             app:itemTextAppearance="@style/AppTheme.TextAppearance.ListItem"
-            app:menu="@menu/menu_overflow"/>
+            app:menu="@menu/navigation_overflow"/>
 
     </LinearLayout>
 

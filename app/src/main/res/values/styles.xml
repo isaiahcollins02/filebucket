@@ -32,6 +32,7 @@
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorIcons</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@color/colorCardBackground</item>
     </style>

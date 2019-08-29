@@ -58,16 +58,15 @@
     <string name="button_login">Login</string>
     <string name="button_sign_up">Sign Up</string>
     <!-- Action Button Text -->
-    <string name="button_browse">Browse</string>
     <string name="button_upload">Upload</string>
     <string name="button_download">Download</string>
     <string name="button_send">Send</string>
     <!-- Specific Button Text -->
     <string name="button_schedule">Schedule</string>
+    <string name="button_details">Details</string>
     <string name="button_edit">Edit</string>
     <string name="button_save">Save</string>
     <string name="button_remove">Remove</string>
-    <string name="button_dismiss">Dismiss</string>
     <string name="button_forgot_password">Forgot Password</string>
     <!-- Other Button Text -->
     <string name="button_turn_on_storage_access">Turn on Storage Access</string>
