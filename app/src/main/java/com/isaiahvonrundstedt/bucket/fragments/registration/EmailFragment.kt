@@ -31,7 +31,7 @@ class EmailFragment: BaseFragment(), FirebaseAuthVerifier {
                     onVerifyEmail(email, this)
                 else Snackbar.make(view, R.string.status_invalid_email_address, Snackbar.LENGTH_SHORT).show()
             } else
-                Snackbar.make(view, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, R.string.status_blank_field_email, Snackbar.LENGTH_SHORT).show()
         }
     }
 

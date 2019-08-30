@@ -56,9 +56,6 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     companion object {
         const val viewTypeImage = 1
         const val viewTypeFilePublic = 2
-        const val viewTypeFileSent = 3
-        const val viewTypeFileLocal = 4
-        const val viewTypeBox = 5
     }
 
     /**
@@ -249,7 +246,7 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         MaterialDialog(context!!).show {
             title(text = String.format(context.getString(R.string.dialog_file_download_title), item?.name))
             message(R.string.dialog_file_download_summary)
-            positiveButton(R.string.button_download) {
+            positiveButton(R.string.action_download) {
                 it.context.startService(Intent(it.context, FetchService::class.java)
                     .setAction(FetchService.actionDownload)
                     .putExtra(FetchService.extraFileName, item?.name)
@@ -259,7 +256,7 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                     .setAction(UsageService.sendFileUsage)
                     .putExtra(UsageService.extraObjectID, item?.id))
             }
-            negativeButton(R.string.button_cancel)
+            negativeButton(R.string.action_cancel)
         }
     }
     private fun setMetadata(item: StorageItem?): String? {

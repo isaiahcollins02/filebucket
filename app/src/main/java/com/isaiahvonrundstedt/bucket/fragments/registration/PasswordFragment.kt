@@ -40,7 +40,7 @@ class PasswordFragment: Fragment() {
                 } else
                     Snackbar.make(view, R.string.status_password_not_match, Snackbar.LENGTH_SHORT).show()
             } else
-                Snackbar.make(view, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, R.string.status_blank_field_password, Snackbar.LENGTH_SHORT).show()
         }
     }
 

@@ -81,7 +81,7 @@ class InformationFragment: Fragment() {
                 } else {
                     dialog.dismiss()
 
-                    Snackbar.make(view, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(view, R.string.status_blank_field_generic, Snackbar.LENGTH_SHORT).show()
                 }
             } else
                 Snackbar.make(it, R.string.status_network_no_internet, Snackbar.LENGTH_SHORT).show()

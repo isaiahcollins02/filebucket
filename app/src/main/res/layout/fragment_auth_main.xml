@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="@string/button_continue"
+            android:text="@string/action_continue"
             style="@style/AppTheme.Widget.Button"/>
 
     </LinearLayout>

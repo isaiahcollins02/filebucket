@@ -41,7 +41,7 @@ class AuthFragment: BaseFragment() {
                 input(waitForPositiveButton = true, hintRes = R.string.field_hint_email) { _, inputText ->
                     firebaseAuth.sendPasswordResetEmail(inputText.toString())
                 }
-                positiveButton(R.string.button_continue)
+                positiveButton(R.string.action_continue)
             }
         }
 
@@ -102,7 +102,7 @@ class AuthFragment: BaseFragment() {
                 }
         } else {
             dialog.dismiss()
-            Snackbar.make(view!!, R.string.status_blank_fields, Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view!!, R.string.status_blank_field_email, Snackbar.LENGTH_SHORT).show()
         }
     }
 }

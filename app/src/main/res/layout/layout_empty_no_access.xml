@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/button_turn_on_storage_access"
+            android:text="@string/action_turn_on_storage_access"
             style="@style/AppTheme.Widget.Button.Outlined"/>
 
     </LinearLayout>

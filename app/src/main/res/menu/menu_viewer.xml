@@ -5,14 +5,14 @@
 
     <item
         android:id="@+id/action_save"
-        android:title="@string/button_save"
+        android:title="@string/action_save"
         android:icon="@drawable/ic_android_download"
         app:iconTint="@color/colorIcons"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_info"
-        android:title="@string/button_details"
+        android:title="@string/action_details"
         android:icon="@drawable/ic_android_info"
         app:iconTint="@color/colorIcons"
         app:showAsAction="ifRoom"/>

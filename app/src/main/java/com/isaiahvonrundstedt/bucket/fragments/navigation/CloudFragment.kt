@@ -145,8 +145,8 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
                 isScrolling = true
         }
 
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
+        override fun onScrolled(recyclerView: RecyclerView, directionX: Int, directionY: Int) {
+            super.onScrolled(recyclerView, directionX, directionY)
 
             val totalItemCount: Int = layoutManager?.itemCount!!
             val visibleItemCount: Int = layoutManager?.childCount!!

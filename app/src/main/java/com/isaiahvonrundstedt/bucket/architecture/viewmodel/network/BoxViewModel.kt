@@ -6,7 +6,7 @@ import com.isaiahvonrundstedt.bucket.architecture.store.network.BoxStore
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseViewModel
 import com.isaiahvonrundstedt.bucket.objects.core.Account
 
-class BoxesViewModel: BaseViewModel() {
+class BoxViewModel: BaseViewModel() {
 
     private val repository = BoxStore()
 

@@ -28,9 +28,6 @@ class FirstRunActivity: BaseActivity(), NetworkReceiver.ConnectivityListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_firstrun)
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = null
-
         networkReceiver = NetworkReceiver()
     }
 

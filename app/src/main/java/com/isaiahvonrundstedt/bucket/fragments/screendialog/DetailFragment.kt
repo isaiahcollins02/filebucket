@@ -87,18 +87,18 @@ class DetailFragment: BaseScreenDialog() {
             if (exists){
                 store?.remove(storageItem!!)
                 Snackbar.make(it, R.string.status_item_removed, Snackbar.LENGTH_SHORT).show()
-                (it as MaterialButton).text = getString(R.string.button_save)
+                (it as MaterialButton).text = getString(R.string.action_save)
             } else {
                 store?.insert(storageItem!!)
                 Snackbar.make(it, R.string.status_item_saved, Snackbar.LENGTH_SHORT).show()
-                (it as MaterialButton).text = getString(R.string.button_remove)
+                (it as MaterialButton).text = getString(R.string.action_remove)
             }
         }
     }
 
     private fun databaseInit() = runBlocking {
         exists = withContext(Dispatchers.Default) { savedDAO?.checkIfExists(storageItem) ?: false }
-        collectionsButton.text = if (exists) getString(R.string.button_remove) else getString(R.string.button_save)
+        collectionsButton.text = if (exists) getString(R.string.action_remove) else getString(R.string.action_save)
     }
 
     private fun getIconDrawable(type: Int?): Drawable? {

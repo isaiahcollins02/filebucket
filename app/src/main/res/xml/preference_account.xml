@@ -5,6 +5,10 @@
         <PreferenceCategory>
 
             <Preference
+                android:key="@string/profileKey"
+                android:title="@string/navigation_profile"/>
+
+            <Preference
                 android:key="@string/secureNavKey"
                 android:title="@string/navigation_secure"/>
 

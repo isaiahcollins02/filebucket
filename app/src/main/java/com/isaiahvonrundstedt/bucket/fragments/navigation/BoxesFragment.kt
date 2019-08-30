@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.core.BoxesAdapter
-import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.BoxesViewModel
+import com.isaiahvonrundstedt.bucket.architecture.viewmodel.network.BoxViewModel
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseFragment
 import com.isaiahvonrundstedt.bucket.components.abstracts.BaseViewModel
 import com.isaiahvonrundstedt.bucket.components.modules.GlideApp
@@ -26,7 +26,7 @@ class BoxesFragment: BaseFragment() {
     private var adapter: BoxesAdapter? = null
     private var layoutManager: LinearLayoutManager? = null
 
-    private var viewModel: BoxesViewModel? = null
+    private var viewModel: BoxViewModel? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main_shared, container, false)
@@ -35,7 +35,7 @@ class BoxesFragment: BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        viewModel = ViewModelProviders.of(this).get(BoxesViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(BoxViewModel::class.java)
     }
 
     override fun onStart() {

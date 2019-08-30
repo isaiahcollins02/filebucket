@@ -4,12 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"/>
-
     <include layout="@layout/layout_banner_network"/>
 
     <LinearLayout
@@ -53,7 +47,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/button_login"
+            android:text="@string/action_login"
             style="@style/AppTheme.Widget.Button"/>
 
         <com.google.android.material.button.MaterialButton
@@ -61,7 +55,7 @@
             android:layout_width="176dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/button_sign_up"
+            android:text="@string/action_sign_up"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
             style="@style/AppTheme.Widget.Button.Text"/>

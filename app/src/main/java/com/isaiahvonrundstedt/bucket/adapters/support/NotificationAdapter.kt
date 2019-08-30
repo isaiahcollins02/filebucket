@@ -24,7 +24,7 @@ class NotificationAdapter(context: Context): BaseAdapter(context) {
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val rowView: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_item_generic, viewGroup, false)
+        val rowView: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_item_core, viewGroup, false)
         return NotificationViewHolder(rowView)
     }
 

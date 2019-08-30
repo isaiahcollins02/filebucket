@@ -37,7 +37,7 @@ class SearchFragment: BaseScreenDialog(), SearchView.OnQueryTextListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbarTitle?.text = getString(R.string.menu_search)
+        toolbarTitle?.text = getString(R.string.action_search)
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
         viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)

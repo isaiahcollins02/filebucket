@@ -106,6 +106,7 @@
     </style>
 
     <!-- Navigation Keys -->
+    <string name="profileKey" translatable="false">profileKey</string>
     <string name="secureNavKey" translatable="false">secureNav</string>
     <string name="resetNavKey" translatable="false">resetNav</string>
     <string name="signoutNavKey" translatable="false">signoutNav</string>
