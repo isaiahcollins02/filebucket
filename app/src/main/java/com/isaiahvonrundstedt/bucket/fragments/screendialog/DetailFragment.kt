@@ -3,12 +3,13 @@ package com.isaiahvonrundstedt.bucket.fragments.screendialog
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
@@ -66,7 +67,7 @@ class DetailFragment: BaseScreenDialog() {
 
         titleView.text = storageItem?.name
         authorView.text = storageItem?.author
-        iconView.setImageDrawable(getIconDrawable(storageItem?.type))
+        iconView.setImageDrawable(obtainTintedDrawable(storageItem?.type))
 
         val supportItems = listOf(
             Info(R.string.detail_file_size, storageItem?.formatSize(context!!) ?: getString(R.string.unknown_file_size)),
@@ -101,9 +102,12 @@ class DetailFragment: BaseScreenDialog() {
         collectionsButton.text = if (exists) getString(R.string.action_remove) else getString(R.string.action_save)
     }
 
-    private fun getIconDrawable(type: Int?): Drawable? {
-        val drawable = ResourcesCompat.getDrawable(context?.resources!!, StorageItem.obtainIconID(type), null)
-        drawable?.setColorFilter(ContextCompat.getColor(context!!, StorageItem.obtainColorID(type)), PorterDuff.Mode.SRC_ATOP)
+    private fun obtainTintedDrawable(type: Int?): Drawable {
+        val drawable: Drawable = DrawableCompat.wrap(ContextCompat.getDrawable(context!!, StorageItem.obtainIconID(type))!!)
+
+        val color = ContextCompat.getColor(context!!, StorageItem.obtainColorID(type))
+        DrawableCompat.setTint(drawable, color)
+
         return drawable
     }
 

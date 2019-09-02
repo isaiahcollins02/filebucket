@@ -42,7 +42,7 @@ class BoxesFragment: BaseFragment() {
         super.onStart()
 
         layoutManager = LinearLayoutManager(context)
-        adapter = BoxesAdapter(context, childFragmentManager, GlideApp.with(this))
+        adapter = BoxesAdapter(context!!, childFragmentManager, GlideApp.with(this))
 
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))

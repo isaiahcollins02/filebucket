@@ -78,7 +78,7 @@ class CloudFragment: BaseFragment(), BottomSheetPicker {
         super.onViewCreated(view, savedInstanceState)
 
         layoutManager = LinearLayoutManager(context)
-        adapter = PublicAdapter(context, childFragmentManager, GlideApp.with(this))
+        adapter = PublicAdapter(context!!, childFragmentManager, GlideApp.with(this))
 
         recyclerView.layoutManager = layoutManager
         recyclerView.addOnScrollListener(onScrollListener)

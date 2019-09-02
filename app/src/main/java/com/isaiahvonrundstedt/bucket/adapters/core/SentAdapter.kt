@@ -12,7 +12,7 @@ import com.isaiahvonrundstedt.bucket.R
 import com.isaiahvonrundstedt.bucket.adapters.BaseAdapter
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 
-class SentAdapter (context: Context?, fragmentManager: FragmentManager, requestManager: RequestManager):
+class SentAdapter (context: Context, fragmentManager: FragmentManager, requestManager: RequestManager):
         BaseAdapter(context, fragmentManager, requestManager) {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

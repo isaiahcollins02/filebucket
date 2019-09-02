@@ -13,7 +13,7 @@ import com.isaiahvonrundstedt.bucket.adapters.BaseAdapter
 import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.Preferences
 
-class PublicAdapter (private var context: Context?, fragmentManager: FragmentManager, requestManager: RequestManager):
+class PublicAdapter (context: Context, fragmentManager: FragmentManager, requestManager: RequestManager):
     BaseAdapter(context, fragmentManager, requestManager) {
 
     private var itemList: ArrayList<StorageItem> = ArrayList()

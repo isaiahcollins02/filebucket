@@ -2,17 +2,18 @@ package com.isaiahvonrundstedt.bucket.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -36,15 +37,16 @@ import java.io.File
 
 abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    private var context: Context? = null
-    private var fragmentManager: FragmentManager? = null
-    private var requestManager: RequestManager? = null
+    protected lateinit var context: Context
+    
+    private lateinit var fragmentManager: FragmentManager
+    private lateinit var requestManager: RequestManager
 
-    constructor (_context: Context?): this() {
+    constructor (_context: Context): this() {
         context = _context
     }
 
-    constructor (_context: Context?,
+    constructor (_context: Context,
                  _fragmentManager: FragmentManager,
                  _requestManager: RequestManager) : this() {
 
@@ -112,7 +114,7 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     protected abstract class FileViewHolder(itemView: View): CoreViewHolder(itemView){
         internal var sizeView: AppCompatTextView = itemView.findViewById(R.id.sizeView)
 
-        abstract fun onBindData(item: StorageItem?)
+        abstract fun onBindData(item: StorageItem)
     }
 
     /**
@@ -120,14 +122,13 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
      *  show a detail dialog when the user taps on it.
      */
     protected inner class SentFileViewHolder(itemView: View): FileViewHolder(itemView){
-        override fun onBindData(item: StorageItem?) {
+        override fun onBindData(item: StorageItem) {
             rootView.setOnClickListener { showDetailDialog(item) }
-            titleView.text = item?.name
+            titleView.text = item.name
             subtitleView.text = setMetadata(item)
-            sizeView.text = item?.formatSize(itemView.context)
+            sizeView.text = item.formatSize(itemView.context)
 
-            val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
-            icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
+            val icon = obtainTintedDrawable(StorageItem.obtainIconID(item.type), StorageItem.obtainColorID(item.type))
             iconView.setImageDrawable(icon)
         }
     }
@@ -137,15 +138,14 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
      *  show a confirmation dialog to Download the file from Firebase.
      */
     protected inner class SharedFileViewHolder(itemView: View): FileViewHolder(itemView){
-        override fun onBindData(item: StorageItem?) {
+        override fun onBindData(item: StorageItem) {
             rootView.setOnClickListener { onDownload(item) }
             rootView.setOnLongClickListener { showDetailDialog(item); true }
-            titleView.text = item?.name
+            titleView.text = item.name
             subtitleView.text = setMetadata(item)
-            sizeView.text = item?.formatSize(itemView.context)
+            sizeView.text = item.formatSize(itemView.context)
 
-            val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
-            icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
+           val icon = obtainTintedDrawable(StorageItem.obtainIconID(item.type), StorageItem.obtainColorID(item.type))
             iconView.setImageDrawable(icon)
         }
     }
@@ -160,11 +160,11 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         private val titleView: AppCompatTextView = itemView.findViewById(R.id.titleView)
         private val subtitleView: AppCompatTextView = itemView.findViewById(R.id.subtitleView)
 
-        fun onBindData(item: StorageItem?){
+        fun onBindData(item: StorageItem){
             rootView.setOnClickListener { viewImage(item) }
             rootView.setOnLongClickListener { onDownload(item); true }
-            fetchImageAsset(item?.args, containerView)
-            titleView.text = item?.name
+            fetchImageAsset(item.args, containerView)
+            titleView.text = item.name
             subtitleView.text = setMetadata(item)
         }
     }
@@ -174,13 +174,12 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
      *  directory. The rootView is setup to open the app that handles the file
      */
     protected inner class LocalViewHolder(itemView: View): FileViewHolder(itemView){
-        override fun onBindData(item: StorageItem?) {
+        override fun onBindData(item: StorageItem) {
             rootView.setOnClickListener { onParseIntent(rootView, item) }
-            titleView.text = item?.name
-            subtitleView.text = context?.getString(StorageItem.obtainItemTypeID(item?.type))
+            titleView.text = item.name
+            subtitleView.text = context.getString(StorageItem.obtainItemTypeID(item.type))
 
-            val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
-            icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
+            val icon = obtainTintedDrawable(StorageItem.obtainIconID(item.type), StorageItem.obtainColorID(item.type))
             iconView.setImageDrawable(icon)
         }
     }
@@ -189,14 +188,14 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
      *   Used for Account item objects; the rootView is setup to launch VaultActivity
      */
     protected inner class BoxViewHolder(itemView: View): CoreViewHolder(itemView){
-        fun onBindData(account: Account?){
-            val fullName: String? = "${account?.firstName} ${account?.lastName}"
+        fun onBindData(account: Account){
+            val fullName: String? = "${account.firstName} ${account.lastName}"
             rootView.setOnClickListener { it.context.startActivity(Intent(it.context, VaultActivity::class.java)
                 .putExtra(Params.author, fullName)) }
 
-            fetchProfileImage(account?.imageURL, iconView)
+            fetchProfileImage(account.imageURL, iconView)
             titleView.text = fullName
-            subtitleView.text = account?.email
+            subtitleView.text = account.email
         }
     }
 
@@ -206,9 +205,7 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             titleView.text = notification.title
             subtitleView.text = notification.content
 
-            val icon = ContextCompat.getDrawable(itemView.context, Notification.obtainIconRes(notification.type))
-            icon?.setColorFilter(ContextCompat.getColor(itemView.context, Notification.obtainColorRes(notification.type)),
-                PorterDuff.Mode.SRC_ATOP)
+            val icon = obtainTintedDrawable(Notification.obtainIconRes(notification.type), Notification.obtainColorRes(notification.type))
             iconView.setImageDrawable(icon)
         }
     }
@@ -216,23 +213,22 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private fun fetchProfileImage(imageURL: String?, container: AppCompatImageView){
         var drawable: Drawable? = null
         if (imageURL == null){
-            drawable = ContextCompat.getDrawable(context!!, R.drawable.ic_user)
-            drawable?.setColorFilter(ContextCompat.getColor(context!!, R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP)
+            drawable = obtainTintedDrawable(R.drawable.ic_user, R.color.colorPrimary)
         }
 
-        requestManager?.clear(container)
-        requestManager?.asBitmap()
-            ?.placeholder(R.drawable.ic_user)
-            ?.error(drawable)
-            ?.load(imageURL)
-            ?.apply(RequestOptions().circleCrop())
-            ?.into(container)
+        requestManager.clear(container)
+        requestManager.asBitmap()
+            .placeholder(R.drawable.ic_user)
+            .error(drawable)
+            .load(imageURL)
+            .apply(RequestOptions().circleCrop())
+            .into(container)
     }
     private fun fetchImageAsset(imageURL: String?, container: AppCompatImageView){
-        requestManager?.clear(container)
-        requestManager?.asBitmap()
-            ?.load(imageURL)
-            ?.into(container)
+        requestManager.clear(container)
+        requestManager.asBitmap()
+            .load(imageURL)
+            .into(container)
     }
     protected fun showDetailDialog(item: StorageItem?){
         val args = Bundle()
@@ -240,57 +236,57 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         val detailDialog = DetailFragment()
         detailDialog.arguments = args
-        detailDialog.invoke(fragmentManager!!)
+        detailDialog.invoke(fragmentManager)
     }
-    protected fun onDownload(item: StorageItem?){
-        MaterialDialog(context!!).show {
-            title(text = String.format(context.getString(R.string.dialog_file_download_title), item?.name))
+    protected fun onDownload(item: StorageItem) {
+        MaterialDialog(context).show {
+            title(text = String.format(context.getString(R.string.dialog_file_download_title), item.name))
             message(R.string.dialog_file_download_summary)
             positiveButton(R.string.action_download) {
                 it.context.startService(Intent(it.context, FetchService::class.java)
                     .setAction(FetchService.actionDownload)
-                    .putExtra(FetchService.extraFileName, item?.name)
-                    .putExtra(FetchService.extraDownloadURL, item?.args))
+                    .putExtra(FetchService.extraFileName, item.name)
+                    .putExtra(FetchService.extraDownloadURL, item.args))
 
                 it.context.startService(Intent(it.context, UsageService::class.java)
                     .setAction(UsageService.sendFileUsage)
-                    .putExtra(UsageService.extraObjectID, item?.id))
+                    .putExtra(UsageService.extraObjectID, item.id))
             }
             negativeButton(R.string.action_cancel)
         }
     }
-    private fun setMetadata(item: StorageItem?): String? {
+    private fun setMetadata(item: StorageItem): String? {
         return when (Preferences(context).metadata){
-            Preferences.metadataAuthor -> item?.author ?: getString(R.string.unknown_file_author)
-            Preferences.metadataTimestamp -> item?.formatTimestamp(context!!)
-            Preferences.metadataType -> context?.getString(StorageItem.obtainItemTypeID(item?.type))
+            Preferences.metadataAuthor -> item.author ?: getString(R.string.unknown_file_author)
+            Preferences.metadataTimestamp -> item.formatTimestamp(context)
+            Preferences.metadataType -> context.getString(StorageItem.obtainItemTypeID(item.type))
             else -> null
         }
     }
 
-    private fun onParseIntent(view: View, item: Notification?){
-        val uri: Uri? = FileProvider.getUriForFile(context!!, CoreApplication.appProvider, File(Uri.parse(item?.objectArgs).path))
-        context?.grantUriPermission(context?.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    private fun onParseIntent(view: View, item: Notification){
+        val uri: Uri? = FileProvider.getUriForFile(context, CoreApplication.appProvider, File(Uri.parse(item.objectArgs).path!!))
+        context.grantUriPermission(context.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
         val intent = Intent(Intent.ACTION_VIEW)
-            .setDataAndType(uri, context?.contentResolver?.getType(uri!!))
+            .setDataAndType(uri, context.contentResolver.getType(uri!!))
             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
-        if (intent.resolveActivity(context?.packageManager!!) != null)
-            context?.startActivity(intent)
+        if (intent.resolveActivity(context.packageManager) != null)
+            context.startActivity(intent)
         else
             Snackbar.make(view, R.string.status_intent_no_app, Snackbar.LENGTH_SHORT).show()
     }
 
-    private fun onParseIntent(view: View, item: StorageItem?){
-        if (item?.type != StorageItem.typeDirectory){
-            val uri: Uri? = FileProvider.getUriForFile(context!!, CoreApplication.appProvider, File(Uri.parse(item?.args).path))
-            context?.grantUriPermission(context?.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    private fun onParseIntent(view: View, item: StorageItem){
+        if (item.type != StorageItem.typeDirectory){
+            val uri: Uri? = FileProvider.getUriForFile(context, CoreApplication.appProvider, File(Uri.parse(item.args).path!!))
+            context.grantUriPermission(context.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             val intent = Intent(Intent.ACTION_VIEW)
-                .setDataAndType(uri, context?.contentResolver?.getType(uri!!))
+                .setDataAndType(uri, context.contentResolver.getType(uri!!))
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
-            if (intent.resolveActivity(context?.packageManager!!) != null)
-                context?.startActivity(intent)
+            if (intent.resolveActivity(context.packageManager) != null)
+                context.startActivity(intent)
             else
                 Snackbar.make(view, R.string.status_intent_no_app, Snackbar.LENGTH_SHORT).show()
         }
@@ -301,9 +297,20 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         val viewer = ViewerFragment()
         viewer.arguments = args
-        viewer.invoke(fragmentManager!!)
+        viewer.invoke(fragmentManager)
     }
 
-    fun getString(@StringRes id: Int): String? = context?.getString(id)
+    fun getString(@StringRes id: Int): String? = context.getString(id)
+
+    fun obtainTintedDrawable(@DrawableRes drawableRes: Int, @ColorRes colorRes: Int): Drawable {
+        var drawable: Drawable = ContextCompat.getDrawable(context, drawableRes) as Drawable
+
+        val color = ContextCompat.getColor(context, colorRes)
+
+        drawable = DrawableCompat.wrap(drawable)
+        DrawableCompat.setTint(drawable, color)
+
+        return drawable
+    }
 
 }

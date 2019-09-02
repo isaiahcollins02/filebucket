@@ -1,12 +1,9 @@
 package com.isaiahvonrundstedt.bucket.adapters.support
 
 import android.content.Context
-import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -42,15 +39,14 @@ class SearchAdapter(context: Context, fragmentManager: FragmentManager, requestM
     }
 
     private inner class SearchViewHolder(itemView: View): FileViewHolder(itemView){
-        override fun onBindData(item: StorageItem?) {
+        override fun onBindData(item: StorageItem) {
             rootView.setOnClickListener { onDownload(item) }
             rootView.setOnLongClickListener { showDetailDialog(item); true }
-            titleView.text = item?.name
-            subtitleView.text = item?.author
-            sizeView.text = item?.formatSize(itemView.context)
+            titleView.text = item.name
+            subtitleView.text = item.author
+            sizeView.text = item.formatSize(itemView.context)
 
-            val icon = ResourcesCompat.getDrawable(rootView.context.resources, StorageItem.obtainIconID(item?.type), null)
-            icon?.setColorFilter(ContextCompat.getColor(rootView.context, StorageItem.obtainColorID(item?.type)), PorterDuff.Mode.SRC_ATOP)
+            val icon = obtainTintedDrawable(StorageItem.obtainIconID(item.type), StorageItem.obtainColorID(item.type))
             iconView.setImageDrawable(icon)
         }
 

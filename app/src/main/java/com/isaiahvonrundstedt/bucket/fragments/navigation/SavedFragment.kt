@@ -36,7 +36,7 @@ class SavedFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
 
-        adapter = PublicAdapter(context, childFragmentManager, GlideApp.with(this))
+        adapter = PublicAdapter(context!!, childFragmentManager, GlideApp.with(this))
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
