@@ -43,7 +43,7 @@ class SearchAdapter(context: Context, fragmentManager: FragmentManager, requestM
             rootView.setOnClickListener { onDownload(item) }
             rootView.setOnLongClickListener { showDetailDialog(item); true }
             titleView.text = item.name
-            subtitleView.text = item.author
+            item.fetchAuthorName { subtitleView.text = it ?: getString(R.string.unknown_file_author) }
             sizeView.text = item.formatSize(itemView.context)
 
             val icon = obtainTintedDrawable(StorageItem.obtainIconID(item.type), StorageItem.obtainColorID(item.type))

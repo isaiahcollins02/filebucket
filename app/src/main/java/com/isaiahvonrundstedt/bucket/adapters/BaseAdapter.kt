@@ -125,7 +125,7 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         override fun onBindData(item: StorageItem) {
             rootView.setOnClickListener { showDetailDialog(item) }
             titleView.text = item.name
-            subtitleView.text = setMetadata(item)
+            setMetadata(subtitleView, item)
             sizeView.text = item.formatSize(itemView.context)
 
             val icon = obtainTintedDrawable(StorageItem.obtainIconID(item.type), StorageItem.obtainColorID(item.type))
@@ -142,7 +142,7 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             rootView.setOnClickListener { onDownload(item) }
             rootView.setOnLongClickListener { showDetailDialog(item); true }
             titleView.text = item.name
-            subtitleView.text = setMetadata(item)
+            setMetadata(subtitleView, item)
             sizeView.text = item.formatSize(itemView.context)
 
            val icon = obtainTintedDrawable(StorageItem.obtainIconID(item.type), StorageItem.obtainColorID(item.type))
@@ -165,7 +165,7 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             rootView.setOnLongClickListener { onDownload(item); true }
             fetchImageAsset(item.args, containerView)
             titleView.text = item.name
-            subtitleView.text = setMetadata(item)
+            setMetadata(subtitleView, item)
         }
     }
 
@@ -255,12 +255,11 @@ abstract class BaseAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             negativeButton(R.string.action_cancel)
         }
     }
-    private fun setMetadata(item: StorageItem): String? {
-        return when (Preferences(context).metadata){
-            Preferences.metadataAuthor -> item.author ?: getString(R.string.unknown_file_author)
-            Preferences.metadataTimestamp -> item.formatTimestamp(context)
-            Preferences.metadataType -> context.getString(StorageItem.obtainItemTypeID(item.type))
-            else -> null
+    private fun setMetadata(view: AppCompatTextView, item: StorageItem) {
+        when (Preferences(context).metadata){
+            Preferences.metadataAuthor -> item.fetchAuthorName { view.text = it ?: getString(R.string.unknown_file_author) }
+            Preferences.metadataTimestamp -> view.text = item.formatTimestamp(context)
+            Preferences.metadataType -> view.text = context.getString(StorageItem.obtainItemTypeID(item.type))
         }
     }
 

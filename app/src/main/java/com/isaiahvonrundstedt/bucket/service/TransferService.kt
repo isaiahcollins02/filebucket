@@ -139,7 +139,7 @@ class TransferService: BaseService() {
             storageItem.size = bufferedFile.length()
             storageItem.args = downloadUri.toString()
             storageItem.type = StorageItem.determineExtension(bufferedFile.toUri())
-            storageItem.author = User(this).fullName
+            storageItem.authorID = User(this).id
             storageItem.timestamp = Timestamp.now()
 
             fileReference.add(storageItem)

@@ -9,7 +9,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FirebaseFirestore
 import com.isaiahvonrundstedt.bucket.R
+import com.isaiahvonrundstedt.bucket.constants.Firestore
 import com.isaiahvonrundstedt.bucket.utils.converters.TimestampConverter
 import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
@@ -21,13 +23,31 @@ data class StorageItem @JvmOverloads constructor(
         @PrimaryKey
         var id: String = "",
         var name: String? = null,
-        var author: String? = null,
+        var authorID: String? = null,
         var type: Int = typeGeneric,
         var size: Long = 0L,
         var args: String? = null,
         @TypeConverters(TimestampConverter::class)
         var timestamp: Timestamp? = null
     ): Comparable<StorageItem>, Parcelable {
+
+    fun fetchAuthorName( onFetch: (String?) -> Unit ){
+        val firestore = FirebaseFirestore.getInstance()
+        if (authorID != null)
+            firestore.collection(Firestore.users).document(authorID!!)
+                .get()
+                .addOnSuccessListener {
+                    val snapshot: Account? = it.toObject(Account::class.java)
+                    val fullName = snapshot?.firstName + " " + snapshot?.lastName
+                    onFetch(fullName)
+                }
+                .addOnFailureListener {
+                    onFetch(null)
+                }
+        else {
+            onFetch(null)
+        }
+    }
 
     override fun compareTo(other: StorageItem): Int {
         return this.id.compareTo(other.id)

@@ -6,8 +6,10 @@
     android:layout_height="wrap_content"
     android:focusable="true"
     android:clickable="true"
-    android:padding="@dimen/activity_margin"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     android:gravity="center"
-    android:background="?colorError"
     android:text="@string/status_network_no_internet_actionable"
-    android:textColor="@android:color/white"/>
+    android:textColor="?colorError"/>

@@ -66,7 +66,7 @@ class DetailFragment: BaseScreenDialog() {
         databaseInit()
 
         titleView.text = storageItem?.name
-        authorView.text = storageItem?.author
+        storageItem?.fetchAuthorName { authorView.text = it ?: getString(R.string.unknown_file_author) }
         iconView.setImageDrawable(obtainTintedDrawable(storageItem?.type))
 
         val supportItems = listOf(

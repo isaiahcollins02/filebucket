@@ -73,7 +73,7 @@ class NotificationService: BaseService() {
         val saveIntent = PendingIntent.getBroadcast(applicationContext, 0, saveAction, 0)
 
         val notification = Notification().apply {
-            title = String.format(getString(R.string.notification_new_file_title), storageItem?.author)
+            title = getString(R.string.notification_new_file_title)
             content = String.format(getString(R.string.notification_new_file_content), storageItem?.name)
             type = Notification.typeNewFile
             objectID = storageItem?.id

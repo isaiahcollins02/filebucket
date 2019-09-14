@@ -27,10 +27,7 @@ class SearchViewModel: BaseViewModel() {
 
         initialList.forEachIndexed { _, storageItem ->
             val itemName = storageItem.name?.toLowerCase(Locale.getDefault())
-            val itemAuthor = storageItem.author?.toLowerCase(Locale.getDefault())
             if (itemName?.contains(filterString) == true)
-                filterList.add(storageItem)
-            else if (itemAuthor?.contains(filterString) == true)
                 filterList.add(storageItem)
         }
         _itemList.postValue(filterList)

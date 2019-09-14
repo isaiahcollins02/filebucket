@@ -147,7 +147,7 @@
     <string name="notification_updating_profile">Updating Profile</string>
     <string name="notification_downloading_file">Downloading File %1$s</string>
 
-    <string name="notification_new_file_title">%1$s uploaded a new file</string>
+    <string name="notification_new_file_title">New File has been uploaded</string>
     <string name="notification_new_file_content">%1$s has been uploaded. Check it out!</string>
 
     <string name="notification_download_failed_title">Download Failed</string>
