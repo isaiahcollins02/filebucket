@@ -38,8 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_margin_horizontal"
             android:layout_marginEnd="@dimen/activity_margin_horizontal"
-            android:textSize="16sp"
-            tools:text="Author: Isaiah Collins von Ludendorff"/>
+            android:text="@string/unknown_file_author"
+            android:textSize="16sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

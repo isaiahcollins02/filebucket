@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/emailFragment"
-        android:name="com.isaiahvonrundstedt.bucket.fragments.registration.EmailFragment"
+        android:name="com.isaiahvonrundstedt.bucket.features.auth.register.EmailFragment"
         android:label="EmailFragment"
         tools:layout="@layout/fragment_auth_email">
 
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.isaiahvonrundstedt.bucket.fragments.registration.PasswordFragment"
+        android:name="com.isaiahvonrundstedt.bucket.features.auth.register.PasswordFragment"
         android:label="AuthFragment"
         tools:layout="@layout/fragment_auth_main">
 
@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/informationFragment"
-        android:name="com.isaiahvonrundstedt.bucket.fragments.registration.InformationFragment"
+        android:name="com.isaiahvonrundstedt.bucket.features.auth.register.InformationFragment"
         android:label="InformationFragment"
         tools:layout="@layout/fragment_auth_information">
 

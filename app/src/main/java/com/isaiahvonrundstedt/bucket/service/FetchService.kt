@@ -1,7 +1,6 @@
 package com.isaiahvonrundstedt.bucket.service
 
 import android.app.DownloadManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -11,15 +10,12 @@ import android.net.Uri
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import com.isaiahvonrundstedt.bucket.CoreApplication
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.architecture.store.room.NotificationStore
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
-import com.isaiahvonrundstedt.bucket.objects.core.Notification
+import com.isaiahvonrundstedt.bucket.features.notifications.NotificationStore
+import com.isaiahvonrundstedt.bucket.features.shared.abstracts.BaseService
+import com.isaiahvonrundstedt.bucket.features.notifications.Notification
 import com.isaiahvonrundstedt.bucket.utils.Preferences
-import java.io.File
 
 class FetchService: BaseService(){
 

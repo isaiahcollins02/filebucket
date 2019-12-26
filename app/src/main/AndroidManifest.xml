@@ -22,8 +22,8 @@
         tools:replace="android:allowBackup">
 
         <provider
-                android:name="com.isaiahvonrundstedt.bucket.components.AppFileProvider"
-                android:authorities="com.isaiahvonrundstedt.bucket.components.AppFileProvider"
+                android:name="com.isaiahvonrundstedt.bucket.features.shared.custom.AppFileProvider"
+                android:authorities="com.isaiahvonrundstedt.bucket.features.shared.custom.AppFileProvider"
                 android:exported="false"
                 android:grantUriPermissions="true">
             <meta-data
@@ -31,49 +31,49 @@
                     android:resource="@xml/provider_paths"/>
         </provider>
 
-        <activity android:name=".activities.SplashActivity"
+        <activity android:name=".features.support.SplashActivity"
                 android:theme="@style/AppTheme.Core">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".features.support.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.auth.FirstRunActivity"
+        <activity android:name=".features.auth.FirstRunActivity"
                   android:theme="@style/AppTheme.FirstRun"/>
-        <activity android:name=".activities.auth.LoginActivity"
+        <activity android:name=".features.auth.login.LoginActivity"
                   android:theme="@style/AppTheme.FirstRun"
                   android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".activities.auth.RegisterActivity"
+        <activity android:name=".features.auth.register.RegisterActivity"
                   android:theme="@style/AppTheme.FirstRun"
                   android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".activities.support.VaultActivity"/>
-        <activity android:name=".activities.generic.AboutActivity"/>
-        <activity android:name=".activities.generic.SettingsActivity"/>
-        <activity android:name=".activities.wrapper.FrameActivity"/>
-        <activity android:name=".activities.support.AccountActivity" />
-        <activity android:name=".activities.support.account.StorageActivity" />
-        <activity android:name=".activities.support.account.NotificationActivity" />
-        <activity android:name=".activities.support.account.SharedActivity" />
+        <activity android:name=".features.boxes.BoxContentActivity"/>
+        <activity android:name=".features.about.AboutActivity"/>
+        <activity android:name=".features.settings.SettingsActivity"/>
+        <activity android:name=".features.support.FrameActivity"/>
+        <activity android:name=".features.account.AccountActivity" />
+        <activity android:name=".features.storage.StorageActivity" />
+        <activity android:name=".features.notifications.NotificationActivity" />
+        <activity android:name=".features.account.SharedActivity" />
 
         <service android:name="com.isaiahvonrundstedt.bucket.service.TransferService"
                 android:exported="false"/>
-        <service android:name="com.isaiahvonrundstedt.bucket.service.SupportService"
+        <service android:name="com.isaiahvonrundstedt.bucket.features.feedback.SupportService"
                 android:exported="false"/>
-        <service android:name="com.isaiahvonrundstedt.bucket.service.NotificationService"
+        <service android:name="com.isaiahvonrundstedt.bucket.features.notifications.NotificationService"
                 android:exported="false"/>
-        <service android:name=".service.UsageService"/>
+        <service android:name=".features.usage.UsageService"/>
         <service android:name=".service.FetchService"/>
 
         <receiver
-            android:name=".receivers.RestartReceiver"
+            android:name="com.isaiahvonrundstedt.bucket.features.shared.receivers.RestartReceiver"
             android:enabled="true"/>
         <receiver
-            android:name=".receivers.NotificationReceiver"
+            android:name=".features.notifications.NotificationReceiver"
             android:enabled="true"/>
 
     </application>

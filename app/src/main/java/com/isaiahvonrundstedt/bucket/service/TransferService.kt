@@ -13,10 +13,10 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.isaiahvonrundstedt.bucket.R
-import com.isaiahvonrundstedt.bucket.activities.MainActivity
-import com.isaiahvonrundstedt.bucket.components.abstracts.BaseService
+import com.isaiahvonrundstedt.bucket.features.support.MainActivity
+import com.isaiahvonrundstedt.bucket.features.shared.abstracts.BaseService
 import com.isaiahvonrundstedt.bucket.constants.Firestore
-import com.isaiahvonrundstedt.bucket.objects.core.StorageItem
+import com.isaiahvonrundstedt.bucket.features.shared.StorageItem
 import com.isaiahvonrundstedt.bucket.utils.User
 import timber.log.Timber
 import java.io.File

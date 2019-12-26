@@ -2,12 +2,17 @@ package com.isaiahvonrundstedt.bucket.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.isaiahvonrundstedt.bucket.objects.core.Account
+import com.isaiahvonrundstedt.bucket.features.auth.Account
 
 class User(var context: Context) {
     
     companion object {
         private const val storageKey = "userPreference"
+        private const val idKey = "accountID"
+        private const val firstNameKey = "firstName"
+        private const val lastNameKey = "lastName"
+        private const val emailKey = "emailKey"
+        private const val imageURLKey = "imageURLKey"
     }
 
     private var sharedPreferences: SharedPreferences? = null
@@ -16,64 +21,64 @@ class User(var context: Context) {
     var id: String?
         set(value){
             editor = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)?.edit()
-            editor?.putString("accountID", value)
+            editor?.putString(idKey, value)
             editor?.apply()
         }
         get(){
             sharedPreferences = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)
-            return sharedPreferences?.getString("accountID", null)
+            return sharedPreferences?.getString(idKey, null)
         }
 
     var firstName: String?
         set(value) {
             editor = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)?.edit()
-            editor?.putString("firstName", value)
+            editor?.putString(firstNameKey, value)
             editor?.apply()
         }
         get() {
             sharedPreferences = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)
-            return sharedPreferences?.getString("firstName", null)
+            return sharedPreferences?.getString(firstNameKey, null)
         }
 
     var lastName: String?
         set(value) {
             editor = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)?.edit()
-            editor?.putString("lastName", value)
+            editor?.putString(lastNameKey, value)
             editor?.apply()
         }
         get() {
             sharedPreferences = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)
-            return sharedPreferences?.getString("lastName", null)
+            return sharedPreferences?.getString(lastNameKey, null)
         }
 
     val fullName: String?
         get() {
             sharedPreferences = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)
-            val firstName: String? = sharedPreferences?.getString("firstName", null)
-            val lastName: String? = sharedPreferences?.getString("lastName", null)
+            val firstName: String? = sharedPreferences?.getString(firstNameKey, null)
+            val lastName: String? = sharedPreferences?.getString(lastNameKey, null)
             return "$firstName $lastName"
         }
 
     var email: String?
         set(value) {
             editor = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)?.edit()
-            editor?.putString("email", value)
+            editor?.putString(emailKey, value)
             editor?.apply()
         }
         get() {
             sharedPreferences = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)
-            return sharedPreferences?.getString("email", null)
+            return sharedPreferences?.getString(emailKey, null)
         }
 
     var imageURL: String?
         set(value) {
             editor = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)?.edit()
-            editor?.putString("imageURL", value)
+            editor?.putString(imageURLKey, value)
             editor?.apply()
         }
         get() {
             sharedPreferences = context.getSharedPreferences(storageKey, Context.MODE_PRIVATE)
-            return sharedPreferences?.getString("imageURL", null)
+            return sharedPreferences?.getString(imageURLKey, null)
         }
 
     fun fetch(onFetch: (Account) -> Unit){
@@ -86,6 +91,7 @@ class User(var context: Context) {
         }
         onFetch(user)
     }
+
     fun save(account: Account){
         firstName = account.firstName
         lastName = account.lastName

@@ -172,7 +172,7 @@
     <string name="dialog_sign_out_title">Sign Out?</string>
     <string name="dialog_sign_out_summary">You\'ll need to enter your credentials once again if you need to access the materials.</string>
 
-    <string name="dialog_file_download_title">Do you want to download %1$s?</string>
+    <string name="dialog_file_download_title">Do you want to download this file?</string>
     <string name="dialog_file_download_summary">If you have a limited data plan, this will count with your data allowance.</string>
 
     <string name="dialog_confirm_password_title">Confirm your password</string>

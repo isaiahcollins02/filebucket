@@ -5,6 +5,7 @@ object Params {
     const val name = "name"
     const val fileID = "fileID"
     const val author = "author"
+    const val authorID = "authorID"
     const val timestamp = "timestamp"
 
     const val accountID = "accountID"
